@@ -502,39 +502,246 @@ All colors MUST be HSL.
     animation-delay: 18s;
   }
 
-  /* Garden Footer Styles */
+  /* Realistic Garden Footer Styles */
   .garden-footer {
     position: relative;
-    background: linear-gradient(to top, hsl(120 40% 25%) 0%, hsl(120 30% 35%) 40%, hsl(120 20% 45%) 100%);
-    border-top: 3px solid hsl(120 30% 30%);
+    background: linear-gradient(to top, 
+      hsl(30 20% 15%) 0%, 
+      hsl(30 25% 20%) 15%, 
+      hsl(120 40% 25%) 30%, 
+      hsl(120 30% 35%) 60%, 
+      hsl(120 20% 45%) 100%);
+    border-top: 4px solid hsl(30 30% 18%);
     overflow: hidden;
     z-index: 2;
+    min-height: 120px;
+  }
+
+  .garden-soil {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25px;
+    background: linear-gradient(to top, hsl(30 20% 12%), hsl(30 25% 18%));
+    border-top: 2px solid hsl(30 30% 20%);
+  }
+
+  .garden-grass {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 30px;
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(120 50% 20%) 0px,
+      hsl(120 60% 25%) 1px,
+      hsl(120 50% 20%) 2px,
+      hsl(120 40% 18%) 3px
+    );
+    opacity: 0.8;
   }
 
   .garden-plants {
+    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
     padding: 1rem 0 0.5rem 0;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     user-select: none;
+    height: 80px;
   }
 
-  .garden-plants .plant {
+  .garden-plant {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .plant-stem {
+    font-size: 0.8rem;
+    color: hsl(120 40% 30%);
+    margin-bottom: -2px;
+  }
+
+  .plant-flower {
+    font-size: 1.2rem;
     animation: flower-sway 3s ease-in-out infinite;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
-  .garden-plants .plant:nth-child(2n) {
+  .plant-leaves {
+    font-size: 0.6rem;
+    color: hsl(120 50% 35%);
+    margin-top: -4px;
+  }
+
+  .tall-plant .plant-flower {
+    font-size: 1.4rem;
+  }
+
+  .medium-plant .plant-flower {
+    font-size: 1.1rem;
+  }
+
+  .short-plant .plant-flower {
+    font-size: 0.9rem;
+  }
+
+  .garden-plant:nth-child(2n) .plant-flower {
     animation-delay: -0.5s;
   }
 
-  .garden-plants .plant:nth-child(3n) {
+  .garden-plant:nth-child(3n) .plant-flower {
     animation-delay: -1s;
   }
 
-  .garden-plants .plant:nth-child(4n) {
+  .garden-plant:nth-child(4n) .plant-flower {
     animation-delay: -1.5s;
+  }
+
+  /* Garden Insects */
+  .garden-insect {
+    position: fixed;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 3;
+    user-select: none;
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+  }
+
+  @keyframes butterfly-flutter {
+    0% { 
+      transform: translate(10vw, 60vh) rotate(0deg) scale(1);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    25% {
+      transform: translate(30vw, 50vh) rotate(15deg) scale(1.1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translate(60vw, 70vh) rotate(-20deg) scale(0.9);
+      opacity: 0.8;
+    }
+    75% {
+      transform: translate(80vw, 55vh) rotate(25deg) scale(1.1);
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translate(95vw, 65vh) rotate(0deg) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ladybug-crawl {
+    0% { 
+      transform: translate(5vw, 85vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.9;
+    }
+    30% {
+      transform: translate(25vw, 88vh) rotate(10deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(50vw, 85vh) rotate(-5deg);
+      opacity: 1;
+    }
+    70% {
+      transform: translate(75vw, 87vh) rotate(15deg);
+      opacity: 1;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% { 
+      transform: translate(95vw, 85vh) rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes dragonfly-zip {
+    0% { 
+      transform: translate(-30px, 40vh) rotate(0deg);
+      opacity: 0;
+    }
+    5% {
+      opacity: 0.7;
+    }
+    20% {
+      transform: translate(20vw, 30vh) rotate(45deg);
+      opacity: 0.9;
+    }
+    40% {
+      transform: translate(60vw, 45vh) rotate(-30deg);
+      opacity: 0.8;
+    }
+    60% {
+      transform: translate(80vw, 25vh) rotate(60deg);
+      opacity: 0.9;
+    }
+    80% {
+      transform: translate(100vw, 35vh) rotate(-45deg);
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translate(110vw, 30vh) rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ant-march {
+    0% { 
+      transform: translate(10vw, 90vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    25% {
+      transform: translate(30vw, 89vh) rotate(5deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(50vw, 91vh) rotate(-3deg);
+      opacity: 1;
+    }
+    75% {
+      transform: translate(70vw, 88vh) rotate(8deg);
+      opacity: 1;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translate(90vw, 90vh) rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-butterfly-flutter {
+    animation: butterfly-flutter 18s linear infinite;
+  }
+
+  .animate-ladybug-crawl {
+    animation: ladybug-crawl 25s linear infinite;
+  }
+
+  .animate-dragonfly-zip {
+    animation: dragonfly-zip 12s linear infinite;
+  }
+
+  .animate-ant-march {
+    animation: ant-march 30s linear infinite;
   }
 
   @keyframes bee-to-garden {
