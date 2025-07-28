@@ -1,1 +1,13 @@
 project_id = "zrdywdregcrykmbiytvl"
+
+[functions.chat_dory]
+verify_jwt = false
+
+[functions.tts_dory]
+verify_jwt = false
+
+[functions.stt_chat]
+verify_jwt = false
+
+[functions.voice_chat_dory]
+verify_jwt = false

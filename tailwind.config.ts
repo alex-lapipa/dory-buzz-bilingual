@@ -84,11 +84,45 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'bee-bounce': {
+					'0%, 20%, 50%, 80%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'40%': {
+						transform: 'translateY(-10px)'
+					},
+					'60%': {
+						transform: 'translateY(-5px)'
+					}
+				},
+				'flower-sway': {
+					'0%, 100%': {
+						transform: 'rotate(-2deg)'
+					},
+					'50%': {
+						transform: 'rotate(2deg)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'bee-bounce': 'bee-bounce 2s infinite',
+				'flower-sway': 'flower-sway 3s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-bee': 'var(--gradient-bee)',
+				'gradient-flower': 'var(--gradient-flower)',
+				'gradient-nature': 'var(--gradient-nature)'
+			},
+			boxShadow: {
+				'honey': 'var(--shadow-honey)',
+				'flower': 'var(--shadow-flower)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'var(--transition-smooth)',
+				'bounce': 'var(--transition-bounce)'
 			}
 		}
 	},
