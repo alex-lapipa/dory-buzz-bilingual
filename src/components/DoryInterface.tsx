@@ -57,7 +57,7 @@ export const DoryInterface: React.FC = () => {
         )}
 
         {/* Main Interface - Mobile Optimized */}
-        <Card className={`shadow-honey border border-border/30 bg-card/80 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
+        <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
           <CardContent className="p-0 h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
               <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
