@@ -27,41 +27,34 @@ export const DoryInterface: React.FC = () => {
       <div className="flying-bee flying-bee-9 animate-bee-garden-visit">🐝</div>
       <div className="flying-bee flying-bee-10 animate-bee-to-garden">🐝</div>
       
-      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
+      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4 pt-32'}`}>
       <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full'}`}>
-        {/* Header - Mobile Optimized */}
-        <div className={`text-center ${isFullscreen ? 'mb-2 sm:mb-4' : 'mb-4 sm:mb-6'}`}>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
-            <div className="relative flex sm:block">
-              <div className="text-4xl sm:text-6xl animate-bee-bounce">🐝</div>
-            </div>
-            <div className="text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
-                BeeCrazy Garden World
-              </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">
-                Your friendly family garden companion
-              </p>
-            </div>
-            <div className="flex gap-1 sm:gap-2 mt-2 sm:mt-0">
-              <FollowDoryModal>
-                <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
-                  <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                  <span className="hidden xs:inline">Follow</span> Dory!
-                </Button>
-              </FollowDoryModal>
-              <ShareButtons />
-              <Button
-                onClick={() => setIsFullscreen(!isFullscreen)}
-                variant="ghost"
-                size="sm"
-                className="p-2"
-              >
-                {isFullscreen ? <Shrink className="h-3 w-3 sm:h-4 sm:w-4" /> : <Expand className="h-3 w-3 sm:h-4 sm:w-4" />}
-              </Button>
-            </div>
+
+        {/* Fullscreen Toggle */}
+        {!isFullscreen && (
+          <div className="absolute top-4 right-4">
+            <Button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              variant="ghost"
+              size="sm"
+              className="p-2"
+            >
+              <Expand className="h-3 w-3 sm:h-4 sm:w-4" />
+            </Button>
           </div>
-        </div>
+        )}
+        {isFullscreen && (
+          <div className="absolute top-4 right-4 z-50">
+            <Button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              variant="ghost"
+              size="sm"
+              className="p-2"
+            >
+              <Shrink className="h-3 w-3 sm:h-4 sm:w-4" />
+            </Button>
+          </div>
+        )}
 
         {/* Main Interface - Mobile Optimized */}
         <Card className={`shadow-honey border border-border/30 bg-card/80 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
