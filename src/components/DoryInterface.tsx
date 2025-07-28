@@ -73,7 +73,7 @@ export const DoryInterface: React.FC = () => {
               </TabsList>
 
               <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'h-[70vh] sm:h-[600px] max-h-[800px]'}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[70vh]'}`}>
                   <DoryChat className="h-full" />
                 </div>
               </TabsContent>

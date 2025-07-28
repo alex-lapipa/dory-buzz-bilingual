@@ -49,11 +49,11 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
         const conversation = await createConversation('Chat with Dory');
         if (conversation) {
           setCurrentConversation(conversation.id);
-          // Add welcome message
+          // Add compact welcome message
           const welcomeMessage: Message = {
             id: '1',
             type: 'dory',
-            content: '¡Buzztastical! 🐝✨ ¡Hola! Soy Dory de los Huertos - your joyful Garden Bee from BeeCrazy Garden World!\n\n🌻 I can help you and your family with:\n• Garden tips & plant care (English/Spanish)\n• Generate beautiful garden pictures\n• Voice conversations about nature\n• Fun activities for all ages\n\n¿Cómo puedo ayudarte hoy? How can I help you explore the wonderful world of gardens and nature today?',
+            content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image!',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
@@ -373,9 +373,9 @@ Style this as a beautiful garden illustration that families would love - colorfu
         </div>
       </div>
 
-      {/* Messages - Mobile Optimized */}
-      <ScrollArea className="flex-1 p-2 sm:p-4 scroll-area">
-        <div className="space-y-3 sm:space-y-4">
+      {/* Messages - Compact & Growing */}
+      <ScrollArea className="flex-1 min-h-0 p-2 sm:p-4 scroll-area">
+        <div className="space-y-2 sm:space-y-3 min-h-[100px]">
           {localMessages.map((message) => (
             <div
               key={message.id}
@@ -385,7 +385,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
                 className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 ${
                   message.type === 'user'
                     ? 'bg-primary text-primary-foreground'
-                    : 'bg-card text-card-foreground border border-border'
+                    : 'bg-card text-card-foreground border border-border shadow-sm'
                 }`}
               >
                 {message.type === 'dory' && (
@@ -422,10 +422,10 @@ Style this as a beautiful garden illustration that families would love - colorfu
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-card text-card-foreground border border-border rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%]">
+              <div className="bg-card text-card-foreground border border-border rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] shadow-sm">
                 <div className="flex items-center gap-2">
                   <div className="animate-spin text-sm">🐝</div>
-                  <span className="text-xs sm:text-sm">Dory is thinking...</span>
+                  <span className="text-xs sm:text-sm">Thinking...</span>
                 </div>
               </div>
             </div>
