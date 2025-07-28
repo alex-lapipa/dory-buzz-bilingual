@@ -15,7 +15,7 @@ export const DoryInterface: React.FC = () => {
 
   return (
     <>
-      {/* Flying Bees Background - More bees flying to/from garden */}
+      {/* Flying Bees Background - More bees and bumblebees */}
       <div className="flying-bee flying-bee-1 animate-tiny-bee-fly">🐝</div>
       <div className="flying-bee flying-bee-2 animate-tiny-bee-hover">🐝</div>
       <div className="flying-bee flying-bee-3 animate-tiny-bee-zigzag">🐝</div>
@@ -26,6 +26,17 @@ export const DoryInterface: React.FC = () => {
       <div className="flying-bee flying-bee-8 animate-bee-from-garden">🐝</div>
       <div className="flying-bee flying-bee-9 animate-bee-garden-visit">🐝</div>
       <div className="flying-bee flying-bee-10 animate-bee-to-garden">🐝</div>
+      
+      {/* More bees */}
+      <div className="flying-bee flying-bee-11 animate-tiny-bee-fly">🐝</div>
+      <div className="flying-bee flying-bee-12 animate-tiny-bee-hover">🐝</div>
+      <div className="flying-bee flying-bee-13 animate-tiny-bee-zigzag">🐝</div>
+      <div className="flying-bee flying-bee-14 animate-tiny-bee-loop">🐝</div>
+      
+      {/* Bumblebees - larger and fluffier */}
+      <div className="flying-bee flying-bumblebee-1 animate-bumblebee-bumble">🐝</div>
+      <div className="flying-bee flying-bumblebee-2 animate-bumblebee-bumble">🐝</div>
+      <div className="flying-bee flying-bumblebee-3 animate-bumblebee-bumble">🐝</div>
       
       <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4 pt-32'}`}>
       <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full'}`}>
