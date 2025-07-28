@@ -21,8 +21,8 @@ interface DoryChatProps {
 }
 
 export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
-  const { user } = useAuth();
-  const { messages, createConversation, saveMessage, currentConversationId } = useConversations(user?.id);
+  const { } = useAuth(); // No authentication needed for open access
+  const { messages, createConversation, saveMessage, currentConversationId } = useConversations('guest');
   const [localMessages, setLocalMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +45,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
   useEffect(() => {
     // Initialize conversation and welcome message
     const initializeChat = async () => {
-      if (user && !currentConversation) {
+      if (!currentConversation) {
         const conversation = await createConversation('Chat with Dory');
         if (conversation) {
           setCurrentConversation(conversation.id);
@@ -63,7 +63,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     };
 
     initializeChat();
-  }, [user, currentConversation, createConversation, saveMessage]);
+  }, [currentConversation, createConversation, saveMessage]);
 
   const generateImage = async (prompt: string) => {
     setIsLoading(true);

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { DoryChat } from './DoryChat';
 import { VoiceChat } from './VoiceChat';
+import { FollowDoryModal } from './FollowDoryModal';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Mic, Phone, Info, Expand, Shrink } from 'lucide-react';
+import { MessageCircle, Mic, Phone, Info, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
 
 export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
@@ -32,14 +33,21 @@ export const DoryInterface: React.FC = () => {
                 Warm, joyful, eco-educational companion
               </p>
             </div>
-            <Button
-              onClick={() => setIsFullscreen(!isFullscreen)}
-              variant="ghost"
-              size="icon"
-              className="ml-auto"
-            >
-              {isFullscreen ? <Shrink className="h-4 w-4" /> : <Expand className="h-4 w-4" />}
-            </Button>
+            <div className="flex gap-2">
+              <FollowDoryModal>
+                <Button variant="default" className="animate-pulse">
+                  <Heart className="h-4 w-4 mr-2" />
+                  Follow Dory!
+                </Button>
+              </FollowDoryModal>
+              <Button
+                onClick={() => setIsFullscreen(!isFullscreen)}
+                variant="ghost"
+                size="icon"
+              >
+                {isFullscreen ? <Shrink className="h-4 w-4" /> : <Expand className="h-4 w-4" />}
+              </Button>
+            </div>
           </div>
           
           <div className="flex justify-center gap-2 flex-wrap">
