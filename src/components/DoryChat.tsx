@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useConversations } from '@/hooks/useConversations';
+import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { Mic, MicOff, Send, Volume2, VolumeX, Image, Sparkles } from 'lucide-react';
 
 interface Message {
@@ -30,6 +31,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const { toast } = useToast();
+  const { incrementGrowth } = usePlantGrowth();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -235,6 +237,9 @@ Style this as a beautiful garden illustration that families would love - colorfu
           `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
         await saveMessage(currentConversation, 'dory', finalResponse);
       }
+
+      // Trigger plant growth when Dory responds
+      incrementGrowth();
 
     } catch (error) {
       console.error('Chat error:', error);

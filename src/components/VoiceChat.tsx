@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mic, MicOff, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { supabase } from '@/integrations/supabase/client';
 
 interface VoiceChatProps {
@@ -12,6 +13,7 @@ interface VoiceChatProps {
 
 export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
   const { toast } = useToast();
+  const { incrementGrowth } = usePlantGrowth();
   const [isConnected, setIsConnected] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -51,6 +53,8 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
           playAudioResponse(data.audio);
           // Add to conversation
           setConversation(prev => [...prev, { role: 'dory', content: data.text }]);
+          // Trigger plant growth
+          incrementGrowth();
         } else if (data.type === 'text_chunk') {
           // Handle streaming text updates
           console.log('Text chunk:', data.content);

@@ -667,6 +667,62 @@ All colors MUST be HSL.
     margin-top: -4px;
   }
 
+  /* Vegetable plants */
+  .vegetable-plant {
+    border-radius: 4px;
+    background: hsl(120 20% 25% / 0.1);
+    padding: 2px;
+  }
+
+  .plant-vegetable {
+    font-size: 1.2rem;
+    transform-origin: center center;
+    animation: vegetable-gentle-sway 7s ease-in-out infinite;
+    transition: transform 2s ease-in-out, font-size 2s ease-in-out;
+  }
+
+  /* Growing plants - start small and grow with interaction */
+  .growing-plant {
+    transform: scale(0.6);
+    transition: transform 3s ease-in-out;
+  }
+
+  .growing-plant.stage-1 {
+    transform: scale(0.8);
+  }
+
+  .growing-plant.stage-2 {
+    transform: scale(1.0);
+  }
+
+  .growing-plant.stage-3 {
+    transform: scale(1.2);
+  }
+
+  .growing-plant.stage-4 {
+    transform: scale(1.4);
+  }
+
+  .growing-plant.stage-5 {
+    transform: scale(1.6);
+  }
+
+  /* Special vegetable sway animation */
+  @keyframes vegetable-gentle-sway {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(1.5deg) scale(1.01);
+    }
+    50% {
+      transform: rotate(-1deg) scale(0.99);
+    }
+    75% {
+      transform: rotate(2deg) scale(1.02);
+    }
+  }
+
   /* Staggered animation delays for natural movement */
   .garden-plant:nth-child(2n) {
     animation-delay: -1s;

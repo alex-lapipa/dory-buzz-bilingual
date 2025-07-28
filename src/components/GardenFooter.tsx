@@ -46,10 +46,19 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-stem long-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="tomato">
+            <div className="plant-vegetable">🍅</div>
+            <div className="plant-stem medium-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
           <div className="garden-plant medium-plant">
             <div className="plant-flower">🌸</div>
             <div className="plant-stem medium-stem">🌿</div>
             <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="lettuce">
+            <div className="plant-vegetable">🥬</div>
+            <div className="plant-stem short-stem">🌱</div>
           </div>
           <div className="garden-plant very-tall-plant">
             <div className="plant-flower">🌺</div>
@@ -61,9 +70,19 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-flower">🌷</div>
             <div className="plant-stem short-stem">🌿</div>
           </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="beans">
+            <div className="plant-vegetable">🫘</div>
+            <div className="plant-stem long-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
           <div className="garden-plant tall-plant">
             <div className="plant-flower">🌹</div>
             <div className="plant-stem long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="pumpkin">
+            <div className="plant-vegetable">🎃</div>
+            <div className="plant-stem medium-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant very-tall-plant">
@@ -77,6 +96,11 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-stem medium-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="tomato">
+            <div className="plant-vegetable">🍅</div>
+            <div className="plant-stem medium-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
           <div className="garden-plant tall-plant">
             <div className="plant-flower">🌸</div>
             <div className="plant-stem long-stem">🌿</div>
@@ -84,6 +108,10 @@ export const GardenFooter: React.FC = () => {
           </div>
           <div className="garden-plant short-plant">
             <div className="plant-flower">🌺</div>
+            <div className="plant-stem short-stem">🌱</div>
+          </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="lettuce">
+            <div className="plant-vegetable">🥬</div>
             <div className="plant-stem short-stem">🌱</div>
           </div>
           <div className="garden-plant very-tall-plant">
@@ -97,6 +125,11 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-stem medium-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="beans">
+            <div className="plant-vegetable">🫘</div>
+            <div className="plant-stem long-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
           <div className="garden-plant tall-plant">
             <div className="plant-flower">🌼</div>
             <div className="plant-stem long-stem">🌱</div>
@@ -106,20 +139,9 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-flower">🌻</div>
             <div className="plant-stem short-stem">🌿</div>
           </div>
-          <div className="garden-plant very-tall-plant">
-            <div className="plant-flower">🌸</div>
-            <div className="plant-stem very-long-stem">🌱</div>
-            <div className="plant-leaves">🍃</div>
-            <div className="plant-leaves">🍃</div>
-          </div>
-          <div className="garden-plant medium-plant">
-            <div className="plant-flower">🌺</div>
-            <div className="plant-stem medium-stem">🌿</div>
-            <div className="plant-leaves">🍃</div>
-          </div>
-          <div className="garden-plant tall-plant">
-            <div className="plant-flower">🌷</div>
-            <div className="plant-stem long-stem">🌱</div>
+          <div className="garden-plant vegetable-plant growing-plant" data-plant="pumpkin">
+            <div className="plant-vegetable">🎃</div>
+            <div className="plant-stem medium-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
         </div>
