@@ -3,8 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { useConversations } from '@/hooks/useConversations';
 import { Mic, MicOff, Send, Volume2, VolumeX } from 'lucide-react';
 
 interface Message {
@@ -19,11 +21,14 @@ interface DoryChatProps {
 }
 
 export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { user } = useAuth();
+  const { messages, createConversation, saveMessage, currentConversationId } = useConversations(user?.id);
+  const [localMessages, setLocalMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -38,15 +43,27 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
   }, [messages]);
 
   useEffect(() => {
-    // Welcome message from Dory
-    const welcomeMessage: Message = {
-      id: '1',
-      type: 'dory',
-      content: '🐝 ¡Hola! Soy Dory la Abeja Hacendosa. I\'m Dory the Busy Bee!\n🌸 ¿Cómo puedo ayudarte hoy? How can I help you explore nature today?',
-      timestamp: new Date()
+    // Initialize conversation and welcome message
+    const initializeChat = async () => {
+      if (user && !currentConversation) {
+        const conversation = await createConversation('Chat with Dory');
+        if (conversation) {
+          setCurrentConversation(conversation.id);
+          // Add welcome message
+          const welcomeMessage: Message = {
+            id: '1',
+            type: 'dory',
+            content: '🐝 ¡Hola! Soy Dory la Abeja Hacendosa. I\'m Dory the Busy Bee!\n🌸 ¿Cómo puedo ayudarte hoy? How can I help you explore nature today?',
+            timestamp: new Date()
+          };
+          setLocalMessages([welcomeMessage]);
+          await saveMessage(conversation.id, 'dory', welcomeMessage.content);
+        }
+      }
     };
-    setMessages([welcomeMessage]);
-  }, []);
+
+    initializeChat();
+  }, [user, currentConversation, createConversation, saveMessage]);
 
   const sendMessage = async (messageText: string = inputMessage) => {
     if (!messageText.trim() || isLoading) return;
@@ -58,9 +75,14 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setLocalMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsLoading(true);
+
+    // Save user message to database
+    if (currentConversation) {
+      await saveMessage(currentConversation, 'user', messageText);
+    }
 
     try {
       // Use fetch directly for streaming instead of supabase.functions.invoke
@@ -74,7 +96,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           },
           body: JSON.stringify({
             message: messageText,
-            conversation_history: messages.slice(-10).map(m => ({
+            conversation_history: localMessages.slice(-10).map(m => ({
               role: m.type === 'user' ? 'user' : 'assistant',
               content: m.content
             }))
@@ -97,7 +119,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
         timestamp: new Date()
       };
 
-      setMessages(prev => [...prev, doryMessage]);
+      setLocalMessages(prev => [...prev, doryMessage]);
 
       if (reader) {
         while (true) {
@@ -115,7 +137,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
                   const parsed = JSON.parse(data);
                   if (parsed.content) {
                     fullResponse += parsed.content;
-                    setMessages(prev => 
+                    setLocalMessages(prev => 
                       prev.map(m => 
                         m.id === doryMessage.id 
                           ? { ...m, content: fullResponse }
@@ -132,6 +154,11 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
         }
       }
 
+      // Save Dory's response to database
+      if (currentConversation && fullResponse) {
+        await saveMessage(currentConversation, 'dory', fullResponse);
+      }
+
     } catch (error) {
       console.error('Chat error:', error);
       toast({
@@ -141,7 +168,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
       });
       
       // Remove the failed user message
-      setMessages(prev => prev.filter(m => m.id !== userMessage.id));
+      setLocalMessages(prev => prev.filter(m => m.id !== userMessage.id));
     } finally {
       setIsLoading(false);
     }
@@ -272,7 +299,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
       {/* Messages */}
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
-          {messages.map((message) => (
+          {localMessages.map((message) => (
             <div
               key={message.id}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}

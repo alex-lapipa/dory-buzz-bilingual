@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DoryChat } from './DoryChat';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MessageCircle, Mic, Phone, Info } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
+  const { user, loading, signInAnonymously } = useAuth();
+
+  useEffect(() => {
+    // Auto sign-in anonymously if no user
+    if (!loading && !user) {
+      signInAnonymously();
+    }
+  }, [loading, user, signInAnonymously]);
 
   return (
-    <div className="min-h-screen bg-gradient-mountain bg-cover bg-center bg-fixed p-4">
+    <div className="min-h-screen bg-gradient-nature p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-6">

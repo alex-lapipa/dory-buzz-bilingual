@@ -31,9 +31,9 @@ export const useConversations = (userId?: string) => {
       .from('conversations')
       .insert([{ user_id: userId, title }])
       .select()
-      .single();
+      .maybeSingle();
 
-    if (error) {
+    if (error || !data) {
       console.error('Error creating conversation:', error);
       return null;
     }
@@ -50,9 +50,9 @@ export const useConversations = (userId?: string) => {
       .from('messages')
       .insert([{ conversation_id: conversationId, type, content }])
       .select()
-      .single();
+      .maybeSingle();
 
-    if (error) {
+    if (error || !data) {
       console.error('Error saving message:', error);
       return null;
     }
