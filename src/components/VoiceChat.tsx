@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mic, MicOff, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePlantGrowth } from '@/hooks/usePlantGrowth';
-import { supabase } from '@/integrations/supabase/client';
+import { AudioRecorder, encodeAudioForAPI, AudioQueue } from '@/utils/realtimeAudio';
 
 interface VoiceChatProps {
   className?: string;
@@ -14,188 +14,210 @@ interface VoiceChatProps {
 export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
   const { toast } = useToast();
   const { incrementGrowth } = usePlantGrowth();
+  
   const [isConnected, setIsConnected] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
   const [conversation, setConversation] = useState<Array<{ role: 'user' | 'dory'; content: string }>>([]);
-  
-  const wsRef = useRef<WebSocket | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
 
-  const connectToVoiceChat = async () => {
+  const wsRef = useRef<WebSocket | null>(null);
+  const audioRecorderRef = useRef<AudioRecorder | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioQueueRef = useRef<AudioQueue | null>(null);
+
+  const handleAudioData = useCallback((audioData: Float32Array) => {
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      const encodedAudio = encodeAudioForAPI(audioData);
+      wsRef.current.send(JSON.stringify({
+        type: 'input_audio_buffer.append',
+        audio: encodedAudio
+      }));
+    }
+  }, []);
+
+  const connectToRealtimeAPI = async () => {
     try {
       setConnectionStatus('connecting');
       
-      // Get the WebSocket URL for the voice chat edge function
-      const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/voice_chat_dory`;
-      
+      // Initialize audio context and queue
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        audioQueueRef.current = new AudioQueue(audioContextRef.current);
+      }
+
+      // Connect to our WebSocket relay edge function
+      const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/voice_chat_realtime`;
       wsRef.current = new WebSocket(wsUrl);
-      
+
       wsRef.current.onopen = () => {
-        console.log('Voice chat connected');
+        console.log('Connected to voice chat relay');
         setIsConnected(true);
         setConnectionStatus('connected');
-        
-        toast({
-          title: "🐝 ¡Buzztastical!",
-          description: "Voice chat with Dory is ready! / ¡El chat de voz con Dory está listo!",
-        });
       };
 
-      wsRef.current.onmessage = (event) => {
+      wsRef.current.onmessage = async (event) => {
         const data = JSON.parse(event.data);
-        console.log('Received message:', data);
-        
-        if (data.type === 'audio_response') {
-          // Play the audio response
-          playAudioResponse(data.audio);
-          // Add to conversation
-          setConversation(prev => [...prev, { role: 'dory', content: data.text }]);
-          // Trigger plant growth
-          incrementGrowth();
-        } else if (data.type === 'text_chunk') {
-          // Handle streaming text updates
-          console.log('Text chunk:', data.content);
-        } else if (data.type === 'error') {
-          toast({
-            title: "Error",
-            description: data.message,
-            variant: "destructive"
-          });
-        }
-      };
+        console.log('Received message:', data.type);
 
-      wsRef.current.onclose = () => {
-        console.log('Voice chat disconnected');
-        setIsConnected(false);
-        setConnectionStatus('disconnected');
-        setIsRecording(false);
-        setIsSpeaking(false);
+        switch (data.type) {
+          case 'session.created':
+            console.log('Session created successfully');
+            break;
+
+          case 'session.updated':
+            console.log('Session updated with 2-second silence detection');
+            break;
+
+          case 'input_audio_buffer.speech_started':
+            console.log('User started speaking');
+            setIsListening(true);
+            break;
+
+          case 'input_audio_buffer.speech_stopped':
+            console.log('User stopped speaking - processing...');
+            setIsListening(false);
+            break;
+
+          case 'response.audio.delta':
+            // Play audio chunk
+            if (data.delta && audioQueueRef.current) {
+              const binaryString = atob(data.delta);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+              audioQueueRef.current.addToQueue(bytes);
+              setIsSpeaking(true);
+            }
+            break;
+
+          case 'response.audio.done':
+            console.log('Audio response completed');
+            setIsSpeaking(false);
+            incrementGrowth(); // Trigger plant growth
+            break;
+
+          case 'response.audio_transcript.delta':
+            // Handle transcript updates for conversation display
+            if (data.delta) {
+              setConversation(prev => {
+                const updated = [...prev];
+                const lastIndex = updated.length - 1;
+                if (lastIndex >= 0 && updated[lastIndex].role === 'dory') {
+                  updated[lastIndex].content += data.delta;
+                } else {
+                  updated.push({ role: 'dory', content: data.delta });
+                }
+                return updated;
+              });
+            }
+            break;
+
+          case 'conversation.item.input_audio_transcription.completed':
+            // User's speech transcription
+            if (data.transcript) {
+              setConversation(prev => [...prev, { role: 'user', content: data.transcript }]);
+            }
+            break;
+
+          case 'error':
+            console.error('Realtime API error:', data.error);
+            toast({
+              title: "Connection Error",
+              description: data.error.message || "Failed to connect to voice chat",
+              variant: "destructive",
+            });
+            break;
+        }
       };
 
       wsRef.current.onerror = (error) => {
         console.error('WebSocket error:', error);
-        setConnectionStatus('disconnected');
         toast({
           title: "Connection Error",
-          description: "Failed to connect to voice chat",
-          variant: "destructive"
+          description: "Failed to connect to voice chat service",
+          variant: "destructive",
         });
+        setConnectionStatus('disconnected');
+        setIsConnected(false);
+      };
+
+      wsRef.current.onclose = () => {
+        console.log('WebSocket connection closed');
+        setIsConnected(false);
+        setConnectionStatus('disconnected');
+        setIsListening(false);
+        setIsSpeaking(false);
       };
 
     } catch (error) {
-      console.error('Error connecting to voice chat:', error);
-      setConnectionStatus('disconnected');
+      console.error('Error connecting to Realtime API:', error);
       toast({
-        title: "Error",
+        title: "Connection Error",
         description: "Failed to initialize voice chat",
-        variant: "destructive"
+        variant: "destructive",
       });
+      setConnectionStatus('disconnected');
     }
   };
 
-  const playAudioResponse = async (base64Audio: string) => {
+  const startListening = async () => {
     try {
-      setIsSpeaking(true);
-      const audioData = atob(base64Audio);
-      const audioArray = new Uint8Array(audioData.length);
-      for (let i = 0; i < audioData.length; i++) {
-        audioArray[i] = audioData.charCodeAt(i);
+      if (!audioRecorderRef.current) {
+        audioRecorderRef.current = new AudioRecorder(handleAudioData);
       }
       
-      const audioBlob = new Blob([audioArray], { type: 'audio/mp3' });
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
+      await audioRecorderRef.current.start();
       
-      audio.onended = () => {
-        setIsSpeaking(false);
-        URL.revokeObjectURL(audioUrl);
-      };
-      
-      await audio.play();
-    } catch (error) {
-      console.error('Error playing audio:', error);
-      setIsSpeaking(false);
-    }
-  };
-
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: {
-          sampleRate: 24000,
-          channelCount: 1,
-          echoCancellation: true,
-          noiseSuppression: true
-        }
+      toast({
+        title: "Voice Chat Active",
+        description: "Start speaking! I'll respond automatically when you pause for 2 seconds.",
       });
-      
-      mediaRecorderRef.current = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
-      });
-      
-      audioChunksRef.current = [];
-      
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
-      };
-      
-      mediaRecorderRef.current.onstop = async () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-        await sendAudioToServer(audioBlob);
-        stream.getTracks().forEach(track => track.stop());
-      };
-      
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-      
     } catch (error) {
-      console.error('Error starting recording:', error);
+      console.error('Error starting audio recording:', error);
       toast({
         title: "Microphone Error",
-        description: "Could not access microphone",
-        variant: "destructive"
+        description: "Could not access microphone. Please check permissions.",
+        variant: "destructive",
       });
     }
   };
 
-  const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
+  const stopListening = () => {
+    if (audioRecorderRef.current) {
+      audioRecorderRef.current.stop();
+      audioRecorderRef.current = null;
     }
-  };
-
-  const sendAudioToServer = async (audioBlob: Blob) => {
-    try {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64Audio = (reader.result as string).split(',')[1];
-        
-        if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-          wsRef.current.send(JSON.stringify({
-            type: 'audio',
-            audio: base64Audio,
-            conversation_history: conversation
-          }));
-        }
-      };
-      reader.readAsDataURL(audioBlob);
-    } catch (error) {
-      console.error('Error sending audio:', error);
-    }
+    setIsListening(false);
   };
 
   const disconnect = () => {
+    stopListening();
+    
     if (wsRef.current) {
       wsRef.current.close();
+      wsRef.current = null;
     }
-    if (mediaRecorderRef.current && isRecording) {
-      stopRecording();
+    
+    if (audioQueueRef.current) {
+      audioQueueRef.current.clear();
+    }
+    
+    setIsConnected(false);
+    setConnectionStatus('disconnected');
+    setIsSpeaking(false);
+    setConversation([]);
+  };
+
+  const toggleConnection = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connectToRealtimeAPI();
+      if (connectionStatus === 'connected') {
+        await startListening();
+      }
     }
   };
 
@@ -207,143 +229,101 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
-      <div className="flex-1 p-3 sm:p-6 space-y-4 sm:space-y-6">
-        {/* Header - Mobile Optimized */}
-        <div className="text-center space-y-3 sm:space-y-4">
-          <div className="relative">
-            <div className={`text-4xl sm:text-6xl transition-all duration-300 ${
-              isSpeaking ? 'animate-bee-bounce scale-110' : 'animate-flower-sway'
-            }`}>
-              🎙️🐝
-            </div>
-            {isSpeaking && (
-              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2">
-                <div className="animate-pulse text-lg sm:text-2xl">🔊</div>
-              </div>
-            )}
-          </div>
-          
-          <div>
-            <h3 className="text-xl sm:text-2xl font-bold bg-gradient-bee bg-clip-text text-transparent">
-              Voice Chat with Dory
-            </h3>
-            <p className="text-sm sm:text-base text-muted-foreground px-2">
-              ¡Buzztastical! 🐝✨ Have a bilingual conversation about gardens!
-            </p>
-          </div>
-
-          <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
-            <Badge variant={isConnected ? "default" : "secondary"} className="animate-flower-sway text-xs">
-              {isConnected ? "🟢 Connected" : "🔴 Disconnected"}
-            </Badge>
-            {isRecording && (
-              <Badge variant="destructive" className="animate-pulse text-xs">
-                🎤 Recording...
+      <Card className="flex-1 flex flex-col">
+        <CardContent className="flex-1 flex flex-col p-4">
+          {/* Connection Status */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Badge variant={isConnected ? "default" : "secondary"}>
+                {connectionStatus === 'connecting' && <Loader2 className="w-3 h-3 animate-spin mr-1" />}
+                {connectionStatus === 'connected' && <Volume2 className="w-3 h-3 mr-1" />}
+                {connectionStatus === 'disconnected' && <VolumeX className="w-3 h-3 mr-1" />}
+                {connectionStatus === 'connecting' ? 'Connecting...' : 
+                 connectionStatus === 'connected' ? 'Connected' : 'Disconnected'}
               </Badge>
-            )}
-            {isSpeaking && (
-              <Badge variant="default" className="animate-pulse text-xs">
-                🗣️ Dory Speaking...
-              </Badge>
-            )}
-          </div>
-        </div>
-
-        {/* Conversation Display - Mobile Optimized */}
-        <Card className="flex-1 min-h-[180px] sm:min-h-[200px] max-h-[300px] sm:max-h-[400px] overflow-hidden">
-          <CardContent className="p-2 sm:p-4 h-full">
-            <div className="h-full overflow-y-auto space-y-2 sm:space-y-3 scroll-area">
-              {conversation.length === 0 ? (
-                <div className="text-center text-muted-foreground py-6 sm:py-8">
-                  <div className="text-3xl sm:text-4xl mb-2">🌻</div>
-                  <p className="text-sm sm:text-base">Start speaking to begin your conversation with Dory!</p>
-                  <p className="text-xs sm:text-sm">¡Comienza a hablar para conversar con Dory!</p>
-                </div>
-              ) : (
-                conversation.map((message, index) => (
-                  <div
-                    key={index}
-                    className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 rounded-lg ${
-                        message.role === 'user'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-secondary text-secondary-foreground'
-                      }`}
-                    >
-                      <div className="flex items-start gap-1 sm:gap-2">
-                        <span className="text-xs sm:text-sm flex-shrink-0">
-                          {message.role === 'user' ? '👤' : '🐝'}
-                        </span>
-                        <p className="text-xs sm:text-sm leading-relaxed">{message.content}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))
+              
+              {isListening && (
+                <Badge variant="outline" className="animate-pulse">
+                  <Mic className="w-3 h-3 mr-1" />
+                  Listening...
+                </Badge>
+              )}
+              
+              {isSpeaking && (
+                <Badge variant="outline" className="animate-pulse">
+                  <Volume2 className="w-3 h-3 mr-1" />
+                  Dory Speaking...
+                </Badge>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Controls - Mobile Optimized */}
-        <div className="flex justify-center gap-2 sm:gap-4 safe-area-bottom">
-          {!isConnected ? (
+          {/* Conversation Display */}
+          <div className="flex-1 overflow-y-auto mb-4 space-y-3">
+            {conversation.length === 0 ? (
+              <div className="text-center text-muted-foreground py-8">
+                <div className="text-4xl mb-2">🎤</div>
+                <p className="text-lg mb-2">Automated Voice Chat with Dory</p>
+                <p className="text-sm">
+                  {isConnected 
+                    ? "Start speaking! I'll respond automatically when you pause for 2 seconds."
+                    : "Press the button below to start an automated voice conversation"}
+                </p>
+              </div>
+            ) : (
+              conversation.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.role === 'user'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-muted-foreground'
+                    }`}
+                  >
+                    <div className="text-xs mb-1 opacity-70">
+                      {message.role === 'user' ? 'You' : '🐝 Dory'}
+                    </div>
+                    <div className="text-sm">{message.content}</div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Controls */}
+          <div className="flex justify-center">
             <Button
-              onClick={connectToVoiceChat}
+              onClick={toggleConnection}
+              size="lg"
+              variant={isConnected ? "destructive" : "default"}
               disabled={connectionStatus === 'connecting'}
-              className="bg-gradient-bee hover:opacity-90 min-h-[48px] px-4 sm:px-6 text-sm sm:text-base"
+              className="gap-2"
             >
               {connectionStatus === 'connecting' ? (
-                <>
-                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 animate-spin" />
-                  <span className="hidden xs:inline">Connecting...</span>
-                  <span className="xs:hidden">...</span>
-                </>
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : isConnected ? (
+                <MicOff className="w-4 h-4" />
               ) : (
-                <>
-                  <Volume2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                  <span className="hidden sm:inline">Start Voice Chat</span>
-                  <span className="sm:hidden">Start Voice</span>
-                </>
+                <Mic className="w-4 h-4" />
               )}
+              {connectionStatus === 'connecting' 
+                ? 'Connecting...' 
+                : isConnected 
+                ? 'End Voice Chat' 
+                : 'Start Voice Chat'}
             </Button>
-          ) : (
-            <>
-              <Button
-                onClick={isRecording ? stopRecording : startRecording}
-                disabled={isSpeaking}
-                variant={isRecording ? "destructive" : "default"}
-                className={`min-h-[48px] px-3 sm:px-4 text-sm sm:text-base ${!isRecording ? "bg-gradient-bee hover:opacity-90" : ""}`}
-              >
-                {isRecording ? (
-                  <>
-                    <MicOff className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">Stop Recording</span>
-                    <span className="sm:hidden">Stop</span>
-                  </>
-                ) : (
-                  <>
-                    <Mic className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-                    <span className="hidden sm:inline">{isSpeaking ? "Dory is speaking..." : "Hold to Talk"}</span>
-                    <span className="sm:hidden">{isSpeaking ? "Speaking..." : "Talk"}</span>
-                  </>
-                )}
-              </Button>
-              
-              <Button
-                onClick={disconnect}
-                variant="outline"
-                className="min-h-[48px] px-3 sm:px-4 text-sm sm:text-base"
-              >
-                <VolumeX className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Disconnect</span>
-                <span className="sm:hidden">End</span>
-              </Button>
-            </>
+          </div>
+
+          {isConnected && (
+            <div className="text-center text-xs text-muted-foreground mt-2">
+              Automatic voice detection active • 2-second pause to respond
+            </div>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
