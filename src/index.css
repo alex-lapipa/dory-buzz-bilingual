@@ -52,14 +52,21 @@ All colors MUST be HSL.
     --grass-green: 110 50% 45%;
     --stone-gray: 200 10% 65%;
 
-    /* Enhanced garden nature gradients */
-    --gradient-nature: linear-gradient(135deg, hsl(50 80% 95%) 0%, hsl(45 100% 92%) 30%, hsl(35 85% 88%) 60%, hsl(30 70% 85%) 100%);
-    --gradient-bee: linear-gradient(135deg, hsl(45 100% 80%) 0%, hsl(40 95% 70%) 50%, hsl(35 85% 65%) 100%);
-    --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
-    --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
-    --gradient-mountain: linear-gradient(180deg, hsl(var(--sky-blue)) 0%, hsl(var(--mountain-light)) 40%, hsl(var(--mountain-blue)) 70%, hsl(var(--field-green)) 100%);
-    --gradient-valley: linear-gradient(135deg, hsl(var(--grass-green)), hsl(var(--field-green)), hsl(var(--meadow-green)));
-    --gradient-meadow: linear-gradient(45deg, hsl(var(--field-green)), hsl(var(--meadow-green)));
+  /* Enhanced garden nature gradients with mountain landscape background */
+  --gradient-nature: 
+    linear-gradient(135deg, 
+      hsl(50 80% 95% / 0.7) 0%, 
+      hsl(45 100% 92% / 0.6) 30%, 
+      hsl(35 85% 88% / 0.5) 60%, 
+      hsl(30 70% 85% / 0.4) 100%
+    ),
+    url('/lovable-uploads/fbf5801e-cf60-4d26-bafe-00b47a680217.png');
+  --gradient-bee: linear-gradient(135deg, hsl(45 100% 80%) 0%, hsl(40 95% 70%) 50%, hsl(35 85% 65%) 100%);
+  --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
+  --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
+  --gradient-mountain: linear-gradient(180deg, hsl(var(--sky-blue)) 0%, hsl(var(--mountain-light)) 40%, hsl(var(--mountain-blue)) 70%, hsl(var(--field-green)) 100%);
+  --gradient-valley: linear-gradient(135deg, hsl(var(--grass-green)), hsl(var(--field-green)), hsl(var(--meadow-green)));
+  --gradient-meadow: linear-gradient(45deg, hsl(var(--field-green)), hsl(var(--meadow-green)));
     
     /* Enhanced nature shadows */
     --shadow-honey: 0 15px 40px -10px hsl(var(--primary) / 0.4);
@@ -853,5 +860,13 @@ All colors MUST be HSL.
 
   .animate-bee-garden-visit {
     animation: bee-garden-visit 20s linear infinite;
+  }
+
+  /* Background utility class */
+  .bg-gradient-nature {
+    background: var(--gradient-nature);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 }
