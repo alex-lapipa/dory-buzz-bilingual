@@ -142,7 +142,7 @@ export const DoryInterface: React.FC = () => {
         {/* Footer - Mobile Optimized */}
         <div className="text-center mt-3 sm:mt-6 text-xs sm:text-sm text-muted-foreground px-2">
           <p>
-            BeeCrazy Garden World! • Built with ❤️ for families everywhere
+            BeeCrazy Garden World! • Built with ❤️
           </p>
         </div>
       </div>
