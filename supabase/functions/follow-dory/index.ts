@@ -35,7 +35,7 @@ const handler = async (req: Request): Promise<Response> => {
       age: age || null,
       isChild,
       timestamp,
-      source: "Dory's Beecrazy World",
+      source: "BeeCrazy Garden World",
       status: "active"
     };
 
@@ -52,7 +52,7 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: `¡Buzztastical! Welcome to Dory's Beecrazy world, ${name}! 🐝✨`,
+        message: `¡Buzztastical! Welcome to BeeCrazy Garden World, ${name}! 🐝✨`,
         follower: followerData
       }),
       {

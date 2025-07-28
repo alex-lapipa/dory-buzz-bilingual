@@ -27,10 +27,10 @@ export const DoryInterface: React.FC = () => {
                 Dory de los Huertos
               </h1>
               <p className="text-lg text-muted-foreground">
-                ¡Buzztastical! 🐝✨ Garden Bee • Abeja de los Jardines
+                ¡Buzztastical! 🐝✨ Garden Bee • BeeCrazy Garden World!
               </p>
               <p className="text-sm text-muted-foreground">
-                Warm, joyful, eco-educational companion
+                Your friendly family garden companion
               </p>
             </div>
             <div className="flex gap-2">
@@ -55,13 +55,13 @@ export const DoryInterface: React.FC = () => {
               🌻 Garden Guide
             </Badge>
             <Badge variant="secondary" className="animate-flower-sway">
-              🎨 Sora Visuals
+              🎨 Fun Activities
             </Badge>
             <Badge variant="secondary" className="animate-flower-sway">
               🗣️ Voice Chat
             </Badge>
             <Badge variant="secondary" className="animate-flower-sway">
-              🍯 Eco-Education
+              👨‍👩‍👧‍👦 Family Fun
             </Badge>
           </div>
         </div>
@@ -103,7 +103,7 @@ export const DoryInterface: React.FC = () => {
                     <div className="text-4xl mb-4 animate-flower-sway">🌻</div>
                     <h3 className="text-2xl font-bold mb-2">Meet Dory</h3>
                     <p className="text-muted-foreground">
-                      Your friendly bilingual bee assistant from La Pipa world
+                      Your friendly bilingual bee from BeeCrazy Garden World!
                     </p>
                   </div>
 
@@ -155,7 +155,7 @@ export const DoryInterface: React.FC = () => {
         {/* Footer */}
         <div className="text-center mt-6 text-sm text-muted-foreground">
           <p>
-            Powered by OpenAI GPT-4o • Built with ❤️ for La Pipa world
+            BeeCrazy Garden World! • Built with ❤️ for families everywhere
           </p>
         </div>
       </div>

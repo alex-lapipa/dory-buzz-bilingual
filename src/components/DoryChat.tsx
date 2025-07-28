@@ -53,7 +53,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           const welcomeMessage: Message = {
             id: '1',
             type: 'dory',
-            content: '¡Buzztastical! 🐝✨ ¡Hola! Soy Dory de los Huertos - your joyful Garden Bee companion!\n\n🌻 I can help you with:\n• Garden tips & plant care (English/Spanish)\n• Generate beautiful Sora-style garden scenes\n• Voice conversations about nature\n• Eco-education for all ages\n\n¿Cómo puedo ayudarte hoy? How can I help you explore the wonderful world of gardens and nature today?',
+            content: '¡Buzztastical! 🐝✨ ¡Hola! Soy Dory de los Huertos - your joyful Garden Bee from BeeCrazy Garden World!\n\n🌻 I can help you and your family with:\n• Garden tips & plant care (English/Spanish)\n• Generate beautiful garden pictures\n• Voice conversations about nature\n• Fun activities for all ages\n\n¿Cómo puedo ayudarte hoy? How can I help you explore the wonderful world of gardens and nature today?',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
@@ -68,15 +68,15 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
   const generateImage = async (prompt: string) => {
     setIsLoading(true);
     try {
-      const enhanced_prompt = `Create a cinematic, Sora-style video-quality image featuring Dory de los Huertos (Garden Bee) in an immersive natural setting. 
+      const enhanced_prompt = `Create a beautiful, vibrant image featuring Dory de los Huertos (Garden Bee) in a natural garden setting. 
 
-CINEMATOGRAPHY: Dynamic camera angle with natural depth of field, golden hour lighting, soft bokeh effects
-VISUAL IDENTITY: Dory - a charming bee with expressive animated wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
-ENVIRONMENT: Vibrant garden paradise with native plants, buzzing with life - dewdrops on petals, gentle breeze effects, organic textures
-MOOD & TONE: ¡Buzztastical! Joyful, educational wonder with eco-consciousness, perfect for bilingual learning
-INTERACTIVE ELEMENT: ${prompt}
+VISUAL STYLE: Bright, colorful, family-friendly illustration with rich garden details
+DORY'S APPEARANCE: A charming bee with expressive wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
+GARDEN SCENE: Vibrant garden paradise with flowers, plants, and natural elements - perfect for families to enjoy
+MOOD: ¡Buzztastical! Joyful, welcoming, and perfect for all ages learning about gardens and nature
+ACTIVITY: ${prompt}
 
-Style this as if it's a frame from a premium nature documentary meets Pixar animation - educational, inspiring, and filled with the warm, buzzing personality that makes learning about gardens and nature absolutely delightful. Include subtle Spanish and English garden elements.`;
+Style this as a beautiful garden illustration that families would love - colorful, inspiring, and filled with the warm, buzzing personality that makes learning about gardens fun for everyone. Include elements that appeal to both children and adults.`;
 
       const response = await fetch(
         `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/generate_image`,
@@ -95,7 +95,7 @@ Style this as if it's a frame from a premium nature documentary meets Pixar anim
         const imageMessage: Message = {
           id: Date.now().toString(),
           type: 'dory',
-          content: `¡Buzztastical! 🐝✨ Here's your beautiful garden scene:\n\n![Generated Garden Scene](${data.image_url || data.url})\n\n🌻 This cinematic image shows the magical world of gardens through Dory's eyes! What would you like to explore next in our garden adventure?`,
+          content: `¡Buzztastical! 🐝✨ Here's your beautiful garden picture:\n\n![Generated Garden Scene](${data.image_url || data.url})\n\n🌻 This lovely image shows the magical world of gardens through Dory's eyes! What would you like to explore next in our garden adventure?`,
           timestamp: new Date()
         };
         
@@ -367,7 +367,7 @@ Style this as if it's a frame from a premium nature documentary meets Pixar anim
               Dory de los Huertos 🌻
             </h2>
             <p className="text-sm text-primary-foreground/80">
-              ¡Buzztastical! Garden Bee • Voice & Visual Assistant
+              ¡Buzztastical! Garden Bee • Family Assistant
             </p>
           </div>
         </div>

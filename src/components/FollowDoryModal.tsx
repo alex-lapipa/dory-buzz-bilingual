@@ -78,7 +78,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
 
       toast({
         title: "¡Buzztastical! 🐝✨",
-        description: `Welcome to Dory's Beecrazy world, ${formData.name}! You'll receive updates about our garden adventures.`,
+        description: `Welcome to BeeCrazy Garden World, ${formData.name}! You'll receive fun garden updates for the whole family.`,
       });
 
       setIsOpen(false);
@@ -112,12 +112,12 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
           <DialogTitle className="flex items-center gap-2 text-center justify-center">
             <div className="text-2xl animate-bee-bounce">🐝</div>
             <span className="bg-gradient-bee bg-clip-text text-transparent">
-              Follow Dory's Beecrazy World!
+              Follow BeeCrazy Garden World!
             </span>
             <div className="text-2xl animate-flower-sway">🌻</div>
           </DialogTitle>
           <p className="text-sm text-muted-foreground text-center">
-            Join our garden adventure and get the latest buzz about Dory's educational content!
+            Join our family garden adventure and get fun updates!
           </p>
         </DialogHeader>
 
@@ -187,7 +187,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
                   onCheckedChange={(checked) => handleInputChange('parentConsent', checked as boolean)}
                 />
                 <Label htmlFor="parentConsent" className="text-sm">
-                  My parent/guardian agrees to receive updates about Dory's Beecrazy World
+                  My parent/guardian agrees to receive updates about BeeCrazy Garden World!
                 </Label>
               </div>
             </div>
@@ -200,7 +200,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
               onCheckedChange={(checked) => handleInputChange('consent', checked as boolean)}
             />
             <Label htmlFor="consent" className="text-sm">
-              I agree to receive updates about Dory's garden adventures and educational content *
+              I agree to receive updates about Dory's garden adventures and family activities *
             </Label>
           </div>
 
@@ -208,9 +208,9 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
             <p className="mb-1">🍯 <strong>What you'll get:</strong></p>
             <ul className="space-y-1 ml-4">
               <li>• Garden tips and nature facts from Dory</li>
-              <li>• Fun educational activities and comics</li>
-              <li>• Seasonal bee and plant updates</li>
-              <li>• Early access to new Beecrazy content</li>
+              <li>• Fun family activities and garden games</li>
+              <li>• Seasonal gardening projects for all ages</li>
+              <li>• Early access to new BeeCrazy content</li>
             </ul>
             <p className="mt-2 text-xs">
               Your data is safe with us. Unsubscribe anytime. 🐝✨
