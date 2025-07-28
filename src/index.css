@@ -477,4 +477,174 @@ All colors MUST be HSL.
     left: -50px;
     animation-delay: 16s;
   }
+
+  .flying-bee-7 {
+    top: 25%;
+    left: -50px;
+    animation-delay: 20s;
+  }
+
+  .flying-bee-8 {
+    top: 55%;
+    right: -50px;
+    animation-delay: 10s;
+  }
+
+  .flying-bee-9 {
+    bottom: 35%;
+    left: -50px;
+    animation-delay: 14s;
+  }
+
+  .flying-bee-10 {
+    top: 65%;
+    right: -50px;
+    animation-delay: 18s;
+  }
+
+  /* Garden Footer Styles */
+  .garden-footer {
+    position: relative;
+    background: linear-gradient(to top, hsl(120 40% 25%) 0%, hsl(120 30% 35%) 40%, hsl(120 20% 45%) 100%);
+    border-top: 3px solid hsl(120 30% 30%);
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .garden-plants {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 1rem 0 0.5rem 0;
+    font-size: 1.5rem;
+    user-select: none;
+  }
+
+  .garden-plants .plant {
+    animation: flower-sway 3s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  .garden-plants .plant:nth-child(2n) {
+    animation-delay: -0.5s;
+  }
+
+  .garden-plants .plant:nth-child(3n) {
+    animation-delay: -1s;
+  }
+
+  .garden-plants .plant:nth-child(4n) {
+    animation-delay: -1.5s;
+  }
+
+  @keyframes bee-to-garden {
+    0% { 
+      transform: translate(-50px, 20vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    40% {
+      transform: translate(30vw, 40vh) rotate(45deg);
+      opacity: 0.8;
+    }
+    60% {
+      transform: translate(60vw, 60vh) rotate(-30deg);
+      opacity: 0.8;
+    }
+    80% {
+      transform: translate(80vw, 80vh) rotate(60deg);
+      opacity: 0.7;
+    }
+    90% {
+      transform: translate(90vw, 85vh) rotate(-15deg);
+      opacity: 0.5;
+    }
+    100% { 
+      transform: translate(95vw, 90vh) rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes bee-from-garden {
+    0% { 
+      transform: translate(95vw, 90vh) rotate(180deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    30% {
+      transform: translate(70vw, 70vh) rotate(135deg);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(40vw, 50vh) rotate(225deg);
+      opacity: 0.8;
+    }
+    70% {
+      transform: translate(20vw, 30vh) rotate(180deg);
+      opacity: 0.7;
+    }
+    90% {
+      transform: translate(5vw, 20vh) rotate(225deg);
+      opacity: 0.4;
+    }
+    100% { 
+      transform: translate(-50px, 10vh) rotate(180deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes bee-garden-visit {
+    0% { 
+      transform: translate(50vw, -30px) rotate(0deg);
+      opacity: 0;
+    }
+    15% {
+      transform: translate(60vw, 20vh) rotate(45deg);
+      opacity: 0.7;
+    }
+    30% {
+      transform: translate(70vw, 40vh) rotate(-30deg);
+      opacity: 0.8;
+    }
+    45% {
+      transform: translate(80vw, 60vh) rotate(60deg);
+      opacity: 0.8;
+    }
+    60% {
+      transform: translate(85vw, 80vh) rotate(-45deg);
+      opacity: 0.7;
+    }
+    70% {
+      transform: translate(90vw, 85vh) rotate(0deg) scale(1.2);
+      opacity: 0.9;
+    }
+    80% {
+      transform: translate(85vw, 88vh) rotate(30deg) scale(1.1);
+      opacity: 0.8;
+    }
+    90% {
+      transform: translate(80vw, 85vh) rotate(-30deg);
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translate(75vw, 90vh) rotate(0deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-bee-to-garden {
+    animation: bee-to-garden 16s linear infinite;
+  }
+
+  .animate-bee-from-garden {
+    animation: bee-from-garden 18s linear infinite;
+  }
+
+  .animate-bee-garden-visit {
+    animation: bee-garden-visit 20s linear infinite;
+  }
 }

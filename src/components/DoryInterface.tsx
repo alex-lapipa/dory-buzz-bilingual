@@ -15,13 +15,17 @@ export const DoryInterface: React.FC = () => {
 
   return (
     <>
-      {/* Flying Bees Background - Larger with bee-like movement */}
+      {/* Flying Bees Background - More bees flying to/from garden */}
       <div className="flying-bee flying-bee-1 animate-tiny-bee-fly">🐝</div>
       <div className="flying-bee flying-bee-2 animate-tiny-bee-hover">🐝</div>
       <div className="flying-bee flying-bee-3 animate-tiny-bee-zigzag">🐝</div>
       <div className="flying-bee flying-bee-4 animate-tiny-bee-loop">🐝</div>
       <div className="flying-bee flying-bee-5 animate-tiny-bee-hover">🐝</div>
       <div className="flying-bee flying-bee-6 animate-tiny-bee-fly">🐝</div>
+      <div className="flying-bee flying-bee-7 animate-bee-to-garden">🐝</div>
+      <div className="flying-bee flying-bee-8 animate-bee-from-garden">🐝</div>
+      <div className="flying-bee flying-bee-9 animate-bee-garden-visit">🐝</div>
+      <div className="flying-bee flying-bee-10 animate-bee-to-garden">🐝</div>
       
       <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
       <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl mx-auto'}`}>
@@ -148,11 +152,33 @@ export const DoryInterface: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Footer - Mobile Optimized */}
-        <div className="text-center mt-3 sm:mt-6 text-xs sm:text-sm text-muted-foreground px-2">
-          <p>
-            BeeCrazy Garden World! • Built with ❤️
-          </p>
+        {/* Garden Footer */}
+        <div className="garden-footer mt-4 sm:mt-6">
+          <div className="garden-plants">
+            <span className="plant">🌻</span>
+            <span className="plant">🌸</span>
+            <span className="plant">🌺</span>
+            <span className="plant">🌷</span>
+            <span className="plant">🌹</span>
+            <span className="plant">🌼</span>
+            <span className="plant">🌻</span>
+            <span className="plant">🌸</span>
+            <span className="plant">🌺</span>
+            <span className="plant">🌷</span>
+            <span className="plant">🌹</span>
+            <span className="plant">🌼</span>
+            <span className="plant">🌻</span>
+            <span className="plant">🌸</span>
+            <span className="plant">🌺</span>
+            <span className="plant">🌷</span>
+            <span className="plant">🌹</span>
+            <span className="plant">🌼</span>
+          </div>
+          <div className="text-center py-2 text-xs sm:text-sm text-green-100">
+            <p>
+              BeeCrazy Garden World! • Built with ❤️
+            </p>
+          </div>
         </div>
       </div>
       </div>
