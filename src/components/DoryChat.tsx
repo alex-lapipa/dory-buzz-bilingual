@@ -63,20 +63,31 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('chat_dory', {
-        body: {
-          message: messageText,
-          conversation_history: messages.slice(-10).map(m => ({
-            role: m.type === 'user' ? 'user' : 'assistant',
-            content: m.content
-          }))
+      // Use fetch directly for streaming instead of supabase.functions.invoke
+      const response = await fetch(
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/chat_dory`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg'}`,
+          },
+          body: JSON.stringify({
+            message: messageText,
+            conversation_history: messages.slice(-10).map(m => ({
+              role: m.type === 'user' ? 'user' : 'assistant',
+              content: m.content
+            }))
+          })
         }
-      });
+      );
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       // Handle streaming response
-      const reader = data?.getReader();
+      const reader = response.body?.getReader();
       let fullResponse = '';
       
       const doryMessage: Message = {
@@ -128,6 +139,9 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
         description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
+      
+      // Remove the failed user message
+      setMessages(prev => prev.filter(m => m.id !== userMessage.id));
     } finally {
       setIsLoading(false);
     }
@@ -152,12 +166,19 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           const base64Audio = (reader.result as string).split(',')[1];
           
           try {
-            const { data, error } = await supabase.functions.invoke('stt_chat', {
-              body: { audio: base64Audio }
-            });
+            const response = await fetch(
+              `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/stt_chat`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg'}`,
+                },
+                body: JSON.stringify({ audio: base64Audio })
+              }
+            );
 
-            if (error) throw error;
-
+            const data = await response.json();
             if (data.text) {
               await sendMessage(data.text);
             }
@@ -199,15 +220,22 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     
     setIsPlaying(true);
     try {
-      const { data, error } = await supabase.functions.invoke('tts_dory', {
-        body: { 
-          text,
-          voice: 'nova'
+      const response = await fetch(
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/tts_dory`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg'}`,
+          },
+          body: JSON.stringify({ 
+            text,
+            voice: 'nova'
+          })
         }
-      });
+      );
 
-      if (error) throw error;
-
+      const data = await response.json();
       if (data.audioContent) {
         const audio = new Audio(`data:audio/mpeg;base64,${data.audioContent}`);
         audio.onended = () => setIsPlaying(false);
