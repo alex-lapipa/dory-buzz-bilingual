@@ -10,7 +10,7 @@ export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
 
   return (
-    <div className="min-h-screen bg-gradient-nature p-4">
+    <div className="min-h-screen bg-gradient-mountain bg-cover bg-center bg-fixed p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-6">
