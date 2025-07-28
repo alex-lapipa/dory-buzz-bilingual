@@ -55,10 +55,10 @@ All colors MUST be HSL.
   /* Enhanced garden nature gradients with mountain landscape background */
   --gradient-nature: 
     linear-gradient(135deg, 
-      hsl(50 80% 95% / 0.7) 0%, 
-      hsl(45 100% 92% / 0.6) 30%, 
-      hsl(35 85% 88% / 0.5) 60%, 
-      hsl(30 70% 85% / 0.4) 100%
+      hsl(50 80% 95% / 0.4) 0%, 
+      hsl(45 100% 92% / 0.3) 30%, 
+      hsl(35 85% 88% / 0.2) 60%, 
+      hsl(30 70% 85% / 0.1) 100%
     ),
     url('/lovable-uploads/fbf5801e-cf60-4d26-bafe-00b47a680217.png');
   --gradient-bee: linear-gradient(135deg, hsl(45 100% 80%) 0%, hsl(40 95% 70%) 50%, hsl(35 85% 65%) 100%);
@@ -233,7 +233,7 @@ All colors MUST be HSL.
       opacity: 0;
     }
     5% {
-      opacity: 0.4;
+      opacity: 0.6;
     }
     15% {
       transform: translate(15vw, -10px) rotate(25deg);
@@ -542,7 +542,8 @@ All colors MUST be HSL.
     display: flex;
     flex-direction: column;
     align-items: center;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    opacity: 0.9;
   }
 
   .plant-stem {
@@ -594,6 +595,7 @@ All colors MUST be HSL.
     z-index: 3;
     user-select: none;
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+    opacity: 0.8;
   }
 
   @keyframes butterfly-flutter {
