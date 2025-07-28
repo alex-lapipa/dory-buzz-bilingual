@@ -107,34 +107,35 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur border-2 border-border/50">
+      <DialogContent className="max-w-[95vw] sm:max-w-md max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur border border-border/50 safe-area-top safe-area-bottom">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-center justify-center">
-            <div className="text-2xl animate-bee-bounce">🐝</div>
+          <DialogTitle className="flex items-center gap-1 sm:gap-2 text-center justify-center text-lg sm:text-xl">
+            <div className="text-xl sm:text-2xl animate-bee-bounce">🐝</div>
             <span className="bg-gradient-bee bg-clip-text text-transparent">
               Follow BeeCrazy Garden World!
             </span>
-            <div className="text-2xl animate-flower-sway">🌻</div>
+            <div className="text-xl sm:text-2xl animate-flower-sway">🌻</div>
           </DialogTitle>
-          <p className="text-sm text-muted-foreground text-center">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center">
             Join our family garden adventure and get fun updates!
           </p>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name *</Label>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="name" className="text-sm">Name *</Label>
             <Input
               id="name"
               placeholder="Your name"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               required
+              className="min-h-[44px] text-sm"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email *</Label>
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="email" className="text-sm">Email *</Label>
             <Input
               id="email"
               type="email"
@@ -142,17 +143,19 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
               required
+              className="min-h-[44px] text-sm"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="age">Age (optional)</Label>
+          <div className="space-y-1 sm:space-y-2">
+            <Label htmlFor="age" className="text-sm">Age (optional)</Label>
             <Input
               id="age"
               type="number"
               placeholder="How old are you?"
               value={formData.age}
               onChange={(e) => handleInputChange('age', e.target.value)}
+              className="min-h-[44px] text-sm"
             />
           </div>
 
@@ -168,9 +171,9 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
           </div>
 
           {formData.isChild && (
-            <div className="space-y-3 p-3 bg-accent/20 rounded-lg border">
-              <div className="space-y-2">
-                <Label htmlFor="parentEmail">Parent/Guardian Email *</Label>
+            <div className="space-y-2 sm:space-y-3 p-2 sm:p-3 bg-accent/20 rounded-lg border">
+              <div className="space-y-1 sm:space-y-2">
+                <Label htmlFor="parentEmail" className="text-sm">Parent/Guardian Email *</Label>
                 <Input
                   id="parentEmail"
                   type="email"
@@ -178,41 +181,44 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
                   value={formData.parentEmail}
                   onChange={(e) => handleInputChange('parentEmail', e.target.value)}
                   required={formData.isChild}
+                  className="min-h-[44px] text-sm"
                 />
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-start space-x-2">
                 <Checkbox
                   id="parentConsent"
                   checked={formData.parentConsent}
                   onCheckedChange={(checked) => handleInputChange('parentConsent', checked as boolean)}
+                  className="mt-0.5"
                 />
-                <Label htmlFor="parentConsent" className="text-sm">
+                <Label htmlFor="parentConsent" className="text-xs sm:text-sm leading-relaxed">
                   My parent/guardian agrees to receive updates about BeeCrazy Garden World!
                 </Label>
               </div>
             </div>
           )}
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-start space-x-2">
             <Checkbox
               id="consent"
               checked={formData.consent}
               onCheckedChange={(checked) => handleInputChange('consent', checked as boolean)}
+              className="mt-0.5"
             />
-            <Label htmlFor="consent" className="text-sm">
+            <Label htmlFor="consent" className="text-xs sm:text-sm leading-relaxed">
               I agree to receive updates about Dory's garden adventures and family activities *
             </Label>
           </div>
 
-          <div className="text-xs text-muted-foreground bg-accent/10 p-2 rounded">
-            <p className="mb-1">🍯 <strong>What you'll get:</strong></p>
-            <ul className="space-y-1 ml-4">
+          <div className="text-xs text-muted-foreground bg-accent/10 p-2 sm:p-3 rounded">
+            <p className="mb-1 text-xs sm:text-sm">🍯 <strong>What you'll get:</strong></p>
+            <ul className="space-y-0.5 sm:space-y-1 ml-3 sm:ml-4 text-xs">
               <li>• Garden tips and nature facts from Dory</li>
               <li>• Fun family activities and garden games</li>
               <li>• Seasonal gardening projects for all ages</li>
               <li>• Early access to new BeeCrazy content</li>
             </ul>
-            <p className="mt-2 text-xs">
+            <p className="mt-1 sm:mt-2 text-xs">
               Your data is safe with us. Unsubscribe anytime. 🐝✨
             </p>
           </div>
@@ -221,21 +227,21 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
             <Button
               type="button"
               variant="outline"
-              className="flex-1"
+              className="flex-1 min-h-[44px] text-sm"
               onClick={() => setIsOpen(false)}
             >
               Maybe Later
             </Button>
             <Button
               type="submit"
-              className="flex-1"
+              className="flex-1 min-h-[44px] text-sm"
               disabled={isLoading}
             >
               {isLoading ? (
                 'Joining...'
               ) : (
                 <>
-                  <Heart className="w-4 h-4 mr-1" />
+                  <Heart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                   Follow Dory!
                 </>
               )}

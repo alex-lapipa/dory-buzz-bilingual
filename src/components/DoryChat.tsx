@@ -358,56 +358,56 @@ Style this as a beautiful garden illustration that families would love - colorfu
 
   return (
     <div className={`flex flex-col h-full ${className}`}>
-      {/* Header */}
-      <div className="p-4 bg-gradient-bee rounded-t-xl border-b border-border">
-        <div className="flex items-center gap-3">
-          <div className="text-3xl animate-bee-bounce">🐝</div>
-          <div>
-            <h2 className="text-lg font-bold text-primary-foreground">
+      {/* Header - Mobile Optimized */}
+      <div className="p-2 sm:p-4 bg-gradient-bee rounded-t-xl border-b border-border">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="text-2xl sm:text-3xl animate-bee-bounce">🐝</div>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-sm sm:text-lg font-bold text-primary-foreground truncate">
               Dory de los Huertos 🌻
             </h2>
-            <p className="text-sm text-primary-foreground/80">
-              ¡Buzztastical! Garden Bee • Family Assistant
+            <p className="text-xs sm:text-sm text-primary-foreground/80 truncate">
+              ¡Buzztastical! Garden Bee
             </p>
           </div>
         </div>
       </div>
 
-      {/* Messages */}
-      <ScrollArea className="flex-1 p-4">
-        <div className="space-y-4">
+      {/* Messages - Mobile Optimized */}
+      <ScrollArea className="flex-1 p-2 sm:p-4 scroll-area">
+        <div className="space-y-3 sm:space-y-4">
           {localMessages.map((message) => (
             <div
               key={message.id}
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg p-3 ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 ${
                   message.type === 'user'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-card text-card-foreground border border-border'
                 }`}
               >
                 {message.type === 'dory' && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm animate-flower-sway">🌸</span>
+                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                    <span className="text-xs sm:text-sm animate-flower-sway">🌸</span>
                     <span className="text-xs font-medium">Dory</span>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => playDoryResponse(message.content)}
                       disabled={isPlaying}
-                      className="h-6 w-6 p-0"
+                      className="h-5 w-5 sm:h-6 sm:w-6 p-0 ml-auto"
                     >
-                      {isPlaying ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
+                      {isPlaying ? <VolumeX className="h-2 w-2 sm:h-3 sm:w-3" /> : <Volume2 className="h-2 w-2 sm:h-3 sm:w-3" />}
                     </Button>
                   </div>
                 )}
-                <div className="whitespace-pre-wrap text-sm">
+                <div className="whitespace-pre-wrap text-xs sm:text-sm leading-relaxed">
                   {message.content.includes('![') ? (
                     <div dangerouslySetInnerHTML={{
                       __html: message.content
-                        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full h-auto my-2" />')
+                        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full h-auto my-1 sm:my-2" />')
                         .replace(/\n/g, '<br />')
                     }} />
                   ) : (
@@ -415,17 +415,17 @@ Style this as a beautiful garden illustration that families would love - colorfu
                   )}
                 </div>
                 <div className="text-xs opacity-70 mt-1">
-                  {message.timestamp.toLocaleTimeString()}
+                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
               </div>
             </div>
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-card text-card-foreground border border-border rounded-lg p-3 max-w-[80%]">
+              <div className="bg-card text-card-foreground border border-border rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%]">
                 <div className="flex items-center gap-2">
-                  <div className="animate-spin">🐝</div>
-                  <span className="text-sm">Dory is thinking...</span>
+                  <div className="animate-spin text-sm">🐝</div>
+                  <span className="text-xs sm:text-sm">Dory is thinking...</span>
                 </div>
               </div>
             </div>
@@ -434,43 +434,44 @@ Style this as a beautiful garden illustration that families would love - colorfu
         <div ref={messagesEndRef} />
       </ScrollArea>
 
-      {/* Input Area */}
-      <div className="p-4 border-t border-border bg-card">
-        <div className="flex gap-2">
+      {/* Input Area - Mobile Optimized */}
+      <div className="p-2 sm:p-4 border-t border-border bg-card safe-area-bottom">
+        <div className="flex gap-1 sm:gap-2">
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask Dory about gardens... / Pregúntale a Dory sobre jardines..."
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+            placeholder="Ask Dory... / Pregúntale a Dory..."
+            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
             disabled={isLoading}
-            className="flex-1"
+            className="flex-1 text-sm min-h-[44px]"
           />
           <Button
             onClick={() => generateImage(inputMessage || 'beautiful garden scene with Dory the bee')}
             disabled={isLoading}
             variant="secondary"
-            size="icon"
-            className="shrink-0"
-            title="Generate Sora-style garden image"
+            size="sm"
+            className="shrink-0 min-h-[44px] px-2 sm:px-3"
+            title="Generate garden image"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
           <Button
             onClick={isListening ? stopVoiceRecording : startVoiceRecording}
             variant={isListening ? "destructive" : "secondary"}
-            size="icon"
-            className="shrink-0"
+            size="sm"
+            className="shrink-0 min-h-[44px] px-2 sm:px-3"
             title="Voice input"
           >
-            {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            {isListening ? <MicOff className="h-3 w-3 sm:h-4 sm:w-4" /> : <Mic className="h-3 w-3 sm:h-4 sm:w-4" />}
           </Button>
           <Button
             onClick={() => sendMessage()}
             disabled={isLoading || !inputMessage.trim()}
-            className="shrink-0"
+            size="sm"
+            className="shrink-0 min-h-[44px] px-2 sm:px-3"
             title="Send message"
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
         </div>
       </div>

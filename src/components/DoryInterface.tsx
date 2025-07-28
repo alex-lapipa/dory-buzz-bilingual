@@ -13,106 +13,110 @@ export const DoryInterface: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   return (
-    <div className={`min-h-screen bg-gradient-nature ${isFullscreen ? 'fixed inset-0 z-50' : 'p-4'}`}>
-      <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-4xl mx-auto'}`}>
-        {/* Header */}
-        <div className={`text-center ${isFullscreen ? 'mb-4' : 'mb-6'}`}>
-          <div className="flex justify-center items-center gap-4 mb-4">
-            <div className="relative">
-              <div className="text-6xl animate-bee-bounce">🐝</div>
-              <div className="absolute -top-2 -right-2 text-2xl animate-flower-sway">🌻</div>
+    <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
+      <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl mx-auto'}`}>
+        {/* Header - Mobile Optimized */}
+        <div className={`text-center ${isFullscreen ? 'mb-2 sm:mb-4' : 'mb-4 sm:mb-6'}`}>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
+            <div className="relative flex sm:block">
+              <div className="text-4xl sm:text-6xl animate-bee-bounce">🐝</div>
+              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 text-lg sm:text-2xl animate-flower-sway">🌻</div>
             </div>
-            <div className="text-left">
-              <h1 className="text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
+            <div className="text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
                 Dory de los Huertos
               </h1>
-              <p className="text-lg text-muted-foreground">
-                ¡Buzztastical! 🐝✨ Garden Bee • BeeCrazy Garden World!
+              <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">
+                ¡Buzztastical! 🐝✨ Garden Bee
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
                 Your friendly family garden companion
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-1 sm:gap-2 mt-2 sm:mt-0">
               <FollowDoryModal>
-                <Button variant="default" className="animate-pulse">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Follow Dory!
+                <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
+                  <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                  <span className="hidden xs:inline">Follow</span> Dory!
                 </Button>
               </FollowDoryModal>
               <Button
                 onClick={() => setIsFullscreen(!isFullscreen)}
                 variant="ghost"
-                size="icon"
+                size="sm"
+                className="p-2"
               >
-                {isFullscreen ? <Shrink className="h-4 w-4" /> : <Expand className="h-4 w-4" />}
+                {isFullscreen ? <Shrink className="h-3 w-3 sm:h-4 sm:w-4" /> : <Expand className="h-3 w-3 sm:h-4 sm:w-4" />}
               </Button>
             </div>
           </div>
           
-          <div className="flex justify-center gap-2 flex-wrap">
-            <Badge variant="secondary" className="animate-flower-sway">
-              🌻 Garden Guide
+          <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
+            <Badge variant="secondary" className="animate-flower-sway text-xs">
+              <span className="hidden xs:inline">🌻 </span>Garden
             </Badge>
-            <Badge variant="secondary" className="animate-flower-sway">
-              🎨 Fun Activities
+            <Badge variant="secondary" className="animate-flower-sway text-xs">
+              <span className="hidden xs:inline">🎨 </span>Activities
             </Badge>
-            <Badge variant="secondary" className="animate-flower-sway">
-              🗣️ Voice Chat
+            <Badge variant="secondary" className="animate-flower-sway text-xs">
+              <span className="hidden xs:inline">🗣️ </span>Voice
             </Badge>
-            <Badge variant="secondary" className="animate-flower-sway">
-              👨‍👩‍👧‍👦 Family Fun
+            <Badge variant="secondary" className="animate-flower-sway text-xs">
+              <span className="hidden xs:inline">👨‍👩‍👧‍👦 </span>Family
             </Badge>
           </div>
         </div>
 
-        {/* Main Interface */}
-        <Card className={`shadow-honey border-2 border-border/50 bg-card/95 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
+        {/* Main Interface - Mobile Optimized */}
+        <Card className={`shadow-honey border border-border/50 bg-card/95 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
           <CardContent className="p-0 h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
-              <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''}`}>
-                <TabsTrigger value="chat" className="flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4" />
-                  Chat
+              <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
+                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">Chat</span>
+                  <span className="xs:hidden">💬</span>
                 </TabsTrigger>
-                <TabsTrigger value="voice" className="flex items-center gap-2">
-                  <Mic className="h-4 w-4" />
-                  Voice
+                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">Voice</span>
+                  <span className="xs:hidden">🎤</span>
                 </TabsTrigger>
-                <TabsTrigger value="about" className="flex items-center gap-2">
-                  <Info className="h-4 w-4" />
-                  About
+                <TabsTrigger value="about" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                  <Info className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden xs:inline">About</span>
+                  <span className="xs:hidden">ℹ️</span>
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'h-[600px]'}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'h-[70vh] sm:h-[600px] max-h-[800px]'}`}>
                   <DoryChat className="h-full" />
                 </div>
               </TabsContent>
 
               <TabsContent value="voice" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'h-[600px]'}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'h-[70vh] sm:h-[600px] max-h-[800px]'}`}>
                   <VoiceChat className="h-full" />
                 </div>
               </TabsContent>
 
-              <TabsContent value="about" className="m-0 p-6">
-                <div className="space-y-6">
+              <TabsContent value="about" className="m-0 p-3 sm:p-6 max-h-[70vh] overflow-y-auto scroll-area">
+                <div className="space-y-4 sm:space-y-6">
                   <div className="text-center">
-                    <div className="text-4xl mb-4 animate-flower-sway">🌻</div>
-                    <h3 className="text-2xl font-bold mb-2">Meet Dory</h3>
-                    <p className="text-muted-foreground">
+                    <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 animate-flower-sway">🌻</div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2">Meet Dory</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">
                       Your friendly bilingual bee from BeeCrazy Garden World!
                     </p>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <Card className="p-4 bg-secondary/20">
-                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                  <div className="space-y-3 sm:space-y-4 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
+                    <Card className="p-3 sm:p-4 bg-secondary/20">
+                      <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
                         🇪🇸 Spanish Features
                       </h4>
-                      <ul className="text-sm space-y-1 text-muted-foreground">
+                      <ul className="text-xs sm:text-sm space-y-1 text-muted-foreground">
                         <li>• Natural Spanish conversations</li>
                         <li>• Mexican cultural context</li>
                         <li>• Nature vocabulary in Spanish</li>
@@ -120,11 +124,11 @@ export const DoryInterface: React.FC = () => {
                       </ul>
                     </Card>
 
-                    <Card className="p-4 bg-secondary/20">
-                      <h4 className="font-semibold mb-2 flex items-center gap-2">
+                    <Card className="p-3 sm:p-4 bg-secondary/20">
+                      <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
                         🇺🇸 English Features
                       </h4>
-                      <ul className="text-sm space-y-1 text-muted-foreground">
+                      <ul className="text-xs sm:text-sm space-y-1 text-muted-foreground">
                         <li>• Fluent English responses</li>
                         <li>• Nature guide expertise</li>
                         <li>• Environmental education</li>
@@ -133,9 +137,9 @@ export const DoryInterface: React.FC = () => {
                     </Card>
                   </div>
 
-                  <div className="text-center bg-accent/20 rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">🐝 What can Dory help with?</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                  <div className="text-center bg-accent/20 rounded-lg p-3 sm:p-4">
+                    <h4 className="font-semibold mb-2 text-sm sm:text-base">🐝 What can Dory help with?</h4>
+                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 text-xs sm:text-sm">
                       <span>🌸 Plant identification</span>
                       <span>🦋 Wildlife facts</span>
                       <span>🌱 Gardening tips</span>
@@ -152,8 +156,8 @@ export const DoryInterface: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Footer */}
-        <div className="text-center mt-6 text-sm text-muted-foreground">
+        {/* Footer - Mobile Optimized */}
+        <div className="text-center mt-3 sm:mt-6 text-xs sm:text-sm text-muted-foreground px-2">
           <p>
             BeeCrazy Garden World! • Built with ❤️ for families everywhere
           </p>

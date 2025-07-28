@@ -203,57 +203,57 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
-      <div className="flex-1 p-6 space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-4">
+      <div className="flex-1 p-3 sm:p-6 space-y-4 sm:space-y-6">
+        {/* Header - Mobile Optimized */}
+        <div className="text-center space-y-3 sm:space-y-4">
           <div className="relative">
-            <div className={`text-6xl transition-all duration-300 ${
+            <div className={`text-4xl sm:text-6xl transition-all duration-300 ${
               isSpeaking ? 'animate-bee-bounce scale-110' : 'animate-flower-sway'
             }`}>
               🎙️🐝
             </div>
             {isSpeaking && (
-              <div className="absolute -top-2 -right-2">
-                <div className="animate-pulse text-2xl">🔊</div>
+              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2">
+                <div className="animate-pulse text-lg sm:text-2xl">🔊</div>
               </div>
             )}
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold bg-gradient-bee bg-clip-text text-transparent">
+            <h3 className="text-xl sm:text-2xl font-bold bg-gradient-bee bg-clip-text text-transparent">
               Voice Chat with Dory
             </h3>
-            <p className="text-muted-foreground">
-              ¡Buzztastical! 🐝✨ Have a bilingual conversation about gardens, bees, and nature!
+            <p className="text-sm sm:text-base text-muted-foreground px-2">
+              ¡Buzztastical! 🐝✨ Have a bilingual conversation about gardens!
             </p>
           </div>
 
-          <div className="flex justify-center gap-2 flex-wrap">
-            <Badge variant={isConnected ? "default" : "secondary"} className="animate-flower-sway">
+          <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
+            <Badge variant={isConnected ? "default" : "secondary"} className="animate-flower-sway text-xs">
               {isConnected ? "🟢 Connected" : "🔴 Disconnected"}
             </Badge>
             {isRecording && (
-              <Badge variant="destructive" className="animate-pulse">
+              <Badge variant="destructive" className="animate-pulse text-xs">
                 🎤 Recording...
               </Badge>
             )}
             {isSpeaking && (
-              <Badge variant="default" className="animate-pulse">
+              <Badge variant="default" className="animate-pulse text-xs">
                 🗣️ Dory Speaking...
               </Badge>
             )}
           </div>
         </div>
 
-        {/* Conversation Display */}
-        <Card className="flex-1 min-h-[200px] max-h-[400px] overflow-hidden">
-          <CardContent className="p-4 h-full">
-            <div className="h-full overflow-y-auto space-y-3">
+        {/* Conversation Display - Mobile Optimized */}
+        <Card className="flex-1 min-h-[180px] sm:min-h-[200px] max-h-[300px] sm:max-h-[400px] overflow-hidden">
+          <CardContent className="p-2 sm:p-4 h-full">
+            <div className="h-full overflow-y-auto space-y-2 sm:space-y-3 scroll-area">
               {conversation.length === 0 ? (
-                <div className="text-center text-muted-foreground py-8">
-                  <div className="text-4xl mb-2">🌻</div>
-                  <p>Start speaking to begin your conversation with Dory!</p>
-                  <p className="text-sm">¡Comienza a hablar para conversar con Dory!</p>
+                <div className="text-center text-muted-foreground py-6 sm:py-8">
+                  <div className="text-3xl sm:text-4xl mb-2">🌻</div>
+                  <p className="text-sm sm:text-base">Start speaking to begin your conversation with Dory!</p>
+                  <p className="text-xs sm:text-sm">¡Comienza a hablar para conversar con Dory!</p>
                 </div>
               ) : (
                 conversation.map((message, index) => (
@@ -262,17 +262,17 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
                     className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[80%] p-3 rounded-lg ${
+                      className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 rounded-lg ${
                         message.role === 'user'
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-secondary text-secondary-foreground'
                       }`}
                     >
-                      <div className="flex items-start gap-2">
-                        <span className="text-sm">
+                      <div className="flex items-start gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm flex-shrink-0">
                           {message.role === 'user' ? '👤' : '🐝'}
                         </span>
-                        <p className="text-sm">{message.content}</p>
+                        <p className="text-xs sm:text-sm leading-relaxed">{message.content}</p>
                       </div>
                     </div>
                   </div>
@@ -282,24 +282,25 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
           </CardContent>
         </Card>
 
-        {/* Controls */}
-        <div className="flex justify-center gap-4">
+        {/* Controls - Mobile Optimized */}
+        <div className="flex justify-center gap-2 sm:gap-4 safe-area-bottom">
           {!isConnected ? (
             <Button
               onClick={connectToVoiceChat}
               disabled={connectionStatus === 'connecting'}
-              size="lg"
-              className="bg-gradient-bee hover:opacity-90"
+              className="bg-gradient-bee hover:opacity-90 min-h-[48px] px-4 sm:px-6 text-sm sm:text-base"
             >
               {connectionStatus === 'connecting' ? (
                 <>
-                  <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                  Connecting...
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 animate-spin" />
+                  <span className="hidden xs:inline">Connecting...</span>
+                  <span className="xs:hidden">...</span>
                 </>
               ) : (
                 <>
-                  <Volume2 className="h-5 w-5 mr-2" />
-                  Start Voice Chat
+                  <Volume2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  <span className="hidden sm:inline">Start Voice Chat</span>
+                  <span className="sm:hidden">Start Voice</span>
                 </>
               )}
             </Button>
@@ -308,19 +309,20 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
               <Button
                 onClick={isRecording ? stopRecording : startRecording}
                 disabled={isSpeaking}
-                size="lg"
                 variant={isRecording ? "destructive" : "default"}
-                className={!isRecording ? "bg-gradient-bee hover:opacity-90" : ""}
+                className={`min-h-[48px] px-3 sm:px-4 text-sm sm:text-base ${!isRecording ? "bg-gradient-bee hover:opacity-90" : ""}`}
               >
                 {isRecording ? (
                   <>
-                    <MicOff className="h-5 w-5 mr-2" />
-                    Stop Recording
+                    <MicOff className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Stop Recording</span>
+                    <span className="sm:hidden">Stop</span>
                   </>
                 ) : (
                   <>
-                    <Mic className="h-5 w-5 mr-2" />
-                    {isSpeaking ? "Dory is speaking..." : "Hold to Talk"}
+                    <Mic className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">{isSpeaking ? "Dory is speaking..." : "Hold to Talk"}</span>
+                    <span className="sm:hidden">{isSpeaking ? "Speaking..." : "Talk"}</span>
                   </>
                 )}
               </Button>
@@ -328,10 +330,11 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
               <Button
                 onClick={disconnect}
                 variant="outline"
-                size="lg"
+                className="min-h-[48px] px-3 sm:px-4 text-sm sm:text-base"
               >
-                <VolumeX className="h-5 w-5 mr-2" />
-                Disconnect
+                <VolumeX className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Disconnect</span>
+                <span className="sm:hidden">End</span>
               </Button>
             </>
           )}
