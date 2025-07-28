@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useConversations } from '@/hooks/useConversations';
-import { Mic, MicOff, Send, Volume2, VolumeX } from 'lucide-react';
+import { Mic, MicOff, Send, Volume2, VolumeX, Image, Sparkles } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -53,7 +53,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           const welcomeMessage: Message = {
             id: '1',
             type: 'dory',
-            content: '🐝 ¡Hola! Soy Dory la Abeja Hacendosa. I\'m Dory the Busy Bee!\n🌸 ¿Cómo puedo ayudarte hoy? How can I help you explore nature today?',
+            content: '¡Buzztastical! 🐝✨ ¡Hola! Soy Dory de los Huertos - your joyful Garden Bee companion!\n\n🌻 I can help you with:\n• Garden tips & plant care (English/Spanish)\n• Generate beautiful Sora-style garden scenes\n• Voice conversations about nature\n• Eco-education for all ages\n\n¿Cómo puedo ayudarte hoy? How can I help you explore the wonderful world of gardens and nature today?',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
@@ -65,8 +65,68 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     initializeChat();
   }, [user, currentConversation, createConversation, saveMessage]);
 
-  const sendMessage = async (messageText: string = inputMessage) => {
+  const generateImage = async (prompt: string) => {
+    setIsLoading(true);
+    try {
+      const enhanced_prompt = `Create a cinematic, Sora-style video-quality image featuring Dory de los Huertos (Garden Bee) in an immersive natural setting. 
+
+CINEMATOGRAPHY: Dynamic camera angle with natural depth of field, golden hour lighting, soft bokeh effects
+VISUAL IDENTITY: Dory - a charming bee with expressive animated wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
+ENVIRONMENT: Vibrant garden paradise with native plants, buzzing with life - dewdrops on petals, gentle breeze effects, organic textures
+MOOD & TONE: ¡Buzztastical! Joyful, educational wonder with eco-consciousness, perfect for bilingual learning
+INTERACTIVE ELEMENT: ${prompt}
+
+Style this as if it's a frame from a premium nature documentary meets Pixar animation - educational, inspiring, and filled with the warm, buzzing personality that makes learning about gardens and nature absolutely delightful. Include subtle Spanish and English garden elements.`;
+
+      const response = await fetch(
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/generate_image`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg`,
+          },
+          body: JSON.stringify({ prompt: enhanced_prompt })
+        }
+      );
+
+      const data = await response.json();
+      if (data.image_url || data.url) {
+        const imageMessage: Message = {
+          id: Date.now().toString(),
+          type: 'dory',
+          content: `¡Buzztastical! 🐝✨ Here's your beautiful garden scene:\n\n![Generated Garden Scene](${data.image_url || data.url})\n\n🌻 This cinematic image shows the magical world of gardens through Dory's eyes! What would you like to explore next in our garden adventure?`,
+          timestamp: new Date()
+        };
+        
+        setLocalMessages(prev => [...prev, imageMessage]);
+        
+        if (currentConversation) {
+          await saveMessage(currentConversation, 'dory', imageMessage.content);
+        }
+      }
+    } catch (error) {
+      console.error('Image generation error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to generate image. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const sendMessage = async (messageText: string = inputMessage, generateImageFirst: boolean = false) => {
     if (!messageText.trim() || isLoading) return;
+
+    // Check if user is asking for an image
+    const imageKeywords = ['image', 'picture', 'show', 'generate', 'create', 'draw', 'imagen', 'foto', 'mostrar', 'generar', 'crear', 'dibujar'];
+    const shouldGenerateImage = generateImageFirst || imageKeywords.some(keyword => messageText.toLowerCase().includes(keyword));
+
+    if (shouldGenerateImage) {
+      await generateImage(messageText);
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -137,10 +197,24 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
                   const parsed = JSON.parse(data);
                   if (parsed.content) {
                     fullResponse += parsed.content;
+                    
+                    // Apply the ¡Buzztastical! pattern for delightful or learning-filled responses
+                    let enhancedResponse = fullResponse;
+                    if (fullResponse.length > 20 && (
+                        fullResponse.includes('garden') || fullResponse.includes('learn') || fullResponse.includes('nature') || 
+                        fullResponse.includes('jardín') || fullResponse.includes('aprender') || fullResponse.includes('naturaleza') ||
+                        fullResponse.includes('bee') || fullResponse.includes('abeja') || fullResponse.includes('flower') || fullResponse.includes('flor') ||
+                        fullResponse.includes('plant') || fullResponse.includes('planta')
+                    )) {
+                      if (!fullResponse.startsWith('¡Buzztastical!')) {
+                        enhancedResponse = `¡Buzztastical! 🐝✨ ${fullResponse}`;
+                      }
+                    }
+                    
                     setLocalMessages(prev => 
                       prev.map(m => 
                         m.id === doryMessage.id 
-                          ? { ...m, content: fullResponse }
+                          ? { ...m, content: enhancedResponse }
                           : m
                       )
                     );
@@ -156,7 +230,10 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
 
       // Save Dory's response to database
       if (currentConversation && fullResponse) {
-        await saveMessage(currentConversation, 'dory', fullResponse);
+        const finalResponse = fullResponse.includes('¡Buzztastical!') ? fullResponse : 
+          (fullResponse.includes('garden') || fullResponse.includes('nature') || fullResponse.includes('bee')) ? 
+          `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
+        await saveMessage(currentConversation, 'dory', finalResponse);
       }
 
     } catch (error) {
@@ -287,10 +364,10 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           <div className="text-3xl animate-bee-bounce">🐝</div>
           <div>
             <h2 className="text-lg font-bold text-primary-foreground">
-              Dory la Abeja Hacendosa
+              Dory de los Huertos 🌻
             </h2>
             <p className="text-sm text-primary-foreground/80">
-              Your bilingual nature guide / Tu guía bilingüe de la naturaleza
+              ¡Buzztastical! Garden Bee • Voice & Visual Assistant
             </p>
           </div>
         </div>
@@ -327,7 +404,15 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
                   </div>
                 )}
                 <div className="whitespace-pre-wrap text-sm">
-                  {message.content}
+                  {message.content.includes('![') ? (
+                    <div dangerouslySetInnerHTML={{
+                      __html: message.content
+                        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full h-auto my-2" />')
+                        .replace(/\n/g, '<br />')
+                    }} />
+                  ) : (
+                    message.content
+                  )}
                 </div>
                 <div className="text-xs opacity-70 mt-1">
                   {message.timestamp.toLocaleTimeString()}
@@ -355,16 +440,27 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask Dory about nature... / Pregúntale a Dory sobre la naturaleza..."
+            placeholder="Ask Dory about gardens... / Pregúntale a Dory sobre jardines..."
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
             disabled={isLoading}
             className="flex-1"
           />
           <Button
+            onClick={() => generateImage(inputMessage || 'beautiful garden scene with Dory the bee')}
+            disabled={isLoading}
+            variant="secondary"
+            size="icon"
+            className="shrink-0"
+            title="Generate Sora-style garden image"
+          >
+            <Sparkles className="h-4 w-4" />
+          </Button>
+          <Button
             onClick={isListening ? stopVoiceRecording : startVoiceRecording}
             variant={isListening ? "destructive" : "secondary"}
             size="icon"
             className="shrink-0"
+            title="Voice input"
           >
             {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
           </Button>
@@ -372,6 +468,7 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
             onClick={() => sendMessage()}
             disabled={isLoading || !inputMessage.trim()}
             className="shrink-0"
+            title="Send message"
           >
             <Send className="h-4 w-4" />
           </Button>

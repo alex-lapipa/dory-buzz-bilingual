@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { DoryChat } from './DoryChat';
+import { VoiceChat } from './VoiceChat';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Mic, Phone, Info } from 'lucide-react';
+import { MessageCircle, Mic, Phone, Info, Expand, Shrink } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { user, loading, signInAnonymously } = useAuth();
 
   useEffect(() => {
@@ -30,40 +32,57 @@ export const DoryInterface: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-nature p-4">
-      <div className="max-w-4xl mx-auto">
+    <div className={`min-h-screen bg-gradient-nature ${isFullscreen ? 'fixed inset-0 z-50' : 'p-4'}`}>
+      <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-4xl mx-auto'}`}>
         {/* Header */}
-        <div className="text-center mb-6">
+        <div className={`text-center ${isFullscreen ? 'mb-4' : 'mb-6'}`}>
           <div className="flex justify-center items-center gap-4 mb-4">
-            <div className="text-6xl animate-bee-bounce">🐝</div>
+            <div className="relative">
+              <div className="text-6xl animate-bee-bounce">🐝</div>
+              <div className="absolute -top-2 -right-2 text-2xl animate-flower-sway">🌻</div>
+            </div>
             <div className="text-left">
               <h1 className="text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
-                Dory la Abeja Hacendosa
+                Dory de los Huertos
               </h1>
               <p className="text-lg text-muted-foreground">
-                Your bilingual nature guide • Tu guía bilingüe de la naturaleza
+                ¡Buzztastical! 🐝✨ Garden Bee • Abeja de los Jardines
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Warm, joyful, eco-educational companion
               </p>
             </div>
+            <Button
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              variant="ghost"
+              size="icon"
+              className="ml-auto"
+            >
+              {isFullscreen ? <Shrink className="h-4 w-4" /> : <Expand className="h-4 w-4" />}
+            </Button>
           </div>
           
           <div className="flex justify-center gap-2 flex-wrap">
             <Badge variant="secondary" className="animate-flower-sway">
-              🌸 Bilingual Assistant
+              🌻 Garden Guide
             </Badge>
             <Badge variant="secondary" className="animate-flower-sway">
-              🌿 Nature Expert
+              🎨 Sora Visuals
             </Badge>
             <Badge variant="secondary" className="animate-flower-sway">
-              🍯 AI Powered
+              🗣️ Voice Chat
+            </Badge>
+            <Badge variant="secondary" className="animate-flower-sway">
+              🍯 Eco-Education
             </Badge>
           </div>
         </div>
 
         {/* Main Interface */}
-        <Card className="shadow-honey border-2 border-border/50 bg-card/95 backdrop-blur">
-          <CardContent className="p-0">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 bg-muted/50">
+        <Card className={`shadow-honey border-2 border-border/50 bg-card/95 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
+          <CardContent className="p-0 h-full flex flex-col">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
+              <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''}`}>
                 <TabsTrigger value="chat" className="flex items-center gap-2">
                   <MessageCircle className="h-4 w-4" />
                   Chat
@@ -78,28 +97,15 @@ export const DoryInterface: React.FC = () => {
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="chat" className="m-0">
-                <div className="h-[600px]">
+              <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'h-[600px]'}`}>
                   <DoryChat className="h-full" />
                 </div>
               </TabsContent>
 
-              <TabsContent value="voice" className="m-0 p-6">
-                <div className="text-center space-y-6">
-                  <div className="text-4xl animate-bee-bounce">🎙️</div>
-                  <h3 className="text-2xl font-bold">Voice Chat with Dory</h3>
-                  <p className="text-muted-foreground max-w-md mx-auto">
-                    Have a real-time conversation with Dory! She speaks both Spanish and English fluently.
-                  </p>
-                  <div className="space-y-4">
-                    <Button size="lg" className="bg-gradient-bee hover:opacity-90">
-                      <Phone className="h-5 w-5 mr-2" />
-                      Start Voice Chat
-                    </Button>
-                    <p className="text-sm text-muted-foreground">
-                      🎯 Click to begin • Perfect for language practice
-                    </p>
-                  </div>
+              <TabsContent value="voice" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'h-[600px]'}`}>
+                  <VoiceChat className="h-full" />
                 </div>
               </TabsContent>
 

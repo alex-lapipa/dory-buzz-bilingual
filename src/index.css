@@ -18,13 +18,13 @@ All colors MUST be HSL.
     --popover: 54 100% 99%;
     --popover-foreground: 39 100% 10%;
 
-    /* Bee Yellow Primary */
-    --primary: 45 100% 55%;
-    --primary-foreground: 39 100% 5%;
+    /* Warm Honey Yellow Primary - Dory's signature color */
+    --primary: 45 95% 60%;
+    --primary-foreground: 30 100% 8%;
 
-    /* Honey Orange Secondary */
-    --secondary: 35 100% 85%;
-    --secondary-foreground: 35 100% 15%;
+    /* Gentle Garden Brown Secondary */
+    --secondary: 30 60% 80%;
+    --secondary-foreground: 30 80% 20%;
 
     --muted: 52 50% 92%;
     --muted-foreground: 39 50% 40%;
@@ -51,15 +51,18 @@ All colors MUST be HSL.
     --grass-green: 110 50% 45%;
     --stone-gray: 200 10% 65%;
 
-    /* Mountain-inspired gradients */
-    --gradient-bee: linear-gradient(135deg, hsl(var(--primary)), hsl(35 100% 65%));
+    /* Enhanced garden nature gradients */
+    --gradient-nature: linear-gradient(135deg, hsl(50 80% 95%) 0%, hsl(45 100% 92%) 30%, hsl(35 85% 88%) 60%, hsl(30 70% 85%) 100%);
+    --gradient-bee: linear-gradient(135deg, hsl(45 100% 80%) 0%, hsl(40 95% 70%) 50%, hsl(35 85% 65%) 100%);
+    --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
     --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
     --gradient-mountain: linear-gradient(180deg, hsl(var(--sky-blue)) 0%, hsl(var(--mountain-light)) 40%, hsl(var(--mountain-blue)) 70%, hsl(var(--field-green)) 100%);
     --gradient-valley: linear-gradient(135deg, hsl(var(--grass-green)), hsl(var(--field-green)), hsl(var(--meadow-green)));
     --gradient-meadow: linear-gradient(45deg, hsl(var(--field-green)), hsl(var(--meadow-green)));
     
-    /* Nature Shadows */
-    --shadow-honey: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    /* Enhanced nature shadows */
+    --shadow-honey: 0 15px 40px -10px hsl(var(--primary) / 0.4);
+    --shadow-garden: 0 8px 25px -5px hsl(120 30% 40% / 0.2);
     --shadow-flower: 0 0 40px hsl(var(--accent) / 0.2);
     --shadow-mountain: 0 8px 32px hsl(var(--mountain-blue) / 0.3);
     
@@ -129,33 +132,74 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-sans;
   }
   
-  /* Custom animations */
+  /* Enhanced bee and garden animations */
   @keyframes bee-bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg) scale(1); 
+      filter: drop-shadow(0 4px 8px hsl(45 100% 60% / 0.3));
     }
-    40% {
-      transform: translateY(-10px);
+    25% { 
+      transform: translateY(-8px) rotate(-3deg) scale(1.05); 
+      filter: drop-shadow(0 6px 12px hsl(45 100% 60% / 0.4));
     }
-    60% {
-      transform: translateY(-5px);
+    50% { 
+      transform: translateY(-15px) rotate(0deg) scale(1.1); 
+      filter: drop-shadow(0 8px 16px hsl(45 100% 60% / 0.5));
+    }
+    75% { 
+      transform: translateY(-8px) rotate(3deg) scale(1.05); 
+      filter: drop-shadow(0 6px 12px hsl(45 100% 60% / 0.4));
     }
   }
-  
+
   @keyframes flower-sway {
-    0%, 100% {
-      transform: rotate(-2deg);
+    0%, 100% { 
+      transform: rotate(0deg) scale(1); 
+      filter: hue-rotate(0deg);
     }
-    50% {
-      transform: rotate(2deg);
+    25% { 
+      transform: rotate(2deg) scale(1.02); 
+      filter: hue-rotate(5deg);
+    }
+    75% { 
+      transform: rotate(-2deg) scale(0.98); 
+      filter: hue-rotate(-5deg);
     }
   }
-  
+
+  @keyframes garden-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(120 40% 60% / 0.3);
+    }
+    50% { 
+      box-shadow: 0 0 30px hsl(120 40% 60% / 0.5);
+    }
+  }
+
+  @keyframes buzztastic-pulse {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+
   .animate-bee-bounce {
-    animation: bee-bounce 2s infinite;
+    animation: bee-bounce 2.5s ease-in-out infinite;
   }
-  
+
   .animate-flower-sway {
-    animation: flower-sway 3s ease-in-out infinite;
+    animation: flower-sway 4s ease-in-out infinite;
+  }
+
+  .animate-garden-glow {
+    animation: garden-glow 3s ease-in-out infinite;
+  }
+
+  .animate-buzztastic-pulse {
+    animation: buzztastic-pulse 1.5s ease-in-out infinite;
   }
 }
