@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DoryChat } from './DoryChat';
+import { ShareButtons } from './ShareButtons';
 import { VoiceChat } from './VoiceChat';
 import { FollowDoryModal } from './FollowDoryModal';
 import { Card, CardContent } from '@/components/ui/card';
@@ -40,6 +41,7 @@ export const DoryInterface: React.FC = () => {
                   <span className="hidden xs:inline">Follow</span> Dory!
                 </Button>
               </FollowDoryModal>
+              <ShareButtons />
               <Button
                 onClick={() => setIsFullscreen(!isFullscreen)}
                 variant="ghost"
