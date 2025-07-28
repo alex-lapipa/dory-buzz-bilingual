@@ -14,7 +14,16 @@ export const DoryInterface: React.FC = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   return (
-    <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
+    <>
+      {/* Flying Bees Background */}
+      <div className="flying-bee flying-bee-1 animate-tiny-bee-fly">🐝</div>
+      <div className="flying-bee flying-bee-2 animate-tiny-bee-fly-reverse">🐝</div>
+      <div className="flying-bee flying-bee-3 animate-tiny-bee-zigzag">🐝</div>
+      <div className="flying-bee flying-bee-4 animate-tiny-bee-fly">🐝</div>
+      <div className="flying-bee flying-bee-5 animate-tiny-bee-fly-reverse">🐝</div>
+      <div className="flying-bee flying-bee-6 animate-tiny-bee-zigzag">🐝</div>
+      
+      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
       <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl mx-auto'}`}>
         {/* Header - Mobile Optimized */}
         <div className={`text-center ${isFullscreen ? 'mb-2 sm:mb-4' : 'mb-4 sm:mb-6'}`}>
@@ -146,6 +155,7 @@ export const DoryInterface: React.FC = () => {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
