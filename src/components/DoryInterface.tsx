@@ -27,8 +27,8 @@ export const DoryInterface: React.FC = () => {
       <div className="flying-bee flying-bee-9 animate-bee-garden-visit">🐝</div>
       <div className="flying-bee flying-bee-10 animate-bee-to-garden">🐝</div>
       
-      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
-      <div className={`${isFullscreen ? 'h-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl mx-auto'}`}>
+      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4'}`}>
+      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full'}`}>
         {/* Header - Mobile Optimized */}
         <div className={`text-center ${isFullscreen ? 'mb-2 sm:mb-4' : 'mb-4 sm:mb-6'}`}>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
