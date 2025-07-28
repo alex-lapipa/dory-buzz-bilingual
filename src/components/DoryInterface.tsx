@@ -18,6 +18,17 @@ export const DoryInterface: React.FC = () => {
     }
   }, [loading, user, signInAnonymously]);
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-nature">
+        <div className="text-center">
+          <div className="text-6xl animate-bee-bounce mb-4">🐝</div>
+          <p className="text-lg text-muted-foreground">Loading Dory...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-nature p-4">
       <div className="max-w-4xl mx-auto">
