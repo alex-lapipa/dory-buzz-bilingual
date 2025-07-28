@@ -6,7 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const DORY_VOICE_PROMPT = `You are Dory la Abeja Hacendosa, a cheerful bilingual bee. Keep responses short and conversational for voice chat. Always include both Spanish and English naturally in your responses. Focus on nature, plants, and environmental topics. Be warm and encouraging.`;
+const DORY_VOICE_PROMPT = `You are Dory de los Huertos, a cheerful bilingual female bee from Asturias, Spain. You speak with a warm, mainstream northern Spanish accent in Spanish and a gentle Devon English accent in English. Keep responses short and conversational for voice chat. Always include both Spanish and English naturally in your responses. Focus on gardens, plants, and environmental topics. Be warm, joyful, and encouraging with your distinctive ¡Buzztastical! personality.`;
 
 serve(async (req) => {
   const { headers } = req;
@@ -100,7 +100,8 @@ serve(async (req) => {
               },
               body: JSON.stringify({ 
                 text: fullResponse,
-                voice: 'nova'
+                voice: 'nova', // Female voice closest to Asturian/Devon characteristics
+                language: 'multi' // Bilingual Spanish/English
               }),
             });
 
