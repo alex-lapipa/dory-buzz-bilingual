@@ -23,8 +23,8 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
-    // Add nature/bee context to prompts for Dory
-    const enhancedPrompt = `Nature illustration for Dory the bee: ${prompt}. Style: educational, colorful, family-friendly, nature-focused.`;
+    // Add BeeCrazy Garden World context to prompts for Dory
+    const enhancedPrompt = `BeeCrazy Garden World illustration with Dory the bee: ${prompt}. Style: family-friendly, colorful, educational, garden and nature-focused, welcoming to all ages.`;
 
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
