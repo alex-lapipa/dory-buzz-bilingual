@@ -513,9 +513,9 @@ All colors MUST be HSL.
   .garden-footer {
     position: relative;
     background: transparent;
-    overflow: hidden;
+    overflow: visible;
     z-index: 2;
-    min-height: 140px;
+    min-height: 200px;
   }
 
   .garden-bed {
@@ -587,10 +587,11 @@ All colors MUST be HSL.
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    padding: 1rem 0 0.5rem 0;
+    padding: 0;
     font-size: 1.2rem;
     user-select: none;
-    height: 80px;
+    height: 160px;
+    overflow: visible;
   }
 
   .garden-plant {
@@ -600,47 +601,157 @@ All colors MUST be HSL.
     align-items: center;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     opacity: 0.9;
+    transform-origin: bottom center;
+    animation: gentle-breeze 6s ease-in-out infinite;
+  }
+
+  /* Plant height variations */
+  .short-plant {
+    height: 40px;
+  }
+
+  .medium-plant {
+    height: 80px;
+  }
+
+  .tall-plant {
+    height: 120px;
+  }
+
+  .very-tall-plant {
+    height: 160px;
+  }
+
+  /* Stem variations */
+  .short-stem {
+    height: 20px;
+    display: block;
+  }
+
+  .medium-stem {
+    height: 40px;
+    display: block;
+  }
+
+  .long-stem {
+    height: 60px;
+    display: block;
+  }
+
+  .very-long-stem {
+    height: 80px;
+    display: block;
   }
 
   .plant-stem {
     font-size: 0.8rem;
+    opacity: 0.8;
+    transform-origin: bottom center;
+    line-height: 1;
     color: hsl(120 40% 30%);
     margin-bottom: -2px;
   }
 
   .plant-flower {
-    font-size: 1.2rem;
-    animation: flower-sway 3s ease-in-out infinite;
+    font-size: 1.4rem;
+    transform-origin: center center;
+    animation: flower-gentle-sway 8s ease-in-out infinite;
   }
 
   .plant-leaves {
-    font-size: 0.6rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    transform-origin: bottom center;
+    animation: leaves-breeze 5s ease-in-out infinite;
     color: hsl(120 50% 35%);
     margin-top: -4px;
   }
 
-  .tall-plant .plant-flower {
-    font-size: 1.4rem;
-  }
-
-  .medium-plant .plant-flower {
-    font-size: 1.1rem;
-  }
-
-  .short-plant .plant-flower {
-    font-size: 0.9rem;
-  }
-
-  .garden-plant:nth-child(2n) .plant-flower {
-    animation-delay: -0.5s;
-  }
-
-  .garden-plant:nth-child(3n) .plant-flower {
+  /* Staggered animation delays for natural movement */
+  .garden-plant:nth-child(2n) {
     animation-delay: -1s;
   }
 
+  .garden-plant:nth-child(3n) {
+    animation-delay: -2s;
+  }
+
+  .garden-plant:nth-child(4n) {
+    animation-delay: -3s;
+  }
+
+  .garden-plant:nth-child(5n) {
+    animation-delay: -4s;
+  }
+
+  .garden-plant:nth-child(2n) .plant-flower {
+    animation-delay: -2s;
+  }
+
+  .garden-plant:nth-child(3n) .plant-flower {
+    animation-delay: -4s;
+  }
+
   .garden-plant:nth-child(4n) .plant-flower {
+    animation-delay: -6s;
+  }
+
+  .garden-plant:nth-child(2n) .plant-leaves {
     animation-delay: -1.5s;
+  }
+
+  .garden-plant:nth-child(3n) .plant-leaves {
+    animation-delay: -3s;
+  }
+
+  .garden-plant:nth-child(4n) .plant-leaves {
+    animation-delay: -4.5s;
+  }
+
+  /* Gentle breeze animations */
+  @keyframes gentle-breeze {
+    0%, 100% {
+      transform: rotate(0deg) translateX(0px);
+    }
+    25% {
+      transform: rotate(1deg) translateX(1px);
+    }
+    50% {
+      transform: rotate(-0.5deg) translateX(-0.5px);
+    }
+    75% {
+      transform: rotate(1.5deg) translateX(1px);
+    }
+  }
+
+  @keyframes flower-gentle-sway {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    20% {
+      transform: rotate(2deg) scale(1.02);
+    }
+    40% {
+      transform: rotate(-1deg) scale(0.98);
+    }
+    60% {
+      transform: rotate(2.5deg) scale(1.03);
+    }
+    80% {
+      transform: rotate(-1.5deg) scale(0.99);
+    }
+  }
+
+  @keyframes leaves-breeze {
+    0%, 100% {
+      transform: rotate(0deg) translateY(0px);
+    }
+    30% {
+      transform: rotate(3deg) translateY(-1px);
+    }
+    60% {
+      transform: rotate(-2deg) translateY(1px);
+    }
   }
 
   /* Garden Insects */

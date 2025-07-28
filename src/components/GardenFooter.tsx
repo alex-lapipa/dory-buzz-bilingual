@@ -43,55 +43,84 @@ export const GardenFooter: React.FC = () => {
         <div className="garden-plants">
           <div className="garden-plant tall-plant">
             <div className="plant-flower">🌻</div>
-            <div className="plant-stem">🌱</div>
+            <div className="plant-stem long-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant medium-plant">
             <div className="plant-flower">🌸</div>
-            <div className="plant-stem">🌿</div>
+            <div className="plant-stem medium-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant very-tall-plant">
+            <div className="plant-flower">🌺</div>
+            <div className="plant-stem very-long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
+            <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant short-plant">
-            <div className="plant-flower">🌺</div>
-            <div className="plant-stem">🌱</div>
+            <div className="plant-flower">🌷</div>
+            <div className="plant-stem short-stem">🌿</div>
           </div>
           <div className="garden-plant tall-plant">
-            <div className="plant-flower">🌷</div>
-            <div className="plant-stem">🌿</div>
+            <div className="plant-flower">🌹</div>
+            <div className="plant-stem long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant very-tall-plant">
+            <div className="plant-flower">🌼</div>
+            <div className="plant-stem very-long-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
             <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant medium-plant">
-            <div className="plant-flower">🌹</div>
-            <div className="plant-stem">🌱</div>
-          </div>
-          <div className="garden-plant short-plant">
-            <div className="plant-flower">🌼</div>
-            <div className="plant-stem">🌿</div>
-          </div>
-          <div className="garden-plant tall-plant">
             <div className="plant-flower">🌻</div>
-            <div className="plant-stem">🌱</div>
+            <div className="plant-stem medium-stem">🌱</div>
             <div className="plant-leaves">🍃</div>
           </div>
-          <div className="garden-plant medium-plant">
+          <div className="garden-plant tall-plant">
             <div className="plant-flower">🌸</div>
-            <div className="plant-stem">🌿</div>
+            <div className="plant-stem long-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant short-plant">
             <div className="plant-flower">🌺</div>
-            <div className="plant-stem">🌱</div>
+            <div className="plant-stem short-stem">🌱</div>
           </div>
-          <div className="garden-plant tall-plant">
+          <div className="garden-plant very-tall-plant">
             <div className="plant-flower">🌷</div>
-            <div className="plant-stem">🌿</div>
+            <div className="plant-stem very-long-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
             <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant medium-plant">
             <div className="plant-flower">🌹</div>
-            <div className="plant-stem">🌱</div>
+            <div className="plant-stem medium-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant tall-plant">
+            <div className="plant-flower">🌼</div>
+            <div className="plant-stem long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
           </div>
           <div className="garden-plant short-plant">
-            <div className="plant-flower">🌼</div>
-            <div className="plant-stem">🌿</div>
+            <div className="plant-flower">🌻</div>
+            <div className="plant-stem short-stem">🌿</div>
+          </div>
+          <div className="garden-plant very-tall-plant">
+            <div className="plant-flower">🌸</div>
+            <div className="plant-stem very-long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant medium-plant">
+            <div className="plant-flower">🌺</div>
+            <div className="plant-stem medium-stem">🌿</div>
+            <div className="plant-leaves">🍃</div>
+          </div>
+          <div className="garden-plant tall-plant">
+            <div className="plant-flower">🌷</div>
+            <div className="plant-stem long-stem">🌱</div>
+            <div className="plant-leaves">🍃</div>
           </div>
         </div>
         </div>
