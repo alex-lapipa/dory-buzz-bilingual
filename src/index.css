@@ -509,21 +509,77 @@ All colors MUST be HSL.
     animation-delay: 18s;
   }
 
-  /* Realistic Garden Footer Styles */
+  /* Elevated Garden Bed Styles */
   .garden-footer {
     position: relative;
     background: transparent;
     overflow: hidden;
     z-index: 2;
-    min-height: 120px;
+    min-height: 140px;
+  }
+
+  .garden-bed {
+    position: relative;
+    background: linear-gradient(to top, 
+      hsl(30 35% 25%) 0%, 
+      hsl(30 40% 30%) 20%, 
+      hsl(25 45% 35%) 100%
+    );
+    border: 6px solid hsl(25 50% 20%);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 
+      inset 0 2px 4px hsl(30 60% 15% / 0.8),
+      inset 0 -2px 8px hsl(25 40% 40% / 0.3),
+      0 -4px 12px hsl(25 30% 15% / 0.4);
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        hsl(25 50% 20%) 0px,
+        hsl(30 45% 25%) 2px,
+        hsl(25 50% 20%) 4px,
+        hsl(20 55% 18%) 6px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        hsl(30 30% 35% / 0.3) 1px,
+        transparent 2px
+      );
+    min-height: 140px;
   }
 
   .garden-soil {
-    display: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to top, 
+      hsl(25 30% 15%) 0%, 
+      hsl(30 35% 20%) 30%,
+      hsl(25 40% 25%) 70%,
+      hsl(30 35% 30%) 100%
+    );
+    background-image: 
+      radial-gradient(circle at 20% 50%, hsl(20 40% 18% / 0.8) 1px, transparent 2px),
+      radial-gradient(circle at 80% 30%, hsl(35 45% 22% / 0.6) 1px, transparent 2px),
+      radial-gradient(circle at 50% 80%, hsl(25 35% 16% / 0.7) 1px, transparent 2px);
+    border-top: 2px solid hsl(30 40% 28%);
   }
 
   .garden-grass {
-    display: none;
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    height: 15px;
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(120 50% 30% / 0.8) 0px,
+      hsl(120 60% 35% / 0.9) 1px,
+      hsl(120 50% 30% / 0.8) 2px,
+      hsl(120 40% 25% / 0.7) 3px
+    );
+    opacity: 0.6;
   }
 
   .garden-plants {

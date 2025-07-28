@@ -13,10 +13,11 @@ export const GardenFooter: React.FC = () => {
       <div className="garden-insect animate-ant-march" style={{animationDelay: '10s'}}>🐜</div>
       <div className="garden-insect animate-ant-march" style={{animationDelay: '22s'}}>🐜</div>
       
-      {/* Garden Footer - Growing from ground */}
+      {/* Garden Footer - Elevated Garden Bed */}
       <div className="garden-footer fixed bottom-0 left-0 right-0 z-10">
-        <div className="garden-soil"></div>
-        <div className="garden-grass"></div>
+        <div className="garden-bed">
+          <div className="garden-soil"></div>
+          <div className="garden-grass"></div>
         <div className="garden-plants">
           <div className="garden-plant tall-plant">
             <div className="plant-flower">🌻</div>
@@ -70,6 +71,7 @@ export const GardenFooter: React.FC = () => {
             <div className="plant-flower">🌼</div>
             <div className="plant-stem">🌿</div>
           </div>
+        </div>
         </div>
       </div>
     </>
