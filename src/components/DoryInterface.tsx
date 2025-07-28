@@ -21,16 +21,12 @@ export const DoryInterface: React.FC = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
             <div className="relative flex sm:block">
               <div className="text-4xl sm:text-6xl animate-bee-bounce">🐝</div>
-              <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 text-lg sm:text-2xl animate-flower-sway">🌻</div>
             </div>
             <div className="text-center sm:text-left">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
-                Dory de los Huertos
+                BeeCrazy Garden World
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">
-                ¡Buzztastical! 🐝✨ Garden Bee
-              </p>
-              <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
                 Your friendly family garden companion
               </p>
             </div>
@@ -51,21 +47,6 @@ export const DoryInterface: React.FC = () => {
                 {isFullscreen ? <Shrink className="h-3 w-3 sm:h-4 sm:w-4" /> : <Expand className="h-3 w-3 sm:h-4 sm:w-4" />}
               </Button>
             </div>
-          </div>
-          
-          <div className="flex justify-center gap-1 sm:gap-2 flex-wrap">
-            <Badge variant="secondary" className="animate-flower-sway text-xs">
-              <span className="hidden xs:inline">🌻 </span>Garden
-            </Badge>
-            <Badge variant="secondary" className="animate-flower-sway text-xs">
-              <span className="hidden xs:inline">🎨 </span>Activities
-            </Badge>
-            <Badge variant="secondary" className="animate-flower-sway text-xs">
-              <span className="hidden xs:inline">🗣️ </span>Voice
-            </Badge>
-            <Badge variant="secondary" className="animate-flower-sway text-xs">
-              <span className="hidden xs:inline">👨‍👩‍👧‍👦 </span>Family
-            </Badge>
           </div>
         </div>
 
