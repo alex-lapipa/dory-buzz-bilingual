@@ -67,8 +67,8 @@ serve(async (req) => {
       formData.append('language', language);
     }
 
-    // Optional: Add prompt to improve transcription for bilingual content
-    formData.append('prompt', 'This audio may contain Spanish and English. Transcribe exactly what is said.');
+    // Add prompt to improve transcription accuracy
+    formData.append('prompt', 'Transcribe exactly what is said.');
 
     // Send to OpenAI Whisper API
     const response = await fetch('https://api.openai.com/v1/audio/transcriptions', {

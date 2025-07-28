@@ -53,7 +53,7 @@ const translations = {
     
     // About Section
     meetDory: "Meet Dory",
-    meetDoryDesc: "Your friendly bilingual bee from BeeCrazy Garden World!",
+    meetDoryDesc: "Your friendly bee from BeeCrazy Garden World!",
     englishFeatures: "English Features",
     spanishFeatures: "Spanish Features", 
     whatCanDoryHelp: "What can Dory help with?",

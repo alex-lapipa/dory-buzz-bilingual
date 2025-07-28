@@ -107,7 +107,7 @@ export const DoryInterface: React.FC = () => {
                     <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 animate-flower-sway">🌻</div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-2">Meet Dory</h3>
                     <p className="text-sm sm:text-base text-muted-foreground">
-                      Your friendly bilingual bee from BeeCrazy Garden World!
+                      Your friendly bee from BeeCrazy Garden World!
                     </p>
                   </div>
 
