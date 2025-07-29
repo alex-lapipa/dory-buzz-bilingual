@@ -12,6 +12,7 @@ import { useConversations } from '@/hooks/useConversations';
 import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { VoiceInterface } from './VoiceInterface';
 import { Mic, MicOff, Send, Volume2, VolumeX, Image, Sparkles, Brain, BookOpen, Camera } from 'lucide-react';
 
 interface Message {
@@ -46,6 +47,7 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
   const [voiceMode, setVoiceMode] = useState(false);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [lastImageTime, setLastImageTime] = useState<number>(0);
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   const { toast } = useToast();
   const { incrementGrowth } = usePlantGrowth();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -686,7 +688,36 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
             {isListening ? <MicOff className="h-3 w-3 sm:h-4 sm:w-4" /> : <Mic className="h-3 w-3 sm:h-4 sm:w-4" />}
           </Button>
         </div>
+        
+        {/* Voice-to-Voice Chat Button */}
+        <div className="flex justify-center pt-3 border-t border-border">
+          <Button
+            onClick={() => setShowVoiceInterface(true)}
+            size="lg"
+            className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold px-8 py-3 rounded-full shadow-lg transform transition-all duration-200 hover:scale-105"
+          >
+            <Mic className="h-5 w-5 mr-2" />
+            Click to talk Bee Bee! 🐝
+          </Button>
+        </div>
       </div>
+      
+      {/* Voice Interface Modal */}
+      {showVoiceInterface && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg w-full max-w-4xl h-[80vh] relative">
+            <Button
+              onClick={() => setShowVoiceInterface(false)}
+              variant="ghost"
+              size="sm"
+              className="absolute top-2 right-2 z-10"
+            >
+              ✕
+            </Button>
+            <VoiceInterface className="h-full" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
