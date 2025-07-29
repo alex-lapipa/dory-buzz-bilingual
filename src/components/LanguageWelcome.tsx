@@ -15,23 +15,6 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
 
   return (
     <>
-      {/* Garden Insects - 4x Bees */}
-      <div className="flying-bee flying-bee-1 animate-tiny-bee-fly">🐝</div>
-      <div className="flying-bee flying-bee-2 animate-tiny-bee-hover">🐝</div>
-      <div className="flying-bee flying-bee-3 animate-tiny-bee-zigzag">🐝</div>
-      <div className="flying-bee flying-bee-4 animate-tiny-bee-loop">🐝</div>
-      
-      {/* 4x Butterflies */}
-      <div className="flying-bee flying-butterfly-1 animate-butterfly-flutter">🦋</div>
-      <div className="flying-bee flying-butterfly-2 animate-butterfly-dance">🦋</div>
-      <div className="flying-bee flying-butterfly-3 animate-butterfly-spiral">🦋</div>
-      <div className="flying-bee flying-butterfly-4 animate-butterfly-float">🦋</div>
-      
-      {/* 4x Garden Insects */}
-      <div className="flying-bee flying-insect-1 animate-insect-buzz">🪲</div>
-      <div className="flying-bee flying-insect-2 animate-insect-dart">🐛</div>
-      <div className="flying-bee flying-insect-3 animate-insect-hover">🦗</div>
-      <div className="flying-bee flying-insect-4 animate-insect-patrol">🐞</div>
       
       <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
         <div className="max-w-md w-full mx-auto my-auto">
