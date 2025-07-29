@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -40,10 +41,10 @@ export const HamburgerMenu: React.FC = () => {
                 className="w-full justify-start" 
                 asChild
               >
-                <a href="/" rel="noopener noreferrer">
+                <Link to="/">
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Home
-                </a>
+                </Link>
               </Button>
             </div>
           </div>

@@ -80,7 +80,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
             <div className="grid grid-cols-2 gap-2">
               <Button
                 onClick={shareToInstagram}
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-primary-foreground"
                 size="sm"
               >
                 <Instagram className="h-4 w-4 mr-2" />
@@ -88,7 +88,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
               </Button>
               <Button
                 onClick={shareToTikTok}
-                className="bg-black hover:bg-gray-800 text-white"
+                className="bg-destructive hover:bg-destructive/80 text-destructive-foreground"
                 size="sm"
               >
                 <Video className="h-4 w-4 mr-2" />
