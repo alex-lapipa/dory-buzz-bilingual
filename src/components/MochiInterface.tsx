@@ -37,13 +37,13 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
   const renderContent = () => {
     if (!isUserRegistered) {
       return (
-        <div className="min-h-[400px] flex items-center justify-center p-8 text-center">
-          <div className="max-w-md">
-            <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
-            <h2 className="text-2xl font-bold mb-4" style={{ color: '#fffd01' }}>
+        <div className="min-h-[480px] flex items-center justify-center p-10 text-center">
+          <div className="max-w-lg">
+            <div className="text-7xl mb-5 animate-bee-bounce">🐝</div>
+            <h2 className="text-3xl font-bold mb-5" style={{ color: '#fffd01' }}>
               {t('welcome')} BeeCrazy Garden World!
             </h2>
-            <p className="mb-6" style={{ color: '#fffd01' }}>
+            <p className="text-lg mb-7" style={{ color: '#fffd01' }}>
               {t('language') === 'es' 
                 ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
                 : 'Complete your registration to access all chat features with Mochi.'
