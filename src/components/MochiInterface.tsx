@@ -144,12 +144,12 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
           </div>
         )}
 
-        {/* Main Interface */}
-        <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
-          <CardContent className="p-0 h-full flex flex-col">
+        {/* Main Interface - Floating Content */}
+        <div className={`${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
+          <div className="h-full flex flex-col">
             {renderContent()}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
       </div>
       
