@@ -3,6 +3,7 @@ import { MochiChat } from './MochiChat';
 import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
 import { OnboardingTip } from './OnboardingTip';
+import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Expand, Shrink } from 'lucide-react';
@@ -49,6 +50,7 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
                 : 'Complete your registration to access all chat features with Mochi.'
               }
             </p>
+            <UserRegistration inline onComplete={() => window.location.reload()} />
           </div>
         </div>
       );

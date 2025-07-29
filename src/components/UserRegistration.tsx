@@ -9,9 +9,10 @@ import { supabase } from '@/integrations/supabase/client';
 
 interface UserRegistrationProps {
   onComplete: () => void;
+  inline?: boolean;
 }
 
-export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }) => {
+export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, inline = false }) => {
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,7 +64,17 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }
     setIsSubmitting(true);
 
     try {
-      // Try to save registration to database (gracefully handle auth failures)
+      // Store registration in localStorage immediately for app access
+      const registrationData = {
+        email,
+        age: ageNum,
+        language,
+        registeredAt: new Date().toISOString(),
+      };
+      
+      localStorage.setItem('userRegistration', JSON.stringify(registrationData));
+
+      // Try to save registration to database (gracefully handle failures)
       try {
         const { error: dbError } = await supabase
           .from('user_registrations')
@@ -75,44 +86,33 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }
 
         if (dbError) {
           console.warn('Database save warning:', dbError.message);
-          // Continue with local storage if DB fails - app works without auth
+          // Continue - app works without DB connection
         }
       } catch (dbError) {
         console.warn('Database connection issue:', dbError);
         // Continue with registration anyway - app can work offline
       }
 
-      // Try to send welcome email (optional)
+      // Try to send welcome email (optional and non-blocking)
       try {
-        const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
+        await supabase.functions.invoke('send-welcome-email', {
           body: {
             email,
             age: ageNum,
             language,
           },
         });
-
-        if (emailError) {
-          console.warn('Email sending warning:', emailError);
-        }
       } catch (emailError) {
         console.warn('Email service not available:', emailError);
       }
+
       // Show success message
       toast({
-        title: language === 'es' ? '¡Bienvenido!' : 'Welcome!',
+        title: language === 'es' ? '¡Bienvenido! 🐝' : 'Welcome! 🐝',
         description: language === 'es' 
           ? '¡Registro exitoso! Tu aventura en BeeCrazy Garden World comienza ahora.' 
           : 'Registration successful! Your BeeCrazy Garden World adventure begins now.',
       });
-
-      // Store registration in localStorage for app access
-      localStorage.setItem('userRegistration', JSON.stringify({
-        email,
-        age: ageNum,
-        language,
-        registeredAt: new Date().toISOString(),
-      }));
 
       onComplete();
     } catch (error: any) {
@@ -130,11 +130,11 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }
   };
 
   return (
-    <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat">
-      <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur max-w-md w-full">
+    <div className={inline ? '' : "min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat"}>
+      <Card className={`shadow-honey border border-border/30 bg-card/90 backdrop-blur ${inline ? 'w-full max-w-sm' : 'max-w-md w-full'}`}>
         <CardHeader className="text-center">
           <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
-          <CardTitle className="text-2xl font-bold bg-gradient-bee bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold" style={{ color: '#fffd01' }}>
             {language === 'es' ? '¡Únete a BeeCrazy!' : 'Join BeeCrazy!'}
           </CardTitle>
           <p className="text-sm text-muted-foreground mt-2">
@@ -181,7 +181,8 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }
             
             <Button 
               type="submit" 
-              className="w-full bg-gradient-bee hover:opacity-90 text-white font-semibold"
+              className="w-full font-semibold text-black hover:opacity-90"
+              style={{ backgroundColor: '#fffd01' }}
               disabled={isSubmitting}
             >
               {isSubmitting 
