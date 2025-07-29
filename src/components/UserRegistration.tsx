@@ -134,10 +134,10 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
       <Card className={`shadow-honey border border-border/30 bg-card/90 backdrop-blur ${inline ? 'w-full max-w-sm' : 'max-w-md w-full'}`}>
         <CardHeader className="text-center">
           <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
-          <CardTitle className="text-2xl font-bold" style={{ color: '#fffd01' }}>
+          <CardTitle className="text-responsive-2xl font-bold" style={{ color: '#fffd01' }}>
             {language === 'es' ? '¡Únete a BeeCrazy!' : 'Join BeeCrazy!'}
           </CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">
+          <p className="text-responsive-sm text-muted-foreground mt-2">
             {language === 'es' 
               ? 'Cuéntanos un poco sobre ti para personalizar tu experiencia en el jardín'
               : 'Tell us a bit about yourself to personalize your garden experience'
@@ -181,7 +181,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             
             <Button 
               type="submit" 
-              className="w-full font-semibold text-black hover:opacity-90"
+              className="w-full font-semibold text-responsive-base text-black hover:opacity-90"
               style={{ backgroundColor: '#fffd01' }}
               disabled={isSubmitting}
             >
@@ -192,7 +192,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             </Button>
           </form>
           
-          <p className="text-xs text-muted-foreground text-center mt-4">
+          <p className="text-responsive-xs text-muted-foreground text-center mt-4">
             {language === 'es' 
               ? 'Al registrarte, recibirás un email de bienvenida con más información sobre BeeCrazy Garden World.'
               : 'By registering, you will receive a welcome email with more information about BeeCrazy Garden World.'

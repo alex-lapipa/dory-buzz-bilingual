@@ -143,14 +143,29 @@ export default {
 				'flower': 'var(--shadow-flower)'
 			},
 			fontSize: {
-				'xs': ['0.75rem', { lineHeight: '1rem' }],
-				'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-				'base': ['1rem', { lineHeight: '1.5rem' }],
-				'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-				'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-				'2xl': ['1.5rem', { lineHeight: '2rem' }],
-				'3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-				'4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+				// Mobile-first responsive font sizes for better readability
+				'xs': ['0.875rem', { lineHeight: '1.25rem' }],  // Larger on mobile
+				'sm': ['1rem', { lineHeight: '1.5rem' }],       // Larger on mobile
+				'base': ['1.125rem', { lineHeight: '1.75rem' }], // Larger base size
+				'lg': ['1.25rem', { lineHeight: '1.875rem' }],
+				'xl': ['1.5rem', { lineHeight: '2.25rem' }],
+				'2xl': ['1.875rem', { lineHeight: '2.5rem' }],
+				'3xl': ['2.25rem', { lineHeight: '2.75rem' }],
+				'4xl': ['2.75rem', { lineHeight: '3.25rem' }],
+				'5xl': ['3.25rem', { lineHeight: '3.75rem' }],
+				'6xl': ['3.75rem', { lineHeight: '4.25rem' }],
+				'7xl': ['4.5rem', { lineHeight: '5rem' }],
+				'8xl': ['6rem', { lineHeight: '6.5rem' }],
+				'9xl': ['8rem', { lineHeight: '8.5rem' }],
+				// Responsive sizes that scale with device
+				'responsive-xs': ['clamp(0.875rem, 2.5vw, 1rem)', { lineHeight: '1.5' }],
+				'responsive-sm': ['clamp(1rem, 3vw, 1.125rem)', { lineHeight: '1.5' }],
+				'responsive-base': ['clamp(1.125rem, 3.5vw, 1.25rem)', { lineHeight: '1.6' }],
+				'responsive-lg': ['clamp(1.25rem, 4vw, 1.5rem)', { lineHeight: '1.6' }],
+				'responsive-xl': ['clamp(1.5rem, 5vw, 2rem)', { lineHeight: '1.4' }],
+				'responsive-2xl': ['clamp(1.875rem, 6vw, 2.5rem)', { lineHeight: '1.3' }],
+				'responsive-3xl': ['clamp(2.25rem, 7vw, 3rem)', { lineHeight: '1.2' }],
+				'responsive-4xl': ['clamp(2.75rem, 8vw, 4rem)', { lineHeight: '1.1' }],
 			},
 			spacing: {
 				'18': '4.5rem',

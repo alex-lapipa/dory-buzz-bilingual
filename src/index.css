@@ -137,12 +137,14 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-saira;
+    @apply bg-background text-foreground font-saira text-responsive-base;
     /* Mobile optimization */
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overscroll-behavior: none;
+    /* Better font rendering on all devices */
+    text-rendering: optimizeLegibility;
   }
 
   /* Mobile-first touch optimization */

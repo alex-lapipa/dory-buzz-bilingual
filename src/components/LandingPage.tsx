@@ -15,11 +15,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       <div className="max-w-4xl w-full text-center">
         <div className="text-8xl mb-6 animate-bee-bounce">🐝</div>
         
-        <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ color: '#fffd01' }}>
+        <h1 className="text-responsive-4xl font-bold mb-6" style={{ color: '#fffd01' }}>
           BeeCrazy Garden World
         </h1>
         
-        <p className="text-xl md:text-2xl text-foreground mb-8 max-w-2xl mx-auto">
+        <p className="text-responsive-xl text-foreground mb-8 max-w-2xl mx-auto">
           {language === 'es' 
             ? 'Tu amigable compañero familiar de jardín. Aprende sobre abejas, naturaleza y más con Mochi.'
             : 'Your friendly family garden companion. Learn about bees, nature, and more with Mochi.'
@@ -31,7 +31,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🎓</span>
-                <span className="text-left">
+                <span className="text-left text-responsive-base">
                   {language === 'es' 
                     ? 'Aprende datos fascinantes sobre abejas'
                     : 'Learn fascinating bee facts'
@@ -40,7 +40,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🗣️</span>
-                <span className="text-left">
+                <span className="text-left text-responsive-base">
                   {language === 'es' 
                     ? 'Chatea con voz e imágenes'
                     : 'Chat with voice and images'
@@ -49,7 +49,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🌻</span>
-                <span className="text-left">
+                <span className="text-left text-responsive-base">
                   {language === 'es' 
                     ? 'Explora el mundo de la jardinería'
                     : 'Explore the world of gardening'
@@ -63,13 +63,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <Button 
           onClick={onGetStarted}
           size="lg" 
-          className="font-bold text-lg px-8 py-4 rounded-lg transform transition-all duration-200 hover:scale-105 text-black hover:opacity-90"
+          className="font-bold text-responsive-lg px-8 py-4 rounded-lg transform transition-all duration-200 hover:scale-105 text-black hover:opacity-90"
           style={{ backgroundColor: '#fffd01' }}
         >
           {language === 'es' ? '🌟 ¡Comenzar Aventura!' : '🌟 Start Adventure!'}
         </Button>
 
-        <p className="text-sm text-muted-foreground mt-6">
+        <p className="text-responsive-sm text-muted-foreground mt-6">
           {language === 'es' 
             ? 'Gratis para toda la familia • Sin descargas necesarias'
             : 'Free for the whole family • No downloads required'
