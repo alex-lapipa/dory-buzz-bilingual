@@ -3,46 +3,56 @@ import React from 'react';
 export const FloatingGarden: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none z-20 opacity-30">
-      {/* Bees chasing sunflowers and bright flowers (their favorites) */}
+      {/* Fast-moving bees chasing sunflowers */}
       <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-4xl">🌻</span></div>
-      <div className="garden-insect animate-bee-flight" style={{animationDelay: '13s'}}>🐝<span className="text-3xl">🌼</span></div>
       <div className="garden-insect animate-bee-flight" style={{animationDelay: '23s'}}>🐝<span className="text-4xl">🌸</span></div>
-      <div className="garden-insect animate-bee-flight" style={{animationDelay: '36s'}}>🐝<span className="text-3xl">🌷</span></div>
       
-      {/* Butterflies chasing nectar-rich flowers */}
+      {/* Slower bees feeding at bottom */}
+      <div className="garden-insect animate-bee-feed-bottom" style={{animationDelay: '13s'}}>🐝<span className="text-3xl">🌼</span></div>
+      <div className="garden-insect animate-bee-feed-bottom" style={{animationDelay: '36s'}}>🐝<span className="text-3xl">🌷</span></div>
+      
+      {/* Fast butterflies chasing nectar */}
       <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '2s'}}>🦋<span className="text-3xl">🌺</span></div>
-      <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '12s'}}>🦋<span className="text-2xl">🌸</span></div>
       <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '25s'}}>🦋<span className="text-3xl">🌹</span></div>
-      <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '35s'}}>🦋<span className="text-2xl">🌷</span></div>
       
-      {/* Ladybugs prefer herbs and plants with aphids */}
-      <div className="garden-insect animate-ladybug-crawl" style={{animationDelay: '5s'}}>🐞<span className="text-2xl">🌿</span></div>
-      <div className="garden-insect animate-ladybug-crawl" style={{animationDelay: '18s'}}>🐞<span className="text-2xl">🍃</span></div>
-      <div className="garden-insect animate-ladybug-crawl" style={{animationDelay: '28s'}}>🐞<span className="text-2xl">🌿</span></div>
-      <div className="garden-insect animate-ladybug-crawl" style={{animationDelay: '40s'}}>🐞<span className="text-2xl">🍃</span></div>
+      {/* Slower butterflies feeding at bottom */}
+      <div className="garden-insect animate-butterfly-feed-bottom" style={{animationDelay: '12s'}}>🦋<span className="text-2xl">🌸</span></div>
+      <div className="garden-insect animate-butterfly-feed-bottom" style={{animationDelay: '35s'}}>🦋<span className="text-2xl">🌷</span></div>
       
-      {/* Hummingbirds love trumpet-shaped and red flowers */}
+      {/* Ladybugs crawling slowly on herbs at bottom */}
+      <div className="garden-insect animate-ladybug-crawl-bottom" style={{animationDelay: '5s'}}>🐞<span className="text-2xl">🌿</span></div>
+      <div className="garden-insect animate-ladybug-crawl-bottom" style={{animationDelay: '18s'}}>🐞<span className="text-2xl">🍃</span></div>
+      <div className="garden-insect animate-ladybug-crawl-bottom" style={{animationDelay: '28s'}}>🐞<span className="text-2xl">🌿</span></div>
+      <div className="garden-insect animate-ladybug-crawl-bottom" style={{animationDelay: '40s'}}>🐞<span className="text-2xl">🍃</span></div>
+      
+      {/* Fast hummingbirds */}
       <div className="garden-insect animate-hummingbird-hover" style={{animationDelay: '6s'}}>🐦<span className="text-4xl">🌺</span></div>
-      <div className="garden-insect animate-hummingbird-hover" style={{animationDelay: '20s'}}>🐦<span className="text-3xl">🌹</span></div>
-      <div className="garden-insect animate-hummingbird-hover" style={{animationDelay: '33s'}}>🐦<span className="text-4xl">🌷</span></div>
       
-      {/* Dragonflies hunt other insects, less flower-focused */}
+      {/* Slower hummingbirds feeding at bottom */}
+      <div className="garden-insect animate-hummingbird-feed-bottom" style={{animationDelay: '20s'}}>🐦<span className="text-3xl">🌹</span></div>
+      <div className="garden-insect animate-hummingbird-feed-bottom" style={{animationDelay: '33s'}}>🐦<span className="text-4xl">🌷</span></div>
+      
+      {/* Fast dragonflies hunting */}
       <div className="garden-insect animate-dragonfly-zip" style={{animationDelay: '8s'}}>🜻</div>
-      <div className="garden-insect animate-dragonfly-zip" style={{animationDelay: '15s'}}>🜻</div>
       <div className="garden-insect animate-dragonfly-zip" style={{animationDelay: '30s'}}>🜻</div>
       
-      {/* Moths prefer pale, night-blooming flowers */}
-      <div className="garden-insect animate-moth-night" style={{animationDelay: '14s'}}>🦗<span className="text-2xl">🤍</span></div>
-      <div className="garden-insect animate-moth-night" style={{animationDelay: '26s'}}>🦗<span className="text-2xl">🌙</span></div>
+      {/* Stationary dragonfly resting */}
+      <div className="garden-insect animate-dragonfly-rest-bottom" style={{animationDelay: '15s'}}>🜻</div>
       
-      {/* Beetles pollinate large, bowl-shaped flowers */}
-      <div className="garden-insect animate-beetle-crawl" style={{animationDelay: '16s'}}>🪲<span className="text-3xl">🌻</span></div>
-      <div className="garden-insect animate-beetle-crawl" style={{animationDelay: '32s'}}>🪲<span className="text-3xl">🌺</span></div>
+      {/* Moths prefer pale, night-blooming flowers - moving slowly */}
+      <div className="garden-insect animate-moth-slow-bottom" style={{animationDelay: '14s'}}>🦗<span className="text-2xl">🤍</span></div>
+      <div className="garden-insect animate-moth-slow-bottom" style={{animationDelay: '26s'}}>🦗<span className="text-2xl">🌙</span></div>
       
-      {/* Ants attracted to sweet nectar */}
+      {/* Beetles feeding slowly on large flowers at bottom */}
+      <div className="garden-insect animate-beetle-feed-bottom" style={{animationDelay: '16s'}}>🪲<span className="text-3xl">🌻</span></div>
+      <div className="garden-insect animate-beetle-feed-bottom" style={{animationDelay: '32s'}}>🪲<span className="text-3xl">🌺</span></div>
+      
+      {/* Fast ants marching */}
       <div className="garden-insect animate-ant-march" style={{animationDelay: '10s'}}>🐜<span className="text-2xl">🍯</span></div>
-      <div className="garden-insect animate-ant-march" style={{animationDelay: '22s'}}>🐜<span className="text-2xl">🌸</span></div>
-      <div className="garden-insect animate-ant-march" style={{animationDelay: '38s'}}>🐜<span className="text-2xl">🍯</span></div>
+      
+      {/* Slower ants feeding at bottom */}
+      <div className="garden-insect animate-ant-feed-bottom" style={{animationDelay: '22s'}}>🐜<span className="text-2xl">🌸</span></div>
+      <div className="garden-insect animate-ant-feed-bottom" style={{animationDelay: '38s'}}>🐜<span className="text-2xl">🍯</span></div>
       
       
       {/* Wild flowers that attract multiple pollinators */}
