@@ -33,9 +33,9 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
       <div className="flying-bee flying-insect-3 animate-insect-hover">🦗</div>
       <div className="flying-bee flying-insect-4 animate-insect-patrol">🐞</div>
       
-      <div className="min-h-full safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat">
-        <div className="max-w-md w-full mx-auto">
-          <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur">
+      <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
+        <div className="max-w-md w-full mx-auto my-auto">
+          <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur max-h-[80vh] overflow-y-auto">
             <CardContent className="p-8 text-center">
               {/* Mochi Character */}
               <div className="mb-6 animate-bee-bounce">
