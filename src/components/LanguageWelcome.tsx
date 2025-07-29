@@ -11,6 +11,10 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
   const handleLanguageSelect = (language: 'en' | 'es') => {
     localStorage.setItem('mochi_language_selected', 'true');
     onLanguageSelect(language);
+    // Force a page refresh to ensure the language change takes effect across the entire app
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   return (
