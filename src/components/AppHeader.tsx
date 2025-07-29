@@ -7,7 +7,7 @@ import { Heart } from 'lucide-react';
 
 export const AppHeader: React.FC = () => {
   return (
-    <header className="w-full bg-background/80 backdrop-blur-sm border-b border-border/20 p-4 fixed top-0 left-0 right-0 z-50 safe-area-top">
+    <header className="w-full bg-background/60 backdrop-blur-md border-b border-border/20 p-4 fixed top-0 left-0 right-0 z-50 safe-area-top">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Left: La Pipa Logo */}
         <div className="flex-shrink-0">

@@ -36,7 +36,7 @@ export const GardenFooter: React.FC = () => {
       <div className="garden-insect animate-beetle-crawl" style={{animationDelay: '32s'}}>🪲</div>
       
       {/* Garden Footer - Elevated Garden Bed */}
-      <div className="garden-footer fixed bottom-0 left-0 right-0 z-10">
+      <div className="garden-footer fixed bottom-0 left-0 right-0 z-10 bg-background/40 backdrop-blur-md safe-area-bottom">
         <div className="garden-bed">
           <div className="garden-soil"></div>
           <div className="garden-grass"></div>
