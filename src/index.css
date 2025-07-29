@@ -8,14 +8,14 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Mochi's Bee Theme - Light Mode - Mobile Optimized */
-    --background: 52 100% 97%;
+    /* Mochi's Bee Theme - Light Mode - Mobile Optimized - Semitransparent */
+    --background: 52 100% 97% / 0.85;
     --foreground: 39 100% 10%;
 
-    --card: 54 100% 98%;
+    --card: 54 100% 98% / 0.75;
     --card-foreground: 39 100% 15%;
 
-    --popover: 54 100% 99%;
+    --popover: 54 100% 99% / 0.9;
     --popover-foreground: 39 100% 10%;
 
     /* Warm Honey Yellow Primary - Mochi's signature color */
@@ -23,21 +23,21 @@ All colors MUST be HSL.
     --primary-foreground: 30 100% 8%;
 
     /* Gentle Garden Brown Secondary */
-    --secondary: 30 60% 80%;
+    --secondary: 30 60% 80% / 0.8;
     --secondary-foreground: 30 80% 20%;
 
-    --muted: 52 50% 92%;
+    --muted: 52 50% 92% / 0.7;
     --muted-foreground: 39 50% 40%;
 
     /* Flower Pink Accent */
-    --accent: 320 70% 85%;
+    --accent: 320 70% 85% / 0.8;
     --accent-foreground: 320 70% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 45 50% 88%;
-    --input: 45 50% 88%;
+    --border: 45 50% 88% / 0.6;
+    --input: 45 50% 88% / 0.8;
     --ring: 59 100% 50%;
 
     /* Mobile-first radius */
@@ -78,25 +78,25 @@ All colors MUST be HSL.
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 52 100% 96%;
+    --sidebar-background: 52 100% 96% / 0.85;
     --sidebar-foreground: 39 100% 25%;
     --sidebar-primary: 59 100% 50%;
     --sidebar-primary-foreground: 39 100% 5%;
-    --sidebar-accent: 52 50% 90%;
+    --sidebar-accent: 52 50% 90% / 0.8;
     --sidebar-accent-foreground: 39 100% 20%;
-    --sidebar-border: 45 30% 85%;
+    --sidebar-border: 45 30% 85% / 0.6;
     --sidebar-ring: 59 100% 50%;
   }
 
   .dark {
-    /* Mochi's Bee Theme - Dark Mode */
-    --background: 39 50% 8%;
+    /* Mochi's Bee Theme - Dark Mode - Semitransparent */
+    --background: 39 50% 8% / 0.85;
     --foreground: 52 100% 90%;
 
-    --card: 39 30% 12%;
+    --card: 39 30% 12% / 0.75;
     --card-foreground: 52 100% 95%;
 
-    --popover: 39 40% 10%;
+    --popover: 39 40% 10% / 0.9;
     --popover-foreground: 52 100% 90%;
 
     /* Golden Yellow Primary for dark */
@@ -104,29 +104,29 @@ All colors MUST be HSL.
     --primary-foreground: 39 100% 5%;
 
     /* Warm Honey Secondary */
-    --secondary: 35 60% 20%;
+    --secondary: 35 60% 20% / 0.8;
     --secondary-foreground: 35 100% 85%;
 
-    --muted: 39 30% 15%;
+    --muted: 39 30% 15% / 0.7;
     --muted-foreground: 52 20% 65%;
 
     /* Soft Flower Accent */
-    --accent: 320 40% 25%;
+    --accent: 320 40% 25% / 0.8;
     --accent-foreground: 320 70% 85%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 39 30% 20%;
-    --input: 39 30% 20%;
+    --border: 39 30% 20% / 0.6;
+    --input: 39 30% 20% / 0.8;
     --ring: 59 100% 50%;
-    --sidebar-background: 39 40% 12%;
+    --sidebar-background: 39 40% 12% / 0.85;
     --sidebar-foreground: 52 100% 85%;
     --sidebar-primary: 59 100% 50%;
     --sidebar-primary-foreground: 39 100% 5%;
-    --sidebar-accent: 39 30% 18%;
+    --sidebar-accent: 39 30% 18% / 0.8;
     --sidebar-accent-foreground: 52 100% 85%;
-    --sidebar-border: 39 30% 20%;
+    --sidebar-border: 39 30% 20% / 0.6;
     --sidebar-ring: 59 100% 50%;
   }
 }

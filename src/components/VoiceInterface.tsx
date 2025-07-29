@@ -372,7 +372,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
   return (
     <div className={`flex flex-col h-full ${className}`}>
       {/* Header */}
-      <div className="p-3 sm:p-4 bg-gradient-to-r from-yellow-50 to-orange-50 border-b border-yellow-200">
+      <div className="p-3 sm:p-4 bg-gradient-to-r from-yellow-50/80 to-orange-50/80 backdrop-blur-sm border-b border-yellow-200/50">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-xl sm:text-2xl animate-bee-bounce">🚀</span>
@@ -420,7 +420,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
               <Card className={`max-w-[80%] ${
                 message.type === 'user' 
                   ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted'
+                  : 'bg-muted/70 backdrop-blur-sm'
               }`}>
                 <CardContent className="p-3">
                   <div className="flex items-start gap-2">
@@ -457,7 +457,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
         
         {currentTranscript && (
           <div className="flex justify-start">
-            <Card className="max-w-[80%] bg-muted">
+            <Card className="max-w-[80%] bg-muted/70 backdrop-blur-sm">
               <CardContent className="p-3">
                 <div className="flex items-start gap-2">
                   <span className="text-xl animate-bee-bounce">🐝</span>
@@ -478,7 +478,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
       </div>
 
       {/* Controls */}
-      <div className="p-3 sm:p-4 border-t bg-background space-y-3 sm:space-y-4 safe-area-bottom">
+      <div className="p-3 sm:p-4 border-t border-border/50 bg-background/60 backdrop-blur-sm space-y-3 sm:space-y-4 safe-area-bottom">
         {/* Voice Control */}
         <div className="flex justify-center">
           {!isConnected ? (
