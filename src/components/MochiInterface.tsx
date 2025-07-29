@@ -58,8 +58,8 @@ export const MochiInterface: React.FC = () => {
       <div className="flying-bee flying-bumblebee-2 animate-bumblebee-bumble">🐝</div>
       <div className="flying-bee flying-bumblebee-3 animate-bumblebee-bumble">🐝</div>
       
-      <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-full'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-2 sm:p-4'}`}>
-      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto'}`}>
+      <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-screen'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-2 sm:p-4 pt-20 pb-20'}`}>
+      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto my-auto'}`}>
 
         {/* Fullscreen Toggle */}
         {!isFullscreen && (
