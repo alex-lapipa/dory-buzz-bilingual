@@ -21,18 +21,14 @@ export const AppHeader: React.FC = () => {
         </div>
         
         {/* Center: Title and Bee */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          <div className="relative">
-            <div className="text-3xl sm:text-4xl animate-bee-bounce">🐝</div>
-          </div>
-          <div className="text-center">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-bee bg-clip-text text-transparent">
-              BeeCrazy Garden World
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">
-              Your friendly family garden companion
-            </p>
-          </div>
+        <div className="flex flex-col items-center text-center">
+          <div className="text-4xl sm:text-5xl animate-bee-bounce mb-2">🐝</div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
+            BeeCrazy Garden World
+          </h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Your friendly family garden companion
+          </p>
         </div>
         
         {/* Right: Action Buttons and Hamburger Menu */}
