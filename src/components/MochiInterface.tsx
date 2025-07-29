@@ -3,7 +3,6 @@ import { MochiChat } from './MochiChat';
 import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
 import { OnboardingTip } from './OnboardingTip';
-import { LanguageWelcome } from './LanguageWelcome';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Expand, Shrink } from 'lucide-react';
@@ -14,12 +13,9 @@ interface MochiInterfaceProps {
 }
 
 export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'chat' }) => {
-  const { setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [currentTab, setCurrentTab] = useState(activeTab);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showLanguageSelect, setShowLanguageSelect] = useState(
-    !localStorage.getItem('mochi_language_selected')
-  );
   const [showOnboarding, setShowOnboarding] = useState(
     !localStorage.getItem('mochi_onboarding_completed')
   );
@@ -30,11 +26,6 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
   useEffect(() => {
     setCurrentTab(activeTab);
   }, [activeTab]);
-
-  const handleLanguageSelect = (language: 'en' | 'es') => {
-    setLanguage(language);
-    setShowLanguageSelect(false);
-  };
 
   const renderContent = () => {
     if (!isUserRegistered) {
@@ -83,10 +74,6 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
         );
     }
   };
-
-  if (showLanguageSelect) {
-    return <LanguageWelcome onLanguageSelect={handleLanguageSelect} />;
-  }
 
   return (
     <>

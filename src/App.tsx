@@ -53,12 +53,22 @@ const AppContent = () => {
     setShowRegistration(false);
   };
 
+  // Always show language selection first if not selected
   if (showLanguageSelect) {
-    return <LanguageWelcome onLanguageSelect={handleLanguageSelect} />;
+    return (
+      <div className="min-h-screen bg-gradient-nature">
+        <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
+      </div>
+    );
   }
 
+  // Then show registration if language is selected but user hasn't registered
   if (showRegistration) {
-    return <UserRegistration onComplete={handleRegistrationComplete} />;
+    return (
+      <div className="min-h-screen bg-gradient-nature">
+        <UserRegistration onComplete={handleRegistrationComplete} />
+      </div>
+    );
   }
 
   return (
