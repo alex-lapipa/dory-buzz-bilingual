@@ -109,6 +109,33 @@ export type Database = {
           },
         ]
       }
+      user_registrations: {
+        Row: {
+          age: number
+          created_at: string
+          email: string
+          id: string
+          language: string
+          updated_at: string
+        }
+        Insert: {
+          age: number
+          created_at?: string
+          email: string
+          id?: string
+          language?: string
+          updated_at?: string
+        }
+        Update: {
+          age?: number
+          created_at?: string
+          email?: string
+          id?: string
+          language?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

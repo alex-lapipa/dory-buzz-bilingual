@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,34 +7,69 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GardenFooter } from "@/components/GardenFooter";
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
+import { LanguageWelcome } from "@/components/LanguageWelcome";
+import { UserRegistration } from "@/components/UserRegistration";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const AppContent = () => {
+  const [showLanguageSelect, setShowLanguageSelect] = useState(!localStorage.getItem('mochi_language_selected'));
+  const [showRegistration, setShowRegistration] = useState(false);
+  const { setLanguage } = useLanguage();
+
+  const handleLanguageSelect = (language: 'en' | 'es') => {
+    setLanguage(language);
+    localStorage.setItem('mochi_language_selected', 'true');
+    setShowLanguageSelect(false);
+    
+    // Check if user has already registered
+    const existingRegistration = localStorage.getItem('userRegistration');
+    if (!existingRegistration) {
+      setShowRegistration(true);
+    }
+  };
+
+  const handleRegistrationComplete = () => {
+    setShowRegistration(false);
+  };
+
+  if (showLanguageSelect) {
+    return <LanguageWelcome onLanguageSelect={handleLanguageSelect} />;
+  }
+
+  if (showRegistration) {
+    return <UserRegistration onComplete={handleRegistrationComplete} />;
+  }
+
+  return (
+    <BrowserRouter>
+      <AuthWrapper>
+        <div className="flex flex-col min-h-screen bg-gradient-nature">
+          <AppHeader />
+          <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18 pb-52 sm:pb-56">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <GardenFooter />
+        </div>
+      </AuthWrapper>
+    </BrowserRouter>
+  );
+};
+
 const App = () => {
-  const showLanguageSelect = !localStorage.getItem('mochi_language_selected');
-  
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <AuthWrapper>
-            <div className="flex flex-col min-h-screen bg-gradient-nature">
-              {!showLanguageSelect && <AppHeader />}
-              <main className={`flex-1 overflow-auto relative z-10 ${showLanguageSelect ? 'pt-0' : 'pt-16 sm:pt-18'} ${showLanguageSelect ? 'pb-0' : 'pb-52 sm:pb-56'}`}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              {!showLanguageSelect && <GardenFooter />}
-            </div>
-          </AuthWrapper>
-        </BrowserRouter>
+        <AppContent />
       </TooltipProvider>
     </QueryClientProvider>
   );
