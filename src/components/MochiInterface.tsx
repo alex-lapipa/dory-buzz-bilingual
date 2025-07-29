@@ -14,7 +14,7 @@ import { MessageCircle, Mic, Image, Video, Expand, Shrink, Heart, UserPlus } fro
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export const MochiInterface: React.FC = () => {
-  const { setLanguage } = useLanguage();
+  const { setLanguage, t } = useLanguage();
   const [activeTab, setActiveTab] = useState('chat');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLanguageSelect, setShowLanguageSelect] = useState(
@@ -69,7 +69,7 @@ export const MochiInterface: React.FC = () => {
               variant="ghost"
               size="sm"
               className="p-2 hover:bg-background/20"
-              aria-label="Enter fullscreen mode"
+              aria-label={t('enterFullscreen')}
             >
               <Expand className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
@@ -82,7 +82,7 @@ export const MochiInterface: React.FC = () => {
               variant="ghost"
               size="sm"
               className="p-2 bg-background/80 hover:bg-background/90"
-              aria-label="Exit fullscreen mode"
+              aria-label={t('exitFullscreen')}
             >
               <Shrink className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
@@ -94,19 +94,19 @@ export const MochiInterface: React.FC = () => {
           <CardContent className="p-0 h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
               <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
-                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Text Chat with Mochi">
+                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('textChat')}>
                   <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">Chat</span>
+                  <span className="hidden xs:inline">{t('chat')}</span>
                   <span className="xs:hidden">💬</span>
                 </TabsTrigger>
-                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Voice Chat with Mochi">
+                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('voiceChat')}>
                   <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">Voice</span>
+                  <span className="hidden xs:inline">{t('voice')}</span>
                   <span className="xs:hidden">🎤</span>
                 </TabsTrigger>
-                <TabsTrigger value="generate" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="AI Image & Video Generator">
+                <TabsTrigger value="generate" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('imageGenerator')}>
                   <Image className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">Create</span>
+                  <span className="hidden xs:inline">{t('generate')}</span>
                   <span className="xs:hidden">🎨</span>
                 </TabsTrigger>
               </TabsList>

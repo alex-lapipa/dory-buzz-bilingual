@@ -9,6 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useConversations } from '@/hooks/useConversations';
 import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { getGuestUserId } from '@/lib/guestUtils';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Mic, MicOff, Send, Volume2, VolumeX, Image, Sparkles } from 'lucide-react';
 
 interface Message {
@@ -23,6 +24,7 @@ interface MochiChatProps {
 }
 
 export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
+  const { t } = useLanguage();
   const { user } = useAuth();
   const guestId = getGuestUserId();
   const { messages, createConversation, saveMessage, currentConversationId } = useConversations(guestId);
@@ -58,7 +60,7 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
             const welcomeMessage: Message = {
               id: '1',
               type: 'mochi',
-              content: '🐝 ¡Hola! I\'m Mochi, your friendly garden companion! I\'m here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say "create an image of..." to get started! ¿Qué te gustaría saber sobre jardines?',
+              content: t('welcomeMessage'),
               timestamp: new Date()
             };
             setLocalMessages([welcomeMessage]);
@@ -139,8 +141,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
     } catch (error) {
       console.error('Image generation error:', error);
       toast({
-        title: "Error",
-        description: "Failed to generate image. Please try again.",
+        title: t('error'),
+        description: t('imageError'),
         variant: "destructive",
       });
     } finally {
@@ -282,8 +284,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
     } catch (error) {
       console.error('Chat error:', error);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: t('error'),
+        description: t('messageError'),
         variant: "destructive",
       });
       
@@ -335,8 +337,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
           } catch (error) {
             console.error('Speech-to-text error:', error);
             toast({
-              title: "Error",
-              description: "Failed to process audio. Please try again.",
+              title: t('error'),
+              description: t('audioError'),
               variant: "destructive",
             });
           }
@@ -351,8 +353,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
     } catch (error) {
       console.error('Microphone access error:', error);
       toast({
-        title: "Error",
-        description: "Could not access microphone. Please check permissions.",
+        title: t('error'),
+        description: t('microphoneError'),
         variant: "destructive",
       });
     }
@@ -396,8 +398,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
       console.error('Text-to-speech error:', error);
       setIsPlaying(false);
       toast({
-        title: "Error",
-        description: "Failed to play audio. Please try again.",
+        title: t('error'),
+        description: t('playError'),
         variant: "destructive",
       });
     }
@@ -411,10 +413,10 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <div className="text-2xl sm:text-3xl animate-bee-bounce">🐝</div>
           <div className="flex-1 min-w-0">
             <h2 className="text-sm sm:text-lg font-bold text-primary-foreground truncate">
-              Mochi de los Huertos 🌻
+              {t('mochiTitle')}
             </h2>
             <p className="text-xs sm:text-sm text-primary-foreground/80 truncate">
-              ¡Buzztastical! Garden Bee
+              {t('mochiSubtitle')}
             </p>
           </div>
         </div>
@@ -497,7 +499,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask Mochi... / Pregúntale a Mochi..."
+            placeholder={t('chatPlaceholder')}
             onKeyPress={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -506,7 +508,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
             }}
             disabled={isLoading}
             className="flex-1 text-sm min-h-[44px]"
-            aria-label="Type your message to Mochi in English or Spanish"
+            aria-label={t('messageToMochi')}
           />
           <Button
             onClick={() => generateImage(inputMessage || 'beautiful garden scene with Mochi the bee')}

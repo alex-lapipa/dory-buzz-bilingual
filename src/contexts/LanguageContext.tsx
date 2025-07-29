@@ -11,31 +11,50 @@ interface LanguageContextType {
 const translations = {
   en: {
     // App Title & Header
-    appTitle: "Mochi the Garden Bee",
-    appSubtitle: "Your friendly family garden companion from BeeCrazy Garden World!",
+    appTitle: "BeeCrazy Garden World",
+    appSubtitle: "Your friendly family garden companion",
     buzztastic: "Buzztastic!",
+    welcome: "Welcome! 🐝",
+    guestModeMessage: "Running in guest mode. Your chats won't be saved, but everything else works perfectly!",
     
-    // Navigation
+    // Navigation & Actions
     chat: "Chat",
     voice: "Voice", 
+    generate: "Create",
     about: "About",
-    
-    // Buttons
-    followMochi: "Follow Mochi!",
+    follow: "Follow",
+    mochiName: "Mochi",
     share: "Share",
+    home: "Home",
+    contact: "Contact",
+    send: "Send",
+    loading: "Loading...",
+    error: "Error",
+    success: "Success!",
     
-    // Badges
-    gardenGuide: "Garden Guide",
-    funActivities: "Fun Activities", 
-    voiceChat: "Voice Chat",
-    familyFun: "Family Fun",
+    // Language Selection
+    language: "Language",
+    chooseLanguage: "Choose your language",
+    english: "English",
+    spanish: "Español",
     
     // Chat Interface
-    chatPlaceholder: "Ask Mochi about gardens and nature...",
+    mochiTitle: "Mochi de los Huertos 🌻",
+    mochiSubtitle: "¡Buzztastical! Garden Bee",
+    chatPlaceholder: "Ask Mochi... / Pregúntale a Mochi...",
+    messageToMochi: "Type your message to Mochi in English or Spanish",
     mochiThinking: "Mochi is thinking...",
     sendMessage: "Send message",
     generateImage: "Generate garden image",
     voiceInput: "Voice input",
+    textChat: "Text Chat with Mochi",
+    voiceChat: "Voice Chat with Mochi",
+    imageGenerator: "AI Image & Video Generator",
+    enterFullscreen: "Enter fullscreen mode",
+    exitFullscreen: "Exit fullscreen mode",
+    
+    // Welcome Message
+    welcomeMessage: "🐝 ¡Hola! I'm Mochi, your friendly garden companion! I'm here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say \"create an image of...\" to get started! ¿Qué te gustaría saber sobre jardines?",
     
     // Voice Chat
     voiceChatTitle: "Voice Chat with Mochi",
@@ -51,77 +70,136 @@ const translations = {
     disconnect: "Disconnect",
     startSpeaking: "Start speaking to begin your conversation with Mochi!",
     
-    // About Section
-    meetMochi: "Meet Mochi",
-    meetMochiDesc: "Your friendly bee from BeeCrazy Garden World!",
-    englishFeatures: "English Features",
-    spanishFeatures: "Spanish Features", 
-    whatCanMochiHelp: "What can Mochi help with?",
-    
     // Follow Modal
-    followModalTitle: "Follow BeeCrazy Garden World!",
-    followModalDesc: "Join our family garden adventure and get fun updates!",
+    followModalTitle: "Follow Mochi! 🐝✨",
+    followModalDesc: "Join BeeCrazy Garden World for fun family garden updates!",
     name: "Name",
+    namePlaceholder: "Your name",
     email: "Email",
+    emailPlaceholder: "your@email.com",
     age: "Age (optional)",
+    agePlaceholder: "How old are you?",
     underThirteen: "I am under 13 years old",
-    parentEmail: "Parent/Guardian Email",
-    parentConsent: "My parent/guardian agrees to receive updates about BeeCrazy Garden World!",
-    agreeUpdates: "I agree to receive updates about Mochi's garden adventures and family activities",
+    parentEmail: "Parent Email (required for under 13)",
+    parentEmailPlaceholder: "parent@email.com",
+    parentConsent: "Parent agrees to receive updates for their child",
+    agreeUpdates: "I agree to receive fun garden updates from Mochi",
+    joinGarden: "🌻 Join the Garden Family!",
     whatYoullGet: "What you'll get:",
     maybeLater: "Maybe Later",
     joining: "Joining...",
     
-    // Share Modal
+    // Success/Error Messages
+    followSuccess: "¡Buzztastical! 🐝✨",
+    followSuccessMessage: "Welcome to BeeCrazy Garden World! You'll receive fun garden updates for the whole family.",
+    missingInfo: "Missing Information",
+    missingInfoMessage: "Please fill in your name and email address.",
+    consentRequired: "Consent Required", 
+    consentRequiredMessage: "Please agree to receive updates from Mochi.",
+    parentConsentRequired: "Parent Consent Required",
+    parentConsentRequiredMessage: "For children under 13, we need a parent's email and consent.",
+    followError: "Oops! 🐝",
+    followErrorMessage: "Something went wrong. Please try again later.",
+    imageError: "Failed to generate image. Please try again.",
+    messageError: "Failed to send message. Please try again.",
+    audioError: "Failed to process audio. Please try again.",
+    microphoneError: "Could not access microphone. Please check permissions.",
+    playError: "Failed to play audio. Please try again.",
+    
+    // Image Generator
+    imageGeneratorTitle: "🎨 Garden Image Creator",
+    imagePromptPlaceholder: "Try: 'A magical garden with rainbow flowers and happy bees flying around'",
+    videoPromptPlaceholder: "Try: 'A time-lapse of flowers blooming in a magical garden'",
+    generateImageButton: "🌻 Create Garden Image",
+    generateVideoButton: "🎬 Create Garden Video",
+    imageGeneratedSuccess: "Image generated successfully!",
+    videoGeneratedSuccess: "Video generated successfully!",
+    enterPrompt: "Please enter a prompt",
+    
+    // Share Buttons
+    shareTwitter: "Share on Twitter",
+    shareReddit: "Share on Reddit", 
+    shareLinkedIn: "Share on LinkedIn",
+    shareWhatsApp: "Share on WhatsApp",
+    copyLink: "Copy Link",
     shareTitle: "Share BeeCrazy Garden World!",
-    shareOnSocial: "Share on Social Media", 
+    shareOnSocial: "Share on Social Media",
     directLink: "Direct Link",
     embedCode: "Embed Code (Discord, Twitch, Websites)",
     copyEmbedCode: "Copy Embed Code",
     shareTextPreview: "Share text preview:",
     shareText: "Meet Mochi the Garden Bee! Chat with our friendly garden companion from BeeCrazy Garden World - perfect for families learning about nature!",
     
-    // Footer
-    footerText: "BeeCrazy Garden World! • Built with ❤️ for families everywhere",
+    // Onboarding
+    onboardingTitle: "Welcome to Mochi's Garden! 🐝🌻",
+    onboardingMessage: "I'm here to help you explore the wonderful world of gardens, bees, and nature! Try asking me about plants, creating images, or just chat in English or Spanish.",
+    gotIt: "Got it!",
     
     // Toast Messages
     copied: "Copied!",
     linkCopied: "Link copied to clipboard",
     embedCopied: "Embed code copied to clipboard",
-    welcomeMessage: "Welcome to BeeCrazy Garden World",
+    welcomeMessageToast: "Welcome to BeeCrazy Garden World",
     
-    // Language Toggle
-    language: "Language",
-    english: "English",
-    spanish: "Spanish"
+    // Garden Content
+    aboutBees: "About Bees",
+    aboutGardening: "About Gardening", 
+    aboutNature: "About Nature",
+    beeswax: "Beeswax",
+    honey: "Honey",
+    pollinators: "Pollinators",
+    flowers: "Flowers",
+    plants: "Plants",
+    vegetables: "Vegetables",
+    fruits: "Fruits",
+    herbs: "Herbs"
   },
   es: {
     // App Title & Header  
-    appTitle: "Mochi de los Huertos",
-    appSubtitle: "¡Tu compañera amigable de jardín familiar de BeeCrazy Garden World!",
+    appTitle: "BeeCrazy Garden World",
+    appSubtitle: "Tu amigable compañero familiar de jardín",
     buzztastic: "¡Buzztástico!",
+    welcome: "¡Bienvenido! 🐝",
+    guestModeMessage: "Funcionando en modo invitado. Tus chats no se guardarán, ¡pero todo lo demás funciona perfectamente!",
     
-    // Navigation
+    // Navigation & Actions
     chat: "Chat",
     voice: "Voz",
+    generate: "Crear",
     about: "Acerca de",
-    
-    // Buttons
-    followMochi: "¡Sigue a Mochi!",
+    follow: "Seguir",
+    mochiName: "Mochi",
     share: "Compartir",
+    home: "Inicio",
+    contact: "Contacto",
+    send: "Enviar",
+    loading: "Cargando...",
+    error: "Error",
+    success: "¡Éxito!",
     
-    // Badges
-    gardenGuide: "Guía de Jardín",
-    funActivities: "Actividades Divertidas",
-    voiceChat: "Chat de Voz", 
-    familyFun: "Diversión Familiar",
+    // Language Selection
+    language: "Idioma",
+    chooseLanguage: "Elige tu idioma",
+    english: "English",
+    spanish: "Español",
     
     // Chat Interface
-    chatPlaceholder: "Pregúntale a Mochi sobre jardines y naturaleza...",
+    mochiTitle: "Mochi de los Huertos 🌻",
+    mochiSubtitle: "¡Buzztástico! Abeja de Jardín",
+    chatPlaceholder: "Pregúntale a Mochi... / Ask Mochi...",
+    messageToMochi: "Escribe tu mensaje a Mochi en inglés o español",
     mochiThinking: "Mochi está pensando...",
     sendMessage: "Enviar mensaje",
     generateImage: "Generar imagen de jardín",
     voiceInput: "Entrada de voz",
+    textChat: "Chat de Texto con Mochi",
+    voiceChat: "Chat de Voz con Mochi",
+    imageGenerator: "Generador de Imágenes y Videos IA",
+    enterFullscreen: "Entrar en modo pantalla completa",
+    exitFullscreen: "Salir del modo pantalla completa",
+    
+    // Welcome Message
+    welcomeMessage: "🐝 ¡Hola! Soy Mochi, tu amigable compañera de jardín. Estoy aquí para ayudarte con:\n\n🌱 Cuidado de plantas y consejos de jardinería\n🌸 Identificación de la naturaleza\n🎨 Crear hermosas imágenes de jardín\n🗣️ Practicar español o inglés\n\n¡Solo pregúntame cualquier cosa o di \"crear una imagen de...\" para empezar! What would you like to know about gardens?",
     
     // Voice Chat
     voiceChatTitle: "Chat de Voz con Mochi",
@@ -137,28 +215,58 @@ const translations = {
     disconnect: "Desconectar",
     startSpeaking: "¡Comienza a hablar para conversar con Mochi!",
     
-    // About Section
-    meetMochi: "Conoce a Mochi",
-    meetMochiDesc: "¡Tu abeja bilingüe amigable de BeeCrazy Garden World!",
-    englishFeatures: "Características en Inglés",
-    spanishFeatures: "Características en Español",
-    whatCanMochiHelp: "¿Con qué puede ayudar Mochi?",
-    
     // Follow Modal
-    followModalTitle: "¡Sigue BeeCrazy Garden World!",
-    followModalDesc: "¡Únete a nuestra aventura de jardín familiar y recibe actualizaciones divertidas!",
+    followModalTitle: "¡Sigue a Mochi! 🐝✨",
+    followModalDesc: "¡Únete a BeeCrazy Garden World para recibir actualizaciones divertidas del jardín familiar!",
     name: "Nombre",
-    email: "Correo",
+    namePlaceholder: "Tu nombre",
+    email: "Email",
+    emailPlaceholder: "tu@email.com",
     age: "Edad (opcional)",
+    agePlaceholder: "¿Cuántos años tienes?",
     underThirteen: "Tengo menos de 13 años",
-    parentEmail: "Correo del Padre/Tutor",
-    parentConsent: "¡Mi padre/tutor acepta recibir actualizaciones sobre BeeCrazy Garden World!",
-    agreeUpdates: "Acepto recibir actualizaciones sobre las aventuras de jardín de Mochi y actividades familiares",
+    parentEmail: "Email de Padre/Madre (requerido para menores de 13)",
+    parentEmailPlaceholder: "padre@email.com",
+    parentConsent: "El padre/madre acepta recibir actualizaciones para su hijo/a",
+    agreeUpdates: "Acepto recibir actualizaciones divertidas del jardín de Mochi",
+    joinGarden: "🌻 ¡Únete a la Familia del Jardín!",
     whatYoullGet: "Lo que recibirás:",
     maybeLater: "Tal vez Después",
     joining: "Uniéndose...",
     
-    // Share Modal
+    // Success/Error Messages
+    followSuccess: "¡Buzztástico! 🐝✨",
+    followSuccessMessage: "¡Bienvenido a BeeCrazy Garden World! Recibirás actualizaciones divertidas del jardín para toda la familia.",
+    missingInfo: "Información Faltante",
+    missingInfoMessage: "Por favor completa tu nombre y dirección de email.",
+    consentRequired: "Consentimiento Requerido",
+    consentRequiredMessage: "Por favor acepta recibir actualizaciones de Mochi.",
+    parentConsentRequired: "Consentimiento de Padre/Madre Requerido",
+    parentConsentRequiredMessage: "Para niños menores de 13 años, necesitamos el email y consentimiento de un padre/madre.",
+    followError: "¡Ups! 🐝",
+    followErrorMessage: "Algo salió mal. Por favor intenta de nuevo más tarde.",
+    imageError: "Error al generar imagen. Por favor intenta de nuevo.",
+    messageError: "Error al enviar mensaje. Por favor intenta de nuevo.",
+    audioError: "Error al procesar audio. Por favor intenta de nuevo.",
+    microphoneError: "No se pudo acceder al micrófono. Por favor verifica los permisos.",
+    playError: "Error al reproducir audio. Por favor intenta de nuevo.",
+    
+    // Image Generator
+    imageGeneratorTitle: "🎨 Creador de Imágenes de Jardín",
+    imagePromptPlaceholder: "Prueba: 'Un jardín mágico con flores de arcoíris y abejas felices volando alrededor'",
+    videoPromptPlaceholder: "Prueba: 'Un time-lapse de flores floreciendo en un jardín mágico'",
+    generateImageButton: "🌻 Crear Imagen de Jardín",
+    generateVideoButton: "🎬 Crear Video de Jardín",
+    imageGeneratedSuccess: "¡Imagen generada exitosamente!",
+    videoGeneratedSuccess: "¡Video generado exitosamente!",
+    enterPrompt: "Por favor ingresa una descripción",
+    
+    // Share Buttons
+    shareTwitter: "Compartir en Twitter",
+    shareReddit: "Compartir en Reddit",
+    shareLinkedIn: "Compartir en LinkedIn",
+    shareWhatsApp: "Compartir en WhatsApp",
+    copyLink: "Copiar Enlace",
     shareTitle: "¡Comparte BeeCrazy Garden World!",
     shareOnSocial: "Compartir en Redes Sociales",
     directLink: "Enlace Directo", 
@@ -167,19 +275,29 @@ const translations = {
     shareTextPreview: "Vista previa del texto para compartir:",
     shareText: "¡Conoce a Mochi la Abeja del Jardín! Chatea con nuestra compañera amigable de jardín de BeeCrazy Garden World - ¡perfecto para familias que aprenden sobre la naturaleza!",
     
-    // Footer
-    footerText: "¡BeeCrazy Garden World! • Hecho con ❤️ para familias en todas partes",
+    // Onboarding
+    onboardingTitle: "¡Bienvenido al Jardín de Mochi! 🐝🌻",
+    onboardingMessage: "¡Estoy aquí para ayudarte a explorar el maravilloso mundo de jardines, abejas y naturaleza! Intenta preguntarme sobre plantas, crear imágenes, o simplemente charla en inglés o español.",
+    gotIt: "¡Entendido!",
     
     // Toast Messages
     copied: "¡Copiado!",
     linkCopied: "Enlace copiado al portapapeles",
     embedCopied: "Código de inserción copiado al portapapeles",
-    welcomeMessage: "Bienvenido a BeeCrazy Garden World",
+    welcomeMessageToast: "Bienvenido a BeeCrazy Garden World",
     
-    // Language Toggle
-    language: "Idioma",
-    english: "Inglés", 
-    spanish: "Español"
+    // Garden Content
+    aboutBees: "Acerca de las Abejas",
+    aboutGardening: "Acerca de la Jardinería",
+    aboutNature: "Acerca de la Naturaleza",
+    beeswax: "Cera de Abeja",
+    honey: "Miel",
+    pollinators: "Polinizadores",
+    flowers: "Flores",
+    plants: "Plantas",
+    vegetables: "Vegetales",
+    fruits: "Frutas",
+    herbs: "Hierbas"
   }
 };
 
