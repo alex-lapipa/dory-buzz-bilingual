@@ -672,7 +672,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
             className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold px-8 py-3 rounded-full shadow-lg transform transition-all duration-200 hover:scale-105"
           >
             <Mic className="h-5 w-5 mr-2" />
-            Click to talk Bee Bee! 🐝
+            {t('clickToTalkBee')}
           </Button>
         </div>
         </div>

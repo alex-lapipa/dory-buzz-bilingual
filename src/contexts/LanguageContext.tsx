@@ -40,7 +40,7 @@ const translations = {
     
     // Chat Interface
     mochiTitle: "Mochi de los Huertos 🌻",
-    mochiSubtitle: "Buzztastic! Garden Bee",
+    mochiSubtitle: "A Buzztastic Garden Bee!",
     chatPlaceholder: "Ask Mochi... / Pregúntale a Mochi...",
     messageToMochi: "Type your message to Mochi in English or Spanish",
     mochiThinking: "Mochi is thinking...",
@@ -69,6 +69,7 @@ const translations = {
     holdToTalk: "Hold to Talk",
     disconnect: "Disconnect",
     startSpeaking: "Start speaking to begin your conversation with Mochi!",
+    clickToTalkBee: "Click to talk Bee Bee! 🐝",
     
     // Follow Modal
     followModalTitle: "Follow Mochi! 🐝✨",
@@ -185,7 +186,7 @@ const translations = {
     
     // Chat Interface
     mochiTitle: "Mochi de los Huertos 🌻",
-    mochiSubtitle: "¡Buzztástico! Abeja de Jardín",
+    mochiSubtitle: "Una Abeja de Jardin Buzztástica!",
     chatPlaceholder: "Pregúntale a Mochi... / Ask Mochi...",
     messageToMochi: "Escribe tu mensaje a Mochi en inglés o español",
     mochiThinking: "Mochi está pensando...",
@@ -214,6 +215,7 @@ const translations = {
     holdToTalk: "Mantén para Hablar",
     disconnect: "Desconectar",
     startSpeaking: "¡Comienza a hablar para conversar con Mochi!",
+    clickToTalkBee: "¡Haz clic para hablar Bee Bee! 🐝",
     
     // Follow Modal
     followModalTitle: "¡Sigue a Mochi! 🐝✨",
