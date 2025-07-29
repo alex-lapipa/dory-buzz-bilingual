@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { getGuestUserId } from '@/lib/guestUtils';
 
 export const ImageGenerator: React.FC = () => {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState('A beautiful garden with colorful flowers and friendly bees');
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [activeTab, setActiveTab] = useState('image');
@@ -80,9 +80,10 @@ export const ImageGenerator: React.FC = () => {
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Image className="h-5 w-5" />
-          AI Content Generator
+          <span className="text-xl">🎨</span>
+          AI Content Creator with Dory
         </CardTitle>
+        <p className="text-sm text-muted-foreground">Create beautiful garden images and videos using AI! Describe what you'd like to see and I'll create it for you.</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -100,12 +101,35 @@ export const ImageGenerator: React.FC = () => {
           <TabsContent value="image" className="space-y-4">
             <div className="space-y-2">
               <Input
-                placeholder="Describe the image you want to generate..."
+                placeholder="Try: 'A magical garden with rainbow flowers and happy bees flying around'"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="w-full"
                 disabled={isGenerating}
               />
+              <div className="flex flex-wrap gap-1 text-xs">
+                <span className="text-muted-foreground">💡 Ideas:</span>
+                <button 
+                  className="text-primary hover:underline" 
+                  onClick={() => setPrompt("A cozy cottage garden with sunflowers and butterflies")}
+                >
+                  cottage garden
+                </button>
+                <span>•</span>
+                <button 
+                  className="text-primary hover:underline" 
+                  onClick={() => setPrompt("Dory the bee exploring a tropical garden paradise")}
+                >
+                  tropical paradise
+                </button>
+                <span>•</span>
+                <button 
+                  className="text-primary hover:underline" 
+                  onClick={() => setPrompt("A vegetable garden at sunrise with morning dew")}
+                >
+                  vegetable garden
+                </button>
+              </div>
               <Button 
                 onClick={() => generateContent('image')} 
                 disabled={isGenerating || !prompt.trim()}
@@ -129,12 +153,28 @@ export const ImageGenerator: React.FC = () => {
           <TabsContent value="video" className="space-y-4">
             <div className="space-y-2">
               <Input
-                placeholder="Describe the video you want to generate..."
+                placeholder="Try: 'A time-lapse of flowers blooming in a magical garden'"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 className="w-full"
                 disabled={isGenerating}
               />
+              <div className="flex flex-wrap gap-1 text-xs">
+                <span className="text-muted-foreground">💡 Ideas:</span>
+                <button 
+                  className="text-primary hover:underline" 
+                  onClick={() => setPrompt("Bees collecting nectar from colorful wildflowers in slow motion")}
+                >
+                  bees & flowers
+                </button>
+                <span>•</span>
+                <button 
+                  className="text-primary hover:underline" 
+                  onClick={() => setPrompt("A garden transforming through all four seasons")}
+                >
+                  four seasons
+                </button>
+              </div>
               <Button 
                 onClick={() => generateContent('video')} 
                 disabled={isGenerating || !prompt.trim()}

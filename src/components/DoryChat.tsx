@@ -54,11 +54,11 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           const conversation = await createConversation('Chat with Dory');
           if (conversation) {
             setCurrentConversation(conversation.id);
-            // Add compact welcome message
+            // Add warm, welcoming message with clear guidance
             const welcomeMessage: Message = {
               id: '1',
               type: 'dory',
-              content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image!',
+              content: '🐝 ¡Hola! I\'m Dory, your friendly garden companion! I\'m here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say "create an image of..." to get started! ¿Qué te gustaría saber sobre jardines?',
               timestamp: new Date()
             };
             setLocalMessages([welcomeMessage]);
@@ -70,22 +70,22 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
               console.log('Could not save welcome message to database, continuing in memory only');
             }
           } else {
-            // If conversation creation fails, still show welcome message
+            // Fallback message if conversation creation fails - still warm and helpful
             const welcomeMessage: Message = {
               id: '1',
               type: 'dory',
-              content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image! (Note: Chat history won\'t be saved this session)',
+              content: '🐝 ¡Hola! I\'m Dory! While I can\'t save our chat today, I\'m still here to help with gardening, nature, and creating beautiful images. What would you like to explore? 🌻',
               timestamp: new Date()
             };
             setLocalMessages([welcomeMessage]);
           }
         } catch (error) {
           console.error('Error initializing chat:', error);
-          // Fallback welcome message
+          // Graceful fallback with encouragement
           const welcomeMessage: Message = {
             id: '1',
             type: 'dory',
-            content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image! (Note: Chat history won\'t be saved this session)',
+            content: '🐝 ¡Hola! I\'m Dory! Even though we\'re having some technical hiccups, I\'m ready to chat about gardens, nature, and help create amazing images! What interests you today? 🌻',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
@@ -472,7 +472,12 @@ Style this as a beautiful garden illustration that families would love - colorfu
               <div className="bg-card text-card-foreground border border-border rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] shadow-sm">
                 <div className="flex items-center gap-2">
                   <div className="animate-spin text-sm">🐝</div>
-                  <span className="text-xs sm:text-sm">Thinking...</span>
+                  <span className="text-xs sm:text-sm">Dory is thinking...</span>
+                  <div className="flex gap-1">
+                    <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
+                    <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
+                    <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{animationDelay: '300ms'}}></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -481,16 +486,27 @@ Style this as a beautiful garden illustration that families would love - colorfu
         <div ref={messagesEndRef} />
       </ScrollArea>
 
-      {/* Input Area - Mobile Optimized */}
+      {/* Input Area - Mobile Optimized with Visual Enhancements */}
       <div className="p-2 sm:p-4 border-t border-border bg-card safe-area-bottom">
+        <div className="flex flex-col space-y-2">
+          {/* Helpful hints */}
+          <div className="text-xs text-muted-foreground text-center">
+            💬 Type your message • 🎤 Use voice recording • 🎨 Say "create image of..." for visuals
+          </div>
         <div className="flex gap-1 sm:gap-2">
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Ask Dory... / Pregúntale a Dory..."
-            onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage()}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
             disabled={isLoading}
             className="flex-1 text-sm min-h-[44px]"
+            aria-label="Type your message to Dory in English or Spanish"
           />
           <Button
             onClick={() => generateImage(inputMessage || 'beautiful garden scene with Dory the bee')}
@@ -520,6 +536,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           >
             <Send className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
+        </div>
         </div>
       </div>
     </div>

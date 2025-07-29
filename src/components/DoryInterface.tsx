@@ -4,7 +4,7 @@ import { ShareButtons } from './ShareButtons';
 import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
 import { FollowDoryModal } from './FollowDoryModal';
-import { AuthGuard } from './AuthGuard';
+import { OnboardingTip } from './OnboardingTip';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,9 @@ import { MessageCircle, Mic, Image, Video, Expand, Shrink, Heart, UserPlus } fro
 export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(
+    !localStorage.getItem('dory_onboarding_completed')
+  );
 
   return (
     <>
@@ -45,12 +48,13 @@ export const DoryInterface: React.FC = () => {
 
         {/* Fullscreen Toggle */}
         {!isFullscreen && (
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 z-40">
             <Button
               onClick={() => setIsFullscreen(!isFullscreen)}
               variant="ghost"
               size="sm"
-              className="p-2"
+              className="p-2 hover:bg-background/20"
+              aria-label="Enter fullscreen mode"
             >
               <Expand className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
@@ -62,7 +66,8 @@ export const DoryInterface: React.FC = () => {
               onClick={() => setIsFullscreen(!isFullscreen)}
               variant="ghost"
               size="sm"
-              className="p-2"
+              className="p-2 bg-background/80 hover:bg-background/90"
+              aria-label="Exit fullscreen mode"
             >
               <Shrink className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
@@ -70,22 +75,21 @@ export const DoryInterface: React.FC = () => {
         )}
 
         {/* Main Interface - Mobile Optimized */}
-        <AuthGuard>
-          <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
-            <CardContent className="p-0 h-full flex flex-col">
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
+        <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
+          <CardContent className="p-0 h-full flex flex-col">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
               <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
-                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Text Chat with Dory">
                   <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Chat</span>
                   <span className="xs:hidden">💬</span>
                 </TabsTrigger>
-                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Voice Chat with Dory">
                   <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Voice</span>
                   <span className="xs:hidden">🎤</span>
                 </TabsTrigger>
-                <TabsTrigger value="generate" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                <TabsTrigger value="generate" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="AI Image & Video Generator">
                   <Image className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Create</span>
                   <span className="xs:hidden">🎨</span>
@@ -109,12 +113,21 @@ export const DoryInterface: React.FC = () => {
                   <ImageGenerator />
                 </div>
               </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-        </AuthGuard>
+            </Tabs>
+          </CardContent>
+        </Card>
       </div>
       </div>
+      
+      {/* Onboarding for First-Time Users */}
+      {showOnboarding && (
+        <OnboardingTip 
+          onClose={() => {
+            setShowOnboarding(false);
+            localStorage.setItem('dory_onboarding_completed', 'true');
+          }} 
+        />
+      )}
     </>
   );
 };

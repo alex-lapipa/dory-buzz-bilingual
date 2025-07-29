@@ -171,8 +171,9 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
       await audioRecorderRef.current.start();
       
       toast({
-        title: "Voice Chat Active",
-        description: "Start speaking! I'll respond automatically when you pause for 2 seconds.",
+        title: "Voice Chat Ready! 🎤",
+        description: "Start speaking! I'll listen and respond naturally when you pause for 2 seconds. Just like having a conversation with a friend! 🐝",
+        duration: 4000,
       });
     } catch (error) {
       console.error('Error starting audio recording:', error);
@@ -263,11 +264,11 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
             {conversation.length === 0 ? (
               <div className="text-center text-muted-foreground py-8">
                 <div className="text-4xl mb-2">🎤</div>
-                <p className="text-lg mb-2">Automated Voice Chat with Dory</p>
+                <p className="text-lg mb-2">Voice Chat with Dory</p>
                 <p className="text-sm">
                   {isConnected 
-                    ? "Start speaking! I'll respond automatically when you pause for 2 seconds."
-                    : "Press the button below to start an automated voice conversation"}
+                    ? "🐝 I'm listening! Start speaking and I'll respond automatically when you pause for 2 seconds."
+                    : "Press the button below to start a natural voice conversation with me! I'll listen and respond just like talking to a friend. 🌻"}
                 </p>
               </div>
             ) : (
@@ -319,7 +320,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
 
           {isConnected && (
             <div className="text-center text-xs text-muted-foreground mt-2">
-              Automatic voice detection active • 2-second pause to respond
+              🐝 Natural voice chat active • Speak naturally, I'll respond when you pause
             </div>
           )}
         </CardContent>
