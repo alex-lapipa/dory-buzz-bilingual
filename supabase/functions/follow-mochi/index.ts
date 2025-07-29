@@ -6,7 +6,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-interface FollowDoryRequest {
+interface FollowMochiRequest {
   name: string;
   email: string;
   parentEmail?: string;
@@ -22,7 +22,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, parentEmail, age, isChild, timestamp }: FollowDoryRequest = await req.json();
+    const { name, email, parentEmail, age, isChild, timestamp }: FollowMochiRequest = await req.json();
 
     console.log(`New follower: ${name} (${email}), Child: ${isChild}, Timestamp: ${timestamp}`);
 
@@ -65,7 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
     );
 
   } catch (error: any) {
-    console.error("Error in follow-dory function:", error);
+    console.error("Error in follow-mochi function:", error);
     return new Response(
       JSON.stringify({ 
         error: error.message,

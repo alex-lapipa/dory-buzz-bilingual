@@ -100,7 +100,7 @@ serve(async (req) => {
     }
 
     // Log successful integration
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: result.model,
       message_length: prompt.length,
@@ -129,7 +129,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
     
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: 'unknown',
       message_length: 0,

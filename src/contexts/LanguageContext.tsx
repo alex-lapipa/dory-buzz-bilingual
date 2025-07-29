@@ -11,7 +11,7 @@ interface LanguageContextType {
 const translations = {
   en: {
     // App Title & Header
-    appTitle: "Dory the Garden Bee",
+    appTitle: "Mochi the Garden Bee",
     appSubtitle: "Your friendly family garden companion from BeeCrazy Garden World!",
     buzztastic: "Buzztastic!",
     
@@ -21,7 +21,7 @@ const translations = {
     about: "About",
     
     // Buttons
-    followDory: "Follow Dory!",
+    followMochi: "Follow Mochi!",
     share: "Share",
     
     // Badges
@@ -31,32 +31,32 @@ const translations = {
     familyFun: "Family Fun",
     
     // Chat Interface
-    chatPlaceholder: "Ask Dory about gardens and nature...",
-    doryThinking: "Dory is thinking...",
+    chatPlaceholder: "Ask Mochi about gardens and nature...",
+    mochiThinking: "Mochi is thinking...",
     sendMessage: "Send message",
     generateImage: "Generate garden image",
     voiceInput: "Voice input",
     
     // Voice Chat
-    voiceChatTitle: "Voice Chat with Dory",
+    voiceChatTitle: "Voice Chat with Mochi",
     voiceChatSubtitle: "Have a conversation about gardens, bees, and nature!",
     connected: "Connected",
     disconnected: "Disconnected", 
     recording: "Recording...",
-    dorysSpeaking: "Dory Speaking...",
+    mochiSpeaking: "Mochi Speaking...",
     startVoiceChat: "Start Voice Chat",
     connecting: "Connecting...",
     stopRecording: "Stop Recording",
     holdToTalk: "Hold to Talk",
     disconnect: "Disconnect",
-    startSpeaking: "Start speaking to begin your conversation with Dory!",
+    startSpeaking: "Start speaking to begin your conversation with Mochi!",
     
     // About Section
-    meetDory: "Meet Dory",
-    meetDoryDesc: "Your friendly bee from BeeCrazy Garden World!",
+    meetMochi: "Meet Mochi",
+    meetMochiDesc: "Your friendly bee from BeeCrazy Garden World!",
     englishFeatures: "English Features",
     spanishFeatures: "Spanish Features", 
-    whatCanDoryHelp: "What can Dory help with?",
+    whatCanMochiHelp: "What can Mochi help with?",
     
     // Follow Modal
     followModalTitle: "Follow BeeCrazy Garden World!",
@@ -67,7 +67,7 @@ const translations = {
     underThirteen: "I am under 13 years old",
     parentEmail: "Parent/Guardian Email",
     parentConsent: "My parent/guardian agrees to receive updates about BeeCrazy Garden World!",
-    agreeUpdates: "I agree to receive updates about Dory's garden adventures and family activities",
+    agreeUpdates: "I agree to receive updates about Mochi's garden adventures and family activities",
     whatYoullGet: "What you'll get:",
     maybeLater: "Maybe Later",
     joining: "Joining...",
@@ -79,7 +79,7 @@ const translations = {
     embedCode: "Embed Code (Discord, Twitch, Websites)",
     copyEmbedCode: "Copy Embed Code",
     shareTextPreview: "Share text preview:",
-    shareText: "Meet Dory the Garden Bee! Chat with our friendly garden companion from BeeCrazy Garden World - perfect for families learning about nature!",
+    shareText: "Meet Mochi the Garden Bee! Chat with our friendly garden companion from BeeCrazy Garden World - perfect for families learning about nature!",
     
     // Footer
     footerText: "BeeCrazy Garden World! • Built with ❤️ for families everywhere",
@@ -97,7 +97,7 @@ const translations = {
   },
   es: {
     // App Title & Header  
-    appTitle: "Dory de los Huertos",
+    appTitle: "Mochi de los Huertos",
     appSubtitle: "¡Tu compañera amigable de jardín familiar de BeeCrazy Garden World!",
     buzztastic: "¡Buzztástico!",
     
@@ -107,7 +107,7 @@ const translations = {
     about: "Acerca de",
     
     // Buttons
-    followDory: "¡Sigue a Dory!",
+    followMochi: "¡Sigue a Mochi!",
     share: "Compartir",
     
     // Badges
@@ -117,32 +117,32 @@ const translations = {
     familyFun: "Diversión Familiar",
     
     // Chat Interface
-    chatPlaceholder: "Pregúntale a Dory sobre jardines y naturaleza...",
-    doryThinking: "Dory está pensando...",
+    chatPlaceholder: "Pregúntale a Mochi sobre jardines y naturaleza...",
+    mochiThinking: "Mochi está pensando...",
     sendMessage: "Enviar mensaje",
     generateImage: "Generar imagen de jardín",
     voiceInput: "Entrada de voz",
     
     // Voice Chat
-    voiceChatTitle: "Chat de Voz con Dory",
+    voiceChatTitle: "Chat de Voz con Mochi",
     voiceChatSubtitle: "¡Ten una conversación sobre jardines, abejas y naturaleza!",
     connected: "Conectado",
     disconnected: "Desconectado",
     recording: "Grabando...",
-    dorysSpeaking: "Dory Hablando...",
+    mochiSpeaking: "Mochi Hablando...",
     startVoiceChat: "Iniciar Chat de Voz",
     connecting: "Conectando...",
     stopRecording: "Detener Grabación",
     holdToTalk: "Mantén para Hablar",
     disconnect: "Desconectar",
-    startSpeaking: "¡Comienza a hablar para conversar con Dory!",
+    startSpeaking: "¡Comienza a hablar para conversar con Mochi!",
     
     // About Section
-    meetDory: "Conoce a Dory",
-    meetDoryDesc: "¡Tu abeja bilingüe amigable de BeeCrazy Garden World!",
+    meetMochi: "Conoce a Mochi",
+    meetMochiDesc: "¡Tu abeja bilingüe amigable de BeeCrazy Garden World!",
     englishFeatures: "Características en Inglés",
     spanishFeatures: "Características en Español",
-    whatCanDoryHelp: "¿Con qué puede ayudar Dory?",
+    whatCanMochiHelp: "¿Con qué puede ayudar Mochi?",
     
     // Follow Modal
     followModalTitle: "¡Sigue BeeCrazy Garden World!",
@@ -153,7 +153,7 @@ const translations = {
     underThirteen: "Tengo menos de 13 años",
     parentEmail: "Correo del Padre/Tutor",
     parentConsent: "¡Mi padre/tutor acepta recibir actualizaciones sobre BeeCrazy Garden World!",
-    agreeUpdates: "Acepto recibir actualizaciones sobre las aventuras de jardín de Dory y actividades familiares",
+    agreeUpdates: "Acepto recibir actualizaciones sobre las aventuras de jardín de Mochi y actividades familiares",
     whatYoullGet: "Lo que recibirás:",
     maybeLater: "Tal vez Después",
     joining: "Uniéndose...",
@@ -165,7 +165,7 @@ const translations = {
     embedCode: "Código de Inserción (Discord, Twitch, Sitios Web)",
     copyEmbedCode: "Copiar Código de Inserción",
     shareTextPreview: "Vista previa del texto para compartir:",
-    shareText: "¡Conoce a Dory la Abeja del Jardín! Chatea con nuestra compañera amigable de jardín de BeeCrazy Garden World - ¡perfecto para familias que aprenden sobre la naturaleza!",
+    shareText: "¡Conoce a Mochi la Abeja del Jardín! Chatea con nuestra compañera amigable de jardín de BeeCrazy Garden World - ¡perfecto para familias que aprenden sobre la naturaleza!",
     
     // Footer
     footerText: "¡BeeCrazy Garden World! • Hecho con ❤️ para familias en todas partes",

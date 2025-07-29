@@ -67,7 +67,7 @@ export const ImageGenerator: React.FC = () => {
     if (result.type === 'image') {
       const link = document.createElement('a');
       link.href = result.data;
-      link.download = `dory-generated-image-${Date.now()}.png`;
+      link.download = `mochi-generated-image-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -81,7 +81,7 @@ export const ImageGenerator: React.FC = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <span className="text-xl">🎨</span>
-          AI Content Creator with Dory
+          AI Content Creator with Mochi
         </CardTitle>
         <p className="text-sm text-muted-foreground">Create beautiful garden images and videos using AI! Describe what you'd like to see and I'll create it for you.</p>
       </CardHeader>
@@ -118,7 +118,7 @@ export const ImageGenerator: React.FC = () => {
                 <span>•</span>
                 <button 
                   className="text-primary hover:underline" 
-                  onClick={() => setPrompt("Dory the bee exploring a tropical garden paradise")}
+                  onClick={() => setPrompt("Mochi the bee exploring a tropical garden paradise")}
                 >
                   tropical paradise
                 </button>

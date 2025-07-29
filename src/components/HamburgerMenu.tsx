@@ -53,13 +53,13 @@ export const HamburgerMenu: React.FC = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Info className="h-4 w-4" />
-              About Dory
+              About Mochi
             </h3>
             
             <div className="space-y-4">
               <div className="text-center">
                 <div className="text-3xl mb-3 animate-flower-sway">🌻</div>
-                <h4 className="text-xl font-bold mb-2">Meet Dory</h4>
+                <h4 className="text-xl font-bold mb-2">Meet Mochi</h4>
                 <p className="text-sm text-muted-foreground">
                   Your friendly bee from BeeCrazy Garden World!
                 </p>
@@ -92,7 +92,7 @@ export const HamburgerMenu: React.FC = () => {
               </div>
 
               <div className="bg-accent/20 rounded-lg p-3">
-                <h5 className="font-semibold mb-2 text-sm">🐝 What can Dory help with?</h5>
+                <h5 className="font-semibold mb-2 text-sm">🐝 What can Mochi help with?</h5>
                 <div className="grid grid-cols-2 gap-1 text-xs">
                   <span>🌸 Plant identification</span>
                   <span>🦋 Wildlife facts</span>

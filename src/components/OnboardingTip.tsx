@@ -14,7 +14,7 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
   const tips = [
     {
       icon: <MessageCircle className="h-6 w-6" />,
-      title: "Chat with Dory! 💬",
+      title: "Chat with Mochi! 💬",
       description: "Ask me about gardening, nature, or request beautiful garden images by typing 'create an image of...'",
       emoji: "🐝"
     },

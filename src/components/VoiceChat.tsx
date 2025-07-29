@@ -19,7 +19,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
-  const [conversation, setConversation] = useState<Array<{ role: 'user' | 'dory'; content: string }>>([]);
+  const [conversation, setConversation] = useState<Array<{ role: 'user' | 'mochi'; content: string }>>([]);
 
   const wsRef = useRef<WebSocket | null>(null);
   const audioRecorderRef = useRef<AudioRecorder | null>(null);
@@ -104,10 +104,10 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
               setConversation(prev => {
                 const updated = [...prev];
                 const lastIndex = updated.length - 1;
-                if (lastIndex >= 0 && updated[lastIndex].role === 'dory') {
+                if (lastIndex >= 0 && updated[lastIndex].role === 'mochi') {
                   updated[lastIndex].content += data.delta;
                 } else {
-                  updated.push({ role: 'dory', content: data.delta });
+                  updated.push({ role: 'mochi', content: data.delta });
                 }
                 return updated;
               });
@@ -285,7 +285,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
                     }`}
                   >
                     <div className="text-xs mb-1 opacity-70">
-                      {message.role === 'user' ? 'You' : '🐝 Dory'}
+                      {message.role === 'user' ? 'You' : '🐝 Mochi'}
                     </div>
                     <div className="text-sm">{message.content}</div>
                   </div>

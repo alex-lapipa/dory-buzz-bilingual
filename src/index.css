@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Dory's Bee Theme - Light Mode - Mobile Optimized */
+    /* Mochi's Bee Theme - Light Mode - Mobile Optimized */
     --background: 52 100% 97%;
     --foreground: 39 100% 10%;
 
@@ -18,7 +18,7 @@ All colors MUST be HSL.
     --popover: 54 100% 99%;
     --popover-foreground: 39 100% 10%;
 
-    /* Warm Honey Yellow Primary - Dory's signature color */
+    /* Warm Honey Yellow Primary - Mochi's signature color */
     --primary: 45 95% 60%;
     --primary-foreground: 30 100% 8%;
 
@@ -89,7 +89,7 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dory's Bee Theme - Dark Mode */
+    /* Mochi's Bee Theme - Dark Mode */
     --background: 39 50% 8%;
     --foreground: 52 100% 90%;
 

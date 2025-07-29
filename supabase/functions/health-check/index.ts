@@ -24,11 +24,11 @@ serve(async (req) => {
     const baseUrl = Deno.env.get('SUPABASE_URL');
     const anonKey = Deno.env.get('SUPABASE_ANON_KEY');
 
-    // Test chat_dory function
-    const testChatDory = async () => {
+    // Test chat_mochi function
+    const testChatMochi = async () => {
       const start = Date.now();
       try {
-        const response = await fetch(`${baseUrl}/functions/v1/chat_dory`, {
+        const response = await fetch(`${baseUrl}/functions/v1/chat_mochi`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ serve(async (req) => {
         const status = response.ok ? 'healthy' : 'unhealthy';
         
         results.push({
-          service: 'chat_dory',
+          service: 'chat_mochi',
           status,
           responseTime,
           timestamp: new Date().toISOString(),
@@ -49,7 +49,7 @@ serve(async (req) => {
         });
       } catch (error) {
         results.push({
-          service: 'chat_dory',
+          service: 'chat_mochi',
           status: 'unhealthy',
           error: error.message,
           timestamp: new Date().toISOString(),
@@ -57,11 +57,11 @@ serve(async (req) => {
       }
     };
 
-    // Test tts_dory function
-    const testTtsDory = async () => {
+    // Test tts_mochi function
+    const testTtsMochi = async () => {
       const start = Date.now();
       try {
-        const response = await fetch(`${baseUrl}/functions/v1/tts_dory`, {
+        const response = await fetch(`${baseUrl}/functions/v1/tts_mochi`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ serve(async (req) => {
         const status = response.ok ? 'healthy' : 'unhealthy';
         
         results.push({
-          service: 'tts_dory',
+          service: 'tts_mochi',
           status,
           responseTime,
           timestamp: new Date().toISOString(),
@@ -82,7 +82,7 @@ serve(async (req) => {
         });
       } catch (error) {
         results.push({
-          service: 'tts_dory',
+          service: 'tts_mochi',
           status: 'unhealthy',
           error: error.message,
           timestamp: new Date().toISOString(),
@@ -123,11 +123,11 @@ serve(async (req) => {
       }
     };
 
-    // Test follow-dory function
-    const testFollowDory = async () => {
+    // Test follow-mochi function
+    const testFollowMochi = async () => {
       const start = Date.now();
       try {
-        const response = await fetch(`${baseUrl}/functions/v1/follow-dory`, {
+        const response = await fetch(`${baseUrl}/functions/v1/follow-mochi`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ serve(async (req) => {
         const status = response.ok ? 'healthy' : 'unhealthy';
         
         results.push({
-          service: 'follow-dory',
+          service: 'follow-mochi',
           status,
           responseTime,
           timestamp: new Date().toISOString(),
@@ -153,7 +153,7 @@ serve(async (req) => {
         });
       } catch (error) {
         results.push({
-          service: 'follow-dory',
+          service: 'follow-mochi',
           status: 'unhealthy',
           error: error.message,
           timestamp: new Date().toISOString(),
@@ -163,10 +163,10 @@ serve(async (req) => {
 
     // Run all health checks in parallel
     await Promise.all([
-      testChatDory(),
-      testTtsDory(), 
+      testChatMochi(),
+      testTtsMochi(), 
       testGenerateImage(),
-      testFollowDory()
+      testFollowMochi()
     ]);
 
     // Calculate overall system health
