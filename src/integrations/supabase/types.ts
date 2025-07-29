@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      bee_facts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          difficulty_level: number | null
+          fun_fact: boolean | null
+          id: string
+          image_url: string | null
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          created_at?: string
+          difficulty_level?: number | null
+          fun_fact?: boolean | null
+          id?: string
+          image_url?: string | null
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          difficulty_level?: number | null
+          fun_fact?: boolean | null
+          id?: string
+          image_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      bee_learning_progress: {
+        Row: {
+          completed_lessons: string[] | null
+          created_at: string
+          id: string
+          last_activity: string
+          level: number | null
+          topic: string
+          user_id: string | null
+        }
+        Insert: {
+          completed_lessons?: string[] | null
+          created_at?: string
+          id?: string
+          last_activity?: string
+          level?: number | null
+          topic: string
+          user_id?: string | null
+        }
+        Update: {
+          completed_lessons?: string[] | null
+          created_at?: string
+          id?: string
+          last_activity?: string
+          level?: number | null
+          topic?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string

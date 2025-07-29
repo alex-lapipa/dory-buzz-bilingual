@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain, BookOpen } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
+import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
@@ -34,8 +35,29 @@ export const HamburgerMenu: React.FC = () => {
             </Button>
             
             {activeSection === 'advanced' && (
-              <div className="ml-4 border-l-2 border-accent pl-4">
+              <div className="ml-4 border-l-2 border-accent pl-4 max-h-96 overflow-y-auto">
                 <AdvancedFeatures />
+              </div>
+            )}
+          </div>
+
+          <Separator />
+
+          {/* Bee Education Hub */}
+          <div className="space-y-4">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-left h-auto p-3"
+              onClick={() => setActiveSection(activeSection === 'education' ? null : 'education')}
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              <span className="font-medium">🎓 Bee Education Hub</span>
+              <Badge variant="secondary" className="ml-auto">Learn</Badge>
+            </Button>
+            
+            {activeSection === 'education' && (
+              <div className="ml-4 border-l-2 border-accent pl-4 max-h-96 overflow-y-auto">
+                <BeeEducationHub />
               </div>
             )}
           </div>
