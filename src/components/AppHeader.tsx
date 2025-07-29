@@ -39,6 +39,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           <p className="text-xs sm:text-sm text-muted-foreground">
             {t('appSubtitle')}
           </p>
+          <p className="text-xs sm:text-sm text-primary/80 font-medium">
+            Free for the whole family • No downloads required
+          </p>
         </div>
         
         {/* Right: Action Buttons and Hamburger Menu */}
