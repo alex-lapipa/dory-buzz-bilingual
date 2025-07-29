@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Mic, Phone, Info, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
+import { MessageCircle, Mic, Phone, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
 
 export const DoryInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
@@ -71,7 +71,7 @@ export const DoryInterface: React.FC = () => {
         <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
           <CardContent className="p-0 h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
-              <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
+              <TabsList className={`grid w-full grid-cols-2 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
                 <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
                   <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Chat</span>
@@ -81,11 +81,6 @@ export const DoryInterface: React.FC = () => {
                   <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Voice</span>
                   <span className="xs:hidden">🎤</span>
-                </TabsTrigger>
-                <TabsTrigger value="about" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-                  <Info className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">About</span>
-                  <span className="xs:hidden">ℹ️</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -98,58 +93,6 @@ export const DoryInterface: React.FC = () => {
               <TabsContent value="voice" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
                 <div className={`${isFullscreen ? 'h-full' : 'h-[70vh] sm:h-[600px] max-h-[800px]'}`}>
                   <VoiceChat className="h-full" />
-                </div>
-              </TabsContent>
-
-              <TabsContent value="about" className="m-0 p-3 sm:p-6 max-h-[70vh] overflow-y-auto scroll-area">
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="text-center">
-                    <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 animate-flower-sway">🌻</div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2">Meet Dory</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground">
-                      Your friendly bee from BeeCrazy Garden World!
-                    </p>
-                  </div>
-
-                  <div className="space-y-3 sm:space-y-4 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
-                    <Card className="p-3 sm:p-4 bg-secondary/20">
-                      <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                        🇪🇸 Spanish Features
-                      </h4>
-                      <ul className="text-xs sm:text-sm space-y-1 text-muted-foreground">
-                        <li>• Natural Spanish conversations</li>
-                        <li>• Mexican cultural context</li>
-                        <li>• Nature vocabulary in Spanish</li>
-                        <li>• Educational content</li>
-                      </ul>
-                    </Card>
-
-                    <Card className="p-3 sm:p-4 bg-secondary/20">
-                      <h4 className="font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                        🇺🇸 English Features
-                      </h4>
-                      <ul className="text-xs sm:text-sm space-y-1 text-muted-foreground">
-                        <li>• Fluent English responses</li>
-                        <li>• Nature guide expertise</li>
-                        <li>• Environmental education</li>
-                        <li>• Interactive learning</li>
-                      </ul>
-                    </Card>
-                  </div>
-
-                  <div className="text-center bg-accent/20 rounded-lg p-3 sm:p-4">
-                    <h4 className="font-semibold mb-2 text-sm sm:text-base">🐝 What can Dory help with?</h4>
-                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 text-xs sm:text-sm">
-                      <span>🌸 Plant identification</span>
-                      <span>🦋 Wildlife facts</span>
-                      <span>🌱 Gardening tips</span>
-                      <span>🍯 Bee information</span>
-                      <span>🌍 Environmental topics</span>
-                      <span>📚 Nature education</span>
-                      <span>🗣️ Language practice</span>
-                      <span>❓ General questions</span>
-                    </div>
-                  </div>
                 </div>
               </TabsContent>
             </Tabs>
