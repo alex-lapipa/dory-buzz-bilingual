@@ -5,18 +5,33 @@ import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
 import { FollowMochiModal } from './FollowMochiModal';
 import { OnboardingTip } from './OnboardingTip';
+import { LanguageWelcome } from './LanguageWelcome';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MessageCircle, Mic, Image, Video, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const MochiInterface: React.FC = () => {
+  const { setLanguage } = useLanguage();
   const [activeTab, setActiveTab] = useState('chat');
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showLanguageSelect, setShowLanguageSelect] = useState(
+    !localStorage.getItem('mochi_language_selected')
+  );
   const [showOnboarding, setShowOnboarding] = useState(
     !localStorage.getItem('mochi_onboarding_completed')
   );
+
+  const handleLanguageSelect = (language: 'en' | 'es') => {
+    setLanguage(language);
+    setShowLanguageSelect(false);
+  };
+
+  if (showLanguageSelect) {
+    return <LanguageWelcome onLanguageSelect={handleLanguageSelect} />;
+  }
 
   return (
     <>
