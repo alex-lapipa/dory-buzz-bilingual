@@ -10,8 +10,12 @@ import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
+import { SystemStatusIndicator } from "@/components/SystemStatusIndicator";
+import { AppStatusProvider } from "@/contexts/AppStatusContext";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,19 +51,23 @@ const AppContent = () => {
 
   return (
     <BrowserRouter>
-      <AuthWrapper>
-        <div className="flex flex-col min-h-screen bg-gradient-nature">
-          <AppHeader />
-          <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <FloatingGarden />
-        </div>
-      </AuthWrapper>
+      <AppStatusProvider>
+        <AuthWrapper>
+          <div className="flex flex-col min-h-screen bg-gradient-nature">
+            <AppHeader />
+            <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <FloatingGarden />
+            <SystemStatusIndicator />
+          </div>
+        </AuthWrapper>
+      </AppStatusProvider>
     </BrowserRouter>
   );
 };
@@ -68,9 +76,11 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <AppContent />
+        <ErrorBoundary>
+          <Toaster />
+          <Sonner />
+          <AppContent />
+        </ErrorBoundary>
       </TooltipProvider>
     </QueryClientProvider>
   );

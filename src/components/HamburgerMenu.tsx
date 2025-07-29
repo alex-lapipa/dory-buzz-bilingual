@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain, BookOpen } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain, BookOpen, Zap } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { Badge } from '@/components/ui/badge';
@@ -72,6 +72,17 @@ export const HamburgerMenu: React.FC = () => {
             </h3>
             
             <div className="space-y-2">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
+                asChild
+              >
+                <Link to="/dashboard">
+                  <Zap className="h-4 w-4 mr-2" />
+                  System Dashboard
+                </Link>
+              </Button>
+              
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
