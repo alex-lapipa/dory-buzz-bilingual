@@ -151,8 +151,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 variant="outline" 
                 className="w-full justify-start" 
                 onClick={() => {
-                  setActiveSection('accessibility');
-                  setIsOpen(false);
+                  setActiveSection(activeSection === 'accessibility' ? null : 'accessibility');
                 }}
               >
                 <Zap className="h-4 w-4 mr-2" />
