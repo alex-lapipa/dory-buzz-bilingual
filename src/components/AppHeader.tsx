@@ -13,7 +13,7 @@ interface AppHeaderProps {
 export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { t } = useLanguage();
   return (
-    <header className="w-full bg-gradient-to-b from-background/40 via-background/20 to-transparent backdrop-blur-sm border-b border-border/10 p-2 sm:p-3 fixed top-0 left-0 right-0 z-50 safe-area-top">
+    <header className="w-full bg-gradient-to-b from-background/25 via-background/5 to-transparent backdrop-blur-sm border-b border-border/10 p-2 sm:p-3 fixed top-0 left-0 right-0 z-50 safe-area-top">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Left: La Pipa Logo */}
         <div className="flex-shrink-0">
