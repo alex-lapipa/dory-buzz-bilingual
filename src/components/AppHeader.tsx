@@ -29,7 +29,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
         
         {/* Center: Title, Subtitle and Bee */}
         <div className="flex flex-col items-center text-center">
-          <div className="text-3xl sm:text-4xl animate-bee-bounce mb-1">🐝</div>
+          <div className="text-5xl sm:text-6xl lg:text-7xl animate-bee-bounce mb-3">🐝</div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2">
+            Mochi de los Huertos 🌻
+          </h1>
+          <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-primary/90">
+            ¡Buzztástico! Abeja de Jardín
+          </p>
         </div>
         
         {/* Right: Action Buttons and Hamburger Menu */}
