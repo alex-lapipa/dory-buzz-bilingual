@@ -706,15 +706,22 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
       {showVoiceInterface && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-background rounded-lg w-full max-w-4xl h-[80vh] relative">
+            <div className="p-4 border-b">
+              <h2 className="text-lg font-semibold">{t('voiceChatTitle')}</h2>
+              <p className="text-sm text-muted-foreground">{t('voiceChatSubtitle')}</p>
+            </div>
             <Button
               onClick={() => setShowVoiceInterface(false)}
               variant="ghost"
               size="sm"
               className="absolute top-2 right-2 z-10"
+              aria-label="Close voice chat"
             >
               ✕
             </Button>
-            <VoiceInterface className="h-full" />
+            <div className="h-[calc(100%-4rem)]">
+              <VoiceInterface className="h-full" />
+            </div>
           </div>
         </div>
       )}

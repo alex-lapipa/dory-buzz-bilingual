@@ -18,6 +18,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { ProductionDashboard } from "@/components/ProductionDashboard";
 
 // Create a context to manage active tab across components
 const TabContext = createContext<{
@@ -135,6 +136,7 @@ const AppContent = () => {
                       <Routes>
                         <Route path="/" element={<Index />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/production" element={<ProductionDashboard />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </div>

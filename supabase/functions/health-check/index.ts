@@ -161,12 +161,45 @@ serve(async (req) => {
       }
     };
 
+    // Test voice_chat_realtime function
+    const testVoiceRealtime = async () => {
+      const start = Date.now();
+      try {
+        const response = await fetch(`${baseUrl}/functions/v1/realtime_session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${anonKey}`,
+          }
+        });
+        
+        const responseTime = Date.now() - start;
+        const status = response.ok ? 'healthy' : 'unhealthy';
+        
+        results.push({
+          service: 'voice_chat_realtime',
+          status,
+          responseTime,
+          timestamp: new Date().toISOString(),
+          ...(status === 'unhealthy' && { error: `HTTP ${response.status}` })
+        });
+      } catch (error) {
+        results.push({
+          service: 'voice_chat_realtime',
+          status: 'unhealthy',
+          error: error.message,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    };
+
     // Run all health checks in parallel
     await Promise.all([
       testChatMochi(),
       testTtsMochi(), 
       testGenerateImage(),
-      testFollowMochi()
+      testFollowMochi(),
+      testVoiceRealtime()
     ]);
 
     // Calculate overall system health

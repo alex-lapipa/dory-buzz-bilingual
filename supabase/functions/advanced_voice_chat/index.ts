@@ -101,7 +101,7 @@ Context: This is a voice conversation, so respond as if you're speaking directly
     });
 
     const claudeResponse = await anthropic.messages.create({
-      model: "claude-opus-4-20250514",
+      model: "claude-3-5-sonnet-20241022",
       max_tokens: 1000,
       temperature: 0.8,
       system: systemPrompt,
@@ -168,7 +168,7 @@ Context: This is a voice conversation, so respond as if you're speaking directly
         aiResponse,
         audioContent: base64Audio,
         session_id,
-        model: "claude-opus-4-20250514",
+        model: "claude-3-5-sonnet-20241022",
         voice_id
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
