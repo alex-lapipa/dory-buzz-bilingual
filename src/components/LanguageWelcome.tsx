@@ -15,6 +15,35 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
 
   return (
     <>
+      {/* Garden Flying Insects */}
+      {/* Bees - Natural foraging patterns */}
+      <div className="flying-bee flying-bee-1 animate-tiny-bee-fly">🐝</div>
+      <div className="flying-bee flying-bee-2 animate-tiny-bee-hover">🐝</div>
+      <div className="flying-bee flying-bee-3 animate-tiny-bee-zigzag">🐝</div>
+      <div className="flying-bee flying-bee-4 animate-tiny-bee-loop">🐝</div>
+      <div className="flying-bee flying-bee-5 animate-bee-to-garden">🐝</div>
+      
+      {/* Butterflies - Graceful floating patterns */}
+      <div className="flying-bee flying-butterfly-1 animate-butterfly-flutter">🦋</div>
+      <div className="flying-bee flying-butterfly-2 animate-butterfly-dance">🦋</div>
+      <div className="flying-bee flying-butterfly-3 animate-butterfly-spiral">🦋</div>
+      <div className="flying-bee flying-butterfly-4 animate-butterfly-float">🦋</div>
+      
+      {/* Ladybirds - Gentle garden patrol */}
+      <div className="flying-bee flying-ladybird-1 animate-ladybug-crawl">🐞</div>
+      <div className="flying-bee flying-ladybird-2 animate-insect-hover">🐞</div>
+      <div className="flying-bee flying-ladybird-3 animate-insect-patrol">🐞</div>
+      
+      {/* Swallows - Swift aerial maneuvers */}
+      <div className="flying-bee flying-swallow-1 animate-swallow-dive">🐦</div>
+      <div className="flying-bee flying-swallow-2 animate-swallow-soar">🐦</div>
+      <div className="flying-bee flying-swallow-3 animate-swallow-hunt">🐦</div>
+      
+      {/* Other beneficial insects */}
+      <div className="flying-bee flying-dragonfly-1 animate-dragonfly-zip">🜻</div>
+      <div className="flying-bee flying-dragonfly-2 animate-insect-dart">🜻</div>
+      <div className="flying-bee flying-moth-1 animate-moth-night">🦗</div>
+      <div className="flying-bee flying-hoverfly-1 animate-insect-buzz">🪰</div>
       
       <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
         <div className="max-w-md w-full mx-auto my-auto">
