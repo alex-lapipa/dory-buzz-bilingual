@@ -4,9 +4,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { GardenFooter } from "@/components/GardenFooter";
+
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
+import { FloatingGarden } from "@/components/FloatingGarden";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -49,14 +50,14 @@ const AppContent = () => {
       <AuthWrapper>
         <div className="flex flex-col min-h-screen bg-gradient-nature">
           <AppHeader />
-          <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18 pb-52 sm:pb-56">
+          <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
             <Routes>
               <Route path="/" element={<Index />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          <GardenFooter />
+          <FloatingGarden />
         </div>
       </AuthWrapper>
     </BrowserRouter>
