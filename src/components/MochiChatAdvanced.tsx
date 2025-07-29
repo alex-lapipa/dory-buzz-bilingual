@@ -44,11 +44,14 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [reasoningMode, setReasoningMode] = useState<string>('educational');
   const [voiceMode, setVoiceMode] = useState(false);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [lastImageTime, setLastImageTime] = useState<number>(0);
   const { toast } = useToast();
   const { incrementGrowth } = usePlantGrowth();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const imageTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -150,6 +153,126 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
       setIsLoading(false);
     }
   };
+
+  const generateSmartContextualMedia = async () => {
+    if (isGeneratingImage) return;
+    
+    setIsGeneratingImage(true);
+    try {
+      // Advanced contextual analysis for bee education
+      const recentText = localMessages.slice(-4).map(m => m.content).join(' ').toLowerCase();
+      
+      // Smart prompt generation based on educational context
+      let contextualPrompt = "Mochi the bee in a vibrant educational garden setting";
+      let useVideo = Math.random() < 0.3; // 30% chance for video
+      
+      if (recentText.includes('honey') || recentText.includes('nectar')) {
+        contextualPrompt = "close-up of bees collecting nectar and making honey in hexagonal combs";
+        useVideo = Math.random() < 0.4; // Higher chance for honey topics
+      } else if (recentText.includes('pollination') || recentText.includes('pollen')) {
+        contextualPrompt = "detailed view of a bee covered in pollen transferring it between flowers";
+        useVideo = true; // Always video for pollination education
+      } else if (recentText.includes('hive') || recentText.includes('colony')) {
+        contextualPrompt = "inside a busy beehive showing bees working together in their community";
+        useVideo = Math.random() < 0.6;
+      } else if (recentText.includes('flower') || recentText.includes('bloom')) {
+        contextualPrompt = "macro photography of various flowers perfect for bee pollination";
+      } else if (recentText.includes('dance') || recentText.includes('waggle')) {
+        contextualPrompt = "bees performing the waggle dance to communicate flower locations";
+        useVideo = true; // Always video for dance education
+      } else if (recentText.includes('queen') || recentText.includes('worker')) {
+        contextualPrompt = "educational diagram showing different types of bees in a colony";
+      } else if (recentText.includes('garden') || recentText.includes('plant')) {
+        contextualPrompt = "a bee-friendly garden with labeled plants that attract pollinators";
+      }
+
+      // Use different functions based on complexity
+      const functionName = useVideo ? 'generate_image_sora' : 'generate_image';
+      
+      const response = await fetch(
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/${functionName}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg`,
+          },
+          body: JSON.stringify(useVideo ? { 
+            prompt: contextualPrompt,
+            type: 'video',
+            user_id: guestId
+          } : {
+            prompt: contextualPrompt,
+            size: "1024x1024",
+            quality: "high"
+          })
+        }
+      );
+
+      const data = await response.json();
+      
+      let mediaContent;
+      if (useVideo && data.url) {
+        mediaContent = `🎬 Here's an educational video about what we've been discussing!\n\n<video controls style="max-width: 100%; border-radius: 8px;">\n<source src="${data.url}" type="video/mp4">\nYour browser doesn't support videos.\n</video>\n\n🐝 This shows the fascinating world of bees in action!`;
+      } else if (data.image?.b64_json || data.image) {
+        const imageData = data.image?.b64_json ? `data:image/png;base64,${data.image.b64_json}` : data.image;
+        mediaContent = `🎨 I created this educational illustration based on our bee conversation!\n\n![Bee Education Image](${imageData})\n\n🌻 This visual helps explain the amazing concepts we've been exploring!`;
+      }
+
+      if (mediaContent) {
+        const mediaMessage: Message = {
+          id: Date.now().toString(),
+          type: 'mochi',
+          content: mediaContent,
+          timestamp: new Date(),
+          metadata: { 
+            model: useVideo ? 'sora-1.0' : 'gpt-image-1',
+            reasoning_type: 'visual_education'
+          }
+        };
+        
+        setLocalMessages(prev => [...prev, mediaMessage]);
+        setLastImageTime(Date.now());
+        
+        if (currentConversation) {
+          await saveMessage(currentConversation, 'mochi', mediaContent);
+        }
+        
+        toast({
+          title: `🎨 Educational ${useVideo ? 'Video' : 'Image'} Generated!`,
+          description: "Advanced AI created a visual based on our bee education topic!",
+        });
+      }
+    } catch (error) {
+      console.error('Smart image generation error:', error);
+    } finally {
+      setIsGeneratingImage(false);
+    }
+  };
+
+  // Advanced auto-generation with educational timing
+  useEffect(() => {
+    if (localMessages.length > 3) { // Start after meaningful conversation
+      const interval = setInterval(() => {
+        const timeSinceLastImage = Date.now() - lastImageTime;
+        const randomInterval = 45000 + Math.random() * 15000; // 45-60 seconds
+        
+        if (timeSinceLastImage > randomInterval && !isGeneratingImage && !isLoading) {
+          generateSmartContextualMedia();
+        }
+      }, 15000); // Check every 15 seconds for more precision
+
+      return () => clearInterval(interval);
+    }
+  }, [localMessages, lastImageTime, isGeneratingImage, isLoading]);
+
+  useEffect(() => {
+    return () => {
+      if (imageTimerRef.current) {
+        clearTimeout(imageTimerRef.current);
+      }
+    };
+  }, []);
 
   const sendMessage = async (messageText: string = inputMessage, useAdvanced: boolean = false) => {
     if (!messageText.trim() || isLoading) return;

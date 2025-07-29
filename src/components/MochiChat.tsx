@@ -34,11 +34,14 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [lastImageTime, setLastImageTime] = useState<number>(0);
   const { toast } = useToast();
   const { incrementGrowth } = usePlantGrowth();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const imageTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -149,6 +152,111 @@ Style this as a beautiful garden illustration that families would love - colorfu
       setIsLoading(false);
     }
   };
+
+  const generateContextualImage = async (conversationContext: string, useVideo: boolean = false) => {
+    if (isGeneratingImage) return;
+    
+    setIsGeneratingImage(true);
+    try {
+      // Create a contextual prompt based on recent conversation
+      const imagePrompts = [
+        "a beautiful garden scene with colorful flowers and buzzing bees",
+        "Mochi the friendly bee exploring vibrant wildflowers",
+        "a magical garden path lined with blooming flowers",
+        "children learning about nature in a sunny garden",
+        "bees collecting nectar from bright sunflowers",
+        "a cozy garden corner with herbs and vegetables",
+        "butterflies and bees sharing a flower meadow",
+        "a family-friendly garden with educational plant signs"
+      ];
+      
+      // Extract keywords from recent conversation to make it contextual
+      const recentText = localMessages.slice(-3).map(m => m.content).join(' ').toLowerCase();
+      let contextualPrompt = imagePrompts[Math.floor(Math.random() * imagePrompts.length)];
+      
+      if (recentText.includes('honey')) {
+        contextualPrompt = "bees making honey in hexagonal combs with golden honey dripping";
+      } else if (recentText.includes('flower') || recentText.includes('bloom')) {
+        contextualPrompt = "a spectacular flower garden in full bloom with various colorful flowers";
+      } else if (recentText.includes('plant') || recentText.includes('grow')) {
+        contextualPrompt = "young plants growing in rich soil with gardening tools nearby";
+      } else if (recentText.includes('bee') || recentText.includes('buzz')) {
+        contextualPrompt = "Mochi the bee and friends working together in a thriving garden";
+      } else if (recentText.includes('nature') || recentText.includes('outdoor')) {
+        contextualPrompt = "a peaceful nature scene with trees, flowers, and wildlife";
+      }
+
+      const response = await fetch(
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/generate_image_sora`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg`,
+          },
+          body: JSON.stringify({ 
+            prompt: contextualPrompt,
+            type: useVideo ? 'video' : 'image',
+            user_id: guestId
+          })
+        }
+      );
+
+      const data = await response.json();
+      if (data.data || data.url) {
+        const mediaMessage: Message = {
+          id: Date.now().toString(),
+          type: 'mochi',
+          content: useVideo 
+            ? `🎬 I made this beautiful video inspired by our conversation!\n\n<video controls style="max-width: 100%; border-radius: 8px;">\n<source src="${data.url}" type="video/mp4">\nYour browser doesn't support videos.\n</video>\n\n🌻 This shows the magical world we've been talking about!`
+            : `🎨 I created this beautiful image inspired by our garden conversation!\n\n![Garden Scene](${data.data})\n\n🌻 This captures the spirit of what we've been discussing about nature and gardens!`,
+          timestamp: new Date()
+        };
+        
+        setLocalMessages(prev => [...prev, mediaMessage]);
+        setLastImageTime(Date.now());
+        
+        if (currentConversation) {
+          await saveMessage(currentConversation, 'mochi', mediaMessage.content);
+        }
+        
+        toast({
+          title: `🎨 ${useVideo ? 'Video' : 'Image'} Generated!`,
+          description: "Mochi created something beautiful based on our conversation!",
+        });
+      }
+    } catch (error) {
+      console.error('Auto image generation error:', error);
+    } finally {
+      setIsGeneratingImage(false);
+    }
+  };
+
+  // Auto-generate images every 45-60 seconds
+  useEffect(() => {
+    if (localMessages.length > 2) { // Only start after some conversation
+      const interval = setInterval(() => {
+        const timeSinceLastImage = Date.now() - lastImageTime;
+        const randomInterval = 45000 + Math.random() * 15000; // 45-60 seconds
+        
+        if (timeSinceLastImage > randomInterval && !isGeneratingImage) {
+          // Alternate between images and videos (80% images, 20% videos)
+          const useVideo = Math.random() < 0.2;
+          generateContextualImage('recent conversation', useVideo);
+        }
+      }, 10000); // Check every 10 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [localMessages, lastImageTime, isGeneratingImage]);
+
+  useEffect(() => {
+    return () => {
+      if (imageTimerRef.current) {
+        clearTimeout(imageTimerRef.current);
+      }
+    };
+  }, []);
 
   const sendMessage = async (messageText: string = inputMessage, generateImageFirst: boolean = false) => {
     if (!messageText.trim() || isLoading) return;
