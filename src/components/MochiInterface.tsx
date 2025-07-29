@@ -40,10 +40,10 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
         <div className="min-h-[400px] flex items-center justify-center p-8 text-center">
           <div className="max-w-md">
             <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
-            <h2 className="text-2xl font-bold mb-4 bg-gradient-bee bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold mb-4" style={{ color: '#fffd01' }}>
               {t('welcome')} BeeCrazy Garden World!
             </h2>
-            <p className="text-muted-foreground mb-6">
+            <p className="mb-6" style={{ color: '#fffd01' }}>
               {t('language') === 'es' 
                 ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
                 : 'Complete your registration to access all chat features with Mochi.'
