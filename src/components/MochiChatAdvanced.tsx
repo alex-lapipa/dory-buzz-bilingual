@@ -660,7 +660,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask Mochi about bees, flowers, or nature! 🐝🌻"
+            placeholder="Type your message • 🎤 Use voice recording • 🎨 Say 'create image of...' for visuals"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();

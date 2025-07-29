@@ -631,7 +631,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={t('chatPlaceholder')}
+            placeholder="Type your message • 🎤 Use voice recording • 🎨 Say 'create image of...' for visuals"
             onKeyPress={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
