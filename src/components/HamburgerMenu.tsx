@@ -7,6 +7,7 @@ import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Ima
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
+import { SystemTestStatus } from '@/components/SystemTestStatus';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -161,6 +162,18 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
+                onClick={() => {
+                  setActiveSection(activeSection === 'testing' ? null : 'testing');
+                }}
+              >
+                <Zap className="h-4 w-4 mr-2" />
+                MVP System Tests
+                <Badge variant="secondary" className="ml-auto">Test</Badge>
+              </Button>
+
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
                 asChild
               >
                 <Link to="/dashboard">
@@ -188,10 +201,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                   window.location.reload();
                   setIsOpen(false);
                 }}
-               >
-                 <ExternalLink className="h-4 w-4 mr-2" />
-                 {t('refreshApp') || 'Refresh App'}
-               </Button>
+                >
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  {t('refreshApp') || 'Refresh App'}
+                </Button>
             </div>
           </div>
 
@@ -252,6 +265,21 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               </div>
             </div>
           </div>
+
+          {/* System Testing Interface */}
+          {activeSection === 'testing' && (
+            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">MVP System Testing</h2>
+                  <Button variant="outline" onClick={() => setActiveSection(null)}>
+                    ✕
+                  </Button>
+                </div>
+                <SystemTestStatus />
+              </div>
+            </div>
+          )}
 
           {/* Accessibility Helper */}
           {activeSection === 'accessibility' && (

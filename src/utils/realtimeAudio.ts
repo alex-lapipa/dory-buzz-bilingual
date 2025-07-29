@@ -9,6 +9,9 @@ export class AudioRecorder {
 
   async start() {
     try {
+      console.log('🎤 Starting audio recording...');
+      
+      // Request microphone with optimal settings for voice
       this.stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           sampleRate: 24000,
@@ -19,9 +22,17 @@ export class AudioRecorder {
         }
       });
       
+      console.log('✅ Microphone access granted');
+      
       this.audioContext = new AudioContext({
         sampleRate: 24000,
       });
+      
+      // Resume audio context if suspended (mobile requirement)
+      if (this.audioContext.state === 'suspended') {
+        await this.audioContext.resume();
+        console.log('🔊 Audio context resumed for mobile');
+      }
       
       this.source = this.audioContext.createMediaStreamSource(this.stream);
       this.processor = this.audioContext.createScriptProcessor(4096, 1, 1);
@@ -33,8 +44,10 @@ export class AudioRecorder {
       
       this.source.connect(this.processor);
       this.processor.connect(this.audioContext.destination);
+      
+      console.log('🎵 Audio pipeline established');
     } catch (error) {
-      console.error('Error accessing microphone:', error);
+      console.error('❌ Error accessing microphone:', error);
       throw error;
     }
   }
@@ -133,6 +146,7 @@ export class AudioQueue {
   }
 
   async addToQueue(audioData: Uint8Array) {
+    console.log(`🔊 Adding ${audioData.length} bytes to audio queue`);
     this.queue.push(audioData);
     if (!this.isPlaying) {
       await this.playNext();
@@ -142,6 +156,7 @@ export class AudioQueue {
   private async playNext() {
     if (this.queue.length === 0) {
       this.isPlaying = false;
+      console.log('🎵 Audio queue finished');
       return;
     }
 
@@ -149,6 +164,12 @@ export class AudioQueue {
     const audioData = this.queue.shift()!;
 
     try {
+      // Resume audio context if suspended (mobile requirement)
+      if (this.audioContext.state === 'suspended') {
+        await this.audioContext.resume();
+        console.log('🔊 Audio context resumed for playback');
+      }
+      
       const wavData = createWavFromPCM(audioData);
       const audioBuffer = await this.audioContext.decodeAudioData(wavData.buffer);
       
@@ -158,9 +179,11 @@ export class AudioQueue {
       
       source.onended = () => this.playNext();
       source.start(0);
+      
+      console.log(`🎶 Playing audio chunk (${audioBuffer.duration.toFixed(2)}s)`);
     } catch (error) {
-      console.error('Error playing audio:', error);
-      this.playNext();
+      console.error('❌ Error playing audio:', error);
+      this.playNext(); // Continue with next segment even if current fails
     }
   }
 
