@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { HamburgerMenu } from './HamburgerMenu';
@@ -12,6 +13,12 @@ interface AppHeaderProps {
 
 export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleBeeClick = () => {
+    navigate('/');
+  };
+
   return (
     <header className="w-full bg-gradient-to-b from-background/25 via-background/5 to-transparent backdrop-blur-sm border-b border-border/10 p-1 sm:p-2 fixed top-0 left-0 right-0 z-50 safe-area-top">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -25,7 +32,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               style={{backgroundColor: 'transparent'}}
             />
           </a>
-          <div className="text-3xl sm:text-4xl animate-bee-bounce">🐝</div>
+          <button 
+            onClick={handleBeeClick}
+            className="text-3xl sm:text-4xl animate-bee-bounce hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
+            aria-label="Go to landing page"
+          >
+            🐝
+          </button>
         </div>
         
         {/* Center: Title and Subtitle */}
