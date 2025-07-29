@@ -16,9 +16,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="relative min-h-screen bg-gradient-nature">
+        <div className="flex flex-col min-h-screen bg-gradient-nature">
           <AppHeader />
-          <main className="relative z-10">
+          <main className="flex-1 overflow-auto relative z-10 pt-4 pb-4">
             <Routes>
               <Route path="/" element={<Index />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

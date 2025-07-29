@@ -39,7 +39,7 @@ export const DoryInterface: React.FC = () => {
       <div className="flying-bee flying-bumblebee-2 animate-bumblebee-bumble">🐝</div>
       <div className="flying-bee flying-bumblebee-3 animate-bumblebee-bumble">🐝</div>
       
-      <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4 pt-32'}`}>
+      <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-full'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-2 sm:p-4'}`}>
       <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto'}`}>
 
         {/* Fullscreen Toggle */}
@@ -91,19 +91,19 @@ export const DoryInterface: React.FC = () => {
               </TabsList>
 
               <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[70vh]'}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[60vh] sm:max-h-[70vh]'} overflow-auto`}>
                   <DoryChat className="h-full" />
                 </div>
               </TabsContent>
 
               <TabsContent value="voice" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'h-[70vh] sm:h-[600px] max-h-[800px]'}`}>
+                <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
                   <VoiceChat className="h-full" />
                 </div>
               </TabsContent>
 
               <TabsContent value="generate" className={`m-0 ${isFullscreen ? 'flex-1' : ''} p-4`}>
-                <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[70vh] overflow-y-auto'}`}>
+                <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[60vh] sm:max-h-[70vh] overflow-y-auto'}`}>
                   <ImageGenerator />
                 </div>
               </TabsContent>
