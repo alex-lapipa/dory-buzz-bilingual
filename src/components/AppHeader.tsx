@@ -33,14 +33,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-bee bg-clip-text text-transparent">
             {t('appTitle')}
           </h1>
-          <h2 className="text-responsive-base font-saira font-semibold text-foreground/80 mt-1">
-            Tu amigable compañero familiar de jardín
-          </h2>
           <p className="text-xs sm:text-sm text-muted-foreground">
             {t('appSubtitle')}
-          </p>
-          <p className="text-xs sm:text-sm text-primary/80 font-medium">
-            Free for the whole family • No downloads required
           </p>
         </div>
         

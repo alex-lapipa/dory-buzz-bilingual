@@ -19,12 +19,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           BeeCrazy Garden World
         </h1>
         
-        <p className="text-responsive-xl text-foreground mb-8 max-w-2xl mx-auto">
-          {language === 'es' 
-            ? 'Tu amigable compañero familiar de jardín. Aprende sobre abejas, naturaleza y más con Mochi.'
-            : 'Your friendly family garden companion. Learn about bees, nature, and more with Mochi.'
-          }
-        </p>
 
         <Card className="shadow-honey border border-border/30 bg-card/80 backdrop-blur max-w-md mx-auto mb-8">
           <CardContent className="p-6">
@@ -69,12 +63,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           {language === 'es' ? '🌟 ¡Comenzar Aventura!' : '🌟 Start Adventure!'}
         </Button>
 
-        <p className="text-responsive-sm text-muted-foreground mt-6">
-          {language === 'es' 
-            ? 'Gratis para toda la familia • Sin descargas necesarias'
-            : 'Free for the whole family • No downloads required'
-          }
-        </p>
       </div>
     </div>
   );
