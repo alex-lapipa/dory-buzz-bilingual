@@ -643,16 +643,6 @@ Style this as a beautiful garden illustration that families would love - colorfu
             aria-label={t('messageToMochi')}
           />
           <Button
-            onClick={() => generateImage(inputMessage || 'beautiful garden scene with Mochi the bee')}
-            disabled={isLoading}
-            variant="secondary"
-            size="sm"
-            className="shrink-0 min-h-[44px] px-2 sm:px-3"
-            title="Generate garden image"
-          >
-            <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
-          </Button>
-          <Button
             onClick={isListening ? stopVoiceRecording : startVoiceRecording}
             variant={isListening ? "destructive" : "secondary"}
             size="sm"

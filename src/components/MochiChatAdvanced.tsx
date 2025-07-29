@@ -685,14 +685,6 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
           >
             {isListening ? <MicOff className="h-3 w-3 sm:h-4 sm:w-4" /> : <Mic className="h-3 w-3 sm:h-4 sm:w-4" />}
           </Button>
-          <Button
-            onClick={() => generateAdvancedImage("beautiful bee in a flower garden")}
-            disabled={isLoading}
-            variant="outline"
-            size="sm"
-          >
-            <Camera className="h-3 w-3 sm:h-4 sm:w-4" />
-          </Button>
         </div>
       </div>
     </div>
