@@ -157,7 +157,7 @@ const translations = {
   es: {
     // App Title & Header  
     appTitle: "BeeCrazy Garden World",
-    appSubtitle: "Tu amigable compañero familiar de jardín",
+    appSubtitle: "",
     buzztastic: "¡Buzztástico!",
     welcome: "¡Bienvenido! 🐝",
     guestModeMessage: "Funcionando en modo invitado. Tus chats no se guardarán, ¡pero todo lo demás funciona perfectamente!",
