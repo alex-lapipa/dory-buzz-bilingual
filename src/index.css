@@ -60,7 +60,7 @@ All colors MUST be HSL.
       hsl(35 85% 88% / 0.2) 60%, 
       hsl(30 70% 85% / 0.1) 100%
     ),
-    url('/lovable-uploads/fbf5801e-cf60-4d26-bafe-00b47a680217.png');
+    url('/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png');
   --gradient-bee: linear-gradient(135deg, hsl(45 100% 80%) 0%, hsl(40 95% 70%) 50%, hsl(35 85% 65%) 100%);
   --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
   --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
@@ -1306,6 +1306,172 @@ All colors MUST be HSL.
     animation-delay: 31s;
     font-size: 28px;
   }
+
+  /* Butterfly animations */
+  @keyframes butterfly-flutter {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    50% { transform: translate(50vw, -30px) rotate(180deg); opacity: 0.8; }
+    100% { transform: translate(100vw, -60px) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes butterfly-dance {
+    0% { transform: translate(100vw, 80vh) rotate(0deg); opacity: 0; }
+    15% { opacity: 0.6; }
+    50% { transform: translate(50vw, 40vh) rotate(-90deg); opacity: 0.7; }
+    100% { transform: translate(0, 0) rotate(-180deg); opacity: 0; }
+  }
+
+  @keyframes butterfly-spiral {
+    0% { transform: translate(30vw, 100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.5; transform: translate(35vw, 80vh) rotate(45deg); }
+    40% { transform: translate(45vw, 60vh) rotate(135deg); opacity: 0.7; }
+    60% { transform: translate(55vw, 40vh) rotate(225deg); opacity: 0.6; }
+    80% { transform: translate(65vw, 20vh) rotate(315deg); opacity: 0.4; }
+    100% { transform: translate(75vw, 0) rotate(405deg); opacity: 0; }
+  }
+
+  @keyframes butterfly-float {
+    0% { transform: translate(80vw, 10vh) rotate(0deg); opacity: 0; }
+    25% { transform: translate(70vw, 30vh) rotate(30deg); opacity: 0.6; }
+    50% { transform: translate(60vw, 50vh) rotate(-30deg); opacity: 0.8; }
+    75% { transform: translate(50vw, 70vh) rotate(60deg); opacity: 0.5; }
+    100% { transform: translate(40vw, 90vh) rotate(-60deg); opacity: 0; }
+  }
+
+  /* Garden insect animations */
+  @keyframes insect-buzz {
+    0% { transform: translate(-20px, 50vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; transform: translate(20vw, 45vh) rotate(90deg); }
+    40% { transform: translate(40vw, 55vh) rotate(180deg); opacity: 0.8; }
+    60% { transform: translate(60vw, 40vh) rotate(270deg); opacity: 0.6; }
+    80% { transform: translate(80vw, 60vh) rotate(360deg); opacity: 0.4; }
+    100% { transform: translate(105vw, 55vh) rotate(450deg); opacity: 0; }
+  }
+
+  @keyframes insect-dart {
+    0% { transform: translate(100vw, 20vh); opacity: 0; }
+    10% { opacity: 0.8; }
+    30% { transform: translate(70vw, 30vh); opacity: 0.9; }
+    60% { transform: translate(30vw, 25vh); opacity: 0.7; }
+    100% { transform: translate(-20px, 35vh); opacity: 0; }
+  }
+
+  @keyframes insect-hover {
+    0% { transform: translate(20vw, 70vh) rotate(0deg); opacity: 0; }
+    25% { transform: translate(25vw, 65vh) rotate(15deg); opacity: 0.6; }
+    50% { transform: translate(30vw, 75vh) rotate(-15deg); opacity: 0.8; }
+    75% { transform: translate(35vw, 70vh) rotate(10deg); opacity: 0.7; }
+    100% { transform: translate(40vw, 80vh) rotate(-10deg); opacity: 0; }
+  }
+
+  @keyframes insect-patrol {
+    0% { transform: translate(90vw, 80vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.7; transform: translate(70vw, 75vh) rotate(-45deg); }
+    40% { transform: translate(50vw, 85vh) rotate(-90deg); opacity: 0.8; }
+    60% { transform: translate(30vw, 80vh) rotate(-135deg); opacity: 0.6; }
+    80% { transform: translate(10vw, 90vh) rotate(-180deg); opacity: 0.4; }
+    100% { transform: translate(-20px, 85vh) rotate(-225deg); opacity: 0; }
+  }
+
+  /* Butterfly and insect positioning */
+  .flying-butterfly-1 {
+    position: fixed;
+    top: 20%;
+    left: -50px;
+    font-size: 20px;
+    z-index: 5;
+    pointer-events: none;
+    animation: butterfly-flutter 25s linear infinite;
+    animation-delay: 2s;
+  }
+
+  .flying-butterfly-2 {
+    position: fixed;
+    bottom: 20%;
+    right: -50px;
+    font-size: 18px;
+    z-index: 5;
+    pointer-events: none;
+    animation: butterfly-dance 28s linear infinite;
+    animation-delay: 8s;
+  }
+
+  .flying-butterfly-3 {
+    position: fixed;
+    bottom: 30%;
+    left: 30%;
+    font-size: 22px;
+    z-index: 5;
+    pointer-events: none;
+    animation: butterfly-spiral 20s linear infinite;
+    animation-delay: 15s;
+  }
+
+  .flying-butterfly-4 {
+    position: fixed;
+    top: 10%;
+    right: 80%;
+    font-size: 19px;
+    z-index: 5;
+    pointer-events: none;
+    animation: butterfly-float 30s linear infinite;
+    animation-delay: 5s;
+  }
+
+  .flying-insect-1 {
+    position: fixed;
+    top: 50%;
+    left: -30px;
+    font-size: 14px;
+    z-index: 5;
+    pointer-events: none;
+    animation: insect-buzz 18s linear infinite;
+    animation-delay: 3s;
+  }
+
+  .flying-insect-2 {
+    position: fixed;
+    top: 20%;
+    right: -30px;
+    font-size: 16px;
+    z-index: 5;
+    pointer-events: none;
+    animation: insect-dart 12s linear infinite;
+    animation-delay: 7s;
+  }
+
+  .flying-insect-3 {
+    position: fixed;
+    bottom: 70%;
+    left: 20%;
+    font-size: 15px;
+    z-index: 5;
+    pointer-events: none;
+    animation: insect-hover 35s linear infinite;
+    animation-delay: 12s;
+  }
+
+  .flying-insect-4 {
+    position: fixed;
+    bottom: 80%;
+    right: 90%;
+    font-size: 17px;
+    z-index: 5;
+    pointer-events: none;
+    animation: insect-patrol 22s linear infinite;
+    animation-delay: 18s;
+  }
+
+  /* Animation class mappings */
+  .animate-butterfly-flutter { animation: butterfly-flutter 25s linear infinite; }
+  .animate-butterfly-dance { animation: butterfly-dance 28s linear infinite; }
+  .animate-butterfly-spiral { animation: butterfly-spiral 20s linear infinite; }
+  .animate-butterfly-float { animation: butterfly-float 30s linear infinite; }
+  .animate-insect-buzz { animation: insect-buzz 18s linear infinite; }
+  .animate-insect-dart { animation: insect-dart 12s linear infinite; }
+  .animate-insect-hover { animation: insect-hover 35s linear infinite; }
+  .animate-insect-patrol { animation: insect-patrol 22s linear infinite; }
 
   /* Background utility class */
   .bg-gradient-nature {
