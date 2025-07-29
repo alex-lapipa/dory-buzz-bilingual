@@ -14,7 +14,7 @@ export const HamburgerMenu: React.FC = () => {
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-80 p-0">
+      <SheetContent side="right" className="w-80 p-0">
         <div className="p-6 space-y-6">
           {/* Navigation Links */}
           <div className="space-y-4">
