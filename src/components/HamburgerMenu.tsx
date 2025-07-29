@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain } from 'lucide-react';
+import { AdvancedFeatures } from '@/components/AdvancedFeatures';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 
 export const HamburgerMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -17,6 +21,27 @@ export const HamburgerMenu: React.FC = () => {
       </SheetTrigger>
       <SheetContent side="right" className="w-80 p-0">
         <div className="p-6 space-y-6">
+          {/* Advanced Features */}
+          <div className="space-y-4">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-left h-auto p-3"
+              onClick={() => setActiveSection(activeSection === 'advanced' ? null : 'advanced')}
+            >
+              <Brain className="h-4 w-4 mr-2" />
+              <span className="font-medium">🚀 Advanced AI Features</span>
+              <Badge variant="secondary" className="ml-auto">NEW</Badge>
+            </Button>
+            
+            {activeSection === 'advanced' && (
+              <div className="ml-4 border-l-2 border-accent pl-4">
+                <AdvancedFeatures />
+              </div>
+            )}
+          </div>
+
+          <Separator />
+
           {/* Navigation Links */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
