@@ -131,7 +131,7 @@ export const AdvancedFeatures: React.FC = () => {
             <div>
               <Label htmlFor="reasoning-type">Reasoning Type</Label>
               <Select defaultValue="analysis">
-                <SelectTrigger>
+                <SelectTrigger id="reasoning-type">
                   <SelectValue placeholder="Select reasoning type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -145,7 +145,8 @@ export const AdvancedFeatures: React.FC = () => {
             <Button 
               onClick={() => {
                 const prompt = (document.getElementById('claude-prompt') as HTMLTextAreaElement)?.value;
-                const reasoningType = document.querySelector('[data-testid="select-trigger"]')?.getAttribute('data-value') || 'analysis';
+                const reasoningSelect = document.querySelector('#reasoning-type') as HTMLSelectElement;
+                const reasoningType = reasoningSelect?.value || 'analysis';
                 if (prompt) handleClaudeReasoning(prompt, reasoningType);
               }}
               disabled={loading === 'claude'}
@@ -182,7 +183,7 @@ export const AdvancedFeatures: React.FC = () => {
             <div>
               <Label htmlFor="voice-select">Voice</Label>
               <Select defaultValue="9BWtsMINqrJLrRacOk9x">
-                <SelectTrigger>
+                <SelectTrigger id="voice-select">
                   <SelectValue placeholder="Select voice" />
                 </SelectTrigger>
                 <SelectContent>
@@ -197,7 +198,8 @@ export const AdvancedFeatures: React.FC = () => {
             <Button 
               onClick={() => {
                 const text = (document.getElementById('tts-text') as HTMLTextAreaElement)?.value;
-                const voiceId = document.querySelector('[data-testid="voice-select"]')?.getAttribute('data-value') || '9BWtsMINqrJLrRacOk9x';
+                const voiceSelect = document.querySelector('#voice-select') as HTMLSelectElement;
+                const voiceId = voiceSelect?.value || '9BWtsMINqrJLrRacOk9x';
                 if (text) handleElevenLabsTTS(text, voiceId);
               }}
               disabled={loading === 'tts'}
@@ -237,7 +239,7 @@ export const AdvancedFeatures: React.FC = () => {
             <div>
               <Label htmlFor="image-model">Model</Label>
               <Select defaultValue="gpt-image-1">
-                <SelectTrigger>
+                <SelectTrigger id="image-model">
                   <SelectValue placeholder="Select model" />
                 </SelectTrigger>
                 <SelectContent>
@@ -250,7 +252,8 @@ export const AdvancedFeatures: React.FC = () => {
             <Button 
               onClick={() => {
                 const prompt = (document.getElementById('image-prompt') as HTMLTextAreaElement)?.value;
-                const model = document.querySelector('[data-testid="image-model"]')?.getAttribute('data-value') || 'gpt-image-1';
+                const modelSelect = document.querySelector('#image-model') as HTMLSelectElement;
+                const model = modelSelect?.value || 'gpt-image-1';
                 if (prompt) handleAdvancedImageGen(prompt, model);
               }}
               disabled={loading === 'image'}

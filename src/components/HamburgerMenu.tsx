@@ -169,17 +169,17 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 {t('visitLapipa') || 'Visit Lapipa.io'}
               </Button>
               
-              <Button 
+               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
                 onClick={() => {
-                  window.location.href = '/';
+                  window.location.reload();
                   setIsOpen(false);
                 }}
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {t('home') || 'Home'}
-              </Button>
+               >
+                 <ExternalLink className="h-4 w-4 mr-2" />
+                 {t('refreshApp') || 'Refresh App'}
+               </Button>
             </div>
           </div>
 

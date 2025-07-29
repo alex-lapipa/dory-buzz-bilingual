@@ -75,11 +75,11 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete }
 
         if (dbError) {
           console.warn('Database save warning:', dbError.message);
-          // Continue with local storage and email if DB fails
+          // Continue with local storage if DB fails - app works without auth
         }
       } catch (dbError) {
         console.warn('Database connection issue:', dbError);
-        // Continue with registration anyway - app can work without DB
+        // Continue with registration anyway - app can work offline
       }
 
       // Try to send welcome email (optional)
