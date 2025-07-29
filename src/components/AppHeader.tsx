@@ -34,7 +34,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             Mochi de los Huertos 🌻
           </h1>
           <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-primary/90">
-            ¡Buzztástico! Abeja de Jardín
+            Una Abeja de Jardin Buzztástica!
           </p>
         </div>
         
