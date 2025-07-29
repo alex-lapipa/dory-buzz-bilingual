@@ -1633,22 +1633,22 @@ All colors MUST be HSL.
       opacity: 0;
     }
     10% {
-      opacity: 0.8;
+      opacity: 0.4;
     }
     25% {
       transform: translate(25vw, 20vh) rotate(15deg);
-      opacity: 1;
+      opacity: 0.5;
     }
     50% {
       transform: translate(50vw, 40vh) rotate(-20deg);
-      opacity: 1;
+      opacity: 0.5;
     }
     75% {
       transform: translate(75vw, 25vh) rotate(10deg);
-      opacity: 0.8;
+      opacity: 0.4;
     }
     90% {
-      opacity: 0.4;
+      opacity: 0.2;
     }
     100% { 
       transform: translate(110vw, 35vh) rotate(0deg);
@@ -1663,22 +1663,22 @@ All colors MUST be HSL.
       opacity: 0;
     }
     10% {
-      opacity: 0.6;
+      opacity: 0.3;
     }
     25% {
       transform: translate(30vw, 20vh) rotate(45deg);
-      opacity: 0.8;
+      opacity: 0.4;
     }
     50% {
       transform: translate(50vw, 50vh) rotate(90deg);
-      opacity: 0.9;
+      opacity: 0.4;
     }
     75% {
       transform: translate(70vw, 70vh) rotate(135deg);
-      opacity: 0.7;
+      opacity: 0.3;
     }
     90% {
-      opacity: 0.3;
+      opacity: 0.1;
     }
     100% { 
       transform: translate(80vw, 100vh) rotate(180deg);

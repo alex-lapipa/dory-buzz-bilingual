@@ -2,7 +2,7 @@ import React from 'react';
 
 export const FloatingGarden: React.FC = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none z-20">
+    <div className="fixed inset-0 pointer-events-none z-20 opacity-30">
       {/* Butterflies with flowers */}
       <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '2s'}}>🦋🌸</div>
       <div className="garden-insect animate-butterfly-flutter" style={{animationDelay: '12s'}}>🦋🌺</div>
