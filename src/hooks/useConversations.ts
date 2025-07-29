@@ -5,7 +5,7 @@ import { useAuth } from './useAuth';
 interface Message {
   id: string;
   conversation_id: string;
-  type: 'user' | 'dory';
+  type: 'user' | 'mochi';
   content: string;
   created_at: string;
   metadata?: any;
@@ -26,7 +26,7 @@ export const useConversations = (guestId?: string) => {
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const createConversation = async (title = 'New Chat with Dory') => {
+  const createConversation = async (title = 'New Chat with Mochi') => {
     try {
       // Use authenticated user ID if available, otherwise null for guest
       const { data, error } = await supabase
@@ -52,7 +52,7 @@ export const useConversations = (guestId?: string) => {
     }
   };
 
-  const saveMessage = async (conversationId: string, type: 'user' | 'dory', content: string) => {
+  const saveMessage = async (conversationId: string, type: 'user' | 'mochi', content: string) => {
     try {
       const { data, error } = await supabase
         .from('messages')
@@ -67,7 +67,7 @@ export const useConversations = (guestId?: string) => {
 
       setMessages(prev => [...prev, { 
         ...data, 
-        type: data.type as 'user' | 'dory' 
+        type: data.type as 'user' | 'mochi' 
       } as Message]);
       return data;
     } catch (error) {
@@ -89,7 +89,7 @@ export const useConversations = (guestId?: string) => {
     } else {
       setMessages((data || []).map(item => ({
         ...item,
-        type: item.type as 'user' | 'dory'
+        type: item.type as 'user' | 'mochi'
       } as Message)));
     }
     setLoading(false);

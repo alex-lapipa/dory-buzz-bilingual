@@ -13,16 +13,16 @@ import { Mic, MicOff, Send, Volume2, VolumeX, Image, Sparkles } from 'lucide-rea
 
 interface Message {
   id: string;
-  type: 'user' | 'dory';
+  type: 'user' | 'mochi';
   content: string;
   timestamp: Date;
 }
 
-interface DoryChatProps {
+interface MochiChatProps {
   className?: string;
 }
 
-export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
+export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
   const { user } = useAuth();
   const guestId = getGuestUserId();
   const { messages, createConversation, saveMessage, currentConversationId } = useConversations(guestId);
@@ -51,21 +51,21 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     const initializeChat = async () => {
       if (!currentConversation) {
         try {
-          const conversation = await createConversation('Chat with Dory');
+          const conversation = await createConversation('Chat with Mochi');
           if (conversation) {
             setCurrentConversation(conversation.id);
             // Add warm, welcoming message with clear guidance
             const welcomeMessage: Message = {
               id: '1',
-              type: 'dory',
-              content: '🐝 ¡Hola! I\'m Dory, your friendly garden companion! I\'m here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say "create an image of..." to get started! ¿Qué te gustaría saber sobre jardines?',
+              type: 'mochi',
+              content: '🐝 ¡Hola! I\'m Mochi, your friendly garden companion! I\'m here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say "create an image of..." to get started! ¿Qué te gustaría saber sobre jardines?',
               timestamp: new Date()
             };
             setLocalMessages([welcomeMessage]);
             
             // Try to save welcome message, but don't block if it fails
             try {
-              await saveMessage(conversation.id, 'dory', welcomeMessage.content);
+              await saveMessage(conversation.id, 'mochi', welcomeMessage.content);
             } catch (error) {
               console.log('Could not save welcome message to database, continuing in memory only');
             }
@@ -73,8 +73,8 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
             // Fallback message if conversation creation fails - still warm and helpful
             const welcomeMessage: Message = {
               id: '1',
-              type: 'dory',
-              content: '🐝 ¡Hola! I\'m Dory! While I can\'t save our chat today, I\'m still here to help with gardening, nature, and creating beautiful images. What would you like to explore? 🌻',
+              type: 'mochi',
+              content: '🐝 ¡Hola! I\'m Mochi! While I can\'t save our chat today, I\'m still here to help with gardening, nature, and creating beautiful images. What would you like to explore? 🌻',
               timestamp: new Date()
             };
             setLocalMessages([welcomeMessage]);
@@ -84,8 +84,8 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
           // Graceful fallback with encouragement
           const welcomeMessage: Message = {
             id: '1',
-            type: 'dory',
-            content: '🐝 ¡Hola! I\'m Dory! Even though we\'re having some technical hiccups, I\'m ready to chat about gardens, nature, and help create amazing images! What interests you today? 🌻',
+            type: 'mochi',
+            content: '🐝 ¡Hola! I\'m Mochi! Even though we\'re having some technical hiccups, I\'m ready to chat about gardens, nature, and help create amazing images! What interests you today? 🌻',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
@@ -99,10 +99,10 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
   const generateImage = async (prompt: string) => {
     setIsLoading(true);
     try {
-      const enhanced_prompt = `Create a beautiful, vibrant image featuring Dory de los Huertos (Garden Bee) in a natural garden setting. 
+      const enhanced_prompt = `Create a beautiful, vibrant image featuring Mochi de los Huertos (Garden Bee) in a natural garden setting. 
 
 VISUAL STYLE: Bright, colorful, family-friendly illustration with rich garden details
-DORY'S APPEARANCE: A charming bee with expressive wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
+MOCHI'S APPEARANCE: A charming bee with expressive wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
 GARDEN SCENE: Vibrant garden paradise with flowers, plants, and natural elements - perfect for families to enjoy
 MOOD: ¡Buzztastical! Joyful, welcoming, and perfect for all ages learning about gardens and nature
 ACTIVITY: ${prompt}
@@ -125,15 +125,15 @@ Style this as a beautiful garden illustration that families would love - colorfu
       if (data.image_url || data.url) {
         const imageMessage: Message = {
           id: Date.now().toString(),
-          type: 'dory',
-          content: `¡Buzztastical! 🐝✨ Here's your beautiful garden picture:\n\n![Generated Garden Scene](${data.image_url || data.url})\n\n🌻 This lovely image shows the magical world of gardens through Dory's eyes! What would you like to explore next in our garden adventure?`,
+          type: 'mochi',
+          content: `¡Buzztastical! 🐝✨ Here's your beautiful garden picture:\n\n![Generated Garden Scene](${data.image_url || data.url})\n\n🌻 This lovely image shows the magical world of gardens through Mochi's eyes! What would you like to explore next in our garden adventure?`,
           timestamp: new Date()
         };
         
         setLocalMessages(prev => [...prev, imageMessage]);
         
         if (currentConversation) {
-          await saveMessage(currentConversation, 'dory', imageMessage.content);
+          await saveMessage(currentConversation, 'mochi', imageMessage.content);
         }
       }
     } catch (error) {
@@ -182,7 +182,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
     try {
       // Use fetch directly for streaming instead of supabase.functions.invoke
       const response = await fetch(
-        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/chat_dory`,
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/chat_mochi`,
         {
           method: 'POST',
           headers: {
@@ -208,14 +208,14 @@ Style this as a beautiful garden illustration that families would love - colorfu
       const reader = response.body?.getReader();
       let fullResponse = '';
       
-      const doryMessage: Message = {
+      const mochiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        type: 'dory',
+        type: 'mochi',
         content: '',
         timestamp: new Date()
       };
 
-      setLocalMessages(prev => [...prev, doryMessage]);
+      setLocalMessages(prev => [...prev, mochiMessage]);
 
       if (reader) {
         while (true) {
@@ -249,7 +249,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
                     
                     setLocalMessages(prev => 
                       prev.map(m => 
-                        m.id === doryMessage.id 
+                        m.id === mochiMessage.id 
                           ? { ...m, content: enhancedResponse }
                           : m
                       )
@@ -264,19 +264,19 @@ Style this as a beautiful garden illustration that families would love - colorfu
         }
       }
 
-      // Save Dory's response to database (non-blocking)
+      // Save Mochi's response to database (non-blocking)
       if (currentConversation && fullResponse) {
         try {
           const finalResponse = fullResponse.includes('¡Buzztastical!') ? fullResponse : 
             (fullResponse.includes('garden') || fullResponse.includes('nature') || fullResponse.includes('bee')) ? 
             `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
-          await saveMessage(currentConversation, 'dory', finalResponse);
+          await saveMessage(currentConversation, 'mochi', finalResponse);
         } catch (error) {
-          console.log('Could not save Dory response to database:', error);
+          console.log('Could not save Mochi response to database:', error);
         }
       }
 
-      // Trigger plant growth when Dory responds
+      // Trigger plant growth when Mochi responds
       incrementGrowth();
 
     } catch (error) {
@@ -365,13 +365,13 @@ Style this as a beautiful garden illustration that families would love - colorfu
     }
   };
 
-  const playDoryResponse = async (text: string) => {
+  const playMochiResponse = async (text: string) => {
     if (isPlaying) return;
     
     setIsPlaying(true);
     try {
       const response = await fetch(
-        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/tts_dory`,
+        `https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/tts_mochi`,
         {
           method: 'POST',
           headers: {
@@ -411,7 +411,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <div className="text-2xl sm:text-3xl animate-bee-bounce">🐝</div>
           <div className="flex-1 min-w-0">
             <h2 className="text-sm sm:text-lg font-bold text-primary-foreground truncate">
-              Dory de los Huertos 🌻
+              Mochi de los Huertos 🌻
             </h2>
             <p className="text-xs sm:text-sm text-primary-foreground/80 truncate">
               ¡Buzztastical! Garden Bee
@@ -435,14 +435,14 @@ Style this as a beautiful garden illustration that families would love - colorfu
                     : 'bg-card text-card-foreground border border-border shadow-sm'
                 }`}
               >
-                {message.type === 'dory' && (
+                {message.type === 'mochi' && (
                   <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
                     <span className="text-xs sm:text-sm animate-flower-sway">🌸</span>
-                    <span className="text-xs font-medium">Dory</span>
+                    <span className="text-xs font-medium">Mochi</span>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => playDoryResponse(message.content)}
+                      onClick={() => playMochiResponse(message.content)}
                       disabled={isPlaying}
                       className="h-5 w-5 sm:h-6 sm:w-6 p-0 ml-auto"
                     >
@@ -472,7 +472,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
               <div className="bg-card text-card-foreground border border-border rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] shadow-sm">
                 <div className="flex items-center gap-2">
                   <div className="animate-spin text-sm">🐝</div>
-                  <span className="text-xs sm:text-sm">Dory is thinking...</span>
+                  <span className="text-xs sm:text-sm">Mochi is thinking...</span>
                   <div className="flex gap-1">
                     <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
                     <div className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{animationDelay: '150ms'}}></div>
@@ -497,7 +497,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask Dory... / Pregúntale a Dory..."
+            placeholder="Ask Mochi... / Pregúntale a Mochi..."
             onKeyPress={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -506,10 +506,10 @@ Style this as a beautiful garden illustration that families would love - colorfu
             }}
             disabled={isLoading}
             className="flex-1 text-sm min-h-[44px]"
-            aria-label="Type your message to Dory in English or Spanish"
+            aria-label="Type your message to Mochi in English or Spanish"
           />
           <Button
-            onClick={() => generateImage(inputMessage || 'beautiful garden scene with Dory the bee')}
+            onClick={() => generateImage(inputMessage || 'beautiful garden scene with Mochi the bee')}
             disabled={isLoading}
             variant="secondary"
             size="sm"

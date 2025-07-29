@@ -1,21 +1,21 @@
 project_id = "zrdywdregcrykmbiytvl"
 
-[functions.chat_dory]
+[functions.chat_mochi]
 verify_jwt = false
 
-[functions.tts_dory]
+[functions.tts_mochi]
 verify_jwt = false
 
 [functions.stt_chat]
 verify_jwt = false
 
-[functions.voice_chat_dory]
+[functions.voice_chat_mochi]
 verify_jwt = false
 
 [functions.generate_image]
 verify_jwt = false
 
-[functions.follow-dory]
+[functions.follow-mochi]
 verify_jwt = false
 
 [functions.health-check]

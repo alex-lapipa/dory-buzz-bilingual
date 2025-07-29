@@ -8,11 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { Heart, Mail, UserPlus } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
-interface FollowDoryModalProps {
+interface FollowMochiModalProps {
   children: React.ReactNode;
 }
 
-export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) => {
+export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
     if (!formData.consent) {
       toast({
         title: "Consent Required",
-        description: "Please agree to receive updates from Dory.",
+        description: "Please agree to receive updates from Mochi.",
         variant: "destructive"
       });
       return;
@@ -63,7 +63,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
     setIsLoading(true);
     
     try {
-      const { error } = await supabase.functions.invoke('follow-dory', {
+      const { error } = await supabase.functions.invoke('follow-mochi', {
         body: {
           name: formData.name,
           email: formData.email,
@@ -206,14 +206,14 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
               className="mt-0.5"
             />
             <Label htmlFor="consent" className="text-xs sm:text-sm leading-relaxed">
-              I agree to receive updates about Dory's garden adventures and family activities *
+              I agree to receive updates about Mochi's garden adventures and family activities *
             </Label>
           </div>
 
           <div className="text-xs text-muted-foreground bg-accent/10 p-2 sm:p-3 rounded">
             <p className="mb-1 text-xs sm:text-sm">🍯 <strong>What you'll get:</strong></p>
             <ul className="space-y-0.5 sm:space-y-1 ml-3 sm:ml-4 text-xs">
-              <li>• Garden tips and nature facts from Dory</li>
+              <li>• Garden tips and nature facts from Mochi</li>
               <li>• Fun family activities and garden games</li>
               <li>• Seasonal gardening projects for all ages</li>
               <li>• Early access to new BeeCrazy content</li>
@@ -242,7 +242,7 @@ export const FollowDoryModal: React.FC<FollowDoryModalProps> = ({ children }) =>
               ) : (
                 <>
                   <Heart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                  Follow Dory!
+                  Follow Mochi!
                 </>
               )}
             </Button>

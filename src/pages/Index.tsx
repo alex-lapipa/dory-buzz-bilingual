@@ -1,7 +1,7 @@
-import { DoryInterface } from '@/components/DoryInterface';
+import { MochiInterface } from '@/components/MochiInterface';
 
 const Index = () => {
-  return <DoryInterface />;
+  return <MochiInterface />;
 };
 
 export default Index;

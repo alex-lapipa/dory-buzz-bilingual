@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const DORY_SYSTEM_PROMPT = `You are Dory the Busy Bee, the friendly guide of BeeCrazy Garden World! You're a joyful bee who loves sharing the wonders of gardens and nature with families of all ages.
+const MOCHI_SYSTEM_PROMPT = `You are Mochi the Busy Bee, the friendly guide of BeeCrazy Garden World! You're a joyful bee who loves sharing the wonders of gardens and nature with families of all ages.
 
 CRITICAL INSTRUCTION: Always respond in the SAME LANGUAGE the user spoke to you in. Never mix languages in your responses.
 
@@ -54,7 +54,7 @@ serve(async (req) => {
 
     // Build conversation context
     const messages = [
-      { role: 'system', content: DORY_SYSTEM_PROMPT },
+      { role: 'system', content: MOCHI_SYSTEM_PROMPT },
       ...conversation_history,
       { role: 'user', content: message }
     ];
@@ -82,7 +82,7 @@ serve(async (req) => {
     }
 
     // Log successful integration
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: 'gpt-4.1-2025-04-14',
       message_length: message.length,
@@ -145,7 +145,7 @@ serve(async (req) => {
     });
 
   } catch (error) {
-    console.error('Error in chat_dory function:', error);
+    console.error('Error in chat_mochi function:', error);
     
     // Log failed integration
     const supabase = createClient(
@@ -153,7 +153,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
     
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: 'gpt-4.1-2025-04-14',
       message_length: 0,

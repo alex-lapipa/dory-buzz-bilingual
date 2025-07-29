@@ -65,7 +65,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
       <div className="min-h-screen flex items-center justify-center bg-gradient-nature">
         <div className="text-center">
           <div className="text-6xl animate-bee-bounce mb-4">🐝</div>
-          <p className="text-lg text-muted-foreground">Loading Dory...</p>
+          <p className="text-lg text-muted-foreground">Loading Mochi...</p>
         </div>
       </div>
     );
@@ -86,7 +86,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
             </div>
             <div>
               <CardTitle className="text-2xl bg-gradient-bee bg-clip-text text-transparent">
-                Welcome to Dory's Garden
+                Welcome to Mochi's Garden
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-2">
                 ¡Buzztastical! Sign in to start learning 🐝✨

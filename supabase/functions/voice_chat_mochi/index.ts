@@ -6,7 +6,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const DORY_VOICE_PROMPT = `You are Dory the Busy Bee, the friendly guide of BeeCrazy Garden World! You're a cheerful bee who welcomes families to explore the magical world of gardens and nature. Keep responses short and conversational for voice chat. CRITICAL: Always respond in the SAME LANGUAGE the user spoke to you in. Never mix languages in your responses. Focus on BeeCrazy Garden World activities, gardens, plants, and family-friendly outdoor adventures. Be warm, joyful, and encouraging with families of all ages.`;
+const MOCHI_VOICE_PROMPT = `You are Mochi the Busy Bee, the friendly guide of BeeCrazy Garden World! You're a cheerful bee who welcomes families to explore the magical world of gardens and nature. Keep responses short and conversational for voice chat. CRITICAL: Always respond in the SAME LANGUAGE the user spoke to you in. Never mix languages in your responses. Focus on BeeCrazy Garden World activities, gardens, plants, and family-friendly outdoor adventures. Be warm, joyful, and encouraging with families of all ages.`;
 
 serve(async (req) => {
   const { headers } = req;
@@ -46,7 +46,7 @@ serve(async (req) => {
         
         if (sttResult.text) {
           // Send transcribed text to chat
-          const chatResponse = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/chat_dory`, {
+          const chatResponse = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/chat_mochi`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ serve(async (req) => {
             }
 
             // Convert response to speech
-            const ttsResponse = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/tts_dory`, {
+            const ttsResponse = await fetch(`${Deno.env.get('SUPABASE_URL')}/functions/v1/tts_mochi`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

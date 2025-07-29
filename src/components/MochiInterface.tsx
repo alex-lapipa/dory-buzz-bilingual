@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { DoryChat } from './DoryChat';
+import { MochiChat } from './MochiChat';
 import { ShareButtons } from './ShareButtons';
 import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
-import { FollowDoryModal } from './FollowDoryModal';
+import { FollowMochiModal } from './FollowMochiModal';
 import { OnboardingTip } from './OnboardingTip';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,11 +11,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MessageCircle, Mic, Image, Video, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
 
-export const DoryInterface: React.FC = () => {
+export const MochiInterface: React.FC = () => {
   const [activeTab, setActiveTab] = useState('chat');
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(
-    !localStorage.getItem('dory_onboarding_completed')
+    !localStorage.getItem('mochi_onboarding_completed')
   );
 
   return (
@@ -79,12 +79,12 @@ export const DoryInterface: React.FC = () => {
           <CardContent className="p-0 h-full flex flex-col">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
               <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
-                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Text Chat with Dory">
+                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Text Chat with Mochi">
                   <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Chat</span>
                   <span className="xs:hidden">💬</span>
                 </TabsTrigger>
-                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Voice Chat with Dory">
+                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label="Voice Chat with Mochi">
                   <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="hidden xs:inline">Voice</span>
                   <span className="xs:hidden">🎤</span>
@@ -98,7 +98,7 @@ export const DoryInterface: React.FC = () => {
 
               <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
                 <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[60vh] sm:max-h-[70vh]'} overflow-auto`}>
-                  <DoryChat className="h-full" />
+                  <MochiChat className="h-full" />
                 </div>
               </TabsContent>
 
@@ -124,7 +124,7 @@ export const DoryInterface: React.FC = () => {
         <OnboardingTip 
           onClose={() => {
             setShowOnboarding(false);
-            localStorage.setItem('dory_onboarding_completed', 'true');
+            localStorage.setItem('mochi_onboarding_completed', 'true');
           }} 
         />
       )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FollowDoryModal } from './FollowDoryModal';
+import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
@@ -33,12 +33,12 @@ export const AppHeader: React.FC = () => {
         
         {/* Right: Action Buttons and Hamburger Menu */}
         <div className="flex gap-1 sm:gap-2 flex-shrink-0 items-center">
-          <FollowDoryModal>
+          <FollowMochiModal>
             <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
               <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden xs:inline">Follow</span> Dory!
+              <span className="hidden xs:inline">Follow</span> Mochi!
             </Button>
-          </FollowDoryModal>
+          </FollowMochiModal>
           <ShareButtons />
           <HamburgerMenu />
         </div>

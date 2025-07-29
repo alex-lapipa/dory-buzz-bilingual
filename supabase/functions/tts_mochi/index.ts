@@ -64,7 +64,7 @@ serve(async (req) => {
     const responseTime = Date.now() - startTime;
 
     // Log successful integration
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: 'tts-1-hd',
       message_length: text.length,
@@ -91,7 +91,7 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('Error in tts_dory function:', error);
+    console.error('Error in tts_mochi function:', error);
     
     // Log failed integration
     const supabase = createClient(
@@ -99,7 +99,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
     
-    await supabase.from('dory_integrations').insert({
+    await supabase.from('mochi_integrations').insert({
       platform: 'openai',
       model: 'tts-1-hd',
       message_length: 0,

@@ -24,7 +24,7 @@ serve(async (req) => {
     }
 
     // Add BeeCrazy Garden World context to prompts for Dory
-    const enhancedPrompt = `BeeCrazy Garden World illustration: ${prompt}. Style: vibrant, family-friendly, educational garden theme featuring Dory the bee, natural lighting, high quality digital art, welcoming to all ages.`;
+    const enhancedPrompt = `BeeCrazy Garden World illustration: ${prompt}. Style: vibrant, family-friendly, educational garden theme featuring Mochi the bee, natural lighting, high quality digital art, welcoming to all ages.`;
 
     const response = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
