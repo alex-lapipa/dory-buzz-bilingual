@@ -136,7 +136,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
         console.error('WebSocket error:', error);
         toast({
           title: "Connection Error",
-          description: "Failed to connect to voice chat service",
+          description: "Failed to connect to voice chat service. Please check your internet connection and try again.",
           variant: "destructive",
         });
         setConnectionStatus('disconnected');

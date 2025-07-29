@@ -169,8 +169,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
       wsRef.current.onerror = (error) => {
         console.error('WebSocket error:', error);
         toast({
-          title: "Connection Error",
-          description: "Failed to connect to voice chat service",
+          title: "Connection Error", 
+          description: "Failed to connect to voice chat service. Please check your internet connection and try again.",
           variant: "destructive",
         });
         setIsConnecting(false);

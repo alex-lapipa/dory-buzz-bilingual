@@ -36,6 +36,11 @@ serve(async (req) => {
       const data = JSON.parse(event.data);
       console.log("OpenAI -> Client:", data.type);
       
+      // Log any errors from OpenAI
+      if (data.type === 'error') {
+        console.error("OpenAI API Error:", data.error);
+      }
+      
       // Send session update after receiving session.created
       if (data.type === 'session.created') {
         const sessionUpdate = {
@@ -83,7 +88,7 @@ serve(async (req) => {
       console.error("OpenAI WebSocket error:", error);
       socket.send(JSON.stringify({
         type: "error",
-        error: "Connection to OpenAI failed"
+        error: { message: "Connection to OpenAI failed", details: error }
       }));
     };
 
