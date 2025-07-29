@@ -11,7 +11,7 @@ import { FloatingGarden } from "@/components/FloatingGarden";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
-import { SystemStatusIndicator } from "@/components/SystemStatusIndicator";
+
 import { AppStatusProvider } from "@/contexts/AppStatusContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -98,7 +98,6 @@ const AppContent = () => {
                 )}
               </main>
               <FloatingGarden />
-              <SystemStatusIndicator />
             </div>
           </AuthWrapper>
         </AppStatusProvider>
