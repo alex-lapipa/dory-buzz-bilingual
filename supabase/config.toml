@@ -35,3 +35,6 @@ verify_jwt = false
 
 [functions.advanced_image_generation]
 verify_jwt = false
+
+[functions.realtime_session]
+verify_jwt = false
