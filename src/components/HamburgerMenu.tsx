@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
+import { AccessibilityHelper } from '@/components/AccessibilityHelper';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -91,7 +92,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               onClick={() => setActiveSection(activeSection === 'advanced' ? null : 'advanced')}
             >
               <Brain className="h-4 w-4 mr-2" />
-              <span className="font-medium">🚀 Advanced AI Features</span>
+              <span className="font-medium">🚀 {t('advancedFeatures') || 'Advanced AI Features'}</span>
               <Badge variant="secondary" className="ml-auto">NEW</Badge>
             </Button>
             
@@ -112,8 +113,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               onClick={() => setActiveSection(activeSection === 'education' ? null : 'education')}
             >
               <BookOpen className="h-4 w-4 mr-2" />
-              <span className="font-medium">🎓 Bee Education Hub</span>
-              <Badge variant="secondary" className="ml-auto">Learn</Badge>
+              <span className="font-medium">🎓 {t('educationHub') || 'Bee Education Hub'}</span>
+              <Badge variant="secondary" className="ml-auto">{t('learn') || 'Learn'}</Badge>
             </Button>
             
             {activeSection === 'education' && (
@@ -129,10 +130,22 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Menu className="h-5 w-5" />
-              Menu
+              {t('menu') || 'Menu'}
             </h3>
             
             <div className="space-y-2">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
+                onClick={() => {
+                  setActiveSection('accessibility');
+                  setIsOpen(false);
+                }}
+              >
+                <Zap className="h-4 w-4 mr-2" />
+                {t('systemStatus') || 'System Status & Help'}
+              </Button>
+
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
@@ -140,30 +153,32 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               >
                 <Link to="/dashboard">
                   <Zap className="h-4 w-4 mr-2" />
-                  System Dashboard
+                  {t('dashboard') || 'System Dashboard'}
                 </Link>
               </Button>
               
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
-                asChild
+                onClick={() => {
+                  window.open('https://lapipa.io', '_blank');
+                  setIsOpen(false);
+                }}
               >
-                <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Visit Lapipa.io
-                </a>
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {t('visitLapipa') || 'Visit Lapipa.io'}
               </Button>
               
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
-                asChild
+                onClick={() => {
+                  window.location.href = '/';
+                  setIsOpen(false);
+                }}
               >
-                <Link to="/">
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Home
-                </Link>
+                <ExternalLink className="h-4 w-4 mr-2" />
+                {t('home') || 'Home'}
               </Button>
             </div>
           </div>
@@ -172,15 +187,15 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               <Info className="h-4 w-4" />
-              About Mochi
+              {t('aboutMochi') || 'About Mochi'}
             </h3>
             
             <div className="space-y-4">
               <div className="text-center">
                 <div className="text-3xl mb-3 animate-flower-sway">🌻</div>
-                <h4 className="text-xl font-bold mb-2">Meet Mochi</h4>
+                <h4 className="text-xl font-bold mb-2">{t('meetMochi') || 'Meet Mochi'}</h4>
                 <p className="text-sm text-muted-foreground">
-                  Your friendly bee from BeeCrazy Garden World!
+                  {t('mochiDescription') || 'Your friendly bee from BeeCrazy Garden World!'}
                 </p>
               </div>
 
@@ -225,6 +240,21 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               </div>
             </div>
           </div>
+
+          {/* Accessibility Helper */}
+          {activeSection === 'accessibility' && (
+            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
+              <div className="max-w-md mx-auto">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">{t('systemHelp') || 'System Help'}</h2>
+                  <Button variant="outline" onClick={() => setActiveSection(null)}>
+                    ✕
+                  </Button>
+                </div>
+                <AccessibilityHelper />
+              </div>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>

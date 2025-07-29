@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Expand, Shrink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useUsageTracking, usePageTracking } from '@/hooks/useUsageTracking';
 
 interface MochiInterfaceProps {
   activeTab?: string;
@@ -14,6 +15,9 @@ interface MochiInterfaceProps {
 
 export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'chat' }) => {
   const { t } = useLanguage();
+  const { trackFeatureUsage, trackInteraction } = useUsageTracking();
+  usePageTracking();
+  
   const [currentTab, setCurrentTab] = useState(activeTab);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(
@@ -25,7 +29,10 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
 
   useEffect(() => {
     setCurrentTab(activeTab);
-  }, [activeTab]);
+    if (activeTab && isUserRegistered) {
+      trackFeatureUsage(`tab_${activeTab}`, { source: 'interface' });
+    }
+  }, [activeTab, isUserRegistered, trackFeatureUsage]);
 
   const renderContent = () => {
     if (!isUserRegistered) {
@@ -107,7 +114,10 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
         {isUserRegistered && !isFullscreen && (
           <div className="absolute top-4 right-4 z-40">
             <Button
-              onClick={() => setIsFullscreen(!isFullscreen)}
+              onClick={() => {
+                setIsFullscreen(!isFullscreen);
+                trackInteraction('click', 'fullscreen_toggle', { entering: !isFullscreen });
+              }}
               variant="ghost"
               size="sm"
               className="p-2 hover:bg-background/20"
@@ -120,7 +130,10 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
         {isUserRegistered && isFullscreen && (
           <div className="absolute top-4 right-4 z-50">
             <Button
-              onClick={() => setIsFullscreen(!isFullscreen)}
+              onClick={() => {
+                setIsFullscreen(!isFullscreen);
+                trackInteraction('click', 'fullscreen_toggle', { exiting: isFullscreen });
+              }}
               variant="ghost"
               size="sm"
               className="p-2 bg-background/80 hover:bg-background/90"

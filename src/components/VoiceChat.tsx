@@ -253,7 +253,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
               {isSpeaking && (
                 <Badge variant="outline" className="animate-pulse">
                   <Volume2 className="w-3 h-3 mr-1" />
-                  Dory Speaking...
+                  Mochi Speaking...
                 </Badge>
               )}
             </div>
@@ -264,7 +264,7 @@ export const VoiceChat: React.FC<VoiceChatProps> = ({ className }) => {
             {conversation.length === 0 ? (
               <div className="text-center text-muted-foreground py-8">
                 <div className="text-4xl mb-2">🎤</div>
-                <p className="text-lg mb-2">Voice Chat with Dory</p>
+                <p className="text-lg mb-2">Voice Chat with Mochi</p>
                 <p className="text-sm">
                   {isConnected 
                     ? "🐝 I'm listening! Start speaking and I'll respond automatically when you pause for 2 seconds."

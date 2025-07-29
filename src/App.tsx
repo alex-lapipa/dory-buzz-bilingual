@@ -10,6 +10,7 @@ import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
+import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { SystemStatusIndicator } from "@/components/SystemStatusIndicator";
 import { AppStatusProvider } from "@/contexts/AppStatusContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -34,6 +35,7 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const [showLanguageSelect, setShowLanguageSelect] = useState(!localStorage.getItem('mochi_language_selected'));
   const [showRegistration, setShowRegistration] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [activeTab, setActiveTab] = useState('chat');
   const { setLanguage } = useLanguage();
 
@@ -46,11 +48,26 @@ const AppContent = () => {
     const existingRegistration = localStorage.getItem('userRegistration');
     if (!existingRegistration) {
       setShowRegistration(true);
+    } else {
+      // Check if user has completed onboarding
+      const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
+      if (!completedOnboarding) {
+        setShowOnboarding(true);
+      }
     }
   };
 
   const handleRegistrationComplete = () => {
     setShowRegistration(false);
+    // Show onboarding after registration
+    const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
+    if (!completedOnboarding) {
+      setShowOnboarding(true);
+    }
+  };
+
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
   };
 
   // Always show language selection first if not selected
@@ -67,6 +84,15 @@ const AppContent = () => {
     return (
       <div className="min-h-screen bg-gradient-nature">
         <UserRegistration onComplete={handleRegistrationComplete} />
+      </div>
+    );
+  }
+
+  // Then show onboarding if user is registered but hasn't completed onboarding
+  if (showOnboarding) {
+    return (
+      <div className="min-h-screen bg-gradient-nature">
+        <OnboardingFlow onComplete={handleOnboardingComplete} />
       </div>
     );
   }
