@@ -40,7 +40,7 @@ const translations = {
     
     // Chat Interface
     mochiTitle: "Mochi de los Huertos 🌻",
-    mochiSubtitle: "¡Buzztastical! Garden Bee",
+    mochiSubtitle: "Buzztastic! Garden Bee",
     chatPlaceholder: "Ask Mochi... / Pregúntale a Mochi...",
     messageToMochi: "Type your message to Mochi in English or Spanish",
     mochiThinking: "Mochi is thinking...",
@@ -54,7 +54,7 @@ const translations = {
     exitFullscreen: "Exit fullscreen mode",
     
     // Welcome Message
-    welcomeMessage: "🐝 ¡Hola! I'm Mochi, your friendly garden companion! I'm here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say \"create an image of...\" to get started! ¿Qué te gustaría saber sobre jardines?",
+    welcomeMessage: "🐝 Hello! I'm Mochi, your friendly garden companion! I'm here to help you with:\n\n🌱 Plant care & gardening tips\n🌸 Nature identification\n🎨 Creating beautiful garden images\n🗣️ Practicing Spanish or English\n\nJust ask me anything or say \"create an image of...\" to get started! ¿Qué te gustaría saber sobre jardines?",
     
     // Voice Chat
     voiceChatTitle: "Voice Chat with Mochi",
@@ -90,7 +90,7 @@ const translations = {
     joining: "Joining...",
     
     // Success/Error Messages
-    followSuccess: "¡Buzztastical! 🐝✨",
+    followSuccess: "Buzztastic! 🐝✨",
     followSuccessMessage: "Welcome to BeeCrazy Garden World! You'll receive fun garden updates for the whole family.",
     missingInfo: "Missing Information",
     missingInfoMessage: "Please fill in your name and email address.",
