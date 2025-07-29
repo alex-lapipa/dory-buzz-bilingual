@@ -23,7 +23,7 @@ interface DoryChatProps {
 }
 
 export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
-  const { } = useAuth(); // No authentication needed for open access
+  const { user } = useAuth();
   const guestId = getGuestUserId();
   const { messages, createConversation, saveMessage, currentConversationId } = useConversations(guestId);
   const [localMessages, setLocalMessages] = useState<Message[]>([]);
@@ -50,18 +50,45 @@ export const DoryChat: React.FC<DoryChatProps> = ({ className }) => {
     // Initialize conversation and welcome message
     const initializeChat = async () => {
       if (!currentConversation) {
-        const conversation = await createConversation('Chat with Dory');
-        if (conversation) {
-          setCurrentConversation(conversation.id);
-          // Add compact welcome message
+        try {
+          const conversation = await createConversation('Chat with Dory');
+          if (conversation) {
+            setCurrentConversation(conversation.id);
+            // Add compact welcome message
+            const welcomeMessage: Message = {
+              id: '1',
+              type: 'dory',
+              content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image!',
+              timestamp: new Date()
+            };
+            setLocalMessages([welcomeMessage]);
+            
+            // Try to save welcome message, but don't block if it fails
+            try {
+              await saveMessage(conversation.id, 'dory', welcomeMessage.content);
+            } catch (error) {
+              console.log('Could not save welcome message to database, continuing in memory only');
+            }
+          } else {
+            // If conversation creation fails, still show welcome message
+            const welcomeMessage: Message = {
+              id: '1',
+              type: 'dory',
+              content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image! (Note: Chat history won\'t be saved this session)',
+              timestamp: new Date()
+            };
+            setLocalMessages([welcomeMessage]);
+          }
+        } catch (error) {
+          console.error('Error initializing chat:', error);
+          // Fallback welcome message
           const welcomeMessage: Message = {
             id: '1',
             type: 'dory',
-            content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image!',
+            content: '🐝 Hi! I\'m Dory, your garden companion! Ask me about plants, nature, or request a garden image! (Note: Chat history won\'t be saved this session)',
             timestamp: new Date()
           };
           setLocalMessages([welcomeMessage]);
-          await saveMessage(conversation.id, 'dory', welcomeMessage.content);
         }
       }
     };
@@ -143,9 +170,13 @@ Style this as a beautiful garden illustration that families would love - colorfu
     setInputMessage('');
     setIsLoading(true);
 
-    // Save user message to database
+    // Save user message to database (non-blocking)
     if (currentConversation) {
-      await saveMessage(currentConversation, 'user', messageText);
+      try {
+        await saveMessage(currentConversation, 'user', messageText);
+      } catch (error) {
+        console.log('Could not save user message to database:', error);
+      }
     }
 
     try {
@@ -233,12 +264,16 @@ Style this as a beautiful garden illustration that families would love - colorfu
         }
       }
 
-      // Save Dory's response to database
+      // Save Dory's response to database (non-blocking)
       if (currentConversation && fullResponse) {
-        const finalResponse = fullResponse.includes('¡Buzztastical!') ? fullResponse : 
-          (fullResponse.includes('garden') || fullResponse.includes('nature') || fullResponse.includes('bee')) ? 
-          `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
-        await saveMessage(currentConversation, 'dory', finalResponse);
+        try {
+          const finalResponse = fullResponse.includes('¡Buzztastical!') ? fullResponse : 
+            (fullResponse.includes('garden') || fullResponse.includes('nature') || fullResponse.includes('bee')) ? 
+            `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
+          await saveMessage(currentConversation, 'dory', finalResponse);
+        } catch (error) {
+          console.log('Could not save Dory response to database:', error);
+        }
       }
 
       // Trigger plant growth when Dory responds

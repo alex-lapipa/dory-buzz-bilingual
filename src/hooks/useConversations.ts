@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './useAuth';
 
 interface Message {
   id: string;
@@ -15,53 +16,64 @@ interface Conversation {
   title: string;
   created_at: string;
   updated_at: string;
-  user_id: string;
+  user_id?: string; // Make nullable for guest users
 }
 
-export const useConversations = (userId?: string) => {
+export const useConversations = (guestId?: string) => {
+  const { user } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const createConversation = async (title = 'New Chat with Dory') => {
-    if (!userId) return null;
+    try {
+      // Use authenticated user ID if available, otherwise null for guest
+      const { data, error } = await supabase
+        .from('conversations')
+        .insert([{ 
+          user_id: user?.id || null, 
+          title 
+        }])
+        .select()
+        .maybeSingle();
 
-    const { data, error } = await supabase
-      .from('conversations')
-      .insert([{ user_id: userId, title }])
-      .select()
-      .maybeSingle();
+      if (error || !data) {
+        console.error('Error creating conversation:', error);
+        return null;
+      }
 
-    if (error || !data) {
+      setConversations(prev => [data, ...prev]);
+      setCurrentConversationId(data.id);
+      return data;
+    } catch (error) {
       console.error('Error creating conversation:', error);
       return null;
     }
-
-    setConversations(prev => [data, ...prev]);
-    setCurrentConversationId(data.id);
-    return data;
   };
 
   const saveMessage = async (conversationId: string, type: 'user' | 'dory', content: string) => {
-    if (!userId) return null;
+    try {
+      const { data, error } = await supabase
+        .from('messages')
+        .insert([{ conversation_id: conversationId, type, content }])
+        .select()
+        .maybeSingle();
 
-    const { data, error } = await supabase
-      .from('messages')
-      .insert([{ conversation_id: conversationId, type, content }])
-      .select()
-      .maybeSingle();
+      if (error || !data) {
+        console.error('Error saving message:', error);
+        return null;
+      }
 
-    if (error || !data) {
+      setMessages(prev => [...prev, { 
+        ...data, 
+        type: data.type as 'user' | 'dory' 
+      } as Message]);
+      return data;
+    } catch (error) {
       console.error('Error saving message:', error);
       return null;
     }
-
-    setMessages(prev => [...prev, { 
-      ...data, 
-      type: data.type as 'user' | 'dory' 
-    } as Message]);
-    return data;
   };
 
   const loadMessages = async (conversationId: string) => {
@@ -84,13 +96,14 @@ export const useConversations = (userId?: string) => {
   };
 
   const loadConversations = async () => {
-    if (!userId) return;
+    // Only load conversations if user is authenticated
+    if (!user) return;
 
     setLoading(true);
     const { data, error } = await supabase
       .from('conversations')
       .select('*')
-      .eq('user_id', userId)
+      .eq('user_id', user.id)
       .order('updated_at', { ascending: false });
 
     if (error) {
@@ -102,10 +115,10 @@ export const useConversations = (userId?: string) => {
   };
 
   useEffect(() => {
-    if (userId) {
+    if (user) {
       loadConversations();
     }
-  }, [userId]);
+  }, [user]);
 
   useEffect(() => {
     if (currentConversationId) {

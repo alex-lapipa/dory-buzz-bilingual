@@ -20,21 +20,57 @@ export type Database = {
           id: string
           title: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
           title?: string | null
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
           title?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      dory_integrations: {
+        Row: {
+          error_message: string | null
+          id: number
+          message_length: number
+          model: string
+          options: Json | null
+          platform: string
+          response_time_ms: number | null
+          success: boolean | null
+          timestamp: string
+        }
+        Insert: {
+          error_message?: string | null
+          id?: never
+          message_length: number
+          model: string
+          options?: Json | null
+          platform: string
+          response_time_ms?: number | null
+          success?: boolean | null
+          timestamp?: string
+        }
+        Update: {
+          error_message?: string | null
+          id?: never
+          message_length?: number
+          model?: string
+          options?: Json | null
+          platform?: string
+          response_time_ms?: number | null
+          success?: boolean | null
+          timestamp?: string
         }
         Relationships: []
       }

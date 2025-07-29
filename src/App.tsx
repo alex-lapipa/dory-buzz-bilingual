@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GardenFooter } from "@/components/GardenFooter";
 import { AppHeader } from "@/components/AppHeader";
+import { AuthWrapper } from "@/components/AuthWrapper";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -16,17 +17,19 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen bg-gradient-nature">
-          <AppHeader />
-          <main className="flex-1 overflow-auto relative z-10 pt-20 sm:pt-24 pb-52 sm:pb-56">{" "}/* Account for fixed header/footer */
-            <Routes>
-              <Route path="/" element={<Index />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <GardenFooter />
-        </div>
+        <AuthWrapper>
+          <div className="flex flex-col min-h-screen bg-gradient-nature">
+            <AppHeader />
+            <main className="flex-1 overflow-auto relative z-10 pt-20 sm:pt-24 pb-52 sm:pb-56">{" "}/* Account for fixed header/footer */
+              <Routes>
+                <Route path="/" element={<Index />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <GardenFooter />
+          </div>
+        </AuthWrapper>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
