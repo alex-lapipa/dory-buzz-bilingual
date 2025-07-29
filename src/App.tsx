@@ -131,7 +131,7 @@ const AppContent = () => {
                 ) : (
                   /* Normal app with header when fully onboarded */
                   <>
-                    <div className="pt-16 sm:pt-18">
+                    <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
                       <Routes>
                         <Route path="/" element={<Index />} />
                         <Route path="/dashboard" element={<Dashboard />} />

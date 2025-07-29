@@ -173,6 +173,28 @@ All colors MUST be HSL.
       padding-right: max(1rem, env(safe-area-inset-right));
     }
   }
+
+  /* Better touch interactions on mobile */
+  @media (hover: none) {
+    .hover\:scale-105:hover {
+      transform: scale(1.02);
+    }
+    .hover\:bg-muted\/50:hover {
+      background-color: hsl(var(--muted) / 0.8);
+    }
+  }
+
+  /* Improved text sizing for better readability on small screens */
+  @media (max-width: 480px) {
+    .text-responsive-xs { font-size: clamp(0.75rem, 3vw, 0.875rem); }
+    .text-responsive-sm { font-size: clamp(0.875rem, 3.5vw, 1rem); }
+    .text-responsive-base { font-size: clamp(1rem, 4vw, 1.125rem); }
+    .text-responsive-lg { font-size: clamp(1.125rem, 4.5vw, 1.25rem); }
+    .text-responsive-xl { font-size: clamp(1.25rem, 5vw, 1.5rem); }
+    .text-responsive-2xl { font-size: clamp(1.5rem, 6vw, 1.875rem); }
+    .text-responsive-3xl { font-size: clamp(1.875rem, 7vw, 2.25rem); }
+    .text-responsive-4xl { font-size: clamp(2.25rem, 8vw, 2.75rem); }
+  }
   
   /* Enhanced bee and garden animations */
   @keyframes bee-bounce {

@@ -44,17 +44,17 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
       <div className="flying-bee flying-moth-1 animate-moth-night">🦗</div>
       <div className="flying-bee flying-hoverfly-1 animate-insect-buzz">🪰</div>
       
-      <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 pt-20 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
-        <div className="max-w-md w-full mx-auto my-auto">
+      <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-3 sm:p-4 lg:p-6 pt-16 sm:pt-18 lg:pt-20 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
+        <div className="max-w-xs sm:max-w-sm md:max-w-md w-full mx-auto my-auto">
           <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur max-h-[80vh] overflow-y-auto">
-            <CardContent className="p-8 text-center">
+            <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
               {/* Mochi Character */}
-              <div className="mb-6 animate-bee-bounce">
-                <div className="text-6xl sm:text-7xl mb-4">🐝</div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+              <div className="mb-4 sm:mb-6 animate-bee-bounce">
+                <div className="text-5xl sm:text-6xl md:text-7xl mb-3 sm:mb-4">🐝</div>
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
                   ¡Hola! Hello!
                 </h1>
-                <p className="text-sm sm:text-base text-muted-foreground">
+                <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
                   I'm Mochi, your garden bee friend!
                   <br />
                   ¡Soy Mochi, tu amiga abeja del jardín!
@@ -63,7 +63,7 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
 
               {/* Language Selection */}
               <div className="space-y-3">
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                   Choose your language / Elige tu idioma:
                 </p>
                 
@@ -71,7 +71,7 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
                   onClick={() => handleLanguageSelect('es')}
                   variant="default"
                   size="lg"
-                  className="w-full text-lg py-6 bg-primary hover:bg-primary/90 shadow-md"
+                  className="w-full text-base sm:text-lg py-4 sm:py-6 bg-primary hover:bg-primary/90 shadow-md"
                 >
                   🇪🇸 Español
                 </Button>
@@ -80,14 +80,14 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
                   onClick={() => handleLanguageSelect('en')}
                   variant="outline"
                   size="lg"
-                  className="w-full text-lg py-6 border-2 shadow-md"
+                  className="w-full text-base sm:text-lg py-4 sm:py-6 border-2 shadow-md"
                 >
                   🇺🇸 English
                 </Button>
               </div>
 
               {/* Welcome Message */}
-              <div className="mt-6 text-xs sm:text-sm text-muted-foreground">
+              <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-muted-foreground">
                 <p>Learn about bees, honey, gardens & nature</p>
                 <p>Aprende sobre abejas, miel, jardines y naturaleza</p>
               </div>

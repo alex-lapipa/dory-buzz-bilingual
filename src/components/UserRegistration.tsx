@@ -130,14 +130,14 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
   };
 
   return (
-    <div className={inline ? '' : "min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat"}>
-      <Card className={`shadow-honey border border-border/30 bg-card/90 backdrop-blur ${inline ? 'w-full max-w-sm' : 'max-w-md w-full'}`}>
+    <div className={inline ? '' : "min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-3 sm:p-4 lg:p-6 bg-gradient-nature bg-cover bg-center bg-no-repeat"}>
+      <Card className={`shadow-honey border border-border/30 bg-card/90 backdrop-blur ${inline ? 'w-full max-w-xs sm:max-w-sm' : 'max-w-xs sm:max-w-sm md:max-w-md w-full'}`}>
         <CardHeader className="text-center">
-          <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
-          <CardTitle className="text-responsive-2xl font-bold" style={{ color: '#fffd01' }}>
+          <div className="text-5xl sm:text-6xl mb-3 sm:mb-4 animate-bee-bounce">🐝</div>
+          <CardTitle className="text-responsive-xl sm:text-responsive-2xl font-bold" style={{ color: '#fffd01' }}>
             {language === 'es' ? '¡Únete a BeeCrazy!' : 'Join BeeCrazy!'}
           </CardTitle>
-          <p className="text-responsive-sm text-muted-foreground mt-2">
+          <p className="text-responsive-xs sm:text-responsive-sm text-muted-foreground mt-2">
             {language === 'es' 
               ? 'Cuéntanos un poco sobre ti para personalizar tu experiencia en el jardín'
               : 'Tell us a bit about yourself to personalize your garden experience'
@@ -145,8 +145,8 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
           </p>
         </CardHeader>
         
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="p-4 sm:p-6">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">
                 {language === 'es' ? 'Correo Electrónico' : 'Email Address'}
@@ -181,7 +181,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             
             <Button 
               type="submit" 
-              className="w-full font-semibold text-responsive-base text-black hover:opacity-90"
+              className="w-full font-semibold text-responsive-sm sm:text-responsive-base text-black hover:opacity-90"
               style={{ backgroundColor: '#fffd01' }}
               disabled={isSubmitting}
             >

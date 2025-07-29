@@ -39,13 +39,13 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
   const renderContent = () => {
     if (!isUserRegistered) {
       return (
-        <div className="min-h-[480px] flex items-center justify-center p-10 text-center">
-          <div className="max-w-lg">
-            <div className="text-7xl mb-5 animate-bee-bounce">🐝</div>
-            <h2 className="text-3xl font-bold mb-5" style={{ color: '#fffd01' }}>
+        <div className="min-h-[60vh] flex items-center justify-center p-4 sm:p-6 md:p-8 text-center">
+          <div className="max-w-sm sm:max-w-md md:max-w-lg w-full">
+            <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-5 animate-bee-bounce">🐝</div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5" style={{ color: '#fffd01' }}>
               {t('welcome')} BeeCrazy Garden World!
             </h2>
-            <p className="text-lg mb-7" style={{ color: '#fffd01' }}>
+            <p className="text-base sm:text-lg mb-6 sm:mb-7" style={{ color: '#fffd01' }}>
               {t('language') === 'es' 
                 ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
                 : 'Complete your registration to access all chat features with Mochi.'
@@ -60,25 +60,25 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
     switch (currentTab) {
       case 'voice':
         return (
-          <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
+          <div className={`${isFullscreen ? 'h-full' : 'h-[50vh] sm:h-[60vh] lg:h-[70vh] max-h-[600px]'} overflow-auto`}>
             <VoiceInterface className="h-full" />
           </div>
         );
       case 'voice-classic':
         return (
-          <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
+          <div className={`${isFullscreen ? 'h-full' : 'h-[50vh] sm:h-[60vh] lg:h-[70vh] max-h-[600px]'} overflow-auto`}>
             <VoiceChat className="h-full" />
           </div>
         );
       case 'generate':
         return (
-          <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[60vh] sm:max-h-[70vh] overflow-y-auto'} p-4`}>
+          <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'} p-3 sm:p-4`}>
             <ImageGenerator />
           </div>
         );
       default:
         return (
-          <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[60vh] sm:max-h-[70vh]'} overflow-auto`}>
+          <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
             <MochiChat className="h-full" />
           </div>
         );
@@ -110,8 +110,8 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
       <div className="flying-bee flying-bumblebee-2 animate-bumblebee-bumble">🐝</div>
       <div className="flying-bee flying-bumblebee-3 animate-bumblebee-bumble">🐝</div>
       
-      <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-screen'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-2 sm:p-4 pt-20 pb-20'}`}>
-      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto my-auto'}`}>
+      <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-screen'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-3 sm:p-4 lg:p-6 pt-16 sm:pt-18 lg:pt-20 pb-16 sm:pb-18 lg:pb-20'}`}>
+      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl w-full mx-auto my-auto'}`}>
 
         {/* Fullscreen Toggle - Only for registered users */}
         {isUserRegistered && !isFullscreen && (
