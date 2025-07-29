@@ -70,33 +70,6 @@ const AppContent = () => {
     setShowOnboarding(false);
   };
 
-  // Always show language selection first if not selected
-  if (showLanguageSelect) {
-    return (
-      <div className="min-h-screen bg-gradient-nature">
-        <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
-      </div>
-    );
-  }
-
-  // Then show registration if language is selected but user hasn't registered
-  if (showRegistration) {
-    return (
-      <div className="min-h-screen bg-gradient-nature">
-        <UserRegistration onComplete={handleRegistrationComplete} />
-      </div>
-    );
-  }
-
-  // Then show onboarding if user is registered but hasn't completed onboarding
-  if (showOnboarding) {
-    return (
-      <div className="min-h-screen bg-gradient-nature">
-        <OnboardingFlow onComplete={handleOnboardingComplete} />
-      </div>
-    );
-  }
-
   return (
     <TabContext.Provider value={{ activeTab, setActiveTab }}>
       <BrowserRouter>
@@ -105,12 +78,24 @@ const AppContent = () => {
             <div className="flex flex-col min-h-screen bg-gradient-nature">
               <AppHeader onTabSelect={setActiveTab} />
               <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                {/* Always show language selection first if not selected */}
+                {showLanguageSelect ? (
+                  <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
+                ) : showRegistration ? (
+                  /* Then show registration if language is selected but user hasn't registered */
+                  <UserRegistration onComplete={handleRegistrationComplete} />
+                ) : showOnboarding ? (
+                  /* Then show onboarding if user is registered but hasn't completed onboarding */
+                  <OnboardingFlow onComplete={handleOnboardingComplete} />
+                ) : (
+                  /* Normal app routes */
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                )}
               </main>
               <FloatingGarden />
               <SystemStatusIndicator />
