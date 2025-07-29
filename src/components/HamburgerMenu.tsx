@@ -3,15 +3,24 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain, BookOpen, Zap } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-export const HamburgerMenu: React.FC = () => {
+interface HamburgerMenuProps {
+  onTabSelect?: (tab: string) => void;
+}
+
+export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const { t } = useLanguage();
+  
+  // Check if user has completed registration
+  const isUserRegistered = localStorage.getItem('userRegistration') !== null;
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -22,6 +31,58 @@ export const HamburgerMenu: React.FC = () => {
       </SheetTrigger>
       <SheetContent side="right" className="w-80 p-0">
         <div className="p-6 space-y-6">
+          {/* Chat Tabs - Only for registered users */}
+          {isUserRegistered && (
+            <>
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  {t('chat')} Features
+                </h3>
+                
+                <div className="space-y-2">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      onTabSelect?.('chat');
+                      setIsOpen(false);
+                    }}
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {t('textChat')}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      onTabSelect?.('voice');
+                      setIsOpen(false);
+                    }}
+                  >
+                    <Mic className="h-4 w-4 mr-2" />
+                    {t('voiceChat')}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      onTabSelect?.('generate');
+                      setIsOpen(false);
+                    }}
+                  >
+                    <Image className="h-4 w-4 mr-2" />
+                    {t('imageGenerator')}
+                  </Button>
+                </div>
+              </div>
+
+              <Separator />
+            </>
+          )}
+
           {/* Advanced Features */}
           <div className="space-y-4">
             <Button

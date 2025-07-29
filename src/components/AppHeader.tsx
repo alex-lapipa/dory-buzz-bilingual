@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export const AppHeader: React.FC = () => {
+interface AppHeaderProps {
+  onTabSelect?: (tab: string) => void;
+}
+
+export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { t } = useLanguage();
   return (
     <header className="w-full bg-gradient-to-b from-background/40 via-background/20 to-transparent backdrop-blur-sm border-b border-border/10 p-2 sm:p-3 fixed top-0 left-0 right-0 z-50 safe-area-top">
@@ -43,7 +47,7 @@ export const AppHeader: React.FC = () => {
             </Button>
           </FollowMochiModal>
           <ShareButtons />
-          <HamburgerMenu />
+          <HamburgerMenu onTabSelect={onTabSelect} />
         </div>
       </div>
     </header>

@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MochiChat } from './MochiChat';
-import { ShareButtons } from './ShareButtons';
 import { VoiceChat } from './VoiceChat';
 import { ImageGenerator } from './ImageGenerator';
-import { FollowMochiModal } from './FollowMochiModal';
 import { OnboardingTip } from './OnboardingTip';
 import { LanguageWelcome } from './LanguageWelcome';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Mic, Image, Video, Expand, Shrink, Heart, UserPlus } from 'lucide-react';
+import { Expand, Shrink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export const MochiInterface: React.FC = () => {
+interface MochiInterfaceProps {
+  activeTab?: string;
+}
+
+export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'chat' }) => {
   const { setLanguage, t } = useLanguage();
-  const [activeTab, setActiveTab] = useState('chat');
+  const [currentTab, setCurrentTab] = useState(activeTab);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLanguageSelect, setShowLanguageSelect] = useState(
     !localStorage.getItem('mochi_language_selected')
@@ -24,9 +24,64 @@ export const MochiInterface: React.FC = () => {
     !localStorage.getItem('mochi_onboarding_completed')
   );
 
+  // Check if user has completed registration
+  const isUserRegistered = localStorage.getItem('userRegistration') !== null;
+
+  useEffect(() => {
+    setCurrentTab(activeTab);
+  }, [activeTab]);
+
   const handleLanguageSelect = (language: 'en' | 'es') => {
     setLanguage(language);
     setShowLanguageSelect(false);
+  };
+
+  const renderContent = () => {
+    if (!isUserRegistered) {
+      return (
+        <div className="min-h-[400px] flex items-center justify-center p-8 text-center">
+          <div className="max-w-md">
+            <div className="text-6xl mb-4 animate-bee-bounce">🐝</div>
+            <h2 className="text-2xl font-bold mb-4 bg-gradient-bee bg-clip-text text-transparent">
+              {t('welcome')} BeeCrazy Garden World!
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              {t('language') === 'es' 
+                ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
+                : 'Complete your registration to access all chat features with Mochi.'
+              }
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {t('language') === 'es' 
+                ? 'Usa el menú hamburguesa (☰) para navegar por las opciones disponibles.'
+                : 'Use the hamburger menu (☰) to navigate through available options.'
+              }
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    switch (currentTab) {
+      case 'voice':
+        return (
+          <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
+            <VoiceChat className="h-full" />
+          </div>
+        );
+      case 'generate':
+        return (
+          <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[60vh] sm:max-h-[70vh] overflow-y-auto'} p-4`}>
+            <ImageGenerator />
+          </div>
+        );
+      default:
+        return (
+          <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[60vh] sm:max-h-[70vh]'} overflow-auto`}>
+            <MochiChat className="h-full" />
+          </div>
+        );
+    }
   };
 
   if (showLanguageSelect) {
@@ -61,8 +116,8 @@ export const MochiInterface: React.FC = () => {
       <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-gradient-nature' : 'min-h-screen'} safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? '' : 'p-2 sm:p-4 pt-20 pb-20'}`}>
       <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto my-auto'}`}>
 
-        {/* Fullscreen Toggle */}
-        {!isFullscreen && (
+        {/* Fullscreen Toggle - Only for registered users */}
+        {isUserRegistered && !isFullscreen && (
           <div className="absolute top-4 right-4 z-40">
             <Button
               onClick={() => setIsFullscreen(!isFullscreen)}
@@ -75,7 +130,7 @@ export const MochiInterface: React.FC = () => {
             </Button>
           </div>
         )}
-        {isFullscreen && (
+        {isUserRegistered && isFullscreen && (
           <div className="absolute top-4 right-4 z-50">
             <Button
               onClick={() => setIsFullscreen(!isFullscreen)}
@@ -89,53 +144,17 @@ export const MochiInterface: React.FC = () => {
           </div>
         )}
 
-        {/* Main Interface - Mobile Optimized */}
+        {/* Main Interface */}
         <Card className={`shadow-honey border border-border/30 bg-card/70 backdrop-blur ${isFullscreen ? 'flex-1 flex flex-col' : ''}`}>
           <CardContent className="p-0 h-full flex flex-col">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full h-full flex flex-col">
-              <TabsList className={`grid w-full grid-cols-3 bg-muted/50 ${isFullscreen ? 'flex-shrink-0' : ''} p-1`}>
-                <TabsTrigger value="chat" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('textChat')}>
-                  <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">{t('chat')}</span>
-                  <span className="xs:hidden">💬</span>
-                </TabsTrigger>
-                <TabsTrigger value="voice" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('voiceChat')}>
-                  <Mic className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">{t('voice')}</span>
-                  <span className="xs:hidden">🎤</span>
-                </TabsTrigger>
-                <TabsTrigger value="generate" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm" aria-label={t('imageGenerator')}>
-                  <Image className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="hidden xs:inline">{t('generate')}</span>
-                  <span className="xs:hidden">🎨</span>
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="chat" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[60vh] sm:max-h-[70vh]'} overflow-auto`}>
-                  <MochiChat className="h-full" />
-                </div>
-              </TabsContent>
-
-              <TabsContent value="voice" className={`m-0 ${isFullscreen ? 'flex-1' : ''}`}>
-                <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
-                  <VoiceChat className="h-full" />
-                </div>
-              </TabsContent>
-
-              <TabsContent value="generate" className={`m-0 ${isFullscreen ? 'flex-1' : ''} p-4`}>
-                <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[60vh] sm:max-h-[70vh] overflow-y-auto'}`}>
-                  <ImageGenerator />
-                </div>
-              </TabsContent>
-            </Tabs>
+            {renderContent()}
           </CardContent>
         </Card>
       </div>
       </div>
       
       {/* Onboarding for First-Time Users */}
-      {showOnboarding && (
+      {showOnboarding && isUserRegistered && (
         <OnboardingTip 
           onClose={() => {
             setShowOnboarding(false);

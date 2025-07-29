@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -18,11 +18,23 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
+// Create a context to manage active tab across components
+const TabContext = createContext<{
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}>({
+  activeTab: 'chat',
+  setActiveTab: () => {},
+});
+
+export const useTab = () => useContext(TabContext);
+
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const [showLanguageSelect, setShowLanguageSelect] = useState(!localStorage.getItem('mochi_language_selected'));
   const [showRegistration, setShowRegistration] = useState(false);
+  const [activeTab, setActiveTab] = useState('chat');
   const { setLanguage } = useLanguage();
 
   const handleLanguageSelect = (language: 'en' | 'es') => {
@@ -50,25 +62,27 @@ const AppContent = () => {
   }
 
   return (
-    <BrowserRouter>
-      <AppStatusProvider>
-        <AuthWrapper>
-          <div className="flex flex-col min-h-screen bg-gradient-nature">
-            <AppHeader />
-            <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <FloatingGarden />
-            <SystemStatusIndicator />
-          </div>
-        </AuthWrapper>
-      </AppStatusProvider>
-    </BrowserRouter>
+    <TabContext.Provider value={{ activeTab, setActiveTab }}>
+      <BrowserRouter>
+        <AppStatusProvider>
+          <AuthWrapper>
+            <div className="flex flex-col min-h-screen bg-gradient-nature">
+              <AppHeader onTabSelect={setActiveTab} />
+              <main className="flex-1 overflow-auto relative z-10 pt-16 sm:pt-18">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <FloatingGarden />
+              <SystemStatusIndicator />
+            </div>
+          </AuthWrapper>
+        </AppStatusProvider>
+      </BrowserRouter>
+    </TabContext.Provider>
   );
 };
 
