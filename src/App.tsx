@@ -16,13 +16,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AppHeader />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <GardenFooter />
+        <div className="relative min-h-screen bg-gradient-nature">
+          <AppHeader />
+          <main className="relative z-10">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <GardenFooter />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

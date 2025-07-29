@@ -6,8 +6,8 @@ import { Heart } from 'lucide-react';
 
 export const AppHeader: React.FC = () => {
   return (
-    <header className="w-full bg-transparent p-4 fixed top-0 left-0 right-0 z-50 safe-area-top">
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
+    <header className="w-full bg-background/80 backdrop-blur-sm border-b border-border/20 p-4 fixed top-0 left-0 right-0 z-50 safe-area-top">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
         <div className="relative flex sm:block">
           <div className="text-4xl sm:text-6xl animate-bee-bounce">🐝</div>
         </div>

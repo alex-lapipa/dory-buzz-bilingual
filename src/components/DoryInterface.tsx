@@ -39,7 +39,7 @@ export const DoryInterface: React.FC = () => {
       <div className="flying-bee flying-bumblebee-3 animate-bumblebee-bumble">🐝</div>
       
       <div className={`min-h-screen bg-gradient-nature safe-area-top safe-area-bottom flex items-center justify-center ${isFullscreen ? 'fixed inset-0 z-50' : 'p-2 sm:p-4 pt-32'}`}>
-      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full'}`}>
+      <div className={`${isFullscreen ? 'h-full w-full flex flex-col' : 'max-w-md sm:max-w-2xl lg:max-w-4xl w-full mx-auto'}`}>
 
         {/* Fullscreen Toggle */}
         {!isFullscreen && (
