@@ -545,10 +545,10 @@ Style this as a beautiful garden illustration that families would love - colorfu
           <div className="text-2xl sm:text-3xl animate-bee-bounce">🐝</div>
           <div className="flex-1 min-w-0">
             <h2 className="text-sm sm:text-lg font-bold text-primary-foreground truncate">
-              {t('mochiTitle')}
+              Chat with Mochi
             </h2>
             <p className="text-xs sm:text-sm text-primary-foreground/80 truncate">
-              {t('mochiSubtitle')}
+              Garden conversations & learning
             </p>
           </div>
         </div>
