@@ -63,7 +63,20 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                     }}
                   >
                     <Mic className="h-4 w-4 mr-2" />
-                    {t('voiceChat')}
+                    OpenAI Realtime Voice
+                    <Badge variant="secondary" className="ml-auto">NEW</Badge>
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      onTabSelect?.('voice-classic');
+                      setIsOpen(false);
+                    }}
+                  >
+                    <Mic className="h-4 w-4 mr-2" />
+                    Classic Voice Chat
                   </Button>
                   
                   <Button

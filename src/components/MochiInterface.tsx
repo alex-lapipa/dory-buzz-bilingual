@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MochiChat } from './MochiChat';
 import { VoiceChat } from './VoiceChat';
+import { VoiceInterface } from './VoiceInterface';
 import { ImageGenerator } from './ImageGenerator';
 import { OnboardingTip } from './OnboardingTip';
 import { UserRegistration } from './UserRegistration';
@@ -58,6 +59,12 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
 
     switch (currentTab) {
       case 'voice':
+        return (
+          <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
+            <VoiceInterface className="h-full" />
+          </div>
+        );
+      case 'voice-classic':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'h-[60vh] sm:h-[70vh] max-h-[600px]'} overflow-auto`}>
             <VoiceChat className="h-full" />
