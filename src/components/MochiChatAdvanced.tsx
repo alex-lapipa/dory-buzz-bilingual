@@ -662,7 +662,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type your message • 🎤 Use voice recording • 🎨 Say 'create image of...' for visuals"
+            placeholder={t('chatPlaceholder')}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();

@@ -625,15 +625,15 @@ Style this as a beautiful garden illustration that families would love - colorfu
       {/* Input Area - Mobile Optimized with Visual Enhancements */}
       <div className="p-2 sm:p-4 border-t border-border bg-card safe-area-bottom">
         <div className="flex flex-col space-y-2">
-          {/* Helpful hints */}
+          {/* Helpful hints - simplified */}
           <div className="text-xs text-muted-foreground text-center">
-            💬 Type your message • 🎤 Use voice recording • 🎨 Say "create image of..." for visuals
+            {t('messageToMochi')}
           </div>
         <div className="flex gap-1 sm:gap-2">
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type your message • 🎤 Use voice recording • 🎨 Say 'create image of...' for visuals"
+            placeholder={t('chatPlaceholder')}
             onKeyPress={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
