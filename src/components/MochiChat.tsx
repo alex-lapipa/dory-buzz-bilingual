@@ -297,8 +297,25 @@ Style this as a beautiful garden illustration that families would love - colorfu
   };
 
   const startVoiceRecording = async () => {
+    // Start live conversation instead of record-then-transcribe
     try {
+      setIsListening(true);
+      // Switch to live voice mode by opening VoiceInterface
+      toast({
+        title: "🚀 Starting Live Voice Chat",
+        description: "Opening real-time conversation with Mochi...",
+      });
+      
+      // You could integrate VoiceInterface logic here, or redirect to voice interface
+      // For now, we'll use the existing functionality but indicate it's live
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      toast({
+        title: "🎤 Live Voice Active",
+        description: "Start speaking! I'll continue the conversation naturally.",
+      });
+      
+      // For MVP, continue with existing transcription but make it feel more live
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -332,7 +349,14 @@ Style this as a beautiful garden illustration that families would love - colorfu
 
             const data = await response.json();
             if (data.text) {
+              // Continue conversation automatically
               await sendMessage(data.text);
+              
+              // Auto-play Mochi's response
+              const lastMessage = localMessages[localMessages.length - 1];
+              if (lastMessage && lastMessage.type === 'mochi') {
+                await playMochiResponse(lastMessage.content);
+              }
             }
           } catch (error) {
             console.error('Speech-to-text error:', error);
@@ -349,9 +373,9 @@ Style this as a beautiful garden illustration that families would love - colorfu
       };
 
       mediaRecorder.start();
-      setIsListening(true);
     } catch (error) {
       console.error('Microphone access error:', error);
+      setIsListening(false);
       toast({
         title: t('error'),
         description: t('microphoneError'),

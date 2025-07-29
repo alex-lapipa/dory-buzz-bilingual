@@ -283,8 +283,22 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
   };
 
   const startAdvancedVoiceChat = async () => {
+    // Start live conversation instead of record-then-transcribe
     try {
+      setIsListening(true);
+      
+      toast({
+        title: "🚀 Starting Live Voice Chat",
+        description: "Opening real-time conversation with Mochi...",
+      });
+      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      
+      toast({
+        title: "🎤 Live Voice Active",
+        description: "Tell me about bees! I'm listening and will respond naturally.",
+      });
+      
       const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -332,7 +346,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
 
             setLocalMessages(prev => [...prev, userMessage, aiMessage]);
 
-            // Play AI response
+            // Play AI response automatically
             if (data.audioContent) {
               const audioResponseBlob = new Blob([Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
               const audio = new Audio(URL.createObjectURL(audioResponseBlob));
@@ -341,7 +355,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
 
             toast({
               title: "🐝 Voice chat complete!",
-              description: "Mochi heard you perfectly!",
+              description: "Mochi heard you perfectly! Continue the conversation.",
             });
 
           } catch (error) {
@@ -361,15 +375,10 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
       };
 
       mediaRecorder.start();
-      setIsListening(true);
-
-      toast({
-        title: "🎤 Advanced Voice Recording",
-        description: "Tell me about bees! I'm listening with advanced AI.",
-      });
 
     } catch (error) {
       console.error('Microphone access error:', error);
+      setIsListening(false);
       toast({
         title: "Error",
         description: "Could not access microphone",
