@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,7 +13,7 @@ serve(async (req) => {
   }
 
   try {
-    const { text, voice = 'nova', language = 'auto' } = await req.json();
+    const { text, voice = 'nova', user_id } = await req.json();
 
     if (!text) {
       throw new Error('Text is required');
@@ -23,7 +24,17 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
-    // Generate speech from text using OpenAI TTS
+    // Initialize Supabase client
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+
+    console.log('Converting text to speech with HD model:', text.substring(0, 100) + '...');
+
+    const startTime = Date.now();
+
+    // Generate speech from text using OpenAI TTS HD
     const response = await fetch('https://api.openai.com/v1/audio/speech', {
       method: 'POST',
       headers: {
@@ -31,7 +42,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'tts-1',
+        model: 'tts-1-hd',
         input: text,
         voice: voice, // nova, alloy, echo, fable, onyx, shimmer
         response_format: 'mp3',
@@ -50,10 +61,29 @@ serve(async (req) => {
       String.fromCharCode(...new Uint8Array(arrayBuffer))
     );
 
+    const responseTime = Date.now() - startTime;
+
+    // Log successful integration
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'tts-1-hd',
+      message_length: text.length,
+      response_time_ms: responseTime,
+      success: true,
+      options: {
+        voice: voice,
+        user_id: user_id || 'guest',
+        format: 'mp3'
+      }
+    });
+
+    console.log('TTS conversion successful');
+
     return new Response(
       JSON.stringify({ 
         audioContent: base64Audio,
-        contentType: 'audio/mpeg'
+        contentType: 'audio/mpeg',
+        voice: voice
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -62,6 +92,22 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in tts_dory function:', error);
+    
+    // Log failed integration
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+    
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'tts-1-hd',
+      message_length: 0,
+      response_time_ms: 0,
+      success: false,
+      error_message: error.message
+    });
+
     return new Response(
       JSON.stringify({ error: error.message }),
       {

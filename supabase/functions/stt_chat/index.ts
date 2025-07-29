@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -42,7 +43,7 @@ serve(async (req) => {
   }
 
   try {
-    const { audio, language = 'auto' } = await req.json();
+    const { audio, language = 'auto', user_id } = await req.json();
     
     if (!audio) {
       throw new Error('No audio data provided');
@@ -53,6 +54,16 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
+    // Initialize Supabase client
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+
+    console.log('Processing audio for transcription...');
+
+    const startTime = Date.now();
+
     // Process audio in chunks to handle large files
     const binaryAudio = processBase64Chunks(audio);
     
@@ -61,6 +72,7 @@ serve(async (req) => {
     const blob = new Blob([binaryAudio], { type: 'audio/webm' });
     formData.append('file', blob, 'audio.webm');
     formData.append('model', 'whisper-1');
+    formData.append('temperature', '0');
     
     // Add language hint if specified
     if (language && language !== 'auto') {
@@ -85,6 +97,24 @@ serve(async (req) => {
     }
 
     const result = await response.json();
+    const responseTime = Date.now() - startTime;
+
+    // Log successful integration
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'whisper-1',
+      message_length: result.text ? result.text.length : 0,
+      response_time_ms: responseTime,
+      success: true,
+      options: {
+        language: language,
+        user_id: user_id || 'guest',
+        audio_size: binaryAudio.length,
+        detected_language: result.language || 'unknown'
+      }
+    });
+
+    console.log('STT transcription successful:', result.text);
 
     return new Response(
       JSON.stringify({ 
@@ -98,6 +128,22 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in stt_chat function:', error);
+    
+    // Log failed integration
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+    
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'whisper-1',
+      message_length: 0,
+      response_time_ms: 0,
+      success: false,
+      error_message: error.message
+    });
+
     return new Response(
       JSON.stringify({ error: error.message }),
       {

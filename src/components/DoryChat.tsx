@@ -160,6 +160,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           },
           body: JSON.stringify({
             message: messageText,
+            user_id: guestId,
             conversation_history: localMessages.slice(-10).map(m => ({
               role: m.type === 'user' ? 'user' : 'assistant',
               content: m.content
@@ -285,7 +286,10 @@ Style this as a beautiful garden illustration that families would love - colorfu
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpyZHl3ZHJlZ2NyeWttYml5dHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM3MzcyNzQsImV4cCI6MjA2OTMxMzI3NH0.6FgluqbBlAYoUCUZXkCdB1-pGU554L-6bkjjhDuqJfg`,
                 },
-                body: JSON.stringify({ audio: base64Audio })
+                body: JSON.stringify({ 
+                  audio: base64Audio,
+                  user_id: guestId
+                })
               }
             );
 
@@ -341,7 +345,8 @@ Style this as a beautiful garden illustration that families would love - colorfu
           },
           body: JSON.stringify({ 
             text,
-            voice: 'nova'
+            voice: 'nova',
+            user_id: guestId
           })
         }
       );

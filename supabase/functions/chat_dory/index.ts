@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -32,7 +33,7 @@ serve(async (req) => {
   }
 
   try {
-    const { message, conversation_history = [] } = await req.json();
+    const { message, conversation_history = [], user_id } = await req.json();
 
     if (!message) {
       throw new Error('Message is required');
@@ -43,12 +44,22 @@ serve(async (req) => {
       throw new Error('OpenAI API key not configured');
     }
 
+    // Initialize Supabase client for logging
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+
+    const startTime = Date.now();
+
     // Build conversation context
     const messages = [
       { role: 'system', content: DORY_SYSTEM_PROMPT },
       ...conversation_history,
       { role: 'user', content: message }
     ];
+
+    console.log('Sending request to OpenAI with latest model...');
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -57,7 +68,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
+        model: 'gpt-4.1-2025-04-14',
         messages: messages,
         temperature: 0.8,
         max_tokens: 500,
@@ -69,6 +80,20 @@ serve(async (req) => {
       const error = await response.json();
       throw new Error(error.error?.message || 'Failed to get response from OpenAI');
     }
+
+    // Log successful integration
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'gpt-4.1-2025-04-14',
+      message_length: message.length,
+      response_time_ms: Date.now() - startTime,
+      success: true,
+      options: {
+        stream: true,
+        user_id: user_id || 'guest',
+        conversation_length: conversation_history.length
+      }
+    });
 
     // Return streaming response
     const stream = new ReadableStream({
@@ -121,6 +146,22 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in chat_dory function:', error);
+    
+    // Log failed integration
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    );
+    
+    await supabase.from('dory_integrations').insert({
+      platform: 'openai',
+      model: 'gpt-4.1-2025-04-14',
+      message_length: 0,
+      response_time_ms: 0,
+      success: false,
+      error_message: error.message
+    });
+
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

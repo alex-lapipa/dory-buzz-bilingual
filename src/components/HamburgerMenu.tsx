@@ -23,16 +23,29 @@ export const HamburgerMenu: React.FC = () => {
               Menu
             </h3>
             
-            <Button 
-              variant="outline" 
-              className="w-full justify-start" 
-              asChild
-            >
-              <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Visit Lapipa.io
-              </a>
-            </Button>
+            <div className="space-y-2">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
+                asChild
+              >
+                <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Visit Lapipa.io
+                </a>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
+                asChild
+              >
+                <a href="/" rel="noopener noreferrer">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  Home
+                </a>
+              </Button>
+            </div>
           </div>
 
           {/* About Section */}
