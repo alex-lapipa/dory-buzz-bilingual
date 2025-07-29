@@ -44,9 +44,10 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           model: 'sora-1.0-2024-12-20',
-          prompt: prompt,
+          prompt: `BeeCrazy Garden World scene: ${prompt}. Family-friendly educational content about gardens, nature, and bees. Bright, colorful, welcoming atmosphere.`,
           size: '1280x720',
-          duration: 5
+          duration: 5,
+          aspect_ratio: '16:9'
         }),
       });
 
@@ -75,11 +76,12 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           model: 'gpt-image-1',
-          prompt: prompt,
+          prompt: `BeeCrazy Garden World: ${prompt}. Style: vibrant, family-friendly, educational garden theme with natural lighting`,
           n: 1,
           size: '1024x1024',
           quality: 'high',
-          output_format: 'png'
+          output_format: 'png',
+          background: 'auto'
         }),
       });
 
