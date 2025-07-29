@@ -62,16 +62,16 @@ serve(async (req) => {
             },
             turn_detection: {
               type: "server_vad",
-              threshold: 0.6,
+              threshold: 0.5,
               prefix_padding_ms: 300,
-              silence_duration_ms: 1500
+              silence_duration_ms: 1000
             },
             temperature: 0.8,
             max_response_output_tokens: 4096
           }
         };
         
-        console.log("Sending session update with 2-second silence detection");
+        console.log("Sending session update with optimized voice detection");
         openAISocket?.send(JSON.stringify(sessionUpdate));
       }
       

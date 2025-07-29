@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { RealtimeChat } from '@/utils/realtimeAudio';
 import { supabase } from '@/integrations/supabase/client';
 import { Mic, MicOff, Volume2, VolumeX, Brain, Loader2, Zap } from 'lucide-react';
+import { AudioRecorder, encodeAudioForAPI, AudioQueue } from '@/utils/realtimeAudio';
 
 interface VoiceInterfaceProps {
   className?: string;
@@ -27,7 +27,11 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
   const [isListening, setIsListening] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentTranscript, setCurrentTranscript] = useState('');
-  const chatRef = useRef<RealtimeChat | null>(null);
+  
+  const wsRef = useRef<WebSocket | null>(null);
+  const audioRecorderRef = useRef<AudioRecorder | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioQueueRef = useRef<AudioQueue | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -38,148 +42,226 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
     scrollToBottom();
   }, [messages]);
 
-  const handleMessage = useCallback((event: any) => {
-    console.log('Voice interface received message:', event.type);
-    
-    switch (event.type) {
-      case 'session.created':
-        console.log('Session created successfully');
-        toast({
-          title: "🐝 Mochi is ready!",
-          description: "Voice conversation started. Say hello!",
-        });
-        break;
-        
-      case 'response.created':
-        console.log('AI response started');
-        setIsSpeaking(true);
-        break;
-        
-      case 'response.audio_transcript.delta':
-        if (event.delta) {
-          setCurrentTranscript(prev => prev + event.delta);
-        }
-        break;
-        
-      case 'response.audio_transcript.done':
-        if (currentTranscript.trim()) {
-          const assistantMessage: Message = {
-            id: Date.now().toString(),
-            type: 'assistant',
-            content: currentTranscript.trim(),
-            timestamp: new Date(),
-            isVoice: true
-          };
-          setMessages(prev => [...prev, assistantMessage]);
-          setCurrentTranscript('');
-        }
-        break;
-        
-      case 'response.audio.done':
-        console.log('AI audio response complete');
-        setIsSpeaking(false);
-        break;
-        
-      case 'input_audio_buffer.speech_started':
-        console.log('User speech detected');
-        setIsListening(true);
-        break;
-        
-      case 'input_audio_buffer.speech_stopped':
-        console.log('User speech ended');
-        setIsListening(false);
-        break;
-        
-      case 'conversation.item.input_audio_transcription.completed':
-        if (event.transcript) {
-          const userMessage: Message = {
-            id: Date.now().toString(),
-            type: 'user',
-            content: event.transcript,
-            timestamp: new Date(),
-            isVoice: true
-          };
-          setMessages(prev => [...prev, userMessage]);
-        }
-        break;
-        
-      case 'error':
-        console.error('Realtime API error:', event);
-        toast({
-          title: "Voice Error",
-          description: event.error?.message || "Something went wrong with voice chat",
-          variant: "destructive",
-        });
-        break;
-        
-      default:
-        // Log other events for debugging
-        if (event.type) {
-          console.log(`Unhandled event type: ${event.type}`);
-        }
-        break;
+  const handleAudioData = useCallback((audioData: Float32Array) => {
+    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      const encodedAudio = encodeAudioForAPI(audioData);
+      wsRef.current.send(JSON.stringify({
+        type: 'input_audio_buffer.append',
+        audio: encodedAudio
+      }));
     }
-  }, [currentTranscript, toast]);
+  }, []);
 
-  const handleError = useCallback((error: string) => {
-    console.error('RealtimeChat error:', error);
-    setIsConnected(false);
-    setIsConnecting(false);
-    setIsSpeaking(false);
-    setIsListening(false);
-    
-    toast({
-      title: "Connection Error",
-      description: error,
-      variant: "destructive",
-    });
-  }, [toast]);
-
-  const startConversation = async () => {
+  const connectToRealtimeAPI = async () => {
     try {
       setIsConnecting(true);
       
-      toast({
-        title: "🎤 Connecting...",
-        description: "Setting up voice chat with Mochi",
-      });
+      // Initialize audio context and queue
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        audioQueueRef.current = new AudioQueue(audioContextRef.current);
+      }
 
-      chatRef.current = new RealtimeChat(handleMessage, handleError);
-      await chatRef.current.init();
-      
-      setIsConnected(true);
-      setIsConnecting(false);
-      
-      // Add welcome message
-      const welcomeMessage: Message = {
-        id: 'welcome',
-        type: 'assistant',
-        content: "🐝 Buzz buzz! Hi there! I'm Mochi, your voice-enabled bee guide! You can now talk to me naturally - just speak and I'll respond with my voice. Ask me anything about bees, flowers, or our garden world!",
-        timestamp: new Date(),
-        isVoice: false
+      // Connect to our WebSocket relay edge function
+      const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/voice_chat_realtime`;
+      wsRef.current = new WebSocket(wsUrl);
+
+      wsRef.current.onopen = () => {
+        console.log('Connected to OpenAI Realtime API via relay');
+        setIsConnected(true);
+        setIsConnecting(false);
       };
-      setMessages([welcomeMessage]);
-      
+
+      wsRef.current.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+        console.log('Received message:', data.type);
+
+        switch (data.type) {
+          case 'session.created':
+            console.log('Session created successfully');
+            toast({
+              title: "🐝 Mochi is ready!",
+              description: "Voice conversation started. Say hello!",
+            });
+            break;
+            
+          case 'session.updated':
+            console.log('Session updated with voice detection');
+            break;
+
+          case 'input_audio_buffer.speech_started':
+            console.log('User started speaking');
+            setIsListening(true);
+            break;
+
+          case 'input_audio_buffer.speech_stopped':
+            console.log('User stopped speaking - processing...');
+            setIsListening(false);
+            break;
+
+          case 'response.created':
+            console.log('AI response started');
+            setIsSpeaking(true);
+            break;
+            
+          case 'response.audio.delta':
+            // Play audio chunk
+            if (data.delta && audioQueueRef.current) {
+              const binaryString = atob(data.delta);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+              audioQueueRef.current.addToQueue(bytes);
+              setIsSpeaking(true);
+            }
+            break;
+
+          case 'response.audio.done':
+            console.log('Audio response completed');
+            setIsSpeaking(false);
+            break;
+            
+          case 'response.audio_transcript.delta':
+            if (data.delta) {
+              setCurrentTranscript(prev => prev + data.delta);
+            }
+            break;
+            
+          case 'response.audio_transcript.done':
+            if (currentTranscript.trim()) {
+              const assistantMessage: Message = {
+                id: Date.now().toString(),
+                type: 'assistant',
+                content: currentTranscript.trim(),
+                timestamp: new Date(),
+                isVoice: true
+              };
+              setMessages(prev => [...prev, assistantMessage]);
+              setCurrentTranscript('');
+            }
+            break;
+            
+          case 'conversation.item.input_audio_transcription.completed':
+            if (data.transcript) {
+              const userMessage: Message = {
+                id: Date.now().toString(),
+                type: 'user',
+                content: data.transcript,
+                timestamp: new Date(),
+                isVoice: true
+              };
+              setMessages(prev => [...prev, userMessage]);
+            }
+            break;
+            
+          case 'error':
+            console.error('Realtime API error:', data.error);
+            toast({
+              title: "Voice Error",
+              description: data.error?.message || "Something went wrong with voice chat",
+              variant: "destructive",
+            });
+            break;
+        }
+      };
+
+      wsRef.current.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        toast({
+          title: "Connection Error",
+          description: "Failed to connect to voice chat service",
+          variant: "destructive",
+        });
+        setIsConnecting(false);
+        setIsConnected(false);
+      };
+
+      wsRef.current.onclose = () => {
+        console.log('WebSocket connection closed');
+        setIsConnected(false);
+        setIsConnecting(false);
+        setIsListening(false);
+        setIsSpeaking(false);
+      };
+
     } catch (error) {
-      console.error('Error starting conversation:', error);
+      console.error('Error connecting to Realtime API:', error);
+      toast({
+        title: "Connection Error",
+        description: "Failed to initialize voice chat",
+        variant: "destructive",
+      });
       setIsConnecting(false);
+    }
+  };
+
+  const startListening = async () => {
+    try {
+      if (!audioRecorderRef.current) {
+        audioRecorderRef.current = new AudioRecorder(handleAudioData);
+      }
+      
+      await audioRecorderRef.current.start();
       
       toast({
-        title: "Connection Failed",
-        description: error instanceof Error ? error.message : 'Failed to start voice conversation',
+        title: "🎤 Voice Chat Ready!",
+        description: "Start speaking! I'll respond naturally when you pause for 1.5 seconds.",
+        duration: 4000,
+      });
+    } catch (error) {
+      console.error('Error starting audio recording:', error);
+      toast({
+        title: "Microphone Error",
+        description: "Could not access microphone. Please check permissions.",
         variant: "destructive",
       });
     }
   };
 
-  const endConversation = () => {
-    chatRef.current?.disconnect();
+  const stopListening = () => {
+    if (audioRecorderRef.current) {
+      audioRecorderRef.current.stop();
+      audioRecorderRef.current = null;
+    }
+    setIsListening(false);
+  };
+
+  const disconnect = () => {
+    stopListening();
+    
+    if (wsRef.current) {
+      wsRef.current.close();
+      wsRef.current = null;
+    }
+    
+    if (audioQueueRef.current) {
+      audioQueueRef.current.clear();
+    }
+    
     setIsConnected(false);
     setIsConnecting(false);
     setIsSpeaking(false);
-    setIsListening(false);
     setMessages([]);
     setCurrentTranscript('');
+  };
+
+  const startConversation = async () => {
+    try {
+      await connectToRealtimeAPI();
+      // Wait a bit for connection to establish before starting audio
+      setTimeout(async () => {
+        if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+          await startListening();
+        }
+      }, 1000);
+    } catch (error) {
+      console.error('Error starting conversation:', error);
+    }
+  };
+
+  const endConversation = () => {
+    disconnect();
     
     toast({
       title: "🐝 Voice chat ended",
@@ -188,7 +270,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
   };
 
   const sendTextMessage = async (text: string) => {
-    if (!chatRef.current?.isReady()) {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
       toast({
         title: "Not connected",
         description: "Please start the voice conversation first",
@@ -198,7 +280,25 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
     }
 
     try {
-      await chatRef.current.sendMessage(text);
+      // Send text message to OpenAI
+      wsRef.current.send(JSON.stringify({
+        type: 'conversation.item.create',
+        item: {
+          type: 'message',
+          role: 'user',
+          content: [
+            {
+              type: 'input_text',
+              text
+            }
+          ]
+        }
+      }));
+
+      // Trigger response
+      wsRef.current.send(JSON.stringify({
+        type: 'response.create'
+      }));
       
       const userMessage: Message = {
         id: Date.now().toString(),
@@ -241,7 +341,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
 
   useEffect(() => {
     return () => {
-      chatRef.current?.disconnect();
+      disconnect();
     };
   }, []);
 
@@ -251,10 +351,10 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
       <div className="p-4 bg-gradient-to-r from-yellow-50 to-orange-50 border-b border-yellow-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl animate-bee-bounce">🎤</span>
+            <span className="text-2xl animate-bee-bounce">🚀</span>
             <div>
-              <h2 className="text-lg font-bold">Voice Chat with Mochi</h2>
-              <p className="text-sm text-muted-foreground">Real-time voice conversations</p>
+              <h2 className="text-lg font-bold">OpenAI Realtime Voice Chat</h2>
+              <p className="text-sm text-muted-foreground">Direct voice-to-voice with GPT-4o</p>
             </div>
           </div>
           
@@ -277,47 +377,59 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            <Card className={`max-w-[80%] ${
-              message.type === 'user' 
-                ? 'bg-primary text-primary-foreground' 
-                : 'bg-muted'
-            }`}>
-              <CardContent className="p-3">
-                <div className="flex items-start gap-2">
-                  {message.type === 'assistant' && (
-                    <span className="text-xl animate-bee-bounce">🐝</span>
-                  )}
-                  <div className="flex-1">
-                    <p className="text-sm">{message.content}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      {message.isVoice && (
-                        <Badge variant="outline" className="text-xs">
-                          <Mic className="h-3 w-3 mr-1" />
-                          Voice
-                        </Badge>
-                      )}
-                      {message.type === 'assistant' && (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => speakWithElevenLabs(message.content)}
-                          className="h-6 p-1"
-                        >
-                          <Volume2 className="h-3 w-3" />
-                        </Button>
-                      )}
+        {messages.length === 0 ? (
+          <div className="text-center text-muted-foreground py-8">
+            <div className="text-4xl mb-2">🚀</div>
+            <p className="text-lg mb-2">OpenAI Realtime Voice Chat</p>
+            <p className="text-sm">
+              {isConnected 
+                ? "🐝 I'm listening! Start speaking and I'll respond in real-time with natural voice."
+                : "Press the button below to start a natural voice conversation with Mochi using OpenAI's latest Realtime API! 🌻"}
+            </p>
+          </div>
+        ) : (
+          messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <Card className={`max-w-[80%] ${
+                message.type === 'user' 
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'bg-muted'
+              }`}>
+                <CardContent className="p-3">
+                  <div className="flex items-start gap-2">
+                    {message.type === 'assistant' && (
+                      <span className="text-xl animate-bee-bounce">🐝</span>
+                    )}
+                    <div className="flex-1">
+                      <p className="text-sm">{message.content}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        {message.isVoice && (
+                          <Badge variant="outline" className="text-xs">
+                            <Mic className="h-3 w-3 mr-1" />
+                            Voice
+                          </Badge>
+                        )}
+                        {message.type === 'assistant' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => speakWithElevenLabs(message.content)}
+                            className="h-6 p-1"
+                          >
+                            <Volume2 className="h-3 w-3" />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
+                </CardContent>
+              </Card>
+            </div>
+          ))
+        )}
         
         {currentTranscript && (
           <div className="flex justify-start">
@@ -359,8 +471,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
                 </>
               ) : (
                 <>
-                  <Mic className="h-4 w-4 mr-2" />
-                  Start Voice Chat
+                  <Zap className="h-4 w-4 mr-2" />
+                  Start Realtime Voice
                 </>
               )}
             </Button>
@@ -382,7 +494,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
         {isConnected && (
           <div className="space-y-2">
             <p className="text-sm text-center text-muted-foreground">
-              🎙️ Just speak naturally or try these voice commands:
+              🎙️ Just speak naturally or try these commands:
             </p>
             <div className="flex flex-wrap gap-2 justify-center">
               {[
@@ -417,7 +529,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
               <span>AI Speaking</span>
             </div>
             <div className="flex items-center gap-1">
-              <Brain className="h-3 w-3" />
+              <Zap className="h-3 w-3" />
               <span>GPT-4o Realtime</span>
             </div>
           </div>
