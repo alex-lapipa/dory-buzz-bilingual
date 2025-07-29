@@ -49,12 +49,6 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
                 : 'Complete your registration to access all chat features with Mochi.'
               }
             </p>
-            <p className="text-sm text-muted-foreground">
-              {t('language') === 'es' 
-                ? 'Usa el menú hamburguesa (☰) para navegar por las opciones disponibles.'
-                : 'Use the hamburger menu (☰) to navigate through available options.'
-              }
-            </p>
           </div>
         </div>
       );
