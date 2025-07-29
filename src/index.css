@@ -1626,28 +1626,36 @@ All colors MUST be HSL.
     animation-delay: 14s;
   }
 
-  /* New bee flight animation */
+  /* Enhanced bee flight animation - chasing flowers */
   @keyframes bee-flight {
     0% { 
       transform: translate(-50px, 30vh) rotate(0deg);
       opacity: 0;
     }
-    10% {
+    5% {
       opacity: 0.4;
     }
-    25% {
-      transform: translate(25vw, 20vh) rotate(15deg);
+    15% {
+      transform: translate(15vw, 25vh) rotate(15deg);
       opacity: 0.5;
     }
-    50% {
-      transform: translate(50vw, 40vh) rotate(-20deg);
+    35% {
+      transform: translate(35vw, 35vh) rotate(-10deg);
       opacity: 0.5;
+    }
+    55% {
+      transform: translate(55vw, 30vh) rotate(20deg) scale(1.1);
+      opacity: 0.6;
     }
     75% {
-      transform: translate(75vw, 25vh) rotate(10deg);
+      transform: translate(75vw, 25vh) rotate(-5deg) scale(1.2);
+      opacity: 0.5;
+    }
+    85% {
+      transform: translate(85vw, 28vh) rotate(10deg) scale(1.1);
       opacity: 0.4;
     }
-    90% {
+    95% {
       opacity: 0.2;
     }
     100% { 
@@ -1656,44 +1664,78 @@ All colors MUST be HSL.
     }
   }
 
-  /* Floating flower animation */
+  /* Enhanced butterfly flutter - following nectar trail */
+  @keyframes butterfly-flutter {
+    0% { 
+      transform: translate(-30px, 20vh) rotate(0deg) scale(0.8);
+      opacity: 0;
+    }
+    8% {
+      opacity: 0.3;
+    }
+    20% {
+      transform: translate(20vw, 15vh) rotate(25deg) scale(0.9);
+      opacity: 0.4;
+    }
+    40% {
+      transform: translate(40vw, 25vh) rotate(-15deg) scale(1.0);
+      opacity: 0.5;
+    }
+    60% {
+      transform: translate(60vw, 20vh) rotate(30deg) scale(0.9);
+      opacity: 0.4;
+    }
+    80% {
+      transform: translate(80vw, 30vh) rotate(-10deg) scale(0.8);
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 0.2;
+    }
+    100% { 
+      transform: translate(105vw, 25vh) rotate(0deg) scale(0.8);
+      opacity: 0;
+    }
+  }
+
+  /* Floating flower animation - attracting pollinators */
   @keyframes flower-float {
     0% { 
-      transform: translate(20vw, -20px) rotate(0deg);
+      transform: translate(20vw, -20px) rotate(0deg) scale(0.8);
       opacity: 0;
     }
     10% {
       opacity: 0.3;
     }
     25% {
-      transform: translate(30vw, 20vh) rotate(45deg);
+      transform: translate(30vw, 20vh) rotate(45deg) scale(0.9);
       opacity: 0.4;
     }
     50% {
-      transform: translate(50vw, 50vh) rotate(90deg);
+      transform: translate(50vw, 50vh) rotate(90deg) scale(1.0);
       opacity: 0.4;
     }
     75% {
-      transform: translate(70vw, 70vh) rotate(135deg);
+      transform: translate(70vw, 70vh) rotate(135deg) scale(0.9);
       opacity: 0.3;
     }
     90% {
       opacity: 0.1;
     }
     100% { 
-      transform: translate(80vw, 100vh) rotate(180deg);
+      transform: translate(80vw, 100vh) rotate(180deg) scale(0.8);
       opacity: 0;
     }
   }
 
   /* Animation class mappings */
-  .animate-bee-flight { animation: bee-flight 15s linear infinite; }
-  .animate-flower-float { animation: flower-float 18s linear infinite; }
+  .animate-bee-flight { animation: bee-flight 18s linear infinite; }
+  .animate-flower-float { animation: flower-float 20s linear infinite; }
   .animate-swallow-dive { animation: swallow-dive 8s linear infinite; }
   .animate-swallow-soar { animation: swallow-soar 12s linear infinite; }
   .animate-swallow-hunt { animation: swallow-hunt 15s linear infinite; }
   .animate-dragonfly-zip { animation: dragonfly-zip 10s linear infinite; }
-  .animate-butterfly-flutter { animation: butterfly-flutter 25s linear infinite; }
+  .animate-butterfly-flutter { animation: butterfly-flutter 28s linear infinite; }
   .animate-butterfly-dance { animation: butterfly-dance 28s linear infinite; }
   .animate-butterfly-spiral { animation: butterfly-spiral 20s linear infinite; }
   .animate-butterfly-float { animation: butterfly-float 30s linear infinite; }
