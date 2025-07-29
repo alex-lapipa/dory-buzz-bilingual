@@ -40,6 +40,9 @@ const AppContent = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const { setLanguage } = useLanguage();
 
+  // Debug log to verify state
+  console.log('AppContent state:', { showLanding, showLanguageSelect, showRegistration, showOnboarding });
+
   useEffect(() => {
     // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
