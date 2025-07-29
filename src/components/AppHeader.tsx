@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export const AppHeader: React.FC = () => {
   const { t } = useLanguage();
   return (
-    <header className="w-full bg-gradient-to-b from-background/40 via-background/20 to-transparent backdrop-blur-sm border-b border-border/10 p-4 fixed top-0 left-0 right-0 z-50 safe-area-top">
+    <header className="w-full bg-gradient-to-b from-background/40 via-background/20 to-transparent backdrop-blur-sm border-b border-border/10 p-2 sm:p-3 fixed top-0 left-0 right-0 z-50 safe-area-top">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Left: La Pipa Logo */}
         <div className="flex-shrink-0">
@@ -24,11 +24,11 @@ export const AppHeader: React.FC = () => {
         
         {/* Center: Title and Bee */}
         <div className="flex flex-col items-center text-center">
-          <div className="text-4xl sm:text-5xl animate-bee-bounce mb-2">🐝</div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-bee bg-clip-text text-transparent">
+          <div className="text-3xl sm:text-4xl animate-bee-bounce mb-1">🐝</div>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-bee bg-clip-text text-transparent">
             {t('appTitle')}
           </h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             {t('appSubtitle')}
           </p>
         </div>

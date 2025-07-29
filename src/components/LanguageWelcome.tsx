@@ -49,7 +49,7 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
       <div className="flying-bee flying-moth-1 animate-moth-night">🦗</div>
       <div className="flying-bee flying-hoverfly-1 animate-insect-buzz">🪰</div>
       
-      <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
+      <div className="min-h-screen safe-area-top safe-area-bottom flex items-center justify-center p-4 pt-20 bg-gradient-nature bg-cover bg-center bg-no-repeat overflow-y-auto">
         <div className="max-w-md w-full mx-auto my-auto">
           <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur max-h-[80vh] overflow-y-auto">
             <CardContent className="p-8 text-center">
