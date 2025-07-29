@@ -17,7 +17,8 @@ export const AppHeader: React.FC = () => {
             <img 
               src="/lovable-uploads/1f601181-1675-48ad-9c86-886c676b13e7.png" 
               alt="La Pipa" 
-              className="h-8 w-8 sm:h-10 sm:w-10 hover:opacity-80 transition-opacity"
+              className="h-8 w-8 sm:h-10 sm:w-10 hover:opacity-80 transition-opacity bg-transparent"
+              style={{backgroundColor: 'transparent'}}
             />
           </a>
         </div>
