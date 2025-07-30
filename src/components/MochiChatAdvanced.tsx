@@ -608,16 +608,16 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[80%] rounded-xl p-3 sm:p-4 shadow-md ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-xl p-4 sm:p-5 shadow-lg ${
                   message.type === 'user'
-                    ? 'bg-guest-message text-guest-message-foreground font-medium'
-                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-lg font-medium'
+                    ? 'bg-guest-message text-guest-message-foreground font-semibold'
+                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-xl font-semibold'
                 }`}
               >
                 {message.type === 'mochi' && (
                   <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
-                    <span className="text-sm sm:text-base animate-flower-sway">🌸</span>
-                    <span className="text-sm font-semibold">Mochi</span>
+                    <span className="text-base sm:text-lg animate-flower-sway">🌸</span>
+                    <span className="text-base font-bold">Mochi</span>
                     {message.metadata?.model && (
                       <Badge variant="outline" className="text-xs ml-auto">
                         {message.metadata.model.includes('claude') ? (
@@ -638,7 +638,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                     </Button>
                   </div>
                 )}
-                <div className="text-sm sm:text-base font-medium leading-relaxed whitespace-pre-wrap">
+                <div className="text-base sm:text-lg font-semibold leading-loose whitespace-pre-wrap">
                   {message.content.includes('![') ? (
                     <div dangerouslySetInnerHTML={{
                       __html: message.content
@@ -702,7 +702,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                 }
               }}
               disabled={isLoading}
-              className="flex-1 text-sm sm:text-base font-medium h-12"
+              className="flex-1 text-base sm:text-lg font-semibold h-14"
             />
           <Button
             onClick={() => sendMessage(inputMessage, reasoningMode !== 'basic')}
