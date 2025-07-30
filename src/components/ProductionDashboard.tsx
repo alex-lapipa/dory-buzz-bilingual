@@ -289,7 +289,7 @@ const ProductionDashboard: React.FC = () => {
                     {Object.entries(productionStatus.security_status).map(([key, status]) => (
                       <div key={key} className="flex items-center justify-between">
                         <span className="text-sm capitalize">{key.replace('_', ' ')}</span>
-                        <Badge variant={getHealthVariant(status)} size="sm">
+                        <Badge variant={getHealthVariant(status)}>
                           {status ? 'Enabled' : 'Missing'}
                         </Badge>
                       </div>
@@ -310,7 +310,7 @@ const ProductionDashboard: React.FC = () => {
                     {Object.entries(productionStatus.mobile_optimization).map(([key, status]) => (
                       <div key={key} className="flex items-center justify-between">
                         <span className="text-sm capitalize">{key.replace('_', ' ')}</span>
-                        <Badge variant={getHealthVariant(status)} size="sm">
+                        <Badge variant={getHealthVariant(status)}>
                           {status ? 'Ready' : 'Needs Work'}
                         </Badge>
                       </div>

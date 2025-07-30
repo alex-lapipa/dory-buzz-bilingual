@@ -101,6 +101,33 @@ export type Database = {
         }
         Relationships: []
       }
+      live_metrics: {
+        Row: {
+          environment: string
+          id: string
+          metric_name: string
+          metric_type: string
+          metric_value: Json
+          recorded_at: string
+        }
+        Insert: {
+          environment?: string
+          id?: string
+          metric_name: string
+          metric_type: string
+          metric_value: Json
+          recorded_at?: string
+        }
+        Update: {
+          environment?: string
+          id?: string
+          metric_name?: string
+          metric_type?: string
+          metric_value?: Json
+          recorded_at?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
@@ -211,6 +238,48 @@ export type Database = {
           response_time_ms?: number | null
           success?: boolean | null
           unified_version?: string | null
+        }
+        Relationships: []
+      }
+      production_deployments: {
+        Row: {
+          created_at: string
+          deployed_by: string | null
+          deployment_id: string
+          deployment_time_ms: number | null
+          environment: string
+          error_message: string | null
+          health_score: number
+          id: string
+          services: string[]
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          deployed_by?: string | null
+          deployment_id: string
+          deployment_time_ms?: number | null
+          environment?: string
+          error_message?: string | null
+          health_score?: number
+          id?: string
+          services?: string[]
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          deployed_by?: string | null
+          deployment_id?: string
+          deployment_time_ms?: number | null
+          environment?: string
+          error_message?: string | null
+          health_score?: number
+          id?: string
+          services?: string[]
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }

@@ -19,7 +19,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import { ProductionDashboard } from "@/components/ProductionDashboard";
+import ProductionDashboard from "@/components/ProductionDashboard";
 
 // Create a context to manage active tab across components
 const TabContext = createContext<{
