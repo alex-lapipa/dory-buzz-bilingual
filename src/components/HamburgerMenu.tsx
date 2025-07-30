@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image, Video } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
@@ -90,6 +90,19 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                   >
                     <Image className="h-4 w-4 mr-2" />
                     {t('imageGenerator')}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => {
+                      onTabSelect?.('video');
+                      setIsOpen(false);
+                    }}
+                  >
+                    <Video className="h-4 w-4 mr-2" />
+                    🐝 Video Feed
+                    <Badge variant="secondary" className="ml-auto">NEW</Badge>
                   </Button>
                 </div>
               </div>

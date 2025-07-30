@@ -3,6 +3,7 @@ import { MochiChat } from './MochiChat';
 import { VoiceChat } from './VoiceChat';
 import { VoiceInterface } from './VoiceInterface';
 import { ImageGenerator } from './ImageGenerator';
+import { MochiVideoFeed } from './MochiVideoFeed';
 import { OnboardingTip } from './OnboardingTip';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
@@ -74,6 +75,12 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
         return (
           <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'} p-3 sm:p-4`}>
             <ImageGenerator />
+          </div>
+        );
+      case 'video':
+        return (
+          <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'}`}>
+            <MochiVideoFeed />
           </div>
         );
       default:
