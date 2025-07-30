@@ -324,9 +324,41 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
         };
       }
 
-      const { data, error } = await supabase.functions.invoke(functionName, {
-        body: requestBody
-      });
+      let data, error;
+      
+      // Try primary function first
+      try {
+        const response = await supabase.functions.invoke(functionName, {
+          body: requestBody
+        });
+        data = response.data;
+        error = response.error;
+      } catch (primaryError) {
+        console.log(`Primary service (${functionName}) failed, switching to Claude fallback:`, primaryError);
+        
+        // Fallback to Claude when OpenAI fails
+        const claudeResponse = await supabase.functions.invoke('claude_reasoning', {
+          body: {
+            prompt: `As Mochi the bee from BeeCrazy Garden World, answer this question about bees or nature: "${messageText}". 
+
+Be educational, engaging, and family-friendly. Include fascinating bee facts and explain complex concepts simply. Use bee emojis and garden references naturally. If the question is about bees, flowers, or nature, provide detailed scientific information while keeping it accessible for all ages.
+
+Always maintain Mochi's cheerful, buzzing personality while being informative and helpful.`,
+            reasoning_type: reasoningMode,
+            context: "You are Mochi, a friendly bee guide helping families learn about bees, flowers, and nature."
+          }
+        });
+        
+        data = claudeResponse.data;
+        error = claudeResponse.error;
+        
+        if (!error) {
+          toast({
+            title: "🐝 Switched to backup brain!",
+            description: "Using Claude AI while OpenAI recovers",
+          });
+        }
+      }
 
       if (error) throw error;
 
