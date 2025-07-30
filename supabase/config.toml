@@ -60,6 +60,9 @@ verify_jwt = false
 [functions.production-readiness]
 verify_jwt = false
 
+[functions.unified_deployment]
+verify_jwt = false
+
 [functions.enhanced_mochi_claude]
 verify_jwt = false
 
