@@ -310,6 +310,9 @@ Style this as a beautiful garden illustration that families would love - colorfu
         if (conversation) {
           conversationId = conversation.id;
           setCurrentConversation(conversation.id);
+        } else {
+          // Guest user - continue with local-only chat
+          console.log('Guest user detected, continuing with local-only chat');
         }
       } catch (error) {
         console.log('Could not create conversation, continuing with local chat only');

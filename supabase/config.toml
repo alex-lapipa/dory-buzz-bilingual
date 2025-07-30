@@ -12,6 +12,9 @@ verify_jwt = false
 [functions.chat_mochi]
 verify_jwt = false
 
+[functions.mochi_chat_production]
+verify_jwt = false
+
 [functions.tts_mochi]
 verify_jwt = false
 
