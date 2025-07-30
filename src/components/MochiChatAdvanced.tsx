@@ -617,7 +617,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                 {message.type === 'mochi' && (
                   <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
                     <span className="text-base sm:text-lg animate-flower-sway">🌸</span>
-                    <span className="text-base font-bold text-black">Mochi</span>
+                    <span className="text-lg sm:text-xl font-bold text-primary">Mochi</span>
                     {message.metadata?.model && (
                       <Badge variant="outline" className="text-xs ml-auto">
                         {message.metadata.model.includes('claude') ? (
@@ -638,7 +638,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                     </Button>
                   </div>
                 )}
-                <div className="text-base sm:text-lg font-bold leading-loose whitespace-pre-wrap text-black">
+                <div className="text-base sm:text-lg font-bold leading-loose whitespace-pre-wrap text-primary">
                   {message.content.includes('![') ? (
                     <div dangerouslySetInnerHTML={{
                       __html: message.content
