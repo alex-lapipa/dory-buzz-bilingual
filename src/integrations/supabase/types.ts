@@ -205,6 +205,72 @@ export type Database = {
         }
         Relationships: []
       }
+      mochi_integrations: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          message_length: number | null
+          model: string | null
+          options: Json | null
+          platform: string
+          response_time_ms: number | null
+          success: boolean | null
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          message_length?: number | null
+          model?: string | null
+          options?: Json | null
+          platform: string
+          response_time_ms?: number | null
+          success?: boolean | null
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          message_length?: number | null
+          model?: string | null
+          options?: Json | null
+          platform?: string
+          response_time_ms?: number | null
+          success?: boolean | null
+        }
+        Relationships: []
+      }
+      system_health: {
+        Row: {
+          error_message: string | null
+          id: string
+          last_check: string
+          metadata: Json | null
+          response_time_ms: number | null
+          service_name: string
+          status: string
+        }
+        Insert: {
+          error_message?: string | null
+          id?: string
+          last_check?: string
+          metadata?: Json | null
+          response_time_ms?: number | null
+          service_name: string
+          status: string
+        }
+        Update: {
+          error_message?: string | null
+          id?: string
+          last_check?: string
+          metadata?: Json | null
+          response_time_ms?: number | null
+          service_name?: string
+          status?: string
+        }
+        Relationships: []
+      }
       user_registrations: {
         Row: {
           age: number
