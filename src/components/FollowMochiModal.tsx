@@ -248,6 +248,36 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
             </Button>
           </div>
         </form>
+
+        {/* Mochi Video Section */}
+        <div className="mt-4 p-3 bg-accent/10 rounded-lg border border-accent/20">
+          <h3 className="text-sm font-medium text-center mb-3 flex items-center justify-center gap-2">
+            <span className="text-lg animate-bee-bounce">🐝</span>
+            Meet Mochi in Action!
+            <span className="text-lg animate-flower-sway">🌻</span>
+          </h3>
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20 border border-border/50">
+            <video 
+              className="w-full h-full object-cover"
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              poster="/lovable-uploads/1f601181-1675-48ad-9c86-886c676b13e7.png"
+            >
+              <source src="/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png" type="video/mp4" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center p-4">
+                  <div className="text-4xl mb-2 animate-bee-bounce">🐝</div>
+                  <p className="text-sm text-muted-foreground">Video loading...</p>
+                </div>
+              </div>
+            </video>
+          </div>
+          <p className="text-xs text-center text-muted-foreground mt-2">
+            Watch Mochi buzz around the garden! 🌸
+          </p>
+        </div>
       </DialogContent>
     </Dialog>
   );
