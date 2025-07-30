@@ -1,18 +1,49 @@
 project_id = "zrdywdregcrykmbiytvl"
 
-[functions.integrations_status_check]
+# === UNIFIED ORCHESTRATION PLATFORM ===
+
+# Core Unified Services
+[functions.unified_chat_orchestrator]
 verify_jwt = false
 
-[functions.advanced_mochi_chat]
+[functions.unified_voice_hub]
+verify_jwt = false
+
+[functions.unified_health_monitor]
+verify_jwt = false
+
+# Essential Legacy Functions (Keep for Migration)
+[functions.realtime_session]
+verify_jwt = false
+
+[functions.send-welcome-email]
+verify_jwt = false
+
+[functions.follow-mochi]
 verify_jwt = false
 
 [functions.extract_mochi_character]
 verify_jwt = false
 
+# === DEPRECATED - USE UNIFIED SERVICES INSTEAD ===
+# Chat Functions (Use: unified_chat_orchestrator)
+[functions.mochi_chat_production]
+verify_jwt = false
+
+[functions.advanced_mochi_chat]
+verify_jwt = false
+
 [functions.chat_mochi]
 verify_jwt = false
 
-[functions.mochi_chat_production]
+[functions.enhanced_mochi_claude]
+verify_jwt = false
+
+[functions.xai_grok_chat]
+verify_jwt = false
+
+# Voice Functions (Use: unified_voice_hub)
+[functions.elevenlabs_tts]
 verify_jwt = false
 
 [functions.tts_mochi]
@@ -24,47 +55,44 @@ verify_jwt = false
 [functions.voice_chat_mochi]
 verify_jwt = false
 
-[functions.generate_image]
-verify_jwt = false
-
-[functions.follow-mochi]
-verify_jwt = false
-
-[functions.health-check]
-verify_jwt = false
-
-[functions.send-welcome-email]
-verify_jwt = false
-
-[functions.claude_reasoning]
-verify_jwt = false
-
-[functions.elevenlabs_tts]
-verify_jwt = false
-
 [functions.advanced_voice_chat]
-verify_jwt = false
-
-[functions.advanced_image_generation]
-verify_jwt = false
-
-[functions.realtime_session]
 verify_jwt = false
 
 [functions.voice_chat_realtime]
 verify_jwt = false
 
+# Image Functions (Use: unified_image_generator)
+[functions.generate_image]
+verify_jwt = false
+
+[functions.advanced_image_generation]
+verify_jwt = false
+
 [functions.generate_image_sora]
+verify_jwt = false
+
+[functions.midjourney_generator]
+verify_jwt = false
+
+# Health Functions (Use: unified_health_monitor)
+[functions.health-check]
 verify_jwt = false
 
 [functions.production-readiness]
 verify_jwt = false
 
+[functions.comprehensive-health-check]
+verify_jwt = false
+
+[functions.integrations_status_check]
+verify_jwt = false
+
+# Other Functions
 [functions.unified_deployment]
 verify_jwt = false
 
-[functions.enhanced_mochi_claude]
+[functions.claude_reasoning]
 verify_jwt = false
 
-[functions.comprehensive-health-check]
+[functions.firecrawl_scraper]
 verify_jwt = false

@@ -101,42 +101,6 @@ export type Database = {
         }
         Relationships: []
       }
-      dory_integrations: {
-        Row: {
-          error_message: string | null
-          id: number
-          message_length: number
-          model: string
-          options: Json | null
-          platform: string
-          response_time_ms: number | null
-          success: boolean | null
-          timestamp: string
-        }
-        Insert: {
-          error_message?: string | null
-          id?: never
-          message_length: number
-          model: string
-          options?: Json | null
-          platform: string
-          response_time_ms?: number | null
-          success?: boolean | null
-          timestamp?: string
-        }
-        Update: {
-          error_message?: string | null
-          id?: never
-          message_length?: number
-          model?: string
-          options?: Json | null
-          platform?: string
-          response_time_ms?: number | null
-          success?: boolean | null
-          timestamp?: string
-        }
-        Relationships: []
-      }
       messages: {
         Row: {
           content: string
@@ -209,35 +173,44 @@ export type Database = {
         Row: {
           created_at: string
           error_message: string | null
+          function_category: string | null
           id: string
           message_length: number | null
           model: string | null
           options: Json | null
+          orchestrated: boolean | null
           platform: string
           response_time_ms: number | null
           success: boolean | null
+          unified_version: string | null
         }
         Insert: {
           created_at?: string
           error_message?: string | null
+          function_category?: string | null
           id?: string
           message_length?: number | null
           model?: string | null
           options?: Json | null
+          orchestrated?: boolean | null
           platform: string
           response_time_ms?: number | null
           success?: boolean | null
+          unified_version?: string | null
         }
         Update: {
           created_at?: string
           error_message?: string | null
+          function_category?: string | null
           id?: string
           message_length?: number | null
           model?: string | null
           options?: Json | null
+          orchestrated?: boolean | null
           platform?: string
           response_time_ms?: number | null
           success?: boolean | null
+          unified_version?: string | null
         }
         Relationships: []
       }
