@@ -51,6 +51,25 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
 
   useEffect(() => {
     scrollToBottom();
+  }, [localMessages]);
+
+  // Sync with database messages when they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      const dbMessages: Message[] = messages.map(msg => ({
+        id: msg.id,
+        type: msg.type as 'user' | 'mochi',
+        content: msg.content,
+        timestamp: new Date(msg.created_at)
+      }));
+      
+      // Only update localMessages if we have new messages from DB
+      setLocalMessages(prev => {
+        const existingIds = prev.map(m => m.id);
+        const newMessages = dbMessages.filter(m => !existingIds.includes(m.id));
+        return newMessages.length > 0 ? [...prev, ...newMessages] : prev;
+      });
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -272,20 +291,35 @@ Style this as a beautiful garden illustration that families would love - colorfu
     }
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: `user-${Date.now()}`,
       type: 'user',
       content: messageText,
       timestamp: new Date()
     };
 
+    // Immediately add user message to local state for instant UI feedback
     setLocalMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsLoading(true);
 
-    // Save user message to database (non-blocking)
-    if (currentConversation) {
+    // Ensure we have a conversation to save to
+    let conversationId = currentConversation;
+    if (!conversationId) {
       try {
-        await saveMessage(currentConversation, 'user', messageText);
+        const conversation = await createConversation('Chat with Mochi');
+        if (conversation) {
+          conversationId = conversation.id;
+          setCurrentConversation(conversation.id);
+        }
+      } catch (error) {
+        console.log('Could not create conversation, continuing with local chat only');
+      }
+    }
+
+    // Save user message to database (non-blocking)
+    if (conversationId) {
+      try {
+        await saveMessage(conversationId, 'user', messageText);
       } catch (error) {
         console.log('Could not save user message to database:', error);
       }
@@ -321,7 +355,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
       let fullResponse = '';
       
       const mochiMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: `mochi-${Date.now()}`,
         type: 'mochi',
         content: '',
         timestamp: new Date()
@@ -377,12 +411,12 @@ Style this as a beautiful garden illustration that families would love - colorfu
       }
 
       // Save Mochi's response to database (non-blocking)
-      if (currentConversation && fullResponse) {
+      if (conversationId && fullResponse) {
         try {
           const finalResponse = fullResponse.includes('¡Buzztastical!') ? fullResponse : 
             (fullResponse.includes('garden') || fullResponse.includes('nature') || fullResponse.includes('bee')) ? 
             `¡Buzztastical! 🐝✨ ${fullResponse}` : fullResponse;
-          await saveMessage(currentConversation, 'mochi', finalResponse);
+          await saveMessage(conversationId, 'mochi', finalResponse);
         } catch (error) {
           console.log('Could not save Mochi response to database:', error);
         }
