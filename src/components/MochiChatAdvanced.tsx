@@ -617,7 +617,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                 {message.type === 'mochi' && (
                   <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
                     <span className="text-base sm:text-lg animate-flower-sway">🌸</span>
-                    <span className="text-lg sm:text-xl font-bold text-primary">Mochi</span>
+                    <span className="text-lg sm:text-xl font-saira font-bold text-primary">Mochi</span>
                     {message.metadata?.model && (
                       <Badge variant="outline" className="text-xs ml-auto">
                         {message.metadata.model.includes('claude') ? (
