@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, AlertCircle, Clock, Zap } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { ComprehensiveHealthCheck } from './ComprehensiveHealthCheck';
 
 interface HealthStatus {
   timestamp: string;
@@ -35,19 +36,20 @@ export const ProductionDashboard: React.FC = () => {
   const checkHealth = async () => {
     setLoading(true);
     try {
-      // Check both health and production readiness
-      const [healthData, productionData] = await Promise.all([
+      // Check comprehensive health, production readiness, and basic health
+      const [comprehensiveData, healthData, productionData] = await Promise.all([
+        supabase.functions.invoke('comprehensive-health-check'),
         supabase.functions.invoke('health-check'),
         supabase.functions.invoke('production-readiness')
       ]);
       
-      if (healthData.error && productionData.error) {
-        console.error('Health check errors:', healthData.error, productionData.error);
+      if (comprehensiveData.error && healthData.error && productionData.error) {
+        console.error('Health check errors:', comprehensiveData.error, healthData.error, productionData.error);
         return;
       }
 
-      // Use production data if available, fallback to health data
-      const data = productionData.data || healthData.data;
+      // Use comprehensive data if available, fallback to production then health data
+      const data = comprehensiveData.data || productionData.data || healthData.data;
       setHealthStatus(data);
       setLastCheck(new Date());
     } catch (error) {
@@ -261,6 +263,16 @@ export const ProductionDashboard: React.FC = () => {
               </div>
             </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* Comprehensive Health Check Component */}
+      <Card>
+        <CardHeader>
+          <CardTitle>🐝 Comprehensive System Analysis</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ComprehensiveHealthCheck />
         </CardContent>
       </Card>
     </div>
