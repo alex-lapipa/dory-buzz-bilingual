@@ -608,16 +608,16 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-xl p-3 sm:p-4 shadow-md ${
                   message.type === 'user'
-                    ? 'bg-guest-message text-guest-message-foreground'
-                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-sm'
+                    ? 'bg-guest-message text-guest-message-foreground font-medium'
+                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-lg font-medium'
                 }`}
               >
                 {message.type === 'mochi' && (
-                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
-                    <span className="text-xs sm:text-sm animate-flower-sway">🌸</span>
-                    <span className="text-xs font-medium">Mochi</span>
+                  <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
+                    <span className="text-sm sm:text-base animate-flower-sway">🌸</span>
+                    <span className="text-sm font-semibold">Mochi</span>
                     {message.metadata?.model && (
                       <Badge variant="outline" className="text-xs ml-auto">
                         {message.metadata.model.includes('claude') ? (
@@ -638,7 +638,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                     </Button>
                   </div>
                 )}
-                <div className="text-xs sm:text-sm whitespace-pre-wrap">
+                <div className="text-sm sm:text-base font-medium leading-relaxed whitespace-pre-wrap">
                   {message.content.includes('![') ? (
                     <div dangerouslySetInnerHTML={{
                       __html: message.content
@@ -662,7 +662,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               <div className="bg-card text-card-foreground border border-border shadow-sm rounded-lg p-2 sm:p-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xl animate-bee-bounce">🐝</span>
-                  <span className="text-xs sm:text-sm">Mochi is thinking with {reasoningMode} AI...</span>
+                  <span className="text-sm sm:text-base font-medium">Mochi is thinking with {reasoningMode} AI...</span>
                 </div>
               </div>
             </div>
@@ -691,19 +691,19 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
 
         {/* Main Input */}
         <div className="flex gap-2">
-          <Input
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={t('chatPlaceholder')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage(inputMessage, reasoningMode !== 'basic');
-              }
-            }}
-            disabled={isLoading}
-            className="flex-1 text-xs sm:text-sm"
-          />
+            <Input
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              placeholder={t('chatPlaceholder')}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage(inputMessage, reasoningMode !== 'basic');
+                }
+              }}
+              disabled={isLoading}
+              className="flex-1 text-sm sm:text-base font-medium h-12"
+            />
           <Button
             onClick={() => sendMessage(inputMessage, reasoningMode !== 'basic')}
             disabled={isLoading || !inputMessage.trim()}

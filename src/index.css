@@ -143,7 +143,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-saira text-responsive-base;
+    @apply bg-background text-foreground font-saira text-responsive-base font-medium;
     /* Mobile optimization */
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -151,6 +151,9 @@ All colors MUST be HSL.
     overscroll-behavior: none;
     /* Better font rendering on all devices */
     text-rendering: optimizeLegibility;
+    /* Improved readability */
+    font-weight: 500;
+    line-height: 1.6;
   }
 
   /* Mobile-first touch optimization */
