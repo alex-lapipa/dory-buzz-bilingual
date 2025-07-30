@@ -53,7 +53,7 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
     scrollToBottom();
   }, [localMessages]);
 
-  // Sync with database messages when they change
+  // Sync with database messages when they change (avoid duplicates)
   useEffect(() => {
     if (messages.length > 0) {
       const dbMessages: Message[] = messages.map(msg => ({
@@ -63,12 +63,8 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
         timestamp: new Date(msg.created_at)
       }));
       
-      // Only update localMessages if we have new messages from DB
-      setLocalMessages(prev => {
-        const existingIds = prev.map(m => m.id);
-        const newMessages = dbMessages.filter(m => !existingIds.includes(m.id));
-        return newMessages.length > 0 ? [...prev, ...newMessages] : prev;
-      });
+      // Replace localMessages with DB messages to avoid duplicates
+      setLocalMessages(dbMessages);
     }
   }, [messages]);
 
