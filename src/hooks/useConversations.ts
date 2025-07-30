@@ -28,6 +28,11 @@ export const useConversations = (guestId?: string) => {
 
   const createConversation = async (title = 'New Chat with Mochi') => {
     try {
+      // Check if we already have a conversation in progress
+      if (currentConversationId) {
+        return { id: currentConversationId };
+      }
+
       // Use authenticated user ID if available, otherwise null for guest
       const { data, error } = await supabase
         .from('conversations')

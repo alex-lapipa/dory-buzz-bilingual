@@ -26,12 +26,8 @@ export const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
           console.log('✅ Successfully connected to BeeCrazy Garden World!');
         } catch (error) {
           console.log('ℹ️ Running in guest mode - chat history won\'t be saved');
-          // Show friendly message to user
-          toast({
-            title: t('welcome'),
-            description: t('guestModeMessage'),
-            duration: 3000,
-          });
+          console.log('Auth error details:', error);
+          // Don't show error toast for auth failures - just run in guest mode silently
         } finally {
           setIsAttempting(false);
         }
@@ -39,7 +35,7 @@ export const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     };
 
     initializeAuth();
-  }, [user, loading, signInAnonymously, hasAttempted, isAttempting, toast]);
+  }, [user, loading, signInAnonymously, hasAttempted, isAttempting]);
 
   return <>{children}</>;
 };

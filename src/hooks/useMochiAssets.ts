@@ -40,14 +40,20 @@ export const useMochiAssets = () => {
   const extractMochiFromVideo = async (videoUrl: string) => {
     setLoading(true);
     try {
+      console.log('🐝 Attempting to extract Mochi character...');
+      
       const { data, error } = await supabase.functions.invoke('extract_mochi_character', {
         body: { videoUrl }
       });
 
       if (error) {
         console.error('Error extracting Mochi character:', error);
-        throw error;
+        // For now, just log the error instead of throwing
+        console.log('🐝 Using fallback - Mochi will appear as emoji in chat');
+        return null;
       }
+
+      console.log('🐝 Mochi character extraction result:', data);
 
       // Reload assets to include the new one
       await loadMochiAssets();
@@ -55,7 +61,8 @@ export const useMochiAssets = () => {
       return data;
     } catch (error) {
       console.error('Error extracting Mochi character:', error);
-      throw error;
+      console.log('🐝 Using fallback - Mochi will appear as emoji in chat');
+      return null;
     } finally {
       setLoading(false);
     }
