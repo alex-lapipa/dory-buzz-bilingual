@@ -396,8 +396,21 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
       
       // Try primary function first
       try {
-        const response = await supabase.functions.invoke(functionName, {
-          body: requestBody
+        const response = await supabase.functions.invoke('unified_chat_orchestrator', {
+          body: {
+            message: messageText,
+            platform: 'auto',
+            specialty: 'bee_education',
+            conversation_history: messages.slice(-10).map(m => ({
+              role: m.type === 'user' ? 'user' : 'assistant',
+              content: m.content
+            })),
+            user_id: guestId,
+            advanced_features: {
+              reasoning: true,
+              image_generation: false
+            }
+          }
         });
         data = response.data;
         error = response.error;
@@ -541,22 +554,26 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
           
           try {
             setIsLoading(true);
-            const { data, error } = await supabase.functions.invoke('advanced_voice_chat', {
+            const { data, error } = await supabase.functions.invoke('unified_voice_hub', {
               body: {
+                operation: 'stt',
                 audio: base64Audio,
-                session_id: currentConversation || 'voice-session',
-                user_id: guestId,
-                voice_id: "9BWtsMINqrJLrRacOk9x"
+                provider: 'auto',
+                language: 'en',
+                user_id: guestId
               }
             });
 
             if (error) throw error;
 
-            // Add both user and AI messages
+            // Get transcript from unified voice hub
+            const transcript = data.result.transcript;
+            
+            // Add user message
             const userMessage: Message = {
               id: Date.now().toString(),
               type: 'user',
-              content: data.userMessage,
+              content: transcript,
               timestamp: new Date(),
               metadata: { voice: true }
             };

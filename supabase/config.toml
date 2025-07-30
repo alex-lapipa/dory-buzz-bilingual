@@ -9,6 +9,9 @@ verify_jwt = false
 [functions.unified_voice_hub]
 verify_jwt = false
 
+[functions.unified_image_generator]
+verify_jwt = false
+
 [functions.unified_health_monitor]
 verify_jwt = false
 

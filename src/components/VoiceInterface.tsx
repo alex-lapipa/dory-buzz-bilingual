@@ -343,23 +343,26 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
     }
   };
 
-  const speakWithElevenLabs = async (text: string) => {
+  const speakWithUnifiedVoice = async (text: string) => {
     try {
-      const { data, error } = await supabase.functions.invoke('elevenlabs_tts', {
+      const { data, error } = await supabase.functions.invoke('unified_voice_hub', {
         body: { 
+          operation: 'tts',
           text: `🐝 ${text}`,
-          voice_id: "9BWtsMINqrJLrRacOk9x" // Aria voice
+          voice: 'aria',
+          provider: 'auto'
         }
       });
 
       if (error) throw error;
       
-      const audioBlob = new Blob([Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
-      const audio = new Audio(URL.createObjectURL(audioBlob));
-      audio.play();
+      if (data.result.audio) {
+        const audio = new Audio(data.result.audio);
+        audio.play();
+      }
       
     } catch (error) {
-      console.error('ElevenLabs TTS error:', error);
+      console.error('Unified voice TTS error:', error);
     }
   };
 
@@ -440,7 +443,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() => speakWithElevenLabs(message.content)}
+                            onClick={() => speakWithUnifiedVoice(message.content)}
                             className="h-6 p-1"
                           >
                             <Volume2 className="h-3 w-3" />
