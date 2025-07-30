@@ -52,10 +52,10 @@ All colors MUST be HSL.
     --grass-green: 110 50% 45%;
     --stone-gray: 200 10% 65%;
     
-    /* Chat message colors */
-    --guest-message: 120 40% 25%; /* Dark garden green */
-    --guest-message-foreground: 120 30% 85%;
-    --mochi-message: 59 100% 50%; /* Polen yellow */
+    /* Chat message colors - Semitransparent */
+    --guest-message: 120 40% 25% / 0.85; /* Dark garden green with transparency */
+    --guest-message-foreground: 120 30% 95%;
+    --mochi-message: 59 100% 50% / 0.9; /* Polen yellow with transparency */
     --mochi-message-foreground: 30 100% 8%;
 
   /* Enhanced garden nature gradients with mountain landscape background */

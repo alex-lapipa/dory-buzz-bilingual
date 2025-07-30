@@ -608,10 +608,10 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] sm:max-w-[80%] rounded-xl p-4 sm:p-5 shadow-lg ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-xl p-4 sm:p-5 shadow-lg backdrop-blur-sm ${
                   message.type === 'user'
-                    ? 'bg-guest-message text-guest-message-foreground font-semibold'
-                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-xl font-semibold'
+                    ? 'bg-guest-message text-guest-message-foreground font-semibold border border-white/20'
+                    : 'bg-mochi-message text-mochi-message-foreground border border-yellow-200/30 shadow-xl font-semibold'
                 }`}
               >
                 {message.type === 'mochi' && (
