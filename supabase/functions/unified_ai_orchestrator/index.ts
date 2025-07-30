@@ -9,7 +9,7 @@ const corsHeaders = {
 
 interface AIRequest {
   message: string;
-  platform?: 'openai' | 'anthropic' | 'gemini' | 'xai' | 'auto';
+  platform?: 'openai' | 'anthropic' | 'xai' | 'auto';
   model?: string;
   conversation_history?: Array<{role: string, content: string}>;
   user_id?: string;
@@ -20,14 +20,13 @@ interface AIRequest {
 const PLATFORM_MODELS = {
   openai: ['gpt-4.1-2025-04-14', 'gpt-4o', 'gpt-4o-mini'],
   anthropic: ['claude-opus-4-20250514', 'claude-sonnet-4-20250514', 'claude-3-5-haiku-20241022'],
-  gemini: ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-1.0-pro'],
   xai: ['grok-beta', 'grok-vision-beta']
 };
 
 const SPECIALTY_ROUTING = {
   'general': 'openai',
   'coding': 'anthropic',
-  'creative': 'gemini', 
+  'creative': 'openai', 
   'analysis': 'anthropic',
   'bee_education': 'openai'
 };
@@ -82,7 +81,7 @@ serve(async (req) => {
         }, {} as Record<string, number>);
 
         // Choose least used successful platform
-        const availablePlatforms = ['openai', 'anthropic', 'gemini', 'xai'];
+        const availablePlatforms = ['openai', 'anthropic', 'xai'];
         selectedPlatform = availablePlatforms.reduce((least, current) => 
           (platformCounts[current] || 0) < (platformCounts[least] || 0) ? current : least
         );
@@ -117,10 +116,6 @@ serve(async (req) => {
         requestPayload.model = selectedModel || 'claude-opus-4-20250514';
         break;
       
-      case 'gemini':
-        functionName = 'gemini_chat';
-        requestPayload.model = selectedModel || 'gemini-1.5-pro';
-        break;
       
       case 'xai':
         functionName = 'xai_grok_chat';

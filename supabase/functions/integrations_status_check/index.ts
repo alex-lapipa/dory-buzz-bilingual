@@ -101,40 +101,6 @@ async function checkAnthropic(): Promise<ServiceCheck> {
   }
 }
 
-async function checkGemini(): Promise<ServiceCheck> {
-  try {
-    const startTime = Date.now();
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${Deno.env.get('GEMINI_API_KEY')}`);
-    
-    const responseTime = Date.now() - startTime;
-    
-    if (response.ok) {
-      const data = await response.json();
-      return {
-        name: 'Google Gemini',
-        status: 'healthy',
-        response_time: responseTime,
-        metadata: { 
-          model_count: data.models?.length || 0,
-          available_models: ['gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-1.0-pro']
-        }
-      };
-    } else {
-      return {
-        name: 'Google Gemini',
-        status: 'degraded',
-        response_time: responseTime,
-        error: `HTTP ${response.status}`
-      };
-    }
-  } catch (error) {
-    return {
-      name: 'Google Gemini',
-      status: 'down',
-      error: error.message
-    };
-  }
-}
 
 async function checkXAI(): Promise<ServiceCheck> {
   try {
@@ -409,7 +375,6 @@ serve(async (req) => {
     const checks = await Promise.all([
       checkOpenAI(),
       checkAnthropic(),
-      checkGemini(),
       checkXAI(),
       checkFirecrawl(),
       checkMidjourney(),
@@ -469,12 +434,12 @@ serve(async (req) => {
       services: checks,
       timestamp: new Date().toISOString(),
       summary: {
-        ai_platforms: checks.filter(c => ['OpenAI', 'Anthropic Claude', 'Google Gemini', 'xAI Grok'].includes(c.name)),
+        ai_platforms: checks.filter(c => ['OpenAI', 'Anthropic Claude', 'xAI Grok'].includes(c.name)),
         infrastructure: checks.filter(c => ['Supabase Database', 'Vercel Platform'].includes(c.name)),
         utilities: checks.filter(c => ['ElevenLabs TTS', 'Firecrawl', 'Resend Email', 'Midjourney'].includes(c.name))
       },
       ecosystem_coverage: {
-        'AI Chat Models': ['OpenAI GPT-4.1', 'Anthropic Claude 4', 'Google Gemini', 'xAI Grok'],
+        'AI Chat Models': ['OpenAI GPT-4.1', 'Anthropic Claude 4', 'xAI Grok'],
         'AI Specialized': ['OpenAI Image Generation', 'Midjourney', 'ElevenLabs TTS'],
         'Infrastructure': ['Supabase Backend', 'Vercel Hosting'],
         'Utilities': ['Firecrawl Scraping', 'Resend Email']
