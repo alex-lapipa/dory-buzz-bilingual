@@ -25,6 +25,8 @@ interface Message {
     voice?: boolean;
     reasoning_type?: string;
     suggestions?: boolean;
+    content_type?: string;
+    audience?: string;
   };
 }
 
@@ -161,31 +163,93 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
     
     setIsGeneratingImage(true);
     try {
-      // Advanced contextual analysis for bee education
+      // Advanced contextual analysis for diverse bee education
       const recentText = localMessages.slice(-4).map(m => m.content).join(' ').toLowerCase();
       
-      // Smart prompt generation based on educational context
-      let contextualPrompt = "Mochi the bee in a vibrant educational garden setting";
-      let useVideo = Math.random() < 0.3; // 30% chance for video
+      // Determine audience type and content style
+      const isAdultContent = Math.random() < 0.6; // 60% adult educational content
+      const includeDidYouKnow = Math.random() < 0.8; // 80% chance to include facts
+      let useVideo = Math.random() < 0.25; // 25% chance for video
       
+      // Advanced prompt generation with diverse content
+      let contextualPrompt = "";
+      let didYouKnowFact = "";
+      
+      // Generate different types of bee-related content
+      const contentTypes = [
+        'scientific_diagram', 'macro_photography', 'ecosystem_view', 
+        'historical_context', 'comparative_analysis', 'environmental_impact',
+        'botanical_connection', 'agricultural_importance', 'bee_behavior',
+        'conservation_awareness'
+      ];
+      
+      const selectedType = contentTypes[Math.floor(Math.random() * contentTypes.length)];
+      
+      // Context-aware content generation
       if (recentText.includes('honey') || recentText.includes('nectar')) {
-        contextualPrompt = "close-up of bees collecting nectar and making honey in hexagonal combs";
-        useVideo = Math.random() < 0.4; // Higher chance for honey topics
+        if (selectedType === 'scientific_diagram') {
+          contextualPrompt = "detailed scientific diagram showing the honey-making process from nectar to storage, with labeled anatomical parts and chemical processes";
+          didYouKnowFact = isAdultContent 
+            ? "¿Sabías que las abejas procesan el néctar usando enzimas específicas que rompen la sacarosa en glucosa y fructosa, creando un ambiente ácido que preserva naturalmente la miel por siglos?"
+            : "¿Sabías que las abejas visitan hasta 2 millones de flores para hacer solo 1 libra de miel?";
+        } else if (selectedType === 'macro_photography') {
+          contextualPrompt = "extreme macro photography of bee mandibles and proboscis collecting nectar, showing microscopic details and pollen grains";
+          didYouKnowFact = "¿Sabías que la probóscide de una abeja puede extenderse hasta 6.5mm y funciona como una pajita ultraeficiente?";
+        }
+        useVideo = Math.random() < 0.4;
       } else if (recentText.includes('pollination') || recentText.includes('pollen')) {
-        contextualPrompt = "detailed view of a bee covered in pollen transferring it between flowers";
-        useVideo = true; // Always video for pollination education
+        if (selectedType === 'ecosystem_view') {
+          contextualPrompt = "aerial view of agricultural landscape showing pollination zones, crop diversity, and bee flight patterns with data overlays";
+          didYouKnowFact = "¿Sabías que las abejas son responsables de polinizar 1/3 de todos los alimentos que consumimos, generando más de $15 billones anuales en valor económico mundial?";
+        } else {
+          contextualPrompt = "microscopic view of pollen grains with different shapes and sizes, showing their unique identification markers";
+          didYouKnowFact = "¿Sabías que cada especie de planta produce polen con formas únicas, como huellas dactilares que las abejas pueden identificar?";
+        }
+        useVideo = true;
       } else if (recentText.includes('hive') || recentText.includes('colony')) {
-        contextualPrompt = "inside a busy beehive showing bees working together in their community";
+        if (selectedType === 'architectural_analysis') {
+          contextualPrompt = "architectural analysis of hexagonal honeycomb structure with mathematical principles, showing efficiency calculations and structural engineering";
+          didYouKnowFact = "¿Sabías que el hexágono es la forma más eficiente para almacenar máximo volumen con mínimo material? Las abejas resolvieron este problema matemático millones de años antes que los humanos.";
+        } else {
+          contextualPrompt = "thermal imaging of an active beehive showing temperature regulation and air circulation patterns";
+          didYouKnowFact = "¿Sabías que las abejas mantienen su colmena a exactamente 35°C mediante ventilación coordinada y contracciones musculares?";
+        }
         useVideo = Math.random() < 0.6;
-      } else if (recentText.includes('flower') || recentText.includes('bloom')) {
-        contextualPrompt = "macro photography of various flowers perfect for bee pollination";
-      } else if (recentText.includes('dance') || recentText.includes('waggle')) {
-        contextualPrompt = "bees performing the waggle dance to communicate flower locations";
-        useVideo = true; // Always video for dance education
       } else if (recentText.includes('queen') || recentText.includes('worker')) {
-        contextualPrompt = "educational diagram showing different types of bees in a colony";
-      } else if (recentText.includes('garden') || recentText.includes('plant')) {
-        contextualPrompt = "a bee-friendly garden with labeled plants that attract pollinators";
+        contextualPrompt = "comparative anatomy illustration showing queen bee vs worker bee differences, with pheromone communication visualization";
+        didYouKnowFact = "¿Sabías que una abeja reina puede poner hasta 2,000 huevos por día y vivir hasta 5 años, mientras que las obreras viven solo 6 semanas en temporada activa?";
+      } else if (recentText.includes('dance') || recentText.includes('waggle')) {
+        contextualPrompt = "scientific diagram of the waggle dance with mathematical calculations showing distance and direction encoding";
+        didYouKnowFact = "¿Sabías que el ángulo de la danza de las abejas indica la dirección exacta respecto al sol, y la duración del 'waggle' indica la distancia precisa en kilómetros?";
+        useVideo = true;
+      } else {
+        // Random educational content when no specific context
+        const randomTopics = [
+          {
+            prompt: "comparative evolution timeline showing bee species development over 100 million years with fossil evidence",
+            fact: "¿Sabías que las abejas evolucionaron de avispas carnívoras hace 100 millones de años cuando desarrollaron estructuras especiales para recolectar polen?"
+          },
+          {
+            prompt: "global bee decline infographic with climate change impacts, pesticide effects, and conservation solutions",
+            fact: "¿Sabías que hemos perdido el 40% de las colonias de abejas en la última década debido al cambio climático, pesticidas y pérdida de hábitat?"
+          },
+          {
+            prompt: "bee vision spectrum comparison showing ultraviolet patterns on flowers invisible to human eyes",
+            fact: "¿Sabías que las abejas ven en ultravioleta y pueden detectar patrones secretos en las flores que son completamente invisibles para nosotros?"
+          },
+          {
+            prompt: "molecular structure of royal jelly and its effects on bee development and human applications",
+            fact: "¿Sabías que la jalea real contiene proteínas únicas que pueden hacer que una larva se convierta en reina en lugar de obrera?"
+          },
+          {
+            prompt: "seasonal bee behavior calendar showing hibernation, swarming, and foraging patterns throughout the year",
+            fact: "¿Sabías que las abejas pueden hibernar en grupo durante el invierno, rotando posiciones para mantener caliente a toda la colonia?"
+          }
+        ];
+        
+        const randomTopic = randomTopics[Math.floor(Math.random() * randomTopics.length)];
+        contextualPrompt = randomTopic.prompt;
+        didYouKnowFact = randomTopic.fact;
       }
 
       // Use different functions based on complexity
@@ -215,10 +279,10 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
       
       let mediaContent;
       if (useVideo && data.url) {
-        mediaContent = `🎬 Here's an educational video about what we've been discussing!\n\n<video controls style="max-width: 100%; border-radius: 8px;">\n<source src="${data.url}" type="video/mp4">\nYour browser doesn't support videos.\n</video>\n\n🐝 This shows the fascinating world of bees in action!`;
+        mediaContent = `🎬 ¡Video educativo sobre nuestro tema de conversación!\n\n<video controls style="max-width: 100%; border-radius: 8px;">\n<source src="${data.url}" type="video/mp4">\nTu navegador no soporta videos.\n</video>\n\n${includeDidYouKnow ? `🧠 **${didYouKnowFact}**` : '🐝 ¡El fascinante mundo de las abejas en acción!'}`;
       } else if (data.image?.b64_json || data.image) {
         const imageData = data.image?.b64_json ? `data:image/png;base64,${data.image.b64_json}` : data.image;
-        mediaContent = `🎨 I created this educational illustration based on our bee conversation!\n\n![Bee Education Image](${imageData})\n\n🌻 This visual helps explain the amazing concepts we've been exploring!`;
+        mediaContent = `🎨 ¡Ilustración educativa basada en nuestra conversación!\n\n![Imagen Educativa de Abejas](${imageData})\n\n${includeDidYouKnow ? `🧠 **${didYouKnowFact}**` : '🌻 Esta imagen visual ayuda a explicar los conceptos que hemos estado explorando!'}`;
       }
 
       if (mediaContent) {
@@ -229,7 +293,9 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
           timestamp: new Date(),
           metadata: { 
             model: useVideo ? 'sora-1.0' : 'gpt-image-1',
-            reasoning_type: 'visual_education'
+            reasoning_type: 'diverse_visual_education',
+            content_type: selectedType,
+            audience: isAdultContent ? 'adult' : 'general'
           }
         };
         
@@ -241,8 +307,8 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
         }
         
         toast({
-          title: `🎨 Educational ${useVideo ? 'Video' : 'Image'} Generated!`,
-          description: "Advanced AI created a visual based on our bee education topic!",
+          title: `🎨 Contenido Educativo ${useVideo ? 'Video' : 'Visual'} Generado!`,
+          description: includeDidYouKnow ? "¡Con datos curiosos incluidos!" : "Ilustración educativa avanzada creada por IA!",
         });
       }
     } catch (error) {
