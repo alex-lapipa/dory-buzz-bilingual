@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { text, voice_id = "9BWtsMINqrJLrRacOk9x", model = "eleven_multilingual_v2", voice_settings } = await req.json();
+    const { text, voice_id = "9BWtsMINqrJLrRacOk9x", model = "eleven_multilingual_v2", voice_settings } = await req.json(); // Latest multilingual model
     
     if (!text) {
       throw new Error('Text is required');

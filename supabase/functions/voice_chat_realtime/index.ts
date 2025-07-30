@@ -20,7 +20,7 @@ serve(async (req) => {
     console.log("Client connected to voice chat relay");
     
     // Connect to OpenAI Realtime API
-    const url = `wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17`;
+    const url = `wss://api.openai.com/v1/realtime?model=gpt-4o-realtime-preview-2024-12-17`; // Latest realtime model
     openAISocket = new WebSocket(url, [], {
       headers: {
         "Authorization": `Bearer ${openAIApiKey}`,

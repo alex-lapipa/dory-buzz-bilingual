@@ -27,7 +27,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o-realtime-preview-2024-12-17",
+        model: "gpt-4o-realtime-preview-2024-12-17", // Latest realtime model
         voice: "alloy",
         instructions: `You are Mochi, a friendly and enthusiastic bee from BeeCrazy Garden World! 🐝
 

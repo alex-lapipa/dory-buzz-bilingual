@@ -1,5 +1,11 @@
 project_id = "zrdywdregcrykmbiytvl"
 
+[functions.integrations_status_check]
+verify_jwt = false
+
+[functions.advanced_mochi_chat]
+verify_jwt = false
+
 [functions.extract_mochi_character]
 verify_jwt = false
 

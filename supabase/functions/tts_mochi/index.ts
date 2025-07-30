@@ -42,7 +42,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'tts-1-hd',
+        model: 'tts-1-hd', // Latest HD text-to-speech model
         input: text,
         voice: voice, // nova, alloy, echo, fable, onyx, shimmer
         response_format: 'mp3',

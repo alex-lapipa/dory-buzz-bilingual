@@ -33,7 +33,7 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-image-1',
+        model: 'gpt-image-1', // Latest image generation model
         prompt: enhancedPrompt,
         n: 1,
         size: size,

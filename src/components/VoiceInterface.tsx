@@ -378,7 +378,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
             <span className="text-xl sm:text-2xl animate-bee-bounce">🚀</span>
             <div>
               <h2 className="text-base sm:text-lg font-bold">OpenAI Realtime Voice</h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">Direct voice-to-voice with GPT-4o</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Direct voice-to-voice with GPT-4o Realtime (Latest)</p>
             </div>
           </div>
           
@@ -555,7 +555,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
             </div>
             <div className="flex items-center gap-1">
               <Zap className="h-3 w-3" />
-              <span>GPT-4o Realtime</span>
+              <span>GPT-4o Realtime (Latest)</span>
             </div>
           </div>
         )}

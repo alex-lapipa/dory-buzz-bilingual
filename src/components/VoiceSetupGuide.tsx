@@ -157,7 +157,7 @@ export const VoiceSetupGuide: React.FC = () => {
                 </h3>
               </div>
               <p className="text-sm text-muted-foreground mb-3">
-                Direct voice-to-voice communication with GPT-4o. Natural conversation flow with minimal latency.
+                Direct voice-to-voice communication with GPT-4o Realtime (Latest Model). Natural conversation flow with minimal latency.
               </p>
               <ul className="text-xs space-y-1 text-muted-foreground ml-4">
                 <li>• Real-time audio processing</li>

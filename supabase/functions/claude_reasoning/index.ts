@@ -59,7 +59,7 @@ serve(async (req) => {
     console.log('Sending request to Claude-4...');
     
     const response = await anthropic.messages.create({
-      model: "claude-opus-4-20250514", // Latest Claude-4 model
+      model: "claude-3-5-sonnet-20241022", // Latest reasoning model
       max_tokens: 4000,
       temperature: 0.7,
       system: systemPrompt,
@@ -73,7 +73,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         response: responseText,
-        model: "claude-opus-4-20250514",
+        model: "claude-3-5-sonnet-20241022",
         reasoning_type,
         usage: response.usage
       }),

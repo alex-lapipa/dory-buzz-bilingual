@@ -244,8 +244,7 @@ export const AdvancedFeatures: React.FC = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="gpt-image-1">GPT-Image-1 (Latest & Best)</SelectItem>
-                  <SelectItem value="dall-e-3">DALL-E 3</SelectItem>
-                  <SelectItem value="dall-e-2">DALL-E 2</SelectItem>
+                  <SelectItem value="dall-e-3">DALL-E 3 (Legacy)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
