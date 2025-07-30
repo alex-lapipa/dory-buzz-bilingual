@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
+import { MochiVideoProcessor } from "@/components/MochiVideoProcessor";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
@@ -114,6 +115,7 @@ const AppContent = () => {
       <BrowserRouter>
         <AppStatusProvider>
           <AuthWrapper>
+            <MochiVideoProcessor />
             <div className="flex flex-col min-h-screen bg-gradient-nature">
               {/* Only show header when user is fully onboarded */}
               {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (

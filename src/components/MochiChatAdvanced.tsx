@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useConversations } from '@/hooks/useConversations';
 import { usePlantGrowth } from '@/hooks/usePlantGrowth';
+import { useMochiAssets } from '@/hooks/useMochiAssets';
 import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { VoiceInterface } from './VoiceInterface';
@@ -52,6 +53,7 @@ export const MochiChatAdvanced: React.FC<MochiChatProps> = ({ className }) => {
   const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   const { toast } = useToast();
   const { incrementGrowth } = usePlantGrowth();
+  const { getMochiCharacterAsset, extractMochiFromVideo } = useMochiAssets();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -682,7 +684,17 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               >
                 {message.type === 'mochi' && (
                   <div className="flex items-center gap-1 sm:gap-2 mb-2 sm:mb-3">
-                    <span className="text-base sm:text-lg animate-flower-sway">🌸</span>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 overflow-hidden">
+                      {getMochiCharacterAsset()?.file_url ? (
+                        <img 
+                          src={getMochiCharacterAsset()?.file_url} 
+                          alt="Mochi" 
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        "🐝"
+                      )}
+                    </div>
                     <span className="text-lg sm:text-xl font-saira font-bold text-primary">Mochi</span>
                     {message.metadata?.model && (
                       <Badge variant="outline" className="text-xs ml-auto">

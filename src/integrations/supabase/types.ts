@@ -172,6 +172,39 @@ export type Database = {
           },
         ]
       }
+      mochi_assets: {
+        Row: {
+          asset_type: string
+          created_at: string
+          file_path: string
+          file_url: string | null
+          id: string
+          is_active: boolean | null
+          metadata: Json | null
+          updated_at: string
+        }
+        Insert: {
+          asset_type: string
+          created_at?: string
+          file_path: string
+          file_url?: string | null
+          id?: string
+          is_active?: boolean | null
+          metadata?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          asset_type?: string
+          created_at?: string
+          file_path?: string
+          file_url?: string | null
+          id?: string
+          is_active?: boolean | null
+          metadata?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_registrations: {
         Row: {
           age: number
