@@ -83,6 +83,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				'guest-message': {
+					DEFAULT: 'hsl(var(--guest-message))',
+					foreground: 'hsl(var(--guest-message-foreground))'
+				},
+				'mochi-message': {
+					DEFAULT: 'hsl(var(--mochi-message))',
+					foreground: 'hsl(var(--mochi-message-foreground))'
 				}
 			},
 			borderRadius: {

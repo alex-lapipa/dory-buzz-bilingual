@@ -578,8 +578,8 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
               <div
                 className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 ${
                   message.type === 'user'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-card text-card-foreground border border-border shadow-sm'
+                    ? 'bg-guest-message text-guest-message-foreground'
+                    : 'bg-mochi-message text-mochi-message-foreground border border-border shadow-sm'
                 }`}
               >
                 {message.type === 'mochi' && (
