@@ -101,8 +101,8 @@ Context: This is a voice conversation, so respond as if you're speaking directly
     });
 
     const claudeResponse = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022", // Latest Claude model
-      max_tokens: 1000,
+      model: "claude-sonnet-4-20250514", // Latest Claude 4 Sonnet - high performance with exceptional reasoning
+      max_tokens: 1500,
       temperature: 0.8,
       system: systemPrompt,
       messages: messages
