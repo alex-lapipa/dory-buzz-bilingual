@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
+import { GDPRConsentBanner } from '@/components/GDPRConsent';
 import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
 
 const AuthPage = () => {
@@ -160,8 +161,10 @@ const AuthPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4 relative">
+      {/* GDPR Consent Banner - Import and show it here */}
+      
+      <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-6">
           <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80">
@@ -431,6 +434,9 @@ const AuthPage = () => {
           </Link>
         </div>
       </div>
+      
+      {/* GDPR Consent Banner */}
+      <GDPRConsentBanner />
     </div>
   );
 };
