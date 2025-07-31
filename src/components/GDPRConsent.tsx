@@ -86,9 +86,10 @@ export const GDPRConsentBanner: React.FC = () => {
               
               <div className="flex-1 space-y-3">
                 <div>
-                  <h3 className="font-semibold text-base mb-1 text-green-800">🎃 Harvesting Privacy in Our Garden</h3>
+                  <h3 className="font-semibold text-base mb-1 text-green-800">🍪 Cookie and Privacy Settings</h3>
                   <p className="text-xs text-green-700/90 leading-relaxed">
-                    Like tending pumpkins in our permaculture garden, we carefully nurture your data with sustainable practices.
+                    We use cookies and similar technologies to provide essential services, analyze usage, and improve your experience. 
+                    You can manage your preferences below.
                   </p>
                 </div>
 
@@ -98,8 +99,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                     </div>
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">🌱 Essential Seeds</div>
-                      <div className="text-green-600 text-xs">Core garden functions</div>
+                      <div className="font-semibold text-green-800 text-xs">Strictly Necessary</div>
+                      <div className="text-green-600 text-xs">Essential for website functionality</div>
                     </div>
                   </div>
 
@@ -113,8 +114,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">📊 Growth Data</div>
-                      <div className="text-green-600 text-xs">Harvest insights</div>
+                      <div className="font-semibold text-green-800 text-xs">Analytics & Performance</div>
+                      <div className="text-green-600 text-xs">Usage statistics and improvements</div>
                     </div>
                   </div>
 
@@ -128,8 +129,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">🎃 Garden News</div>
-                      <div className="text-green-600 text-xs">Seasonal updates</div>
+                      <div className="font-semibold text-green-800 text-xs">Marketing & Communications</div>
+                      <div className="text-green-600 text-xs">Personalized content and offers</div>
                     </div>
                   </div>
                 </div>
@@ -141,7 +142,7 @@ export const GDPRConsentBanner: React.FC = () => {
                     disabled={isSubmitting}
                     className="bg-green-600 hover:bg-green-700 text-white shadow-md text-xs px-3 py-1"
                   >
-                    🎃 Accept All
+                    Accept All
                   </Button>
                   
                   <Button 
@@ -151,7 +152,7 @@ export const GDPRConsentBanner: React.FC = () => {
                     disabled={isSubmitting}
                     className="border-green-600 text-green-700 hover:bg-green-50 shadow-sm text-xs px-3 py-1"
                   >
-                    🌱 Selected
+                    Accept Selected
                   </Button>
                   
                   <Button 
@@ -161,7 +162,7 @@ export const GDPRConsentBanner: React.FC = () => {
                     disabled={isSubmitting}
                     className="text-green-600 hover:bg-green-50 text-xs px-3 py-1"
                   >
-                    Essential Only
+                    Reject Optional
                   </Button>
 
                   <div className="flex items-center gap-1 ml-auto">
@@ -172,7 +173,7 @@ export const GDPRConsentBanner: React.FC = () => {
                       className="text-xs text-green-600 hover:bg-green-50 px-2 py-1"
                     >
                       <Info className="h-3 w-3 mr-1" />
-                      Policy
+                      Privacy Policy
                     </Button>
                     
                     <Button
