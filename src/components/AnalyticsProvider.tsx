@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { useGoogleAnalytics } from '@/hooks/useGoogleAnalytics';
 
 interface AnalyticsContextType {
   trackEvent: (eventType: string, eventName: string, data?: Record<string, any>) => void;
@@ -27,6 +28,7 @@ interface AnalyticsProviderProps {
 
 export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
   const analytics = useAnalytics();
+  const googleAnalytics = useGoogleAnalytics();
 
   // Set up global click tracking
   useEffect(() => {
