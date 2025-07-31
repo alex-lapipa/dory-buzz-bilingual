@@ -48,6 +48,13 @@ export const ConsentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Check if user has given essential consents
   useEffect(() => {
+    // Check if banner was previously dismissed
+    const bannerDismissed = localStorage.getItem('consent_banner_dismissed');
+    if (bannerDismissed === 'true') {
+      setShowConsentBanner(false);
+      setLoading(false);
+      return;
+    }
     checkConsentStatus();
   }, [user]);
 
