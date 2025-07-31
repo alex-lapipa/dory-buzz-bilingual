@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { X, Shield, Info } from 'lucide-react';
 import { useState } from 'react';
-import kitchenGardenBg from '@/assets/kitchen-garden-bg.jpg';
+import permacultureGardenBg from '@/assets/permaculture-garden-bg.jpg';
 
 export const GDPRConsentBanner: React.FC = () => {
   const { showConsentBanner, giveConsent, dismissConsentBanner } = useConsent();
@@ -67,82 +67,81 @@ export const GDPRConsentBanner: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-3">
+      <div className="max-w-3xl mx-auto">
         <div 
-          className="relative overflow-hidden rounded-2xl border border-green-200/50 shadow-2xl backdrop-blur-lg"
+          className="relative overflow-hidden rounded-xl border border-green-200/60 shadow-xl backdrop-blur-md"
           style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.85)), url(${kitchenGardenBg})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88)), url(${permacultureGardenBg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundBlendMode: 'overlay'
           }}
         >
-          <div className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="p-2 rounded-full bg-green-100/80 backdrop-blur-sm">
-                <Shield className="h-5 w-5 text-green-700" />
+          <div className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="p-1.5 rounded-full bg-green-100/90 backdrop-blur-sm flex-shrink-0">
+                <Shield className="h-4 w-4 text-green-700" />
               </div>
               
-              <div className="flex-1 space-y-4">
+              <div className="flex-1 space-y-3">
                 <div>
-                  <h3 className="font-semibold text-lg mb-2 text-green-800">🌱 Growing Together with Privacy</h3>
-                  <p className="text-sm text-green-700/90 leading-relaxed">
-                    In our BeeCrazy Garden World, we nurture both plants and privacy. Like tending to your garden, 
-                    we carefully manage your data to help your digital garden flourish.
+                  <h3 className="font-semibold text-base mb-1 text-green-800">🎃 Harvesting Privacy in Our Garden</h3>
+                  <p className="text-xs text-green-700/90 leading-relaxed">
+                    Like tending pumpkins in our permaculture garden, we carefully nurture your data with sustainable practices.
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-green-50/80 backdrop-blur-sm border border-green-200/50">
-                    <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
-                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="grid sm:grid-cols-3 gap-2">
+                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-green-50/90 backdrop-blur-sm border border-green-200/60">
+                    <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                     </div>
                     <div>
-                      <div className="font-semibold text-green-800 text-sm">🌿 Essential Seeds</div>
-                      <div className="text-green-600 text-xs">Required for your garden to grow</div>
+                      <div className="font-semibold text-green-800 text-xs">🌱 Essential Seeds</div>
+                      <div className="text-green-600 text-xs">Core garden functions</div>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50">
+                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
                     <Checkbox 
                       id="analytics-consent"
                       checked={consents.analytics}
                       onCheckedChange={(checked) => 
                         setConsents(prev => ({ ...prev, analytics: !!checked }))
                       }
-                      className="mt-1"
+                      className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-sm">📊 Growth Analytics</div>
-                      <div className="text-green-600 text-xs">Help us nurture better experiences</div>
+                      <div className="font-semibold text-green-800 text-xs">📊 Growth Data</div>
+                      <div className="text-green-600 text-xs">Harvest insights</div>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50">
+                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
                     <Checkbox 
                       id="marketing-consent"
                       checked={consents.marketing}
                       onCheckedChange={(checked) => 
                         setConsents(prev => ({ ...prev, marketing: !!checked }))
                       }
-                      className="mt-1"
+                      className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-sm">🌻 Garden Newsletter</div>
-                      <div className="text-green-600 text-xs">Seasonal tips & garden wisdom</div>
+                      <div className="font-semibold text-green-800 text-xs">🎃 Garden News</div>
+                      <div className="text-green-600 text-xs">Seasonal updates</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-3 pt-3">
+                <div className="flex flex-wrap gap-2 pt-2">
                   <Button 
                     onClick={handleAcceptAll} 
                     size="sm"
                     disabled={isSubmitting}
-                    className="bg-green-600 hover:bg-green-700 text-white shadow-lg"
+                    className="bg-green-600 hover:bg-green-700 text-white shadow-md text-xs px-3 py-1"
                   >
-                    🌱 Plant All Seeds
+                    🎃 Accept All
                   </Button>
                   
                   <Button 
@@ -150,9 +149,9 @@ export const GDPRConsentBanner: React.FC = () => {
                     variant="outline" 
                     size="sm"
                     disabled={isSubmitting}
-                    className="border-green-600 text-green-700 hover:bg-green-50 shadow-md"
+                    className="border-green-600 text-green-700 hover:bg-green-50 shadow-sm text-xs px-3 py-1"
                   >
-                    🌿 Plant Selected
+                    🌱 Selected
                   </Button>
                   
                   <Button 
@@ -160,20 +159,20 @@ export const GDPRConsentBanner: React.FC = () => {
                     variant="ghost" 
                     size="sm"
                     disabled={isSubmitting}
-                    className="text-green-600 hover:bg-green-50"
+                    className="text-green-600 hover:bg-green-50 text-xs px-3 py-1"
                   >
                     Essential Only
                   </Button>
 
-                  <div className="flex items-center gap-2 ml-auto">
+                  <div className="flex items-center gap-1 ml-auto">
                     <Button 
                       variant="ghost" 
                       size="sm" 
                       onClick={() => {/* Link to privacy policy */}}
-                      className="text-xs text-green-600 hover:bg-green-50"
+                      className="text-xs text-green-600 hover:bg-green-50 px-2 py-1"
                     >
                       <Info className="h-3 w-3 mr-1" />
-                      Privacy Garden Guide
+                      Policy
                     </Button>
                     
                     <Button
@@ -182,7 +181,7 @@ export const GDPRConsentBanner: React.FC = () => {
                       onClick={dismissConsentBanner}
                       className="p-1 text-green-600 hover:bg-green-50 rounded-full"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-3 w-3" />
                     </Button>
                   </div>
                 </div>
