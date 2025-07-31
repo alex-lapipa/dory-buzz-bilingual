@@ -78,10 +78,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/technical-details')}
               className="text-sm hover:text-primary flex items-center gap-1"
             >
-              📊 Dashboard
+              🔬 Tech Details
             </Button>
           </nav>
           

@@ -177,7 +177,7 @@ const Index = () => {
         <div className="text-center text-sm text-muted-foreground">
           <p className="flex items-center justify-center gap-2">
             <Leaf className="h-4 w-4" />
-            Powered by OpenAI, Anthropic, ElevenLabs, XAI & Supabase
+            Powered by advanced AI technology for natural learning
             <Leaf className="h-4 w-4" />
           </p>
           <p className="mt-1">

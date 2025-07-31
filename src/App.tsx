@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -145,6 +145,11 @@ const AppContent = () => {
                         <Route path="/auth" element={<AuthPage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />
+                        <Route path="/technical-details" element={
+                          <React.Suspense fallback={<div>Loading...</div>}>
+                            {React.createElement(React.lazy(() => import('@/pages/TechnicalDetails')))}
+                          </React.Suspense>
+                        } />
                         <Route path="/production" element={<ProductionDashboard />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>

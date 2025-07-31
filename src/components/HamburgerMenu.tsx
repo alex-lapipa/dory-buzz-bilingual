@@ -202,6 +202,17 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 className="w-full justify-start" 
                 asChild
               >
+                <Link to="/technical-details">
+                  <Settings className="h-4 w-4 mr-2" />
+                  🔬 Technical Details
+                </Link>
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
+                asChild
+              >
                 <Link to="/dashboard">
                   <Zap className="h-4 w-4 mr-2" />
                   {t('dashboard') || 'System Dashboard'}
