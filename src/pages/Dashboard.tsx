@@ -25,11 +25,10 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-              MochiBee´s Crazy Garden World 🐝
+              BeeCrazy Garden World 🐝
             </h1>
-            <p className="text-lg text-gray-600 mt-2 flex items-center gap-2">
-              Learn and play with the first Bee-Centric AI platform in the world!
-              <span className="text-2xl animate-bounce">😂🐝</span>
+            <p className="text-lg text-gray-600 mt-2">
+              Your AI-Powered Garden Companion with Advanced Intelligence
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -134,7 +133,7 @@ const Dashboard: React.FC = () => {
         {/* Footer */}
         <div className="mt-12 text-center text-gray-500 text-sm">
           <p>🐝 Powered by OpenAI GPT-4.1, Claude 4, ElevenLabs, and Supabase 🌻</p>
-          <p className="mt-1">MochiBee´s Crazy Garden World - Where AI meets Nature Education</p>
+          <p className="mt-1">BeeCrazy Garden World - Where AI meets Nature Education</p>
         </div>
     </PageLayout>
   );

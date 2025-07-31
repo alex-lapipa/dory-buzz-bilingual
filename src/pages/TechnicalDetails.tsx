@@ -30,7 +30,7 @@ const TechnicalDetails: React.FC = () => {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-4xl animate-bee-bounce">🐝</span>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-              MochiBee´s Crazy Garden World
+              BeeCrazy Garden World
             </h1>
             <span className="text-4xl animate-flower-sway">🌻</span>
           </div>

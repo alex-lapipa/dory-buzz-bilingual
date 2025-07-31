@@ -16,7 +16,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <div className="text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6 animate-bee-bounce">🐝</div>
         
         <h1 className="text-responsive-2xl sm:text-responsive-3xl md:text-responsive-4xl font-bold mb-4 sm:mb-6" style={{ color: '#fffd01' }}>
-          MochiBee´s Crazy Garden World
+          BeeCrazy Garden World
         </h1>
         
 

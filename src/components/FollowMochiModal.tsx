@@ -78,7 +78,7 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
 
       toast({
         title: "¡Buzztastical! 🐝✨",
-        description: `Welcome to MochiBee´s Crazy Garden World, ${formData.name}! You'll receive fun garden updates for the whole family.`,
+        description: `Welcome to BeeCrazy Garden World, ${formData.name}! You'll receive fun garden updates for the whole family.`,
       });
 
       setIsOpen(false);
@@ -112,7 +112,7 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
           <DialogTitle className="flex items-center gap-1 sm:gap-2 text-center justify-center text-lg sm:text-xl">
             <div className="text-xl sm:text-2xl animate-bee-bounce">🐝</div>
             <span className="bg-gradient-bee bg-clip-text text-transparent">
-              Follow MochiBee´s Crazy Garden World!
+              Follow BeeCrazy Garden World!
             </span>
             <div className="text-xl sm:text-2xl animate-flower-sway">🌻</div>
           </DialogTitle>

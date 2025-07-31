@@ -41,11 +41,10 @@ const Index = () => {
             <span className="text-6xl animate-bee-bounce">🐝</span>
             <div>
               <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
-                MochiBee´s Crazy Garden World
+                BeeCrazy Garden World
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mt-2 flex items-center justify-center gap-2">
-                Learn and play with the first Bee-Centric AI platform in the world!
-                <span className="text-2xl animate-bounce">😂🐝</span>
+              <p className="text-lg md:text-xl text-muted-foreground mt-2">
+                Your unified AI garden companion powered by advanced AI systems
               </p>
             </div>
           </div>

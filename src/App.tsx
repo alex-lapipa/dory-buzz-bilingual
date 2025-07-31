@@ -28,7 +28,6 @@ const GardenBasics = React.lazy(() => import('./pages/learning/GardenBasics'));
 import ProductionDashboard from "@/components/ProductionDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
-import { SEOLanguageDetector } from "@/components/SEOLanguageDetector";
 
 // Create a context to manage active tab across components
 const TabContext = createContext<{
@@ -123,7 +122,6 @@ const AppContent = () => {
   return (
     <TabContext.Provider value={{ activeTab, setActiveTab }}>
       <BrowserRouter>
-        <SEOLanguageDetector />
         <AppStatusProvider>
           <AuthWrapper>
             <MochiVideoProcessor />

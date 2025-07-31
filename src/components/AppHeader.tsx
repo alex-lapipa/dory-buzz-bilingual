@@ -47,7 +47,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           </button>
           <div className="flex flex-col">
             <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">
-              MochiBee´s 🌻
+              MochiBee 🌻
             </h1>
             <p className="text-xs sm:text-sm text-primary/90 font-medium">
               A Buzztastical Bee
