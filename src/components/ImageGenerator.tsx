@@ -213,16 +213,25 @@ export const ImageGenerator: React.FC = () => {
                 <img 
                   src={result.data} 
                   alt="Generated image" 
-                  className="w-full rounded-lg shadow-lg"
+                  className="w-full rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-opacity"
+                  onClick={() => window.open(result.data, '_blank')}
                 />
               ) : (
-                <video 
-                  src={result.url} 
-                  controls 
-                  className="w-full rounded-lg shadow-lg"
-                  autoPlay
-                  loop
-                />
+                <div className="relative">
+                  <video 
+                    src={result.url} 
+                    controls 
+                    className="w-full rounded-lg shadow-lg cursor-pointer"
+                    autoPlay
+                    loop
+                    onClick={() => window.open(result.url, '_blank')}
+                  />
+                  <div className="absolute top-2 right-2">
+                    <Badge variant="secondary" className="bg-black/70 text-white">
+                      Click to open in new tab
+                    </Badge>
+                  </div>
+                </div>
               )}
               
               <div className="mt-2 text-xs text-muted-foreground">

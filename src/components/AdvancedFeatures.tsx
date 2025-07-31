@@ -263,7 +263,12 @@ export const AdvancedFeatures: React.FC = () => {
             </Button>
             {generatedImage && (
               <div className="mt-4">
-                <img src={generatedImage} alt="Generated" className="w-full rounded-lg shadow-lg" />
+                <img 
+                  src={generatedImage} 
+                  alt="Generated" 
+                  className="w-full rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-opacity" 
+                  onClick={() => window.open(generatedImage, '_blank')}
+                />
               </div>
             )}
           </CardContent>
