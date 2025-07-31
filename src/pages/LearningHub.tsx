@@ -24,7 +24,7 @@ interface LearningProgress {
   completed_lessons: string[];
 }
 
-export const LearningHub: React.FC = () => {
+const LearningHub: React.FC = () => {
   const [beeFacts, setBeeFacts] = useState<BeeFact[]>([]);
   const [progress, setProgress] = useState<LearningProgress[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
