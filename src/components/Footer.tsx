@@ -11,24 +11,24 @@ export const Footer: React.FC = () => {
               href="https://idiomas.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-rose-300 hover:text-rose-200 transition-colors text-base font-semibold"
+              className="text-pink-400 hover:text-pink-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]"
             >
               idiomas.io
             </a>
-            <p className="text-rose-400 text-sm mt-1">
+            <p className="text-pink-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">
               Language Learning Platform
             </p>
           </div>
 
           {/* Center - Built by Alex Lawton */}
           <div className="text-center">
-            <p className="text-rose-300 text-sm">
+            <p className="text-pink-400 text-sm drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]">
               Built by{' '}
               <a 
                 href="https://www.alexlawton.io" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-rose-200 hover:text-rose-100 transition-colors font-semibold"
+                className="text-pink-300 hover:text-pink-200 transition-colors font-semibold drop-shadow-[0_0_10px_rgba(244,114,182,1)]"
               >
                 Alex Lawton
               </a>
@@ -41,11 +41,11 @@ export const Footer: React.FC = () => {
               href="https://lapipa.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-rose-300 hover:text-rose-200 transition-colors text-base font-semibold"
+              className="text-pink-400 hover:text-pink-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]"
             >
               lapipa.io
             </a>
-            <p className="text-rose-400 text-sm mt-1">
+            <p className="text-pink-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">
               Digital Solutions
             </p>
           </div>
