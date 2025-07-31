@@ -6,6 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { X, Shield, Info } from 'lucide-react';
 import { useState } from 'react';
+import kitchenGardenBg from '@/assets/kitchen-garden-bg.jpg';
 
 export const GDPRConsentBanner: React.FC = () => {
   const { showConsentBanner, giveConsent, dismissConsentBanner } = useConsent();
@@ -66,69 +67,82 @@ export const GDPRConsentBanner: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/95 backdrop-blur-sm border-t">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
       <div className="max-w-4xl mx-auto">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-start gap-3">
-              <Shield className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+        <div 
+          className="relative overflow-hidden rounded-2xl border border-green-200/50 shadow-2xl backdrop-blur-lg"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.85)), url(${kitchenGardenBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundBlendMode: 'overlay'
+          }}
+        >
+          <div className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="p-2 rounded-full bg-green-100/80 backdrop-blur-sm">
+                <Shield className="h-5 w-5 text-green-700" />
+              </div>
               
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-4">
                 <div>
-                  <h3 className="font-semibold text-sm mb-1">🍪 We respect your privacy</h3>
-                  <p className="text-sm text-muted-foreground">
-                    We use cookies and similar technologies to provide you with the best experience in BeeCrazy Garden World. 
-                    Choose your preferences below or accept all to continue.
+                  <h3 className="font-semibold text-lg mb-2 text-green-800">🌱 Growing Together with Privacy</h3>
+                  <p className="text-sm text-green-700/90 leading-relaxed">
+                    In our BeeCrazy Garden World, we nurture both plants and privacy. Like tending to your garden, 
+                    we carefully manage your data to help your digital garden flourish.
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                  <div className="flex items-start space-x-2">
-                    <div className="w-4 h-4 rounded-sm bg-green-100 border border-green-300 flex items-center justify-center mt-0.5">
-                      <div className="w-2 h-2 bg-green-600 rounded-sm"></div>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-green-50/80 backdrop-blur-sm border border-green-200/50">
+                    <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                     <div>
-                      <div className="font-medium">Essential</div>
-                      <div className="text-muted-foreground">Required for core functionality</div>
+                      <div className="font-semibold text-green-800 text-sm">🌿 Essential Seeds</div>
+                      <div className="text-green-600 text-xs">Required for your garden to grow</div>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2">
+                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50">
                     <Checkbox 
                       id="analytics-consent"
                       checked={consents.analytics}
                       onCheckedChange={(checked) => 
                         setConsents(prev => ({ ...prev, analytics: !!checked }))
                       }
+                      className="mt-1"
                     />
                     <div>
-                      <div className="font-medium">Analytics</div>
-                      <div className="text-muted-foreground">Help us improve the app</div>
+                      <div className="font-semibold text-green-800 text-sm">📊 Growth Analytics</div>
+                      <div className="text-green-600 text-xs">Help us nurture better experiences</div>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2">
+                  <div className="flex items-start space-x-3 p-3 rounded-xl bg-white/60 backdrop-blur-sm border border-green-200/50">
                     <Checkbox 
                       id="marketing-consent"
                       checked={consents.marketing}
                       onCheckedChange={(checked) => 
                         setConsents(prev => ({ ...prev, marketing: !!checked }))
                       }
+                      className="mt-1"
                     />
                     <div>
-                      <div className="font-medium">Marketing</div>
-                      <div className="text-muted-foreground">Garden tips & updates</div>
+                      <div className="font-semibold text-green-800 text-sm">🌻 Garden Newsletter</div>
+                      <div className="text-green-600 text-xs">Seasonal tips & garden wisdom</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-3 pt-3">
                   <Button 
                     onClick={handleAcceptAll} 
                     size="sm"
                     disabled={isSubmitting}
+                    className="bg-green-600 hover:bg-green-700 text-white shadow-lg"
                   >
-                    Accept All
+                    🌱 Plant All Seeds
                   </Button>
                   
                   <Button 
@@ -136,8 +150,9 @@ export const GDPRConsentBanner: React.FC = () => {
                     variant="outline" 
                     size="sm"
                     disabled={isSubmitting}
+                    className="border-green-600 text-green-700 hover:bg-green-50 shadow-md"
                   >
-                    Accept Selected
+                    🌿 Plant Selected
                   </Button>
                   
                   <Button 
@@ -145,8 +160,9 @@ export const GDPRConsentBanner: React.FC = () => {
                     variant="ghost" 
                     size="sm"
                     disabled={isSubmitting}
+                    className="text-green-600 hover:bg-green-50"
                   >
-                    Reject Optional
+                    Essential Only
                   </Button>
 
                   <div className="flex items-center gap-2 ml-auto">
@@ -154,17 +170,17 @@ export const GDPRConsentBanner: React.FC = () => {
                       variant="ghost" 
                       size="sm" 
                       onClick={() => {/* Link to privacy policy */}}
-                      className="text-xs"
+                      className="text-xs text-green-600 hover:bg-green-50"
                     >
                       <Info className="h-3 w-3 mr-1" />
-                      Privacy Policy
+                      Privacy Garden Guide
                     </Button>
                     
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={dismissConsentBanner}
-                      className="p-1"
+                      className="p-1 text-green-600 hover:bg-green-50 rounded-full"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -172,8 +188,8 @@ export const GDPRConsentBanner: React.FC = () => {
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
