@@ -159,11 +159,7 @@ const AppContent = () => {
                             <GardenBasics />
                           </React.Suspense>
                         } />
-                        <Route path="/technical-details" element={
-                          <React.Suspense fallback={<div>Loading...</div>}>
-                            <TechnicalDetails />
-                          </React.Suspense>
-                        } />
+                        <Route path="/technical-details" element={<TechnicalDetails />} />
                         <Route path="/production" element={<ProductionDashboard />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
