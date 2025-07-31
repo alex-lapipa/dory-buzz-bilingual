@@ -18,7 +18,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
   const appUrl = window.location.origin;
   const embedCode = `<iframe src="${appUrl}?embed=true" width="400" height="600" frameborder="0" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></iframe>`;
   
-  const shareText = "🐝✨ Meet Mochi! Chat with our garden bee from BeeCrazy Garden World - perfect for families learning about nature! 🌻";
+  const shareText = "🐝✨ Meet Mochi! Chat with our garden bee from MochiBee´s Crazy Garden World - perfect for families learning about nature! 🌻";
   
   const copyToClipboard = async (text: string, type: string) => {
     try {
@@ -68,7 +68,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-center justify-center">
             <span className="text-xl animate-bee-bounce">🐝</span>
-            Share BeeCrazy Garden World!
+            Share MochiBee´s Crazy Garden World!
             <span className="text-xl animate-flower-sway">🌻</span>
           </DialogTitle>
         </DialogHeader>

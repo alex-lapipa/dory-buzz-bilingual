@@ -1,6 +1,6 @@
 {
-  "name": "BeeCrazy Garden World - Educational Nature Learning",
-  "short_name": "BeeCrazy Garden",
+  "name": "MochiBee´s Crazy Garden World - Educational Nature Learning",
+  "short_name": "MochiBee Garden",
   "description": "Interactive educational platform for teens to learn about nature, bees, and environmental science with Mochi the bee",
   "start_url": "/",
   "display": "standalone",
@@ -34,14 +34,14 @@
       "sizes": "1280x720",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "BeeCrazy Garden World main interface"
+      "label": "MochiBee´s Crazy Garden World main interface"
     },
     {
       "src": "/screenshot-narrow.jpg", 
       "sizes": "640x1136",
       "type": "image/jpeg",
       "form_factor": "narrow",
-      "label": "BeeCrazy Garden World mobile view"
+      "label": "MochiBee´s Crazy Garden World mobile view"
     }
   ],
   "related_applications": [],
@@ -76,7 +76,7 @@
     "preferred_width": 400
   },
   "scope": "/",
-  "id": "beecrazy-garden-world",
+  "id": "mochibee-crazy-garden-world",
   "launch_handler": {
     "client_mode": "navigate-existing"
   }
