@@ -11,24 +11,24 @@ export const Footer: React.FC = () => {
               href="https://idiomas.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-pink-400 hover:text-pink-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]"
             >
               idiomas.io
             </a>
-            <p className="text-pink-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">
+            <p className="text-yellow-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(255,215,0,0.6)]">
               Language Learning Platform
             </p>
           </div>
 
           {/* Center - Built by Alex Lawton */}
           <div className="text-center">
-            <p className="text-pink-400 text-sm drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]">
+            <p className="text-yellow-400 text-sm drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]">
               Built by{' '}
               <a 
                 href="https://www.alexlawton.io" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-pink-300 hover:text-pink-200 transition-colors font-semibold drop-shadow-[0_0_10px_rgba(244,114,182,1)]"
+                className="text-yellow-300 hover:text-yellow-200 transition-colors font-semibold drop-shadow-[0_0_10px_rgba(255,215,0,1)]"
               >
                 Alex Lawton
               </a>
@@ -41,11 +41,11 @@ export const Footer: React.FC = () => {
               href="https://lapipa.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-pink-400 hover:text-pink-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(244,114,182,0.8)]"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]"
             >
               lapipa.io
             </a>
-            <p className="text-pink-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(244,114,182,0.6)]">
+            <p className="text-yellow-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(255,215,0,0.6)]">
               Digital Solutions
             </p>
           </div>
