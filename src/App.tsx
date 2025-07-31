@@ -19,7 +19,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import AuthPage from "./pages/AuthPage";
 import ProductionDashboard from "@/components/ProductionDashboard";
+import { useAuth } from "@/contexts/AuthContext";
+import { GDPRConsentBanner } from "@/components/GDPRConsent";
 
 // Create a context to manage active tab across components
 const TabContext = createContext<{
@@ -41,6 +44,7 @@ const AppContent = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const { setLanguage } = useLanguage();
+  const { user, loading: authLoading } = useAuth();
 
   // Debug log to verify state
   console.log('AppContent state:', { showLanding, showLanguageSelect, showRegistration, showOnboarding });
@@ -132,16 +136,19 @@ const AppContent = () => {
                 ) : showOnboarding ? (
                   <OnboardingFlow onComplete={handleOnboardingComplete} />
                 ) : (
-                  /* Normal app with header when fully onboarded */
+                  /* Normal app routes */
                   <>
                     <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
                       <Routes>
                         <Route path="/" element={<Index />} />
+                        <Route path="/auth" element={<AuthPage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/production" element={<ProductionDashboard />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </div>
+                    {/* GDPR Consent Banner */}
+                    <GDPRConsentBanner />
                   </>
                 )}
               </main>

@@ -4,8 +4,9 @@ import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
-import { Heart } from 'lucide-react';
+import { Heart, User, LogOut } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -14,6 +15,7 @@ interface AppHeaderProps {
 export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const handleBeeClick = () => {
     navigate('/');
@@ -53,6 +55,33 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
         
         {/* Right: Action Buttons and Hamburger Menu */}
         <div className="flex gap-1 sm:gap-2 flex-shrink-0 items-center">
+          {user ? (
+            <div className="flex items-center gap-2">
+              <span className="text-xs sm:text-sm text-muted-foreground hidden md:inline">
+                {user.email}
+              </span>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={signOut}
+                className="text-xs sm:text-sm"
+              >
+                <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => navigate('/auth')}
+              className="text-xs sm:text-sm"
+            >
+              <User className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+              Sign In
+            </Button>
+          )}
+          
           <FollowMochiModal>
             <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
               <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
