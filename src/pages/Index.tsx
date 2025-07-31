@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UnifiedMochiInterface } from '@/components/UnifiedMochiInterface';
+import { MochiInterface } from '@/components/MochiInterface';
 import { SystemStatusIndicator } from '@/components/SystemStatusIndicator';
 import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
 import { 
   Sparkles, 
@@ -13,12 +15,18 @@ import {
   Settings, 
   BarChart3,
   Leaf,
-  Heart
+  Heart,
+  MessageCircle,
+  Mic,
+  Image,
+  Video,
+  Zap
 } from 'lucide-react';
 
 const Index = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('unified');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 relative overflow-hidden">
@@ -62,9 +70,54 @@ const Index = () => {
           <SystemStatusIndicator />
         </div>
 
-        {/* Main Interface */}
+        {/* Main Interface with Tabs */}
         <div className="flex justify-center">
-          <UnifiedMochiInterface />
+          <div className="w-full max-w-4xl">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-5 mb-4">
+                <TabsTrigger value="unified" className="text-xs">
+                  <Zap className="h-3 w-3 mr-1" />
+                  Unified
+                </TabsTrigger>
+                <TabsTrigger value="chat" className="text-xs">
+                  <MessageCircle className="h-3 w-3 mr-1" />
+                  Chat
+                </TabsTrigger>
+                <TabsTrigger value="voice" className="text-xs">
+                  <Mic className="h-3 w-3 mr-1" />
+                  Voice
+                </TabsTrigger>
+                <TabsTrigger value="generate" className="text-xs">
+                  <Image className="h-3 w-3 mr-1" />
+                  Image
+                </TabsTrigger>
+                <TabsTrigger value="video" className="text-xs">
+                  <Video className="h-3 w-3 mr-1" />
+                  Video
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="unified">
+                <UnifiedMochiInterface />
+              </TabsContent>
+              
+              <TabsContent value="chat">
+                <MochiInterface activeTab="chat" />
+              </TabsContent>
+              
+              <TabsContent value="voice">
+                <MochiInterface activeTab="voice" />
+              </TabsContent>
+              
+              <TabsContent value="generate">
+                <MochiInterface activeTab="generate" />
+              </TabsContent>
+              
+              <TabsContent value="video">
+                <MochiInterface activeTab="video" />
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
 
         {/* Quick Actions */}
@@ -97,7 +150,15 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => {
+            // Show coming soon toast
+            import('@/hooks/use-toast').then(({ toast }) => {
+              toast({
+                title: "🌱 Coming Soon!",
+                description: "Garden tools are being developed. Stay tuned!",
+              });
+            });
+          }}>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Settings className="h-5 w-5 text-purple-600" />
