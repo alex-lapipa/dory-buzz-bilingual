@@ -39,7 +39,7 @@ const translations = {
     spanish: "Español",
     
     // Chat Interface
-    mochiTitle: "Mochi de los Huertos 🌻",
+    mochiTitle: "MochiBee 🌻",
     mochiSubtitle: "A Buzztastic Garden Bee!",
     chatPlaceholder: "Ask Mochi... / Pregúntale a Mochi...",
     messageToMochi: "Type your message to Mochi in English or Spanish",
@@ -185,7 +185,7 @@ const translations = {
     spanish: "Español",
     
     // Chat Interface
-    mochiTitle: "Mochi de los Huertos 🌻",
+    mochiTitle: "MochiBee 🌻",
     mochiSubtitle: "Una Abeja de Jardin Buzztástica!",
     chatPlaceholder: "Pregúntale a Mochi... / Ask Mochi...",
     messageToMochi: "Escribe tu mensaje a Mochi en inglés o español",

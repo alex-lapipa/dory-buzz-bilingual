@@ -44,7 +44,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
         {/* Center: Title and Subtitle */}
         <div className="flex flex-col items-center text-center">
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-1">
-            Mochi de los Huertos 🌻
+            MochiBee 🌻
           </h1>
           <p className="text-sm sm:text-base lg:text-lg font-semibold text-primary/90">
             Una Abeja de Jardin Buzztástica!

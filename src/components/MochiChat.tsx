@@ -121,7 +121,7 @@ export const MochiChat: React.FC<MochiChatProps> = ({ className }) => {
   const generateImage = async (prompt: string) => {
     setIsLoading(true);
     try {
-      const enhanced_prompt = `Create a beautiful, vibrant image featuring Mochi de los Huertos (Garden Bee) in a natural garden setting. 
+      const enhanced_prompt = `Create a beautiful, vibrant image featuring MochiBee (Garden Bee) in a natural garden setting. 
 
 VISUAL STYLE: Bright, colorful, family-friendly illustration with rich garden details
 MOCHI'S APPEARANCE: A charming bee with expressive wings, wearing a rustic straw hat adorned with a wildflower, warm honey-yellow and earthy brown coloring
