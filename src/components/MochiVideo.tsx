@@ -27,7 +27,7 @@ const MochiVideo = () => {
             autoPlay
             loop
             muted
-            className="w-full h-auto rounded-lg shadow-lg opacity-60"
+            className="w-full h-auto rounded-lg shadow-lg opacity-75"
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
           >
