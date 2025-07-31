@@ -9,21 +9,32 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   plugins: {
+    CapacitorHttp: {
+      enabled: true
+    },
     SplashScreen: {
-      launchShowDuration: 3000,
+      launchShowDuration: 2000,
       launchAutoHide: true,
-      backgroundColor: "#ffffff",
+      backgroundColor: "#fef3c7",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
-      showSpinner: true,
-      androidSpinnerStyle: "large",
-      iosSpinnerStyle: "small",
-      spinnerColor: "#fffd01",
+      showSpinner: false,
       splashFullScreen: true,
       splashImmersive: true,
       layoutName: "launch_screen",
-      useDialog: true,
+      useDialog: false,
     }
+  },
+  ios: {
+    contentInset: 'automatic',
+    backgroundColor: '#fef3c7',
+    scheme: 'dorybee'
+  },
+  android: {
+    backgroundColor: '#fef3c7',
+    allowMixedContent: true,
+    captureInput: true,
+    webContentsDebuggingEnabled: true
   }
 };
 

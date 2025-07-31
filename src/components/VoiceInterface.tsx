@@ -4,8 +4,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Mic, MicOff, Volume2, VolumeX, Brain, Loader2, Zap } from 'lucide-react';
+import { Mic, MicOff, Volume2, VolumeX, Brain, Loader2, Zap, Smartphone } from 'lucide-react';
 import { AudioRecorder, encodeAudioForAPI, AudioQueue } from '@/utils/realtimeAudio';
+import { 
+  createMobileWebSocket, 
+  isMobile, 
+  isIOS, 
+  isAndroid, 
+  requestMobilePermissions,
+  createMobileAudioContext,
+  resumeAudioContextOnMobile,
+  handleMobileVoiceError,
+  getMobileAudioConstraints
+} from '@/utils/mobileVoiceUtils';
 
 interface VoiceInterfaceProps {
   className?: string;
@@ -56,15 +67,16 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
     try {
       setIsConnecting(true);
       
-      // Initialize audio context and queue
+      // Initialize audio context with mobile optimizations
       if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        audioContextRef.current = createMobileAudioContext();
         audioQueueRef.current = new AudioQueue(audioContextRef.current);
       }
 
-      // Connect to our WebSocket relay edge function
+      // Create mobile-optimized WebSocket connection
       const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/voice_chat_realtime`;
-      wsRef.current = new WebSocket(wsUrl);
+      console.log('🔗 Connecting to:', wsUrl, isMobile() ? '(Mobile)' : '(Desktop)');
+      wsRef.current = createMobileWebSocket(wsUrl);
 
       wsRef.current.onopen = () => {
         console.log('Connected to OpenAI Realtime API via relay');
@@ -198,17 +210,19 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
 
   const startListening = async () => {
     try {
-      // Mobile-specific: Request user gesture for audio context
+      // Request mobile permissions first
+      if (isMobile() && !(await requestMobilePermissions())) {
+        throw new Error('Microphone permissions required for voice chat');
+      }
+
+      // Initialize mobile-optimized audio context
       if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        audioContextRef.current = createMobileAudioContext();
         audioQueueRef.current = new AudioQueue(audioContextRef.current);
       }
       
       // Resume audio context (required for mobile)
-      if (audioContextRef.current.state === 'suspended') {
-        await audioContextRef.current.resume();
-        console.log('🔊 Audio context resumed for mobile');
-      }
+      await resumeAudioContextOnMobile(audioContextRef.current);
       
       if (!audioRecorderRef.current) {
         audioRecorderRef.current = new AudioRecorder(handleAudioData);
@@ -217,15 +231,16 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
       await audioRecorderRef.current.start();
       
       toast({
-        title: "🎤 Voice Chat Ready!",
+        title: `🎤 Voice Chat Ready${isMobile() ? ' (Mobile)' : ''}!`,
         description: "Start speaking! I'll respond naturally when you pause for 1.5 seconds.",
         duration: 4000,
       });
     } catch (error) {
       console.error('Error starting audio recording:', error);
+      const mobileErrorMsg = handleMobileVoiceError(error);
       toast({
         title: "Microphone Error",
-        description: "Could not access microphone. Please check permissions and try again.",
+        description: mobileErrorMsg,
         variant: "destructive",
       });
     }
@@ -260,16 +275,24 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
 
   const startConversation = async () => {
     try {
-      // Mobile optimization: Enable audio context with user gesture
+      // Request mobile permissions first
+      if (isMobile() && !(await requestMobilePermissions())) {
+        toast({
+          title: "Permissions Required",
+          description: handleMobileVoiceError({ name: 'NotAllowedError' }),
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Mobile-optimized audio context with user gesture
       if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext({ sampleRate: 24000 });
+        audioContextRef.current = createMobileAudioContext();
         audioQueueRef.current = new AudioQueue(audioContextRef.current);
         
-        // Immediately try to resume (mobile requirement)
-        if (audioContextRef.current.state === 'suspended') {
-          await audioContextRef.current.resume();
-          console.log('🔊 Audio context initialized and resumed for mobile');
-        }
+        // Resume audio context (mobile requirement)
+        await resumeAudioContextOnMobile(audioContextRef.current);
+        console.log(`🔊 Audio context initialized ${isMobile() ? '(Mobile)' : '(Desktop)'}`);
       }
       
       await connectToRealtimeAPI();
@@ -281,6 +304,12 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
       }, 1000);
     } catch (error) {
       console.error('Error starting conversation:', error);
+      const mobileErrorMsg = handleMobileVoiceError(error);
+      toast({
+        title: "Connection Error",
+        description: mobileErrorMsg,
+        variant: "destructive",
+      });
     }
   };
 
@@ -386,6 +415,12 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => 
           </div>
           
           <div className="flex items-center gap-1 sm:gap-2">
+            {isMobile() && (
+              <Badge variant="outline" className="flex items-center gap-1 text-xs">
+                <Smartphone className="h-3 w-3" />
+                <span className="hidden xs:inline">{isIOS() ? 'iOS' : isAndroid() ? 'Android' : 'Mobile'}</span>
+              </Badge>
+            )}
             {isConnected && (
               <>
                 <Badge variant={isSpeaking ? "default" : "secondary"} className="flex items-center gap-1 text-xs">

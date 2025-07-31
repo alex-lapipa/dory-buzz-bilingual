@@ -1,4 +1,6 @@
 // Audio recording utility for OpenAI Realtime API
+import { getMobileAudioConstraints, createMobileAudioContext, resumeAudioContextOnMobile } from './mobileVoiceUtils';
+
 export class AudioRecorder {
   private stream: MediaStream | null = null;
   private audioContext: AudioContext | null = null;
@@ -11,28 +13,18 @@ export class AudioRecorder {
     try {
       console.log('🎤 Starting audio recording...');
       
-      // Request microphone with optimal settings for voice
+      // Request microphone with mobile-optimized settings
       this.stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          sampleRate: 24000,
-          channelCount: 1,
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true
-        }
+        audio: getMobileAudioConstraints()
       });
       
       console.log('✅ Microphone access granted');
       
-      this.audioContext = new AudioContext({
-        sampleRate: 24000,
-      });
+      // Create mobile-optimized audio context
+      this.audioContext = createMobileAudioContext();
       
       // Resume audio context if suspended (mobile requirement)
-      if (this.audioContext.state === 'suspended') {
-        await this.audioContext.resume();
-        console.log('🔊 Audio context resumed for mobile');
-      }
+      await resumeAudioContextOnMobile(this.audioContext);
       
       this.source = this.audioContext.createMediaStreamSource(this.stream);
       this.processor = this.audioContext.createScriptProcessor(4096, 1, 1);
