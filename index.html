@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4N1GTWE0CX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      // Don't send data initially - wait for consent
+      
+      // Initialize with consent controls for GDPR compliance
       gtag('config', 'G-4N1GTWE0CX', {
         'analytics_storage': 'denied',
         'ad_storage': 'denied'
