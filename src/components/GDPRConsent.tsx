@@ -72,7 +72,7 @@ export const GDPRConsentBanner: React.FC = () => {
         <div 
           className="relative overflow-hidden rounded-xl border border-green-200/60 shadow-xl backdrop-blur-md"
           style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.88)), url(${permacultureGardenBg})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(248, 250, 252, 0.5)), url(${permacultureGardenBg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundBlendMode: 'overlay'
