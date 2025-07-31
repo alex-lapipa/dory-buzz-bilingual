@@ -113,7 +113,13 @@ class LearningOrchestrator {
       });
 
       const data = await response.json();
-      const activitiesText = data.content[0].text;
+      const activitiesText = data.content?.[0]?.text || JSON.stringify([{
+        name: `${topic} Exploration`,
+        materials: ['paper', 'pencil', 'curiosity'],
+        instructions: `Learn more about ${topic} through hands-on activities`,
+        objectives: [`Learn about ${topic}`],
+        safety_notes: 'Adult supervision recommended'
+      }]);
       
       try {
         return JSON.parse(activitiesText);
@@ -169,7 +175,13 @@ class LearningOrchestrator {
       });
 
       const data = await response.json();
-      const quizText = data.choices[0].message.content;
+      const quizText = data.choices?.[0]?.message?.content || JSON.stringify([{
+        question: `What do you know about ${topic}?`,
+        type: 'multiple_choice',
+        options: ['A lot', 'Some things', 'A little', 'Want to learn more'],
+        correct_answer: 'Want to learn more',
+        explanation: `There's always more to discover about ${topic}!`
+      }]);
       
       try {
         return JSON.parse(quizText);
@@ -285,7 +297,14 @@ class LearningOrchestrator {
       });
 
       const data = await response.json();
-      const scriptsText = data.content[0].text;
+      const scriptsText = data.content?.[0]?.text || JSON.stringify([{
+        title: `Discovering ${topic}`,
+        duration: '5 minutes',
+        scenes: [{ description: 'Introduction to the topic', dialogue: `Learn about ${topic}` }],
+        visuals: [`Beautiful imagery of ${topic}`],
+        interactions: ['Ask questions', 'Observe carefully'],
+        objectives: [`Learn about ${topic}`, 'Have fun while learning']
+      }]);
       
       try {
         return JSON.parse(scriptsText);
