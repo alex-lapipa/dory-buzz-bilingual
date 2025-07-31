@@ -190,7 +190,10 @@ serve(async (req) => {
         max_tokens: 4000,
         temperature: 0.7,
         stream: stream,
-        prompt_id: "pmpt_688acdfac7a08195ae74130dbe743c26078d272d682e1a21" // MOCHIBEE prompt ID for OpenAI
+        prompt: selectedPlatform === 'openai' ? {
+          "id": "pmpt_688acdfac7a08195ae74130dbe743c26078d272d682e1a21",
+          "version": "1"
+        } : undefined
       };
     }
 
