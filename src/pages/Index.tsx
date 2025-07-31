@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UnifiedMochiInterface } from '@/components/UnifiedMochiInterface';
 import { MochiInterface } from '@/components/MochiInterface';
 import { FloatingGarden } from '@/components/FloatingGarden';
+import MochiVideo from '@/components/MochiVideo';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -111,6 +112,9 @@ const Index = () => {
                 <MochiInterface activeTab="video" />
               </TabsContent>
             </Tabs>
+            
+            {/* Mochi Video */}
+            <MochiVideo />
           </div>
         </div>
 
