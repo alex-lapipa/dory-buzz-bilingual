@@ -19,8 +19,8 @@ const MochiVideo = () => {
   };
 
   return (
-    <Card className="w-full mt-6 bg-card/80 backdrop-blur-sm border-border/50">
-      <CardContent className="p-4">
+    <div className="w-full mt-6">
+      <div className="p-4 bg-transparent">
         <div className="relative">
           <video
             ref={videoRef}
@@ -56,8 +56,8 @@ const MochiVideo = () => {
             </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
