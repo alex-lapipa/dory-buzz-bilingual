@@ -86,8 +86,8 @@ export const GDPRConsentBanner: React.FC = () => {
               
               <div className="flex-1 space-y-2">
                 <div>
-                  <h3 className="font-semibold text-sm mb-1 text-green-800">🍪 Cookie and Privacy Settings</h3>
-                  <p className="text-xs text-green-700/90 leading-tight">
+                  <h3 className="font-semibold text-sm mb-1 text-yellow-400">🍪 Cookie and Privacy Settings</h3>
+                  <p className="text-xs text-yellow-300 leading-tight">
                     We use cookies and similar technologies to provide essential services, analyze usage, and improve your experience.
                   </p>
                 </div>
@@ -98,8 +98,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                     </div>
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">Strictly Necessary</div>
-                      <div className="text-green-600 text-xs">Essential for website functionality</div>
+                      <div className="font-semibold text-yellow-400 text-xs">Strictly Necessary</div>
+                      <div className="text-yellow-300 text-xs">Essential for website functionality</div>
                     </div>
                   </div>
 
@@ -113,8 +113,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">Analytics & Performance</div>
-                      <div className="text-green-600 text-xs">Usage statistics and improvements</div>
+                      <div className="font-semibold text-yellow-400 text-xs">Analytics & Performance</div>
+                      <div className="text-yellow-300 text-xs">Usage statistics and improvements</div>
                     </div>
                   </div>
 
@@ -128,8 +128,8 @@ export const GDPRConsentBanner: React.FC = () => {
                       className="mt-0.5"
                     />
                     <div>
-                      <div className="font-semibold text-green-800 text-xs">Marketing & Communications</div>
-                      <div className="text-green-600 text-xs">Personalized content and offers</div>
+                      <div className="font-semibold text-yellow-400 text-xs">Marketing & Communications</div>
+                      <div className="text-yellow-300 text-xs">Personalized content and offers</div>
                     </div>
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export const GDPRConsentBanner: React.FC = () => {
                       variant="ghost"
                       size="sm"
                       onClick={dismissConsentBanner}
-                      className="p-1 text-green-600 hover:bg-green-50 rounded-full"
+                      className="p-1 text-yellow-400 hover:bg-green-50 rounded-full"
                     >
                       <X className="h-3 w-3" />
                     </Button>
