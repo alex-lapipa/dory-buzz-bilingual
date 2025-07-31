@@ -1,8 +1,42 @@
 project_id = "zrdywdregcrykmbiytvl"
 
-# === UNIFIED ORCHESTRATION PLATFORM ===
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
 
-# Core Unified Services
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+[inbucket]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[auth]
+enabled = true
+site_url = "https://zrdywdregcrykmbiytvl.supabase.co"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+# === PRODUCTION READY UNIFIED PLATFORM ===
+
+# Core Production Functions
 [functions.unified_chat_orchestrator]
 verify_jwt = false
 
@@ -15,7 +49,36 @@ verify_jwt = false
 [functions.unified_health_monitor]
 verify_jwt = false
 
-# Essential Legacy Functions (Keep for Migration)
+[functions.unified_ai_orchestrator]
+verify_jwt = false
+
+[functions.unified_deployment]
+verify_jwt = false
+
+# Analytics & Monitoring
+[functions.user_analytics_tracker]
+verify_jwt = false
+
+[functions.persona_generator]
+verify_jwt = false
+
+[functions.insights_generator]
+verify_jwt = false
+
+[functions.integration_sync]
+verify_jwt = false
+
+[functions.comprehensive_app_audit]
+verify_jwt = false
+
+[functions.production_optimizer]
+verify_jwt = false
+
+# Learning & Content
+[functions.learning_content_orchestrator]
+verify_jwt = false
+
+# Essential Services
 [functions.realtime_session]
 verify_jwt = false
 
@@ -28,15 +91,26 @@ verify_jwt = false
 [functions.extract_mochi_character]
 verify_jwt = false
 
-# === DEPRECATED - USE UNIFIED SERVICES INSTEAD ===
-# Chat Functions (Use: unified_chat_orchestrator)
+[functions.firecrawl_scraper]
+verify_jwt = false
+
+# Legacy Functions (Maintained for Compatibility)
 [functions.mochi_chat_production]
 verify_jwt = false
 
-[functions.advanced_mochi_chat]
+[functions.chat_mochi]
 verify_jwt = false
 
-[functions.chat_mochi]
+[functions.generate_image]
+verify_jwt = false
+
+[functions.elevenlabs_tts]
+verify_jwt = false
+
+[functions.health-check]
+verify_jwt = false
+
+[functions.advanced_mochi_chat]
 verify_jwt = false
 
 [functions.enhanced_mochi_claude]
@@ -45,8 +119,7 @@ verify_jwt = false
 [functions.xai_grok_chat]
 verify_jwt = false
 
-# Voice Functions (Use: unified_voice_hub)
-[functions.elevenlabs_tts]
+[functions.claude_reasoning]
 verify_jwt = false
 
 [functions.tts_mochi]
@@ -64,10 +137,6 @@ verify_jwt = false
 [functions.voice_chat_realtime]
 verify_jwt = false
 
-# Image Functions (Use: unified_image_generator)
-[functions.generate_image]
-verify_jwt = false
-
 [functions.advanced_image_generation]
 verify_jwt = false
 
@@ -75,10 +144,6 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.midjourney_generator]
-verify_jwt = false
-
-# Health Functions (Use: unified_health_monitor)
-[functions.health-check]
 verify_jwt = false
 
 [functions.production-readiness]
@@ -90,12 +155,8 @@ verify_jwt = false
 [functions.integrations_status_check]
 verify_jwt = false
 
-# Other Functions
-[functions.unified_deployment]
+[functions.master_ai_orchestrator]
 verify_jwt = false
 
-[functions.claude_reasoning]
-verify_jwt = false
-
-[functions.firecrawl_scraper]
+[functions.health_monitor]
 verify_jwt = false
