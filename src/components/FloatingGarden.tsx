@@ -1,11 +1,18 @@
 import React from 'react';
 
 export const FloatingGarden: React.FC = () => {
+  // Mobile optimization - reduce elements on small screens
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const maxElements = isMobile ? 6 : 12;
+  
   return (
     <div className="fixed inset-0 pointer-events-none z-20 opacity-30">
-      {/* Fast-moving bees chasing sunflowers */}
-      <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-4xl">🌻</span></div>
-      <div className="garden-insect animate-bee-flight" style={{animationDelay: '23s'}}>🐝<span className="text-4xl">🌸</span></div>
+      {/* Reduced animations for mobile performance */}
+      {!isMobile && (
+        <>
+          {/* Fast-moving bees chasing sunflowers */}
+          <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-4xl">🌻</span></div>
+          <div className="garden-insect animate-bee-flight" style={{animationDelay: '23s'}}>🐝<span className="text-4xl">🌸</span></div>
       
       {/* Slower bees feeding at bottom */}
       <div className="garden-insect animate-bee-feed-bottom" style={{animationDelay: '13s'}}>🐝<span className="text-3xl">🌼</span></div>
@@ -65,7 +72,13 @@ export const FloatingGarden: React.FC = () => {
       {/* Herb garden that ladybugs and beneficial insects love */}
       <div className="garden-insect animate-flower-float" style={{animationDelay: '9s'}}><span className="text-4xl">🌿🍃</span></div>
       <div className="garden-insect animate-flower-float" style={{animationDelay: '19s'}}><span className="text-3xl">🌱🌿</span></div>
-      <div className="garden-insect animate-flower-float" style={{animationDelay: '29s'}}><span className="text-4xl">🍀🌿</span></div>
+        </>
+      )}
+      
+      {/* Essential elements for mobile */}
+      <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-3xl">🌻</span></div>
+      <div className="garden-insect animate-flower-float" style={{animationDelay: '7s'}}><span className="text-4xl">🌺</span></div>
+      <div className="garden-insect animate-flower-float" style={{animationDelay: '17s'}}><span className="text-3xl">🌸</span></div>
     </div>
   );
 };

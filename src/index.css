@@ -205,7 +205,7 @@ All colors MUST be HSL.
     .text-responsive-4xl { font-size: clamp(2.25rem, 8vw, 2.75rem); }
   }
   
-  /* Enhanced bee and garden animations */
+  /* Enhanced bee and garden animations - Mobile Optimized */
   @keyframes bee-bounce {
     0%, 100% { 
       transform: translateY(0px) rotate(0deg) scale(1); 
@@ -246,6 +246,35 @@ All colors MUST be HSL.
     }
     50% { 
       box-shadow: 0 0 30px hsl(120 40% 60% / 0.5);
+    }
+  }
+
+  /* Mobile-optimized animation performance */
+  @media (max-width: 768px) {
+    * {
+      animation-duration: 0.5s !important;
+      animation-iteration-count: 1 !important;
+    }
+    
+    .animate-bee-flight,
+    .animate-flower-float {
+      animation-duration: 4s !important;
+      animation-iteration-count: infinite !important;
+    }
+    
+    /* Reduce complex animations on mobile */
+    .garden-insect {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-bee-flight,
+    .animate-flower-float,
+    .garden-insect {
+      animation: none !important;
     }
   }
 
