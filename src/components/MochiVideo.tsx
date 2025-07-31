@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Play, Pause } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 const MochiVideo = () => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -18,18 +19,17 @@ const MochiVideo = () => {
   };
 
   return (
-    <div className="w-full mt-6">
-      <div className="p-4 bg-transparent">
+    <Card className="w-full mt-6 bg-card/80 backdrop-blur-sm border-border/50">
+      <CardContent className="p-4">
         <div className="relative">
           <video
             ref={videoRef}
             autoPlay
             loop
             muted
-            className="w-full h-auto rounded-lg shadow-lg opacity-75 cursor-pointer hover:opacity-90 transition-opacity"
+            className="w-full h-auto rounded-lg shadow-lg opacity-75"
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
-            onClick={() => window.open('https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/sign/mochibee/Mochi%20the%20bee.m4v?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84ODAxZThkZi1hYTMyLTRjNDEtYmYxMi03ZjJlYmI0NjQ5MjMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtb2NoaWJlZS9Nb2NoaSB0aGUgYmVlLm00diIsImlhdCI6MTc1MzkzNTEwMCwiZXhwIjoyMDY5Mjk1MTAwfQ.vLjp9qFMamfqwfkiO3cCSS8_Ge3V6wVDcfubRCfMlFw', '_blank')}
           >
             <source 
               src="https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/sign/mochibee/Mochi%20the%20bee.m4v?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84ODAxZThkZi1hYTMyLTRjNDEtYmYxMi03ZjJlYmI0NjQ5MjMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtb2NoaWJlZS9Nb2NoaSB0aGUgYmVlLm00diIsImlhdCI6MTc1MzkzNTEwMCwiZXhwIjoyMDY5Mjk1MTAwfQ.vLjp9qFMamfqwfkiO3cCSS8_Ge3V6wVDcfubRCfMlFw" 
@@ -56,8 +56,8 @@ const MochiVideo = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

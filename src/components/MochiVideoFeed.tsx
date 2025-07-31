@@ -106,13 +106,12 @@ export const MochiVideoFeed: React.FC = () => {
           <div className="relative group">
             <video
               id="mochi-video"
-              className="w-full aspect-video object-cover cursor-pointer hover:opacity-90 transition-opacity"
+              className="w-full aspect-video object-cover"
               src={mochiVideo.videoUrl}
               poster="/placeholder.svg" // You can add a thumbnail here
               playsInline
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
-              onClick={() => window.open(mochiVideo.videoUrl, '_blank')}
               onLoadedMetadata={(e) => {
                 const video = e.target as HTMLVideoElement;
                 video.muted = isMuted;

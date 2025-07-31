@@ -737,8 +737,7 @@ Always maintain Mochi's cheerful, buzzing personality while being informative an
                   {message.content.includes('![') ? (
                     <div dangerouslySetInnerHTML={{
                       __html: message.content
-                        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="w-full rounded-lg mt-2 mb-2 cursor-pointer hover:opacity-90 transition-opacity" onclick="window.open(\'$2\', \'_blank\')" />')
-                        .replace(/<video controls[^>]*>/g, '<video controls style="max-width: 100%; border-radius: 8px; cursor: pointer;" onclick="window.open(this.src, \'_blank\')">')
+                        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="w-full rounded-lg mt-2 mb-2" />')
                         .replace(/\n/g, '<br />')
                     }} />
                   ) : (
