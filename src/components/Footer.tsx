@@ -11,24 +11,24 @@ export const Footer: React.FC = () => {
               href="https://idiomas.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors text-base font-semibold"
+              className="text-rose-300 hover:text-rose-200 transition-colors text-base font-semibold"
             >
               idiomas.io
             </a>
-            <p className="text-foreground/80 text-sm mt-1">
+            <p className="text-rose-400 text-sm mt-1">
               Language Learning Platform
             </p>
           </div>
 
           {/* Center - Built by Alex Lawton */}
           <div className="text-center">
-            <p className="text-foreground/90 text-sm">
+            <p className="text-rose-300 text-sm">
               Built by{' '}
               <a 
                 href="https://www.alexlawton.io" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-foreground hover:text-primary transition-colors font-semibold"
+                className="text-rose-200 hover:text-rose-100 transition-colors font-semibold"
               >
                 Alex Lawton
               </a>
@@ -41,11 +41,11 @@ export const Footer: React.FC = () => {
               href="https://lapipa.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors text-base font-semibold"
+              className="text-rose-300 hover:text-rose-200 transition-colors text-base font-semibold"
             >
               lapipa.io
             </a>
-            <p className="text-foreground/80 text-sm mt-1">
+            <p className="text-rose-400 text-sm mt-1">
               Digital Solutions
             </p>
           </div>
