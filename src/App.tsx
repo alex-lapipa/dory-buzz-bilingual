@@ -21,6 +21,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import LearningHub from "./pages/LearningHub";
+import TechnicalDetails from "./pages/TechnicalDetails";
 import ProductionDashboard from "@/components/ProductionDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -147,7 +148,7 @@ const AppContent = () => {
                         <Route path="/learning-hub" element={<LearningHub />} />
                         <Route path="/technical-details" element={
                           <React.Suspense fallback={<div>Loading...</div>}>
-                            {React.createElement(React.lazy(() => import('@/pages/TechnicalDetails')))}
+                            <TechnicalDetails />
                           </React.Suspense>
                         } />
                         <Route path="/production" element={<ProductionDashboard />} />
