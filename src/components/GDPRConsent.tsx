@@ -67,34 +67,33 @@ export const GDPRConsentBanner: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-3">
-      <div className="max-w-3xl mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-2">
+      <div className="max-w-5xl mx-auto">
         <div 
           className="relative overflow-hidden rounded-xl border border-green-200/60 shadow-xl backdrop-blur-md"
           style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(248, 250, 252, 0.5)), url(${permacultureGardenBg})`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.2), rgba(248, 250, 252, 0.2)), url(${permacultureGardenBg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundBlendMode: 'overlay'
           }}
         >
-          <div className="p-4">
-            <div className="flex items-start gap-3">
-              <div className="p-1.5 rounded-full bg-green-100/90 backdrop-blur-sm flex-shrink-0">
+          <div className="p-3">
+            <div className="flex items-start gap-2">
+              <div className="p-1 rounded-full bg-green-100/90 backdrop-blur-sm flex-shrink-0">
                 <Shield className="h-4 w-4 text-green-700" />
               </div>
               
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 space-y-2">
                 <div>
-                  <h3 className="font-semibold text-base mb-1 text-green-800">🍪 Cookie and Privacy Settings</h3>
-                  <p className="text-xs text-green-700/90 leading-relaxed">
-                    We use cookies and similar technologies to provide essential services, analyze usage, and improve your experience. 
-                    You can manage your preferences below.
+                  <h3 className="font-semibold text-sm mb-1 text-green-800">🍪 Cookie and Privacy Settings</h3>
+                  <p className="text-xs text-green-700/90 leading-tight">
+                    We use cookies and similar technologies to provide essential services, analyze usage, and improve your experience.
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-3 gap-2">
-                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-green-50/90 backdrop-blur-sm border border-green-200/60">
+                <div className="grid sm:grid-cols-3 gap-1">
+                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-green-50/90 backdrop-blur-sm border border-green-200/60">
                     <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
                       <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                     </div>
@@ -104,7 +103,7 @@ export const GDPRConsentBanner: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
+                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
                     <Checkbox 
                       id="analytics-consent"
                       checked={consents.analytics}
@@ -119,7 +118,7 @@ export const GDPRConsentBanner: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-2 p-2 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
+                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
                     <Checkbox 
                       id="marketing-consent"
                       checked={consents.marketing}
@@ -135,7 +134,7 @@ export const GDPRConsentBanner: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-1 pt-1">
                   <Button 
                     onClick={handleAcceptAll} 
                     size="sm"
