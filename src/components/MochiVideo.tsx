@@ -5,7 +5,6 @@ import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 const MochiVideo = () => {
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const togglePlay = () => {
@@ -19,13 +18,6 @@ const MochiVideo = () => {
     }
   };
 
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
   return (
     <Card className="w-full mt-6 bg-card/80 backdrop-blur-sm border-border/50">
       <CardContent className="p-4">
@@ -34,8 +26,8 @@ const MochiVideo = () => {
             ref={videoRef}
             autoPlay
             loop
-            muted={isMuted}
-            className="w-full h-auto rounded-lg shadow-lg"
+            muted
+            className="w-full h-auto rounded-lg shadow-lg opacity-60"
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
           >
@@ -56,15 +48,6 @@ const MochiVideo = () => {
                 className="bg-black/50 hover:bg-black/70 text-white border-0"
               >
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              </Button>
-              
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={toggleMute}
-                className="bg-black/50 hover:bg-black/70 text-white border-0"
-              >
-                {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
               </Button>
             </div>
             
