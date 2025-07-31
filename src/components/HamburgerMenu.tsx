@@ -6,7 +6,6 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, ExternalLink, Info, BookOpen, Zap, MessageCircle, Mic, Image, Video, Settings } from 'lucide-react';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
-import { SystemTestStatus } from '@/components/SystemTestStatus';
 import { TechnicalSpecs } from '@/components/TechnicalSpecs';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -294,7 +293,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                     ✕
                   </Button>
                 </div>
-                <SystemTestStatus />
               </div>
             </div>
           )}

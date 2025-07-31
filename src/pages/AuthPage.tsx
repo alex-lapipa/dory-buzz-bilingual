@@ -154,7 +154,7 @@ const AuthPage = () => {
 
   if (authLoading) {
     return (
-      <PageLayout showHeader={false} showStatus={false}>
+      <PageLayout showHeader={false}>
         <div className="flex items-center justify-center h-96">
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
@@ -163,7 +163,7 @@ const AuthPage = () => {
   }
 
   return (
-    <PageLayout showHeader={false} showStatus={false} className="flex items-center justify-center min-h-screen">
+    <PageLayout showHeader={false} className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-6">

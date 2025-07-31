@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { UnifiedMochiInterface } from '@/components/UnifiedMochiInterface';
 import { MochiInterface } from '@/components/MochiInterface';
-import { SystemStatusIndicator } from '@/components/SystemStatusIndicator';
 import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -63,11 +62,6 @@ const Index = () => {
               GDPR Compliant
             </Badge>
           </div>
-        </div>
-
-        {/* System Status */}
-        <div className="flex justify-center">
-          <SystemStatusIndicator />
         </div>
 
         {/* Main Interface with Tabs */}

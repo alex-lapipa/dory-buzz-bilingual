@@ -1,12 +1,10 @@
 import React from 'react';
 import { AppHeader } from '@/components/AppHeader';
 import { FloatingGarden } from '@/components/FloatingGarden';
-import { SystemStatusIndicator } from '@/components/SystemStatusIndicator';
 
 interface PageLayoutProps {
   children: React.ReactNode;
   showHeader?: boolean;
-  showStatus?: boolean;
   showFloatingGarden?: boolean;
   className?: string;
 }
@@ -14,7 +12,6 @@ interface PageLayoutProps {
 export const PageLayout: React.FC<PageLayoutProps> = ({
   children,
   showHeader = true,
-  showStatus = true,
   showFloatingGarden = true,
   className = ""
 }) => {
@@ -28,13 +25,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       
       {/* Main Content */}
       <main className={`relative z-10 ${showHeader ? 'pt-20' : 'pt-4'} pb-8 px-4 ${className}`}>
-        {/* Status Indicator */}
-        {showStatus && (
-          <div className="mb-6 flex justify-center">
-            <SystemStatusIndicator />
-          </div>
-        )}
-        
         {/* Page Content */}
         <div className="max-w-7xl mx-auto">
           {children}
