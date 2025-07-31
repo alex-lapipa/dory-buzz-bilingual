@@ -8,10 +8,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PageLayout } from '@/components/PageLayout';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
-import { GDPRConsentBanner } from '@/components/GDPRConsent';
 import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
 
 const AuthPage = () => {
@@ -154,16 +154,16 @@ const AuthPage = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
+      <PageLayout showHeader={false} showStatus={false}>
+        <div className="flex items-center justify-center h-96">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4 relative">
-      {/* GDPR Consent Banner - Import and show it here */}
-      
+    <PageLayout showHeader={false} showStatus={false} className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-6">
@@ -434,10 +434,7 @@ const AuthPage = () => {
           </Link>
         </div>
       </div>
-      
-      {/* GDPR Consent Banner */}
-      <GDPRConsentBanner />
-    </div>
+    </PageLayout>
   );
 };
 

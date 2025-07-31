@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { PageLayout } from '@/components/PageLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap } from 'lucide-react';
@@ -195,20 +196,20 @@ const LearningHub: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 pt-20">
+      <PageLayout>
         <div className="flex items-center justify-center p-8">
           <div className="text-center">
             <div className="text-4xl animate-bee-bounce mb-4">🐝</div>
             <p>Loading bee education content...</p>
           </div>
         </div>
-      </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 pt-20">
-      <div className="max-w-7xl mx-auto space-y-6 p-4">
+    <PageLayout>
+      <div className="space-y-6">
         {/* Header */}
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
@@ -387,7 +388,7 @@ const LearningHub: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

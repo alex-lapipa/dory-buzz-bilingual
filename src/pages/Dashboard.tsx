@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { PageLayout } from '@/components/PageLayout';
 import MasterControlPanel from '@/components/MasterControlPanel';
 import { MochiInterface } from '@/components/MochiInterface';
 import { VoiceControls } from '@/components/VoiceControls';
@@ -18,27 +19,26 @@ import {
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Dashboard Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-                BeeCrazy Garden World 🐝
-              </h1>
-              <p className="text-lg text-gray-600 mt-2">
-                Your AI-Powered Garden Companion with Advanced Intelligence
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="default" className="gap-1">
-                <Zap className="h-3 w-3" />
-                Production Ready
-              </Badge>
-            </div>
+    <PageLayout>
+      {/* Dashboard Header */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
+              BeeCrazy Garden World 🐝
+            </h1>
+            <p className="text-lg text-gray-600 mt-2">
+              Your AI-Powered Garden Companion with Advanced Intelligence
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="default" className="gap-1">
+              <Zap className="h-3 w-3" />
+              Production Ready
+            </Badge>
           </div>
         </div>
+      </div>
 
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="control" className="space-y-6">
@@ -135,8 +135,7 @@ const Dashboard: React.FC = () => {
           <p>🐝 Powered by OpenAI GPT-4.1, Claude 4, ElevenLabs, and Supabase 🌻</p>
           <p className="mt-1">BeeCrazy Garden World - Where AI meets Nature Education</p>
         </div>
-      </div>
-    </div>
+    </PageLayout>
   );
 };
 
