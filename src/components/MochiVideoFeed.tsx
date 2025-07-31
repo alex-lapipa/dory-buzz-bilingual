@@ -87,7 +87,7 @@ export const MochiVideoFeed: React.FC = () => {
         </p>
       </div>
 
-      <Card className="overflow-hidden shadow-lg border-2 border-primary/20">
+      <Card className="overflow-hidden shadow-lg">
         <CardHeader className="pb-2">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold">

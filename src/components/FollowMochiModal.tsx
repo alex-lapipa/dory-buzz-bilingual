@@ -250,13 +250,13 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
         </form>
 
         {/* Mochi Video Section */}
-        <div className="mt-4 p-3 bg-accent/10 rounded-lg border border-accent/20">
+        <div className="mt-4 p-3 bg-accent/10 rounded-lg">
           <h3 className="text-sm font-medium text-center mb-3 flex items-center justify-center gap-2">
             <span className="text-lg animate-bee-bounce">🐝</span>
             Meet Mochi in Action!
             <span className="text-lg animate-flower-sway">🌻</span>
           </h3>
-          <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20 border border-border/50">
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
             <video 
               className="w-full h-full object-cover"
               autoPlay 
