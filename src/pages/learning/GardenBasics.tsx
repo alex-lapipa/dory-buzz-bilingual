@@ -4,9 +4,91 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import plantLifecycleImage from '@/assets/plant-lifecycle.jpg';
+import { useEffect } from 'react';
 
 const GardenBasics: React.FC = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Add educational content schema for SEO
+    const addEducationalSchema = () => {
+      const existingSchema = document.querySelector('script[data-page="garden-basics"]');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+
+      const educationalSchema = {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Garden Basics - Understanding Plant Growth and Gardening",
+        "description": "Comprehensive educational content about plant growth, gardening, and botany for teenagers aged 13-16",
+        "educationalLevel": "beginner",
+        "learningResourceType": "text",
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "student",
+          "audienceType": "teenager",
+          "suggestedMinAge": 13,
+          "suggestedMaxAge": 16
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "BeeCrazy Garden World"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "BeeCrazy Garden World"
+        },
+        "educationalUse": "instruction",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "keywords": ["plant growth", "gardening", "photosynthesis", "botany", "environmental science", "STEM education"],
+        "teaches": [
+          "Seed germination process",
+          "Plant anatomy and functions",
+          "Photosynthesis and plant nutrition",
+          "Garden planning and plant care",
+          "Seasonal plant growth cycles",
+          "Plant-environment interactions"
+        ],
+        "hasPart": [
+          {
+            "@type": "LearningResource",
+            "name": "Seed Germination",
+            "description": "Learn how seeds develop into plants and what conditions they need"
+          },
+          {
+            "@type": "LearningResource",
+            "name": "Photosynthesis",
+            "description": "Understand how plants make their own food using sunlight"
+          },
+          {
+            "@type": "LearningResource",
+            "name": "Garden Care",
+            "description": "Discover how to start and maintain a successful garden"
+          }
+        ],
+        "image": "https://beecrazy-garden-world.lovableproject.com/src/assets/plant-lifecycle.jpg",
+        "url": "https://beecrazy-garden-world.lovableproject.com/learning/garden-basics"
+      };
+
+      const schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.setAttribute('data-page', 'garden-basics');
+      schemaScript.textContent = JSON.stringify(educationalSchema);
+      document.head.appendChild(schemaScript);
+    };
+
+    addEducationalSchema();
+
+    // Cleanup function
+    return () => {
+      const existingSchema = document.querySelector('script[data-page="garden-basics"]');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+    };
+  }, []);
 
   return (
     <PageLayout>

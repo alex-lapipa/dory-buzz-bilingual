@@ -4,9 +4,92 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import beeAnatomyImage from '@/assets/bee-anatomy.jpg';
+import { useEffect } from 'react';
 
 const BeeBasics: React.FC = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Add educational content schema for SEO
+    const addEducationalSchema = () => {
+      const existingSchema = document.querySelector('script[data-page="bee-basics"]');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+
+      const educationalSchema = {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Bee Basics - Understanding Bee Anatomy and Behavior",
+        "description": "Comprehensive educational content about bee anatomy, behavior, and biology for teenagers aged 13-16",
+        "educationalLevel": "beginner",
+        "learningResourceType": "text",
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "student",
+          "audienceType": "teenager",
+          "suggestedMinAge": 13,
+          "suggestedMaxAge": 16
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "BeeCrazy Garden World"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "BeeCrazy Garden World"
+        },
+        "educationalUse": "instruction",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "keywords": ["bee anatomy", "bee behavior", "pollination", "environmental science", "STEM education"],
+        "teaches": [
+          "Bee anatomy and body parts",
+          "How bees fly and make buzzing sounds",
+          "Bee colony structure and roles",
+          "Waggle dance communication",
+          "Pollination process",
+          "Honey production",
+          "Bee temperature regulation"
+        ],
+        "hasPart": [
+          {
+            "@type": "LearningResource",
+            "name": "Bee Anatomy",
+            "description": "Learn about bee body parts including compound eyes, wings, and specialized structures"
+          },
+          {
+            "@type": "LearningResource", 
+            "name": "Bee Communication",
+            "description": "Understand how bees communicate through the waggle dance"
+          },
+          {
+            "@type": "LearningResource",
+            "name": "Pollination Process",
+            "description": "Discover how bees help plants reproduce through pollination"
+          }
+        ],
+        "image": "https://beecrazy-garden-world.lovableproject.com/src/assets/bee-anatomy.jpg",
+        "url": "https://beecrazy-garden-world.lovableproject.com/learning/bee-basics"
+      };
+
+      const schemaScript = document.createElement('script');
+      schemaScript.type = 'application/ld+json';
+      schemaScript.setAttribute('data-page', 'bee-basics');
+      schemaScript.textContent = JSON.stringify(educationalSchema);
+      document.head.appendChild(schemaScript);
+    };
+
+    addEducationalSchema();
+
+    // Cleanup function
+    return () => {
+      const existingSchema = document.querySelector('script[data-page="bee-basics"]');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+    };
+  }, []);
 
   return (
     <PageLayout>

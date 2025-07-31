@@ -1,3 +1,24 @@
+User-agent: *
+Allow: /
+
+# Educational content is important for search engines
+Allow: /learning-hub
+Allow: /learning/bee-basics
+Allow: /learning/garden-basics
+Allow: /technical-details
+
+# Block auth and admin areas
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /production
+
+# Special considerations for educational bots
+User-agent: EdBot
+Allow: /
+
+User-agent: ia_archiver
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +31,13 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Sitemap location
+Sitemap: https://beecrazy-garden-world.lovableproject.com/sitemap.xml
+
+# Crawl delay for respectful indexing
+Crawl-delay: 1
+
+# Educational metadata
+# Target: Educational content for teenagers 13-16
+# Languages: English, Spanish
+# Geographic focus: Spain, UK, USA, EU
