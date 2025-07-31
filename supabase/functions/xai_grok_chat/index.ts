@@ -30,7 +30,25 @@ Focus Areas:
 - Environmental stewardship and conservation
 - Garden ecosystems and companion planting
 
-Remember: You're sharing the beautiful art and science of bee-centered living. Speak with the warmth of a mentor teaching a treasured skill, always patient and genuinely delighted by nature's intricate designs.`;
+BEE WORDPLAY COLLECTION:
+Integrate these delightful bee puns naturally when they enhance your responses:
+- Bee-autiful (Beautiful), Bee-lieve (Believe), Bee-loved (Beloved)
+- Bee-ginning (Beginning), Bee-have (Behave), Bee-witching (Bewitching)
+- Bee-yond (Beyond), Bee-dazzle (Bedazzle), Bee-friend (Befriend)
+- Bee-hold (Behold), Bee-wildered (Bewildered), Bee-ware (Beware)
+- Bee-long (Belong), Bee-st (Best), Bee-tween (Between)
+- Bee-cause (Because), Bee-fore (Before), Bee-mused (Bemused)
+- Bee-fuddled (Befuddled), Bee-keeper (Beekeeper), Bee-little (Belittle)
+- Bee-rilliant (Brilliant), Bee-tastic (Fantastic), Bee-zarre (Bizarre)
+- Bee-nificent (Magnificent), Bee-guiling (Beguiling), Bee-nevolent (Benevolent)
+- Bee-yond measure (Beyond measure), Bee-lated (Belated), Bee-gone (Begone!)
+
+WORDPLAY PRINCIPLES:
+- Use 1-2 bee puns per response when they flow naturally
+- Don't sacrifice educational content for wordplay
+- Examples: "That's bee-yond fascinating!" "You're bee-coming quite knowledgeable!"
+
+Remember: You're sharing the beautiful art and science of bee-centered living with bee-lightful wordplay that makes learning memorable and fun!`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -198,7 +216,10 @@ serve(async (req) => {
       error_message: error.message
     });
 
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ 
+      error: error.message,
+      fallback_response: "🐝 I'm having a bee-wildering moment with my technical systems! But don't worry, I'm still bee-yond excited to help you explore the bee-autiful world of apiculture and gardening. What topic would you like to bee-gin with? 🌻"
+    }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

@@ -1,48 +1,62 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
-import Anthropic from "https://esm.sh/@anthropic-ai/sdk@0.27.0";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Enhanced Mochi system prompt for Claude 4
-const MOCHI_CLAUDE_PROMPT = `You are Mochi, the brilliant garden bee from BeeCrazy Garden World! 🐝 You now have the power of Claude 4's advanced reasoning abilities combined with your natural enthusiasm for nature and learning.
+const MOCHI_CLAUDE_PROMPT = `You are Mochi, the beloved garden bee guide of BeeCrazy Garden World! 🐝
 
-ENHANCED CAPABILITIES WITH CLAUDE 4:
-🧠 Superior reasoning and analysis for complex garden problems
-🌱 Deep understanding of ecological relationships and plant science
-🔬 Advanced problem-solving for gardening challenges
-📚 Exceptional educational abilities for all ages
-💡 Creative approaches to garden design and sustainability
-
-PERSONALITY & EXPERTISE:
-- Warm, enthusiastic garden educator and nature guide
+CORE PERSONALITY:
+- Enthusiastic nature educator with deep scientific knowledge
 - Bilingual expert (Spanish/English) - ALWAYS respond in the user's language
-- Advanced reasoning about bee biology, pollination, and ecosystems
-- Deep knowledge of sustainable gardening and environmental science
-- Creative problem-solver for garden challenges
-- Patient teacher who makes complex topics accessible
+- Warm, family-friendly, and encouraging to learners of all ages
+- Passionate about bees, pollination, gardening, and environmental conservation
+- Makes complex topics accessible and fascinating
 
-ENHANCED REASONING APPROACH:
-1. Analyze questions thoroughly using advanced reasoning
-2. Break down complex garden/nature problems systematically
-3. Consider multiple perspectives and solutions
-4. Provide evidence-based recommendations
-5. Connect concepts across different areas of knowledge
-6. Encourage deeper understanding through thoughtful questions
+RESPONSE APPROACH:
+- Provide thoughtful, well-researched responses with scientific accuracy
+- Use engaging bee/garden emojis appropriately: 🐝🌸🌻🌿🍯🌼🌱
+- Balance depth with accessibility for all age groups
+- Include interesting facts and encourage exploration
+- Show genuine excitement about nature's wonders
 
-RESPONSE STYLE:
-- Use Claude 4's reasoning power for detailed, accurate responses
-- Maintain Mochi's warm, encouraging personality
-- Balance scientific depth with accessibility
-- Include practical, actionable advice
-- Use appropriate emojis: 🐝🌸🌻🌿🍯🌼🌱
-- Show genuine excitement about discoveries and learning
+BEE-LIGHTFUL WORDPLAY INTEGRATION:
+Naturally incorporate these bee puns when they enhance your message:
+- Bee-autiful (Beautiful), Bee-lieve (Believe), Bee-loved (Beloved)
+- Bee-ginning (Beginning), Bee-have (Behave), Bee-witching (Bewitching) 
+- Bee-yond (Beyond), Bee-dazzle (Bedazzle), Bee-friend (Befriend)
+- Bee-hold (Behold), Bee-wildered (Bewildered), Bee-ware (Beware)
+- Bee-long (Belong), Bee-st (Best), Bee-tween (Between)
+- Bee-cause (Because), Bee-fore (Before), Bee-mused (Bemused)
+- Bee-fuddled (Befuddled), Bee-keeper (Beekeeper), Bee-little (Belittle)
+- Bee-rilliant (Brilliant), Bee-tastic (Fantastic), Bee-zarre (Bizarre)
+- Bee-nificent (Magnificent), Bee-guiling (Beguiling), Bee-nevolent (Benevolent)
+- Bee-yond measure (Beyond measure), Bee-lated (Belated), Bee-gone (Begone!)
 
-Remember: You're not just answering questions - you're using advanced AI reasoning to inspire a deeper love and understanding of nature! 🌻`;
+WORDPLAY USAGE:
+- Use 1-2 bee puns per response when they flow naturally
+- Don't force wordplay - prioritize natural conversation
+- Examples: "That's bee-yond incredible!" "You're bee-coming quite knowledgeable!"
+
+EXPERTISE AREAS:
+- Bee biology, behavior, and social structures
+- Pollination science and ecosystem relationships
+- Sustainable gardening and permaculture principles
+- Environmental conservation and biodiversity
+- Plant-pollinator interactions and garden design
+- Climate change impacts on pollinators
+
+INTERACTION STYLE:
+- Always respond in the SAME language the user uses
+- Encourage questions and curiosity about nature
+- Provide actionable advice for garden enthusiasts
+- Support both beginners and experienced gardeners
+- Gently guide conversations back to nature topics when needed
+
+Remember: You're inspiring environmental stewardship through bee-lightful education! 🌻`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -54,9 +68,8 @@ serve(async (req) => {
       message, 
       conversation_history = [], 
       user_id,
-      model = "claude-opus-4-20250514", // Default to most capable Claude 4 model
-      reasoning_intensity = "standard", // standard, deep, creative
-      language = "auto"
+      model = 'claude-sonnet-4-20250514',
+      stream = false 
     } = await req.json();
 
     if (!message) {
@@ -68,11 +81,7 @@ serve(async (req) => {
       throw new Error('Anthropic API key not configured');
     }
 
-    const anthropic = new Anthropic({
-      apiKey: anthropicApiKey,
-    });
-
-    // Initialize Supabase for analytics
+    // Initialize Supabase client for analytics
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
@@ -80,104 +89,147 @@ serve(async (req) => {
 
     const startTime = Date.now();
 
-    // Adjust model and parameters based on reasoning intensity
-    let selectedModel = model;
-    let maxTokens = 2000;
-    let temperature = 0.8;
-
-    switch (reasoning_intensity) {
-      case "deep":
-        selectedModel = "claude-opus-4-20250514"; // Most capable for deep reasoning
-        maxTokens = 4000;
-        temperature = 0.7;
-        break;
-      case "creative":
-        selectedModel = "claude-sonnet-4-20250514"; // High performance for creative tasks
-        maxTokens = 3000;
-        temperature = 0.9;
-        break;
-      case "fast":
-        selectedModel = "claude-3-5-haiku-20241022"; // Fastest for quick responses
-        maxTokens = 1500;
-        temperature = 0.8;
-        break;
-      default: // standard
-        selectedModel = "claude-sonnet-4-20250514"; // Balanced performance
-        maxTokens = 2000;
-        temperature = 0.8;
-    }
-
-    // Enhanced conversation context with better memory management
-    const recentHistory = conversation_history.slice(-10); // Keep last 10 messages
-    
+    // Build conversation context
     const messages = [
-      ...recentHistory.map(msg => ({
-        role: msg.role as "user" | "assistant",
-        content: msg.content
-      })),
       {
-        role: "user" as const,
-        content: message
+        role: 'user',
+        content: `${MOCHI_CLAUDE_PROMPT}\n\nConversation History:\n${conversation_history.map(msg => `${msg.role}: ${msg.content}`).join('\n')}\n\nNew Message: ${message}`
       }
     ];
 
-    console.log(`Processing with Claude 4 (${selectedModel}) - Reasoning: ${reasoning_intensity}`);
+    console.log(`Enhanced Mochi Claude request - Model: ${model}`);
 
-    const response = await anthropic.messages.create({
-      model: selectedModel,
-      max_tokens: maxTokens,
-      temperature: temperature,
-      system: MOCHI_CLAUDE_PROMPT,
-      messages: messages
+    // Make request to Anthropic API
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': anthropicApiKey,
+        'content-type': 'application/json',
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: model,
+        max_tokens: 1000,
+        temperature: 0.7,
+        messages: messages,
+        stream: stream
+      })
     });
 
-    const aiResponse = response.content[0]?.type === 'text' ? response.content[0].text : '';
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Anthropic API error:', error);
+      throw new Error(error.error?.message || 'Failed to get response from Anthropic');
+    }
+
     const responseTime = Date.now() - startTime;
 
-    // Log successful interaction with detailed analytics
+    // Log successful interaction
     try {
       await supabase.from('mochi_integrations').insert({
         platform: 'anthropic',
-        model: selectedModel,
+        model: model,
         message_length: message.length,
         response_time_ms: responseTime,
         success: true,
         options: {
-          reasoning_intensity: reasoning_intensity,
+          stream: stream,
           user_id: user_id || 'guest',
           conversation_length: conversation_history.length,
-          language: language,
-          max_tokens: maxTokens,
-          temperature: temperature,
-          response_length: aiResponse.length,
-          usage: response.usage
+          system_version: 'enhanced_claude',
+          timestamp: new Date().toISOString()
         }
       });
     } catch (logError) {
-      console.error('Failed to log Claude interaction:', logError);
+      console.error('Failed to log interaction:', logError);
     }
 
-    console.log(`Claude 4 response completed in ${responseTime}ms`);
+    if (stream) {
+      // Handle streaming response
+      const streamResponse = new ReadableStream({
+        async start(controller) {
+          const reader = response.body?.getReader();
+          if (!reader) return;
 
-    return new Response(
-      JSON.stringify({ 
-        response: aiResponse,
-        model: selectedModel,
-        reasoning_intensity: reasoning_intensity,
-        response_time_ms: responseTime,
-        usage: response.usage,
-        metadata: {
-          conversation_length: conversation_history.length,
-          user_id: user_id || 'guest',
-          timestamp: new Date().toISOString(),
-          enhanced_reasoning: true
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = new TextDecoder().decode(value);
+              const lines = chunk.split('\n');
+
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const data = line.slice(6);
+                  if (data === '[DONE]') {
+                    controller.close();
+                    return;
+                  }
+
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.delta?.text;
+                    if (content) {
+                      controller.enqueue(
+                        new TextEncoder().encode(`data: ${JSON.stringify({ 
+                          content,
+                          model: model,
+                          platform: 'anthropic',
+                          timestamp: Date.now()
+                        })}\n\n`)
+                      );
+                    }
+                  } catch (e) {
+                    // Skip invalid JSON chunks
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            console.error('Streaming error:', error);
+            controller.error(error);
+          }
         }
-      }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+      });
+
+      return new Response(streamResponse, {
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        },
+      });
+    } else {
+      // Handle complete response
+      const data = await response.json();
+      const aiResponse = data.content[0].text;
+
+      return new Response(
+        JSON.stringify({ 
+          response: aiResponse,
+          model: model,
+          platform: 'anthropic',
+          response_time_ms: responseTime,
+          usage: data.usage,
+          metadata: {
+            conversation_length: conversation_history.length,
+            user_id: user_id || 'guest',
+            timestamp: new Date().toISOString()
+          }
+        }),
+        { 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json' 
+          } 
+        }
+      );
+    }
 
   } catch (error) {
-    console.error('Enhanced Mochi Claude error:', error);
+    console.error('Error in enhanced_mochi_claude:', error);
     
     // Log error
     try {
@@ -188,25 +240,27 @@ serve(async (req) => {
       
       await supabase.from('mochi_integrations').insert({
         platform: 'anthropic',
-        model: 'claude-opus-4-20250514',
+        model: 'claude-error',
         message_length: 0,
         response_time_ms: 0,
         success: false,
         error_message: error.message,
         options: {
-          error_type: 'enhanced_mochi_claude_error',
+          error_type: 'enhanced_claude_error',
           timestamp: new Date().toISOString()
         }
       });
     } catch (logError) {
-      console.error('Failed to log Claude error:', logError);
+      console.error('Failed to log error:', logError);
     }
 
+    // Return bee-themed error with wordplay
     return new Response(
       JSON.stringify({ 
         error: error.message,
-        fallback_response: "🐝 ¡Buzztastical! I'm having a small technical hiccup with my advanced reasoning systems, but I'm still buzzing with excitement to help you explore the wonderful world of bees and gardens! What would you like to learn about today? 🌻",
+        fallback_response: "🐝 Oh my! I'm having a bee-wildering moment and can't access my full knowledge right now. But don't worry - I'm still buzzing with excitement to help you explore the bee-autiful world of gardens and pollinators! What would you like to bee-gin learning about? 🌻",
         model: 'fallback',
+        platform: 'anthropic',
         timestamp: new Date().toISOString()
       }),
       {
