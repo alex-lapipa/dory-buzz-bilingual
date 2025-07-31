@@ -48,21 +48,6 @@ const Index = () => {
               </p>
             </div>
           </div>
-          
-          <div className="flex flex-wrap justify-center gap-2">
-            <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-              <Sparkles className="h-3 w-3 mr-1" />
-              Multi-AI Powered
-            </Badge>
-            <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
-              <BarChart3 className="h-3 w-3 mr-1" />
-              Advanced Analytics
-            </Badge>
-            <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">
-              <Heart className="h-3 w-3 mr-1" />
-              GDPR Compliant
-            </Badge>
-          </div>
         </div>
 
         {/* Main Interface with Tabs */}
