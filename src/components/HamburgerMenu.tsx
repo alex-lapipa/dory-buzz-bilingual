@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image, Video } from 'lucide-react';
+import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image, Video, Settings } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
 import { SystemTestStatus } from '@/components/SystemTestStatus';
+import { TechnicalSpecs } from '@/components/TechnicalSpecs';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -187,6 +188,18 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
+                onClick={() => {
+                  setActiveSection(activeSection === 'technical' ? null : 'technical');
+                }}
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Technical Specifications
+                <Badge variant="secondary" className="ml-auto">Specs</Badge>
+              </Button>
+
+              <Button 
+                variant="outline" 
+                className="w-full justify-start" 
                 asChild
               >
                 <Link to="/dashboard">
@@ -305,6 +318,21 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                   </Button>
                 </div>
                 <AccessibilityHelper />
+              </div>
+            </div>
+          )}
+
+          {/* Technical Specifications */}
+          {activeSection === 'technical' && (
+            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
+              <div className="max-w-2xl mx-auto">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-bold">Technical Specifications</h2>
+                  <Button variant="outline" onClick={() => setActiveSection(null)}>
+                    ✕
+                  </Button>
+                </div>
+                <TechnicalSpecs />
               </div>
             </div>
           )}
