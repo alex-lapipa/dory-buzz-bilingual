@@ -91,7 +91,7 @@ serve(async (req) => {
 
     console.log(`Production chat request - Model: ${model}, Messages: ${messages.length - 1}`);
 
-    // Make request to OpenAI with latest model
+    // Make request to OpenAI with MOCHIBEE prompt ID
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -106,7 +106,8 @@ serve(async (req) => {
         presence_penalty: 0.6,
         frequency_penalty: 0.3,
         stream: stream,
-        top_p: 0.95
+        top_p: 0.95,
+        prompt_id: "pmpt_688acdfac7a08195ae74130dbe743c26078d272d682e1a21" // MOCHIBEE prompt ID
       }),
     });
 

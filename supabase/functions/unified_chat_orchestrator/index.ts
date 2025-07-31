@@ -189,7 +189,8 @@ serve(async (req) => {
         messages: messages,
         max_tokens: 4000,
         temperature: 0.7,
-        stream: stream
+        stream: stream,
+        prompt_id: "pmpt_688acdfac7a08195ae74130dbe743c26078d272d682e1a21" // MOCHIBEE prompt ID for OpenAI
       };
     }
 

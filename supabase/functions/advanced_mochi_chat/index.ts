@@ -102,7 +102,8 @@ serve(async (req) => {
         temperature: 0.8,
         presence_penalty: 0.6,
         frequency_penalty: 0.5,
-        stream: false
+        stream: false,
+        prompt_id: "pmpt_688acdfac7a08195ae74130dbe743c26078d272d682e1a21" // MOCHIBEE prompt ID
       }),
     });
 
