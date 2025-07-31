@@ -29,7 +29,7 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('unified');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-nature relative overflow-hidden">
       {/* Background Elements */}
       <FloatingGarden />
       
