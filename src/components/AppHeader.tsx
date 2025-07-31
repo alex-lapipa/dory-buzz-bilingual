@@ -26,18 +26,22 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Left: La Pipa Logo + Bee */}
         <div className="flex-shrink-0 flex items-center gap-2">
-          <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer">
+          <button 
+            onClick={handleBeeClick}
+            className="hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
+            aria-label="Go to home page"
+          >
             <img 
               src="/lovable-uploads/1f601181-1675-48ad-9c86-886c676b13e7.png" 
               alt="La Pipa" 
-              className="h-6 w-6 sm:h-8 sm:w-8 hover:opacity-80 transition-opacity bg-transparent"
+              className="h-6 w-6 sm:h-8 sm:w-8 bg-transparent"
               style={{backgroundColor: 'transparent'}}
             />
-          </a>
+          </button>
           <button 
             onClick={handleBeeClick}
             className="text-3xl sm:text-4xl animate-bee-bounce hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
-            aria-label="Go to landing page"
+            aria-label="Go to home page"
           >
             🐝
           </button>
