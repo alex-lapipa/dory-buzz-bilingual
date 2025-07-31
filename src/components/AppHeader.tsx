@@ -43,8 +43,29 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           </button>
         </div>
         
-        {/* Center: Title and Subtitle */}
+        {/* Center: Navigation and Title */}
         <div className="flex flex-col items-center text-center">
+          {/* Navigation */}
+          <nav className="flex items-center gap-4 mb-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/')}
+              className="text-sm hover:text-primary"
+            >
+              Home
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/learning-hub')}
+              className="text-sm hover:text-primary flex items-center gap-1"
+            >
+              🎓 Learning Hub
+            </Button>
+          </nav>
+          
+          {/* Title */}
           <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-1">
             MochiBee 🌻
           </h1>
