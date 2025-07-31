@@ -14,6 +14,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface BeeFact {
   id: string;
@@ -33,6 +34,7 @@ interface LearningProgress {
 }
 
 const LearningHub: React.FC = () => {
+  const navigate = useNavigate();
   const [beeFacts, setBeeFacts] = useState<BeeFact[]>([]);
   const [progress, setProgress] = useState<LearningProgress[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -235,7 +237,7 @@ const LearningHub: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <Card 
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-yellow-200 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100 group"
-            onClick={() => window.location.href = '/learning/bee-basics'}
+            onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-yellow-800">
@@ -254,21 +256,17 @@ const LearningHub: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 text-xs">Beginner</Badge>
                 <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 text-xs">Interactive</Badge>
-                <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 text-xs">AI-Powered</Badge>
+                <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 text-xs">Educational</Badge>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-yellow-600">
-                  <span>Progress</span>
-                  <span>15 lessons</span>
-                </div>
-                <Progress value={33} className="h-2" />
-              </div>
+              <Button className="w-full bg-yellow-600 hover:bg-yellow-700 text-white">
+                Start Learning
+              </Button>
             </CardContent>
           </Card>
           
           <Card 
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-green-200 bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 group"
-            onClick={() => window.location.href = '/learning/garden-basics'}
+            onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-green-800">
@@ -285,13 +283,9 @@ const LearningHub: React.FC = () => {
                 <Badge variant="secondary" className="bg-green-100 text-green-700 text-xs">Hands-On</Badge>
                 <Badge variant="secondary" className="bg-green-100 text-green-700 text-xs">Practical</Badge>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-green-600">
-                  <span>Progress</span>
-                  <span>12 lessons</span>
-                </div>
-                <Progress value={15} className="h-2" />
-              </div>
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                Start Learning
+              </Button>
             </CardContent>
           </Card>
           
