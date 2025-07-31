@@ -20,6 +20,7 @@ export const GDPRConsentBanner: React.FC = () => {
 
   const handleAcceptAll = async () => {
     setIsSubmitting(true);
+    dismissConsentBanner(); // Close banner immediately
     try {
       await giveConsent(CONSENT_TYPES.DATA_PROCESSING, true);
       await giveConsent(CONSENT_TYPES.ANALYTICS, true);
@@ -34,6 +35,7 @@ export const GDPRConsentBanner: React.FC = () => {
 
   const handleAcceptSelected = async () => {
     setIsSubmitting(true);
+    dismissConsentBanner(); // Close banner immediately
     try {
       // Data processing is mandatory
       await giveConsent(CONSENT_TYPES.DATA_PROCESSING, true);
@@ -53,6 +55,7 @@ export const GDPRConsentBanner: React.FC = () => {
 
   const handleRejectAll = async () => {
     setIsSubmitting(true);
+    dismissConsentBanner(); // Close banner immediately
     try {
       // Only give essential data processing consent
       await giveConsent(CONSENT_TYPES.DATA_PROCESSING, true);
