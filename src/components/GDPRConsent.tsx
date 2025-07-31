@@ -6,7 +6,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { X, Shield, Info } from 'lucide-react';
 import { useState } from 'react';
-import permacultureGardenBg from '@/assets/permaculture-garden-bg.jpg';
 
 export const GDPRConsentBanner: React.FC = () => {
   const { showConsentBanner, giveConsent, dismissConsentBanner } = useConsent();
@@ -67,126 +66,85 @@ export const GDPRConsentBanner: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-2">
-      <div className="max-w-5xl mx-auto">
-        <div 
-          className="relative overflow-hidden rounded-xl border border-green-200/60 shadow-xl backdrop-blur-md"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(248, 250, 252, 0.5)), url(${permacultureGardenBg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundBlendMode: 'overlay'
-          }}
-        >
-          <div className="p-3">
-            <div className="flex items-start gap-2">
-              <div className="p-1 rounded-full bg-green-100/90 backdrop-blur-sm flex-shrink-0">
-                <Shield className="h-4 w-4 text-green-700" />
-              </div>
-              
-              <div className="flex-1 space-y-2">
-                <div>
-                  <h3 className="font-semibold text-sm mb-1 text-yellow-400">🍪 Cookie and Privacy Settings</h3>
-                  <p className="text-xs text-yellow-300 leading-tight">
-                    We use cookies and similar technologies to provide essential services, analyze usage, and improve your experience.
-                  </p>
-                </div>
-
-                <div className="grid sm:grid-cols-3 gap-1">
-                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-green-50/90 backdrop-blur-sm border border-green-200/60">
-                    <div className="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center mt-0.5">
-                      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-yellow-400 text-xs">Strictly Necessary</div>
-                      <div className="text-yellow-300 text-xs">Essential for website functionality</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
-                    <Checkbox 
-                      id="analytics-consent"
-                      checked={consents.analytics}
-                      onCheckedChange={(checked) => 
-                        setConsents(prev => ({ ...prev, analytics: !!checked }))
-                      }
-                      className="mt-0.5"
-                    />
-                    <div>
-                      <div className="font-semibold text-yellow-400 text-xs">Analytics & Performance</div>
-                      <div className="text-yellow-300 text-xs">Usage statistics and improvements</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-1 p-1.5 rounded-lg bg-white/70 backdrop-blur-sm border border-green-200/60">
-                    <Checkbox 
-                      id="marketing-consent"
-                      checked={consents.marketing}
-                      onCheckedChange={(checked) => 
-                        setConsents(prev => ({ ...prev, marketing: !!checked }))
-                      }
-                      className="mt-0.5"
-                    />
-                    <div>
-                      <div className="font-semibold text-yellow-400 text-xs">Marketing & Communications</div>
-                      <div className="text-yellow-300 text-xs">Personalized content and offers</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-1 pt-1">
-                  <Button 
-                    onClick={handleAcceptAll} 
-                    size="sm"
-                    disabled={isSubmitting}
-                    className="bg-green-600 hover:bg-green-700 text-white shadow-md text-xs px-3 py-1"
-                  >
-                    Accept All
-                  </Button>
-                  
-                  <Button 
-                    onClick={handleAcceptSelected} 
-                    variant="outline" 
-                    size="sm"
-                    disabled={isSubmitting}
-                    className="border-green-600 text-green-700 hover:bg-green-50 shadow-sm text-xs px-3 py-1"
-                  >
-                    Accept Selected
-                  </Button>
-                  
-                  <Button 
-                    onClick={handleRejectAll} 
-                    variant="ghost" 
-                    size="sm"
-                    disabled={isSubmitting}
-                    className="text-green-600 hover:bg-green-50 text-xs px-3 py-1"
-                  >
-                    Reject Optional
-                  </Button>
-
-                  <div className="flex items-center gap-1 ml-auto">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={() => {/* Link to privacy policy */}}
-                      className="text-xs text-green-600 hover:bg-green-50 px-2 py-1"
-                    >
-                      <Info className="h-3 w-3 mr-1" />
-                      Privacy Policy
-                    </Button>
-                    
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={dismissConsentBanner}
-                      className="p-1 text-yellow-400 hover:bg-green-50 rounded-full"
-                    >
-                      <X className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="flex items-center justify-between gap-4">
+          {/* Left: Message */}
+          <div className="flex items-center gap-3 flex-1">
+            <div className="text-2xl">🍪</div>
+            <div className="text-sm">
+              <p className="font-medium text-gray-900 mb-1">We use cookies</p>
+              <p className="text-gray-600 text-xs leading-tight">
+                This site uses essential cookies for functionality and optional cookies for analytics and marketing. 
+                <button className="text-blue-600 hover:underline ml-1">Learn more</button>
+              </p>
             </div>
+          </div>
+
+          {/* Center: Consent Options */}
+          <div className="flex items-center gap-3 text-xs">
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <Checkbox 
+                checked={consents.analytics}
+                onCheckedChange={(checked) => 
+                  setConsents(prev => ({ ...prev, analytics: !!checked }))
+                }
+                className="h-3 w-3"
+              />
+              <span className="text-gray-700">Analytics</span>
+            </label>
+            
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <Checkbox 
+                checked={consents.marketing}
+                onCheckedChange={(checked) => 
+                  setConsents(prev => ({ ...prev, marketing: !!checked }))
+                }
+                className="h-3 w-3"
+              />
+              <span className="text-gray-700">Marketing</span>
+            </label>
+          </div>
+
+          {/* Right: Action Buttons */}
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleAcceptSelected}
+              disabled={isSubmitting}
+              className="text-xs h-8 px-3 border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              Accept Selected
+            </Button>
+            
+            <Button
+              size="sm"
+              onClick={handleAcceptAll}
+              disabled={isSubmitting}
+              className="text-xs h-8 px-3 bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Accept All
+            </Button>
+            
+            <Button
+              size="sm"
+              variant="ghost"
+              onClick={handleRejectAll}
+              disabled={isSubmitting}
+              className="text-xs h-8 px-2 text-gray-500 hover:text-gray-700"
+            >
+              Reject
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={dismissConsentBanner}
+              className="p-1 h-8 w-8 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>
