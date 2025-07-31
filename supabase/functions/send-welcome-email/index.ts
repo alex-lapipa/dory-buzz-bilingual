@@ -57,7 +57,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
 
     // Send the email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Mochi from BeeCrazy Garden World <onboarding@resend.dev>',
+      from: 'Mochi from BeeCrazy Garden World <hello@idiomas.io>',
       to: [email],
       subject: language === 'es' 
         ? '🐝 ¡Bienvenido al Mundo Jardín BeeCrazy!' 
