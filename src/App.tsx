@@ -29,6 +29,7 @@ import ProductionDashboard from "@/components/ProductionDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
 import { Footer } from "@/components/Footer";
+import { PerformanceOptimizer } from "@/components/PerformanceOptimizer";
 
 // Create a context to manage active tab across components
 const TabContext = createContext<{
@@ -190,6 +191,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ErrorBoundary>
+          <PerformanceOptimizer />
           <Toaster />
           <Sonner />
           <AppContent />
