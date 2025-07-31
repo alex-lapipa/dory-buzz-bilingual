@@ -309,9 +309,9 @@ const TechnicalDetails: React.FC = () => {
                 <div className="p-4 bg-white/60 rounded-lg border border-amber-200">
                   <div className="text-2xl mb-2">🐝</div>
                   <h4 className="font-bold text-amber-800">Isabel Rimada</h4>
-                  <p className="text-sm text-amber-700 font-medium">Bee & Permaculture Expert</p>
+                  <p className="text-sm text-amber-700 font-medium">Bee & Beeswax Expert</p>
                   <p className="text-xs text-amber-600 mt-2">
-                    Sustainable beekeeping practices, permaculture design, 
+                    Sustainable beekeeping practices, beeswax & candles crafting, 
                     and ecological garden systems
                   </p>
                 </div>
@@ -319,10 +319,10 @@ const TechnicalDetails: React.FC = () => {
                 <div className="p-4 bg-white/60 rounded-lg border border-amber-200">
                   <div className="text-2xl mb-2">🌻</div>
                   <h4 className="font-bold text-amber-800">Dory Casas</h4>
-                  <p className="text-sm text-amber-700 font-medium">Garden & Seeds Specialist</p>
+                  <p className="text-sm text-amber-700 font-medium">Garden, Seeds & Permaculture Specialist</p>
                   <p className="text-xs text-amber-600 mt-2">
                     Heirloom seed preservation, organic gardening methods, 
-                    and natural beeswax applications
+                    permaculture design, and natural beeswax applications
                   </p>
                 </div>
               </div>
