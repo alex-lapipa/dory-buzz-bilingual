@@ -183,7 +183,6 @@ export const UnifiedMochiInterface: React.FC = () => {
           <CardTitle className="flex items-center gap-2">
             <span className="text-2xl">🐝</span>
             Mochi AI Garden Assistant
-            <Badge variant="outline" className="ml-2">Unified System</Badge>
           </CardTitle>
           
           <Tabs value={activeMode} onValueChange={(value) => setActiveMode(value as any)} className="w-auto">
