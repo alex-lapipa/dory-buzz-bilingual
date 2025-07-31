@@ -6,6 +6,13 @@ import { Progress } from '@/components/ui/progress';
 import { PageLayout } from '@/components/PageLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap } from 'lucide-react';
 
 interface BeeFact {
@@ -220,8 +227,139 @@ const LearningHub: React.FC = () => {
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover amazing facts about bees and gardening with AI-powered learning tools! 
-            Listen, analyze, and visualize your way to becoming a garden expert.
+            Choose your learning adventure below.
           </p>
+        </div>
+
+        {/* Learning Paths Carousel */}
+        <div className="mb-8">
+          <Carousel className="w-full max-w-4xl mx-auto">
+            <CarouselContent>
+              <CarouselItem className="md:basis-1/2">
+                <Card 
+                  className="h-64 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50"
+                  onClick={() => window.location.href = '/learning/bee-basics'}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-yellow-800">
+                      <span className="text-4xl animate-bee-bounce">🐝</span>
+                      Bee Basics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-yellow-700">
+                      Learn about bee anatomy, behavior, and their important role in our ecosystem.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">Beginner</Badge>
+                      <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">Interactive</Badge>
+                      <Badge variant="secondary" className="bg-yellow-100 text-yellow-700">AI-Powered</Badge>
+                    </div>
+                    <div className="pt-4">
+                      <div className="text-sm text-yellow-600 mb-2">Your Progress</div>
+                      <Progress value={33} className="h-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              
+              <CarouselItem className="md:basis-1/2">
+                <Card 
+                  className="h-64 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50"
+                  onClick={() => window.location.href = '/learning/garden-basics'}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-green-800">
+                      <span className="text-4xl animate-pulse">🌱</span>
+                      Garden Basics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-green-700">
+                      Discover how plants grow, what they need, and how to start your own garden.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="bg-green-100 text-green-700">Beginner</Badge>
+                      <Badge variant="secondary" className="bg-green-100 text-green-700">Hands-On</Badge>
+                      <Badge variant="secondary" className="bg-green-100 text-green-700">Fun</Badge>
+                    </div>
+                    <div className="pt-4">
+                      <div className="text-sm text-green-600 mb-2">Your Progress</div>
+                      <Progress value={15} className="h-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              
+              <CarouselItem className="md:basis-1/2">
+                <Card 
+                  className="h-64 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50"
+                  onClick={() => {
+                    toast({
+                      title: "🌸 Coming Soon!",
+                      description: "Pollination adventures are being prepared!",
+                    });
+                  }}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-purple-800">
+                      <span className="text-4xl animate-bounce">🌸</span>
+                      Pollination Adventures
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-purple-700">
+                      Follow pollen on its journey and learn how flowers and bees work together.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="bg-purple-100 text-purple-700">Coming Soon</Badge>
+                      <Badge variant="secondary" className="bg-purple-100 text-purple-700">Interactive</Badge>
+                      <Badge variant="secondary" className="bg-purple-100 text-purple-700">Adventure</Badge>
+                    </div>
+                    <div className="pt-4">
+                      <div className="text-sm text-purple-600 mb-2">Your Progress</div>
+                      <Progress value={0} className="h-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+              
+              <CarouselItem className="md:basis-1/2">
+                <Card 
+                  className="h-64 cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50"
+                  onClick={() => {
+                    toast({
+                      title: "🌿 Coming Soon!",
+                      description: "Ecosystem exploration is being developed!",
+                    });
+                  }}
+                >
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-blue-800">
+                      <span className="text-4xl animate-spin-slow">🌍</span>
+                      Ecosystem Explorer
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-blue-700">
+                      Explore how bees, plants, and other creatures create amazing ecosystems.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-700">Coming Soon</Badge>
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-700">Advanced</Badge>
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-700">Discovery</Badge>
+                    </div>
+                    <div className="pt-4">
+                      <div className="text-sm text-blue-600 mb-2">Your Progress</div>
+                      <Progress value={0} className="h-2" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
 
         {/* Progress Overview */}

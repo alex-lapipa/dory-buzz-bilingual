@@ -22,6 +22,9 @@ import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import LearningHub from "./pages/LearningHub";
 import TechnicalDetails from "./pages/TechnicalDetails";
+
+const BeeBasics = React.lazy(() => import('./pages/learning/BeeBasics'));
+const GardenBasics = React.lazy(() => import('./pages/learning/GardenBasics'));
 import ProductionDashboard from "@/components/ProductionDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -146,6 +149,16 @@ const AppContent = () => {
                         <Route path="/auth" element={<AuthPage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />
+                        <Route path="/learning/bee-basics" element={
+                          <React.Suspense fallback={<div>Loading...</div>}>
+                            <BeeBasics />
+                          </React.Suspense>
+                        } />
+                        <Route path="/learning/garden-basics" element={
+                          <React.Suspense fallback={<div>Loading...</div>}>
+                            <GardenBasics />
+                          </React.Suspense>
+                        } />
                         <Route path="/technical-details" element={
                           <React.Suspense fallback={<div>Loading...</div>}>
                             <TechnicalDetails />
