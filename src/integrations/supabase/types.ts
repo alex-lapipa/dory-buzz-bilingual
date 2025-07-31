@@ -101,6 +101,90 @@ export type Database = {
         }
         Relationships: []
       }
+      feature_usage: {
+        Row: {
+          created_at: string
+          error_count: number | null
+          feature_name: string
+          first_used_at: string
+          id: string
+          last_used_at: string
+          success_rate: number | null
+          total_time_spent_seconds: number | null
+          updated_at: string
+          usage_count: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          error_count?: number | null
+          feature_name: string
+          first_used_at?: string
+          id?: string
+          last_used_at?: string
+          success_rate?: number | null
+          total_time_spent_seconds?: number | null
+          updated_at?: string
+          usage_count?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          error_count?: number | null
+          feature_name?: string
+          first_used_at?: string
+          id?: string
+          last_used_at?: string
+          success_rate?: number | null
+          total_time_spent_seconds?: number | null
+          updated_at?: string
+          usage_count?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      improvement_insights: {
+        Row: {
+          affected_user_count: number | null
+          created_at: string
+          description: string
+          generated_at: string
+          id: string
+          insight_type: string
+          priority_score: number | null
+          status: string | null
+          supporting_data: Json | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          affected_user_count?: number | null
+          created_at?: string
+          description: string
+          generated_at?: string
+          id?: string
+          insight_type: string
+          priority_score?: number | null
+          status?: string | null
+          supporting_data?: Json | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          affected_user_count?: number | null
+          created_at?: string
+          description?: string
+          generated_at?: string
+          id?: string
+          insight_type?: string
+          priority_score?: number | null
+          status?: string | null
+          supporting_data?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       live_metrics: {
         Row: {
           environment: string
@@ -355,6 +439,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_behavior_patterns: {
+        Row: {
+          calculated_at: string
+          confidence_score: number | null
+          created_at: string
+          id: string
+          pattern_data: Json
+          pattern_type: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          calculated_at?: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          pattern_data: Json
+          pattern_type: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          calculated_at?: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          pattern_data?: Json
+          pattern_type?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_consents: {
         Row: {
           consent_date: string
@@ -391,6 +508,96 @@ export type Database = {
           user_agent?: string | null
           user_id?: string | null
           withdrawn_at?: string | null
+        }
+        Relationships: []
+      }
+      user_events: {
+        Row: {
+          created_at: string
+          element_class: string | null
+          element_id: string | null
+          event_name: string
+          event_type: string
+          id: string
+          metadata: Json | null
+          page_url: string | null
+          session_id: string | null
+          timestamp: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          element_class?: string | null
+          element_id?: string | null
+          event_name: string
+          event_type: string
+          id?: string
+          metadata?: Json | null
+          page_url?: string | null
+          session_id?: string | null
+          timestamp?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          element_class?: string | null
+          element_id?: string | null
+          event_name?: string
+          event_type?: string
+          id?: string
+          metadata?: Json | null
+          page_url?: string | null
+          session_id?: string | null
+          timestamp?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_personas: {
+        Row: {
+          calculated_at: string
+          characteristics: Json
+          created_at: string
+          engagement_level: string | null
+          id: string
+          learning_preferences: Json | null
+          lifetime_value_score: number | null
+          persona_type: string
+          preferred_features: string[] | null
+          risk_churn: number | null
+          updated_at: string
+          usage_frequency: string | null
+          user_id: string | null
+        }
+        Insert: {
+          calculated_at?: string
+          characteristics: Json
+          created_at?: string
+          engagement_level?: string | null
+          id?: string
+          learning_preferences?: Json | null
+          lifetime_value_score?: number | null
+          persona_type: string
+          preferred_features?: string[] | null
+          risk_churn?: number | null
+          updated_at?: string
+          usage_frequency?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          calculated_at?: string
+          characteristics?: Json
+          created_at?: string
+          engagement_level?: string | null
+          id?: string
+          learning_preferences?: Json | null
+          lifetime_value_score?: number | null
+          persona_type?: string
+          preferred_features?: string[] | null
+          risk_churn?: number | null
+          updated_at?: string
+          usage_frequency?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -478,6 +685,54 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          actions_taken: number | null
+          browser: string | null
+          created_at: string
+          device_type: string | null
+          duration_seconds: number | null
+          ended_at: string | null
+          id: string
+          os: string | null
+          pages_visited: number | null
+          screen_resolution: string | null
+          session_id: string
+          started_at: string
+          user_id: string | null
+        }
+        Insert: {
+          actions_taken?: number | null
+          browser?: string | null
+          created_at?: string
+          device_type?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          os?: string | null
+          pages_visited?: number | null
+          screen_resolution?: string | null
+          session_id: string
+          started_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          actions_taken?: number | null
+          browser?: string | null
+          created_at?: string
+          device_type?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          os?: string | null
+          pages_visited?: number | null
+          screen_resolution?: string | null
+          session_id?: string
+          started_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
