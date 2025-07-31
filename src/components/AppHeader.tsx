@@ -85,7 +85,18 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             </Button>
           </nav>
           
-          {/* Auth Button */}
+          {/* Action Buttons */}
+          <FollowMochiModal>
+            <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
+              <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
+            </Button>
+          </FollowMochiModal>
+          
+          <ShareButtons />
+          <HamburgerMenu onTabSelect={onTabSelect} />
+          
+          {/* Auth Button - Moved to far right */}
           {user ? (
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">
@@ -112,17 +123,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               Sign In
             </Button>
           )}
-          
-          {/* Action Buttons */}
-          <FollowMochiModal>
-            <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
-              <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
-            </Button>
-          </FollowMochiModal>
-          
-          <ShareButtons />
-          <HamburgerMenu onTabSelect={onTabSelect} />
         </div>
       </div>
     </header>

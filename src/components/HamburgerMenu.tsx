@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Brain, BookOpen, Zap, MessageCircle, Mic, Image, Video, Settings } from 'lucide-react';
-import { AdvancedFeatures } from '@/components/AdvancedFeatures';
+import { Menu, ExternalLink, Info, BookOpen, Zap, MessageCircle, Mic, Image, Video, Settings } from 'lucide-react';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
 import { SystemTestStatus } from '@/components/SystemTestStatus';
@@ -112,26 +111,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </>
           )}
 
-          {/* Advanced Features */}
-          <div className="space-y-4">
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-left h-auto p-3"
-              onClick={() => setActiveSection(activeSection === 'advanced' ? null : 'advanced')}
-            >
-              <Brain className="h-4 w-4 mr-2" />
-              <span className="font-medium">🚀 {t('advancedFeatures') || 'Advanced AI Features'}</span>
-              <Badge variant="secondary" className="ml-auto">NEW</Badge>
-            </Button>
-            
-            {activeSection === 'advanced' && (
-              <div className="ml-4 border-l-2 border-accent pl-4 max-h-96 overflow-y-auto">
-                <AdvancedFeatures />
-              </div>
-            )}
-          </div>
+          {/* Removed Advanced Features - Moved to Technical Details page */}
 
-          <Separator />
 
           {/* Bee Education Hub */}
           <div className="space-y-4">

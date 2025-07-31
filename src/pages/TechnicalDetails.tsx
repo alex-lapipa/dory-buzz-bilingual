@@ -16,6 +16,7 @@ import {
   Heart,
   Leaf
 } from 'lucide-react';
+import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 
 const TechnicalDetails: React.FC = () => {
   return (
@@ -271,6 +272,85 @@ const TechnicalDetails: React.FC = () => {
                   <Badge variant="secondary" className="text-xs">Plant ID Camera</Badge>
                   <Badge variant="secondary" className="text-xs">Weather Integration</Badge>
                   <Badge variant="secondary" className="text-xs">Community Marketplace</Badge>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Separator className="my-8" />
+
+        {/* Advanced AI Features Section */}
+        <Card className="bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 border-purple-200">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-purple-800">
+              <Brain className="h-6 w-6" />
+              🚀 Advanced AI Features
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <p className="text-purple-700 leading-relaxed">
+                BeeCrazy Garden World integrates cutting-edge AI capabilities to provide an unparalleled 
+                educational experience. Our advanced features leverage multiple AI platforms working in harmony.
+              </p>
+              
+              {/* Import the AdvancedFeatures component */}
+              <div className="bg-white/60 rounded-lg p-4 border border-purple-200">
+                <AdvancedFeatures />
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="p-4 bg-white/60 rounded-lg border border-purple-200">
+                  <h4 className="font-semibold text-purple-800 mb-2 flex items-center gap-2">
+                    <Zap className="h-4 w-4" />
+                    AI Orchestration
+                  </h4>
+                  <ul className="space-y-1 text-sm text-purple-700">
+                    <li>• Multi-platform AI coordination</li>
+                    <li>• Intelligent model selection</li>
+                    <li>• Load balancing and failover</li>
+                    <li>• Performance optimization</li>
+                  </ul>
+                </div>
+                
+                <div className="p-4 bg-white/60 rounded-lg border border-purple-200">
+                  <h4 className="font-semibold text-purple-800 mb-2 flex items-center gap-2">
+                    <Brain className="h-4 w-4" />
+                    Adaptive Learning
+                  </h4>
+                  <ul className="space-y-1 text-sm text-purple-700">
+                    <li>• Personalized content generation</li>
+                    <li>• Progress-based difficulty adjustment</li>
+                    <li>• Learning path optimization</li>
+                    <li>• Real-time feedback integration</li>
+                  </ul>
+                </div>
+                
+                <div className="p-4 bg-white/60 rounded-lg border border-purple-200">
+                  <h4 className="font-semibold text-purple-800 mb-2 flex items-center gap-2">
+                    <Image className="h-4 w-4" />
+                    Multi-Modal AI
+                  </h4>
+                  <ul className="space-y-1 text-sm text-purple-700">
+                    <li>• Voice + text interaction</li>
+                    <li>• Image generation and analysis</li>
+                    <li>• Video content creation</li>
+                    <li>• Interactive visual learning</li>
+                  </ul>
+                </div>
+                
+                <div className="p-4 bg-white/60 rounded-lg border border-purple-200">
+                  <h4 className="font-semibold text-purple-800 mb-2 flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    Enterprise Grade
+                  </h4>
+                  <ul className="space-y-1 text-sm text-purple-700">
+                    <li>• GDPR compliant data handling</li>
+                    <li>• Real-time health monitoring</li>
+                    <li>• Scalable cloud infrastructure</li>
+                    <li>• Advanced analytics and insights</li>
+                  </ul>
                 </div>
               </div>
             </div>
