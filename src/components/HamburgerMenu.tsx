@@ -146,82 +146,36 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 variant="outline" 
                 className="w-full justify-start" 
                 onClick={() => {
-                  setActiveSection(activeSection === 'accessibility' ? null : 'accessibility');
-                }}
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                {t('systemStatus') || 'System Status & Help'}
-              </Button>
-
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                onClick={() => {
-                  setActiveSection(activeSection === 'testing' ? null : 'testing');
-                }}
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                MVP System Tests
-                <Badge variant="secondary" className="ml-auto">Test</Badge>
-              </Button>
-
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                onClick={() => {
                   setActiveSection(activeSection === 'technical' ? null : 'technical');
                 }}
               >
                 <Settings className="h-4 w-4 mr-2" />
-                Technical Specifications
-                <Badge variant="secondary" className="ml-auto">Specs</Badge>
+                Technical Details
+                <Badge variant="secondary" className="ml-auto">Tech</Badge>
               </Button>
 
               <Button 
                 variant="outline" 
                 className="w-full justify-start" 
-                asChild
-              >
-                <Link to="/technical-details">
-                  <Settings className="h-4 w-4 mr-2" />
-                  🔬 Technical Details
-                </Link>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                asChild
-              >
-                <Link to="/dashboard">
-                  <Zap className="h-4 w-4 mr-2" />
-                  {t('dashboard') || 'System Dashboard'}
-                </Link>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
                 onClick={() => {
-                  window.open('https://lapipa.io', '_blank');
-                  setIsOpen(false);
+                  setActiveSection(activeSection === 'accessibility' ? null : 'accessibility');
                 }}
               >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {t('visitLapipa') || 'Visit Lapipa.io'}
+                <Zap className="h-4 w-4 mr-2" />
+                System Help
               </Button>
               
                <Button 
                 variant="outline" 
                 className="w-full justify-start" 
                 onClick={() => {
-                  window.location.reload();
+                  window.open('https://lapipa.io', '_blank');
                   setIsOpen(false);
                 }}
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  {t('refreshApp') || 'Refresh App'}
-                </Button>
+               >
+                 <ExternalLink className="h-4 w-4 mr-2" />
+                 Lapipa.io
+               </Button>
             </div>
           </div>
 
@@ -283,19 +237,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </div>
           </div>
 
-          {/* System Testing Interface */}
-          {activeSection === 'testing' && (
-            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
-              <div className="max-w-4xl mx-auto">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">MVP System Testing</h2>
-                  <Button variant="outline" onClick={() => setActiveSection(null)}>
-                    ✕
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Accessibility Helper */}
           {activeSection === 'accessibility' && (

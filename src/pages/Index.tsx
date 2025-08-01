@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
-import { UnifiedMochiInterface } from '@/components/UnifiedMochiInterface';
 import { MochiVoiceInterface } from '@/components/MochiVoiceInterface';
 import { MochiInterface } from '@/components/MochiInterface';
 import { FloatingGarden } from '@/components/FloatingGarden';
-import MochiVideo from '@/components/MochiVideo';
 import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
 import { 
-  Sparkles, 
   GraduationCap, 
-  Settings, 
   BarChart3,
   Leaf,
-  Heart,
   MessageCircle,
-  Mic,
-  Image,
-  Video,
-  Zap
+  Mic
 } from 'lucide-react';
 
 const Index = () => {
@@ -78,7 +68,7 @@ const Index = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
           <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/learning-hub')}>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -88,7 +78,7 @@ const Index = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Explore bee facts and gardening knowledge with AI-powered learning tools.
+                Explore gardening knowledge with AI
               </p>
             </CardContent>
           </Card>
@@ -102,29 +92,7 @@ const Index = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                View your garden progress, analytics, and personalized insights.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => {
-            // Show coming soon toast
-            import('@/hooks/use-toast').then(({ toast }) => {
-              toast({
-                title: "🌱 Coming Soon!",
-                description: "Garden tools are being developed. Stay tuned!",
-              });
-            });
-          }}>
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Settings className="h-5 w-5 text-purple-600" />
-                Garden Tools
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Access advanced gardening tools, plant identification, and care guides.
+                View progress and insights
               </p>
             </CardContent>
           </Card>
@@ -134,11 +102,8 @@ const Index = () => {
         <div className="text-center text-sm text-muted-foreground">
           <p className="flex items-center justify-center gap-2">
             <Leaf className="h-4 w-4" />
-            Powered by advanced AI technology for natural learning
+            AI-powered garden assistant
             <Leaf className="h-4 w-4" />
-          </p>
-          <p className="mt-1">
-            {user ? `Welcome back, ${user.email}!` : 'Sign in to save your garden progress'}
           </p>
         </div>
       </div>
