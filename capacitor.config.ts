@@ -12,29 +12,40 @@ const config: CapacitorConfig = {
     CapacitorHttp: {
       enabled: true
     },
+    LocalNotifications: {
+      smallIcon: "ic_stat_icon_config_sample",
+      iconColor: "#f59e0b",
+      sound: "beep.wav",
+    },
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
+    },
     SplashScreen: {
       launchShowDuration: 2000,
       launchAutoHide: true,
-      backgroundColor: "#fef3c7",
+      backgroundColor: "#fef7e0",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",
       showSpinner: false,
+      androidSpinnerStyle: "large",
+      iosSpinnerStyle: "small",
+      spinnerColor: "#f59e0b",
       splashFullScreen: true,
       splashImmersive: true,
       layoutName: "launch_screen",
-      useDialog: false,
+      useDialog: true,
     }
   },
   ios: {
     contentInset: 'automatic',
-    backgroundColor: '#fef3c7',
-    scheme: 'dorybee'
+    backgroundColor: '#fef7e0',
+    scheme: 'mochi-becrazy'
   },
   android: {
-    backgroundColor: '#fef3c7',
+    backgroundColor: '#fef7e0',
     allowMixedContent: true,
     captureInput: true,
-    webContentsDebuggingEnabled: true
+    webContentsDebuggingEnabled: false
   }
 };
 
