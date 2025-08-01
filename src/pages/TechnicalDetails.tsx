@@ -113,13 +113,6 @@ const TechnicalDetails: React.FC = () => {
                     </p>
                   </div>
                   
-                  <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                    <h4 className="font-medium text-green-800">XAI Grok Integration</h4>
-                    <p className="text-sm text-green-700">
-                      Real-time data processing and innovative problem-solving approaches 
-                      for garden-specific challenges and solutions.
-                    </p>
-                  </div>
                 </div>
               </div>
 
@@ -415,7 +408,6 @@ const TechnicalDetails: React.FC = () => {
                                     <li class="test-pass">✓ OpenAI API: Responding</li>
                                     <li class="test-pass">✓ Anthropic Claude: Active</li>
                                     <li class="test-pass">✓ ElevenLabs TTS: Ready</li>
-                                    <li class="test-pass">✓ XAI Grok: Connected</li>
                                   </ul>
                                 </div>
                                 

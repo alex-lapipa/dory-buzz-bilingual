@@ -101,10 +101,6 @@ export const TechnicalSpecs: React.FC = () => {
               <Badge variant="secondary">Advanced Reasoning</Badge>
             </div>
             <div className="flex justify-between items-center">
-              <span className="font-medium">xAI Grok:</span>
-              <Badge variant="secondary">Alternative AI</Badge>
-            </div>
-            <div className="flex justify-between items-center">
               <span className="font-medium">DALL-E 3:</span>
               <Badge variant="secondary">Image Generation</Badge>
             </div>
