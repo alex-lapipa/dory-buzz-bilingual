@@ -27,81 +27,62 @@ import {
 const Index = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('unified');
+  const [activeTab, setActiveTab] = useState('voice'); // Default to voice for mobile
 
   return (
-    <div className="min-h-screen bg-gradient-nature relative overflow-hidden">
-      {/* Background Elements */}
-      <FloatingGarden />
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 relative overflow-hidden">
+      {/* Reduced background elements for mobile performance */}
+      <div className="absolute inset-0 opacity-30">
+        <FloatingGarden />
+      </div>
       
-      {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8 space-y-8">
-        {/* Welcome Header */}
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-6xl animate-bee-bounce">🐝</span>
+      {/* Mobile-First Content */}
+      <div className="relative z-10 container mx-auto px-3 py-4 space-y-4">
+        {/* Mobile Header - Compact */}
+        <div className="text-center space-y-2">
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-4xl animate-bounce">🐝</span>
             <div>
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
-                BeeCrazy Garden World
+              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
+                MochiBee Garden
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mt-2">
-                Your unified AI garden companion powered by advanced AI systems
+              <p className="text-sm md:text-base text-muted-foreground">
+                Your outdoor AI garden assistant
               </p>
             </div>
           </div>
         </div>
 
-        {/* Main Interface with Tabs */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-5 mb-4">
-                <TabsTrigger value="unified" className="text-xs">
-                  <Zap className="h-3 w-3 mr-1" />
-                  Unified
-                </TabsTrigger>
-                <TabsTrigger value="chat" className="text-xs">
-                  <MessageCircle className="h-3 w-3 mr-1" />
-                  Chat
-                </TabsTrigger>
-                <TabsTrigger value="voice" className="text-xs">
-                  <Mic className="h-3 w-3 mr-1" />
-                  Voice
-                </TabsTrigger>
-                <TabsTrigger value="generate" className="text-xs">
-                  <Image className="h-3 w-3 mr-1" />
-                  Image
-                </TabsTrigger>
-                <TabsTrigger value="video" className="text-xs">
-                  <Video className="h-3 w-3 mr-1" />
-                  Video
-                </TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="unified">
-                <UnifiedMochiInterface />
-              </TabsContent>
-              
-              <TabsContent value="chat">
-                <MochiInterface activeTab="chat" />
-              </TabsContent>
-              
-              <TabsContent value="voice">
-                <VoiceFirstInterface />
-              </TabsContent>
-              
-              <TabsContent value="generate">
-                <MochiInterface activeTab="generate" />
-              </TabsContent>
-              
-              <TabsContent value="video">
-                <MochiInterface activeTab="video" />
-              </TabsContent>
-            </Tabs>
+        {/* Mobile-Optimized Interface */}
+        <div className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-4 h-12">
+              <TabsTrigger value="voice" className="text-sm font-semibold">
+                <Mic className="h-4 w-4 mr-2" />
+                Voice Chat
+              </TabsTrigger>
+              <TabsTrigger value="unified" className="text-sm font-semibold">
+                <Zap className="h-4 w-4 mr-2" />
+                All Tools
+              </TabsTrigger>
+              <TabsTrigger value="chat" className="text-sm font-semibold">
+                <MessageCircle className="h-4 w-4 mr-2" />
+                Text Chat
+              </TabsTrigger>
+            </TabsList>
             
-            {/* Mochi Video */}
-            <MochiVideo />
-          </div>
+            <TabsContent value="voice" className="mt-0">
+              <VoiceFirstInterface />
+            </TabsContent>
+            
+            <TabsContent value="unified" className="mt-0">
+              <UnifiedMochiInterface />
+            </TabsContent>
+            
+            <TabsContent value="chat" className="mt-0">
+              <MochiInterface activeTab="chat" />
+            </TabsContent>
+          </Tabs>
         </div>
 
         {/* Quick Actions */}
