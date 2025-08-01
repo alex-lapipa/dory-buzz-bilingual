@@ -1,9 +1,6 @@
 import React, { useState, createContext, useContext, useEffect, lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
@@ -13,8 +10,6 @@ import { LanguageWelcome } from "@/components/LanguageWelcome";
 import { UserRegistration } from "@/components/UserRegistration";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { LandingPage } from "@/components/LandingPage";
-import { AppStatusProvider } from "@/contexts/AppStatusContext";
-import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
@@ -46,9 +41,7 @@ const TabContext = createContext<{
 
 export const useTab = () => useContext(TabContext);
 
-const queryClient = new QueryClient();
-
-const AppContent = () => {
+const App = () => {
   const [activeTab, setActiveTab] = useState('chat');
   const [showLanding, setShowLanding] = useState(!localStorage.getItem('hasVisited'));
   const [showLanguageSelect, setShowLanguageSelect] = useState(false);
@@ -58,7 +51,7 @@ const AppContent = () => {
   const { user, loading: authLoading } = useAuth();
 
   // Debug log to verify state
-  console.log('AppContent state:', { showLanding, showLanguageSelect, showRegistration, showOnboarding });
+  console.log('App state:', { showLanding, showLanguageSelect, showRegistration, showOnboarding });
 
   useEffect(() => {
     // Check if user has visited before
@@ -127,87 +120,71 @@ const AppContent = () => {
 
   return (
     <TabContext.Provider value={{ activeTab, setActiveTab }}>
-      <BrowserRouter>
-        <AppStatusProvider>
-          <AuthWrapper>
-            <MochiVideoProcessor />
-            <div className="flex flex-col min-h-screen bg-gradient-nature">
-              {/* Only show header when user is fully onboarded */}
-              {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
-                <AppHeader onTabSelect={setActiveTab} />
-              )}
-              <main className="flex-1 overflow-auto relative z-10">
-                {/* Show landing page first for new visitors */}
-                {showLanding ? (
-                  <LandingPage onGetStarted={handleGetStarted} />
-                ) : showLanguageSelect ? (
-                  <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
-                ) : showRegistration ? (
-                  <UserRegistration onComplete={handleRegistrationComplete} />
-                ) : showOnboarding ? (
-                  <OnboardingFlow onComplete={handleOnboardingComplete} />
-                ) : (
-                  /* Normal app routes */
-                  <>
-                    <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
-                      <Routes>
-                        <Route path="/" element={<Index />} />
-                        <Route path="/chat" element={<Chat />} />
-                        <Route path="/voice" element={<Voice />} />
-                        <Route path="/auth" element={<AuthPage />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/learning-hub" element={<LearningHub />} />
-                        <Route path="/learning/bee-basics" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <BeeBasics />
-                          </Suspense>
-                        } />
-                        <Route path="/learning/garden-basics" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <GardenBasics />
-                          </Suspense>
-                        } />
-                        <Route path="/production" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <ProductionDashboard />
-                          </Suspense>
-                        } />
-                        <Route path="/technical-details" element={<TechnicalDetails />} />
-                        <Route path="*" element={<NotFound />} />
-                      </Routes>
-                    </div>
-                    {/* GDPR Consent Banner */}
-                    <GDPRConsentBanner />
-                  </>
-                )}
-              </main>
-              
-              {/* Footer - only show when user is fully onboarded */}
-              {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
-                <Footer />
-              )}
-              
-              <FloatingGarden />
-            </div>
-          </AuthWrapper>
-        </AppStatusProvider>
-      </BrowserRouter>
-    </TabContext.Provider>
-  );
-};
-
-const App = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ErrorBoundary>
+        <AuthWrapper>
           <PerformanceOptimizer />
-          <Toaster />
-          <Sonner />
-          <AppContent />
-        </ErrorBoundary>
+          <MochiVideoProcessor />
+          <div className="flex flex-col min-h-screen bg-gradient-nature">
+            {/* Only show header when user is fully onboarded */}
+            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+              <AppHeader onTabSelect={setActiveTab} />
+            )}
+            <main className="flex-1 overflow-auto relative z-10">
+              {/* Show landing page first for new visitors */}
+              {showLanding ? (
+                <LandingPage onGetStarted={handleGetStarted} />
+              ) : showLanguageSelect ? (
+                <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
+              ) : showRegistration ? (
+                <UserRegistration onComplete={handleRegistrationComplete} />
+              ) : showOnboarding ? (
+                <OnboardingFlow onComplete={handleOnboardingComplete} />
+              ) : (
+                /* Normal app routes */
+                <>
+                  <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/chat" element={<Chat />} />
+                      <Route path="/voice" element={<Voice />} />
+                      <Route path="/auth" element={<AuthPage />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/learning-hub" element={<LearningHub />} />
+                      <Route path="/learning/bee-basics" element={
+                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                          <BeeBasics />
+                        </Suspense>
+                      } />
+                      <Route path="/learning/garden-basics" element={
+                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                          <GardenBasics />
+                        </Suspense>
+                      } />
+                      <Route path="/production" element={
+                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                          <ProductionDashboard />
+                        </Suspense>
+                      } />
+                      <Route path="/technical-details" element={<TechnicalDetails />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </div>
+                  {/* GDPR Consent Banner */}
+                  <GDPRConsentBanner />
+                </>
+              )}
+            </main>
+            
+            {/* Footer - only show when user is fully onboarded */}
+            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+              <Footer />
+            )}
+            
+            <FloatingGarden />
+          </div>
+        </AuthWrapper>
       </TooltipProvider>
-    </QueryClientProvider>
+    </TabContext.Provider>
   );
 };
 
