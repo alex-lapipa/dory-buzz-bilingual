@@ -44,9 +44,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             aria-label="Go to home page"
           >
             <img 
-              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
-              alt="MochiBee Character"
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-primary/20 animate-bee-bounce"
+              src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png"
+              alt="Mochi the Bee"
+              className="w-8 h-8 sm:w-10 sm:h-10 filter drop-shadow-md animate-bee-bounce hover:animate-pulse"
             />
           </button>
           <div className="flex flex-col">

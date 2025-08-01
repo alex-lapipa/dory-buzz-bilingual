@@ -31,7 +31,11 @@ const Index = () => {
         {/* Mobile Hero Section - Compact and centered */}
         <div className="text-center space-y-mobile-lg mb-mobile-2xl">
           <div className="flex items-center justify-center gap-mobile-md">
-            <span className="text-4xl md:text-5xl lg:text-6xl animate-bounce">🐝</span>
+            <img 
+              src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png" 
+              alt="Mochi the Bee" 
+              className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 animate-bee-bounce filter drop-shadow-lg"
+            />
             <div className="text-left">
               <h1 className="text-responsive-2xl md:text-responsive-3xl lg:text-responsive-4xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
                 MochiBee Garden
