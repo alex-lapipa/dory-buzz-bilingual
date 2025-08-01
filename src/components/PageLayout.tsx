@@ -23,10 +23,9 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       {/* Header */}
       {showHeader && <AppHeader />}
       
-      {/* Main Content */}
-      <main className={`relative z-10 ${showHeader ? 'pt-20' : 'pt-4'} pb-8 px-4 ${className}`}>
-        {/* Page Content */}
-        <div className="max-w-7xl mx-auto">
+      {/* Main Content - Mobile-first responsive spacing */}
+      <main className={`relative z-10 content-spacing ${className}`}>
+        <div className="max-w-7xl mx-auto w-full">
           {children}
         </div>
       </main>

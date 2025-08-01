@@ -8,90 +8,106 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Mochi's Bee Theme - Light Mode - Mobile Optimized - Semitransparent */
-    --background: 0 0% 100% / 0.8;
+    /* Mobile-First Design System */
+    
+    /* Base colors - Semitransparent for mobile overlay */
+    --background: 0 0% 100% / 0.85;
     --foreground: 39 100% 10%;
 
-    --card: 0 0% 100% / 0.8;
+    --card: 0 0% 100% / 0.85;
     --card-foreground: 39 100% 15%;
 
-    --popover: 0 0% 100% / 0.8;
+    --popover: 0 0% 100% / 0.9;
     --popover-foreground: 39 100% 10%;
 
-    /* Warm Honey Yellow Primary - Mochi's signature color */
+    /* Primary Mochi Bee Colors */
     --primary: 59 100% 50%;
     --primary-foreground: 30 100% 8%;
 
-    /* Gentle Garden Brown Secondary */
-    --secondary: 0 0% 100% / 0.8;
+    /* Secondary Garden Colors */
+    --secondary: 0 0% 100% / 0.85;
     --secondary-foreground: 30 80% 20%;
 
-    --muted: 0 0% 100% / 0.8;
+    --muted: 0 0% 100% / 0.85;
     --muted-foreground: 39 50% 40%;
 
-    /* Flower Pink Accent */
-    --accent: 0 0% 100% / 0.8;
+    /* Accent Colors */
+    --accent: 0 0% 100% / 0.85;
     --accent-foreground: 320 70% 20%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 0 0% 100% / 0.8;
-    --input: 0 0% 100% / 0.8;
+    --input: 0 0% 100% / 0.9;
     --ring: 59 100% 50%;
 
-    /* Mobile-first radius */
+    /* Mobile-first spacing system */
+    --spacing-xs: 0.25rem;      /* 4px */
+    --spacing-sm: 0.5rem;       /* 8px */
+    --spacing-md: 0.75rem;      /* 12px */
+    --spacing-lg: 1rem;         /* 16px */
+    --spacing-xl: 1.25rem;      /* 20px */
+    --spacing-2xl: 1.5rem;      /* 24px */
+    --spacing-3xl: 2rem;        /* 32px */
+    --spacing-4xl: 2.5rem;      /* 40px */
+    --spacing-5xl: 3rem;        /* 48px */
+    --spacing-6xl: 4rem;        /* 64px */
+
+    /* Header heights */
+    --header-height-mobile: 3.5rem;  /* 56px */
+    --header-height-tablet: 4rem;    /* 64px */
+    --header-height-desktop: 4.5rem; /* 72px */
+
+    /* Content margins - consistent across pages */
+    --content-margin-top-mobile: calc(var(--header-height-mobile) + var(--spacing-lg));
+    --content-margin-top-tablet: calc(var(--header-height-tablet) + var(--spacing-xl));
+    --content-margin-top-desktop: calc(var(--header-height-desktop) + var(--spacing-2xl));
+
+    /* Mobile-optimized radius */
     --radius: 0.75rem;
 
-    /* Mountain landscape colors */
-    --meadow-green: 95 45% 65%;
-    --mountain-blue: 220 45% 50%;
-    --mountain-light: 220 35% 75%;
-    --sky-blue: 210 50% 85%;
-    --field-green: 105 40% 55%;
-    --grass-green: 110 50% 45%;
-    --stone-gray: 200 10% 65%;
+    /* Enhanced nature gradients */
+    --gradient-nature: 
+      linear-gradient(135deg, 
+        hsl(50 80% 95% / 0.4) 0%, 
+        hsl(45 100% 92% / 0.3) 30%, 
+        hsl(35 85% 88% / 0.2) 60%, 
+        hsl(30 70% 85% / 0.1) 100%
+      ),
+      url('/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png');
+    --gradient-bee: hsl(59 100% 50%);
+    --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
+    --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
+    --gradient-mountain: linear-gradient(180deg, hsl(220 50% 85%) 0%, hsl(220 35% 75%) 40%, hsl(220 45% 50%) 70%, hsl(105 40% 55%) 100%);
     
-    /* Chat message colors - Semitransparent */
-    --guest-message: 120 40% 25% / 0.85; /* Dark garden green with transparency */
-    --guest-message-foreground: 120 30% 95%;
-    --mochi-message: 59 100% 50% / 0.9; /* Polen yellow with transparency */
-    --mochi-message-foreground: 0 0% 0%; /* Pure black for maximum readability */
-
-  /* Enhanced garden nature gradients with mountain landscape background */
-  --gradient-nature: 
-    linear-gradient(135deg, 
-      hsl(50 80% 95% / 0.4) 0%, 
-      hsl(45 100% 92% / 0.3) 30%, 
-      hsl(35 85% 88% / 0.2) 60%, 
-      hsl(30 70% 85% / 0.1) 100%
-    ),
-    url('/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png');
-  --gradient-bee: hsl(59 100% 50%);
-  --gradient-garden: linear-gradient(120deg, hsl(120 40% 85%) 0%, hsl(80 50% 80%) 40%, hsl(45 80% 85%) 100%);
-  --gradient-flower: linear-gradient(135deg, hsl(var(--accent)), hsl(280 70% 85%));
-  --gradient-mountain: linear-gradient(180deg, hsl(var(--sky-blue)) 0%, hsl(var(--mountain-light)) 40%, hsl(var(--mountain-blue)) 70%, hsl(var(--field-green)) 100%);
-  --gradient-valley: linear-gradient(135deg, hsl(var(--grass-green)), hsl(var(--field-green)), hsl(var(--meadow-green)));
-  --gradient-meadow: linear-gradient(45deg, hsl(var(--field-green)), hsl(var(--meadow-green)));
-    
-    /* Enhanced nature shadows */
+    /* Enhanced shadows for mobile */
     --shadow-honey: 0 15px 40px -10px hsl(var(--primary) / 0.4);
     --shadow-garden: 0 8px 25px -5px hsl(120 30% 40% / 0.2);
     --shadow-flower: 0 0 40px hsl(var(--accent) / 0.2);
-    --shadow-mountain: 0 8px 32px hsl(var(--mountain-blue) / 0.3);
+    --shadow-card: 0 4px 16px -2px hsl(0 0% 0% / 0.1);
+    --shadow-button: 0 2px 8px -1px hsl(var(--primary) / 0.3);
     
-    /* Smooth Animations */
+    /* Mobile-optimized transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-fast: all 0.15s ease-out;
 
-    --sidebar-background: 0 0% 100% / 0.8;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100% / 0.85;
     --sidebar-foreground: 39 100% 25%;
     --sidebar-primary: 59 100% 50%;
     --sidebar-primary-foreground: 39 100% 5%;
-    --sidebar-accent: 0 0% 100% / 0.8;
+    --sidebar-accent: 0 0% 100% / 0.85;
     --sidebar-accent-foreground: 39 100% 20%;
     --sidebar-border: 0 0% 100% / 0.8;
     --sidebar-ring: 59 100% 50%;
+
+    /* Chat colors */
+    --guest-message: 120 40% 25% / 0.85;
+    --guest-message-foreground: 120 30% 95%;
+    --mochi-message: 59 100% 50% / 0.9;
+    --mochi-message-foreground: 0 0% 0%;
   }
 
   .dark {
@@ -140,61 +156,126 @@ All colors MUST be HSL.
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground font-saira text-responsive-base font-semibold;
-    /* Mobile optimization */
-    -webkit-text-size-adjust: 100%;
+    /* Mobile-first optimizations */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
     /* Better mobile scrolling */
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+    /* Mobile-optimized line height */
+    line-height: 1.6;
+    /* Prevent horizontal scroll on small screens */
+    overflow-x: hidden;
   }
 
-  /* Mobile-first responsive font sizes */
-  .text-responsive-base {
-    font-size: 14px;
+  /* Mobile-first responsive typography */
+  .text-responsive-xs { 
+    font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+    line-height: 1.4;
+  }
+  .text-responsive-sm { 
+    font-size: clamp(0.875rem, 3vw, 1rem);
     line-height: 1.5;
   }
+  .text-responsive-base { 
+    font-size: clamp(1rem, 3.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+  .text-responsive-lg { 
+    font-size: clamp(1.125rem, 4vw, 1.25rem);
+    line-height: 1.5;
+  }
+  .text-responsive-xl { 
+    font-size: clamp(1.25rem, 4.5vw, 1.5rem);
+    line-height: 1.4;
+  }
+  .text-responsive-2xl { 
+    font-size: clamp(1.5rem, 5.5vw, 1.875rem);
+    line-height: 1.3;
+  }
+  .text-responsive-3xl { 
+    font-size: clamp(1.875rem, 6.5vw, 2.25rem);
+    line-height: 1.2;
+  }
+  .text-responsive-4xl { 
+    font-size: clamp(2.25rem, 7.5vw, 2.75rem);
+    line-height: 1.1;
+  }
 
-  @media (min-width: 640px) {
-    .text-responsive-base {
-      font-size: 16px;
-      line-height: 1.6;
+  /* Mobile-first spacing utilities */
+  .space-mobile { margin: var(--spacing-md); }
+  .space-mobile-x { margin-left: var(--spacing-md); margin-right: var(--spacing-md); }
+  .space-mobile-y { margin-top: var(--spacing-md); margin-bottom: var(--spacing-md); }
+  .space-mobile-t { margin-top: var(--spacing-md); }
+  .space-mobile-b { margin-bottom: var(--spacing-md); }
+
+  /* Content spacing classes for consistent layout */
+  .content-spacing {
+    padding-top: var(--content-margin-top-mobile);
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+  }
+
+  @media (min-width: 768px) {
+    .content-spacing {
+      padding-top: var(--content-margin-top-tablet);
+      padding-left: var(--spacing-xl);
+      padding-right: var(--spacing-xl);
+      padding-bottom: var(--spacing-xl);
     }
   }
 
-  /* Better touch targets for mobile */
+  @media (min-width: 1024px) {
+    .content-spacing {
+      padding-top: var(--content-margin-top-desktop);
+      padding-left: var(--spacing-2xl);
+      padding-right: var(--spacing-2xl);
+      padding-bottom: var(--spacing-2xl);
+    }
+  }
+
+  /* Enhanced touch targets for mobile */
   button, 
   [role="button"], 
   input[type="submit"], 
-  input[type="button"] {
+  input[type="button"],
+  .button-like {
     min-height: 44px;
     min-width: 44px;
+    touch-action: manipulation;
   }
 
-  /* Enhanced mobile form controls */
+  /* Mobile form optimizations */
   input[type="email"],
   input[type="password"],
   input[type="text"],
   input[type="tel"],
-  input[type="number"] {
+  input[type="number"],
+  textarea,
+  select {
     font-size: 16px; /* Prevents zoom on iOS */
     min-height: 44px;
+    border-radius: var(--radius);
   }
 
-  /* Better mobile scrolling */
-  .mobile-scroll {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
-  }
-
-  /* Enhanced focus states for mobile accessibility */
+  /* Better focus states for accessibility */
   .focus-enhanced:focus {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
   }
     overscroll-behavior: none;
     /* Better font rendering on all devices */

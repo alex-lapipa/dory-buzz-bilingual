@@ -22,8 +22,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   };
 
   return (
-    <header className="w-full bg-gradient-to-b from-background/25 via-background/5 to-transparent backdrop-blur-sm p-1 sm:p-2 fixed top-0 left-0 right-0 z-50 safe-area-top">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <header className="w-full bg-gradient-to-b from-background/90 via-background/70 to-transparent backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-border/30 h-header-mobile md:h-header-tablet lg:h-header-desktop">
+      <div className="h-full max-w-7xl mx-auto px-mobile-lg md:px-mobile-xl lg:px-mobile-2xl flex justify-between items-center">
         {/* Left: Logos + MochiBee Title */}
         <div className="flex items-center gap-3">
           <button 

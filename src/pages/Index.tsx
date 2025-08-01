@@ -20,87 +20,97 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('voice'); // Default to voice for mobile
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 relative overflow-hidden">
-      {/* Reduced background elements for mobile performance */}
-      <div className="absolute inset-0 opacity-30">
+    <div className="min-h-screen bg-gradient-nature relative overflow-hidden">
+      {/* Optimized background elements */}
+      <div className="absolute inset-0 opacity-20">
         <FloatingGarden />
       </div>
       
-      {/* Mobile-First Content */}
-      <div className="relative z-10 container mx-auto px-3 py-4 space-y-4">
-        {/* Mobile Header - Compact */}
-        <div className="text-center space-y-2">
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-4xl animate-bounce">🐝</span>
-            <div>
-              <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
+      {/* Mobile-First Content with consistent spacing */}
+      <div className="relative z-10 content-spacing min-h-screen">
+        {/* Mobile Hero Section - Compact and centered */}
+        <div className="text-center space-y-mobile-lg mb-mobile-2xl">
+          <div className="flex items-center justify-center gap-mobile-md">
+            <span className="text-4xl md:text-5xl lg:text-6xl animate-bounce">🐝</span>
+            <div className="text-left">
+              <h1 className="text-responsive-2xl md:text-responsive-3xl lg:text-responsive-4xl font-bold bg-gradient-to-r from-yellow-600 to-green-600 bg-clip-text text-transparent">
                 MochiBee Garden
               </h1>
-              <p className="text-sm md:text-base text-muted-foreground">
-                Your outdoor AI garden assistant
+              <p className="text-responsive-sm md:text-responsive-base text-muted-foreground font-medium">
+                Your AI garden assistant
               </p>
             </div>
           </div>
         </div>
 
-        {/* Mobile-Optimized Interface - Chat Focused */}
-        <div className="w-full">
+        {/* Mobile-Optimized Chat Interface */}
+        <div className="w-full max-w-4xl mx-auto mb-mobile-3xl">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4 h-12">
-              <TabsTrigger value="voice" className="text-sm font-semibold">
-                <Mic className="h-4 w-4 mr-2" />
-                Voice Chat
+            <TabsList className="grid w-full grid-cols-2 mb-mobile-lg h-12 md:h-14">
+              <TabsTrigger value="voice" className="text-responsive-sm font-semibold flex items-center gap-2">
+                <Mic className="h-4 w-4" />
+                <span className="hidden xs:inline">Voice</span> Chat
               </TabsTrigger>
-              <TabsTrigger value="chat" className="text-sm font-semibold">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Text Chat
+              <TabsTrigger value="chat" className="text-responsive-sm font-semibold flex items-center gap-2">
+                <MessageCircle className="h-4 w-4" />
+                <span className="hidden xs:inline">Text</span> Chat
               </TabsTrigger>
             </TabsList>
             
             <TabsContent value="voice" className="mt-0">
-              <MochiVoiceInterface />
+              <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
+                <MochiVoiceInterface />
+              </div>
             </TabsContent>
             
             <TabsContent value="chat" className="mt-0">
-              <MochiInterface activeTab="chat" />
+              <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
+                <MochiInterface activeTab="chat" />
+              </div>
             </TabsContent>
           </Tabs>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/learning-hub')}>
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
+        {/* Quick Actions - Mobile Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-mobile-lg max-w-2xl mx-auto mb-mobile-2xl">
+          <Card 
+            className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm border-border/50 hover:scale-105" 
+            onClick={() => navigate('/learning-hub')}
+          >
+            <CardHeader className="pb-mobile-md">
+              <CardTitle className="flex items-center gap-2 text-responsive-lg">
                 <GraduationCap className="h-5 w-5 text-blue-600" />
                 🐝 Beeducation
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-responsive-sm text-muted-foreground">
                 Explore gardening knowledge with AI
               </p>
             </CardContent>
           </Card>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/dashboard')}>
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-lg">
+          <Card 
+            className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm border-border/50 hover:scale-105" 
+            onClick={() => navigate('/dashboard')}
+          >
+            <CardHeader className="pb-mobile-md">
+              <CardTitle className="flex items-center gap-2 text-responsive-lg">
                 <BarChart3 className="h-5 w-5 text-green-600" />
                 Dashboard
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-responsive-sm text-muted-foreground">
                 View progress and insights
               </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Footer */}
-        <div className="text-center text-sm text-muted-foreground">
-          <p className="flex items-center justify-center gap-2">
+        {/* Mobile Footer */}
+        <div className="text-center">
+          <p className="text-responsive-sm text-muted-foreground flex items-center justify-center gap-2">
             <Leaf className="h-4 w-4" />
             AI-powered garden assistant
             <Leaf className="h-4 w-4" />

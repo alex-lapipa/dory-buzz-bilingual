@@ -178,6 +178,21 @@ export default {
 			spacing: {
 				'18': '4.5rem',
 				'88': '22rem',
+				// Mobile-first spacing scale using CSS variables
+				'mobile-xs': 'var(--spacing-xs)',
+				'mobile-sm': 'var(--spacing-sm)',
+				'mobile-md': 'var(--spacing-md)',
+				'mobile-lg': 'var(--spacing-lg)',
+				'mobile-xl': 'var(--spacing-xl)',
+				'mobile-2xl': 'var(--spacing-2xl)',
+				'mobile-3xl': 'var(--spacing-3xl)',
+				'mobile-4xl': 'var(--spacing-4xl)',
+				'mobile-5xl': 'var(--spacing-5xl)',
+				'mobile-6xl': 'var(--spacing-6xl)',
+				// Header heights
+				'header-mobile': 'var(--header-height-mobile)',
+				'header-tablet': 'var(--header-height-tablet)',
+				'header-desktop': 'var(--header-height-desktop)',
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
