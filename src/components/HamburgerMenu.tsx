@@ -142,27 +142,15 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </h3>
             
             <div className="space-y-2">
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                onClick={() => {
-                  setActiveSection(activeSection === 'technical' ? null : 'technical');
-                }}
-              >
-                <Settings className="h-4 w-4 mr-2" />
-                Technical Details
-                <Badge variant="secondary" className="ml-auto">View</Badge>
-              </Button>
-
               <Link to="/technical-details">
                 <Button 
                   variant="outline" 
                   className="w-full justify-start" 
                   onClick={() => setIsOpen(false)}
                 >
-                  <Info className="h-4 w-4 mr-2" />
-                  Full Tech Details
-                  <Badge variant="secondary" className="ml-auto">Page</Badge>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Technical Details
+                  <Badge variant="secondary" className="ml-auto">Full</Badge>
                 </Button>
               </Link>
 
@@ -265,20 +253,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </div>
           )}
 
-          {/* Technical Specifications */}
-          {activeSection === 'technical' && (
-            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
-              <div className="max-w-2xl mx-auto">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">Technical Specifications</h2>
-                  <Button variant="outline" onClick={() => setActiveSection(null)}>
-                    ✕
-                  </Button>
-                </div>
-                <TechnicalSpecs />
-              </div>
-            </div>
-          )}
         </div>
       </SheetContent>
     </Sheet>

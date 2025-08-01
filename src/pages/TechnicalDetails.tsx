@@ -20,6 +20,7 @@ import {
   Settings
 } from 'lucide-react';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
+import { TechnicalSpecs } from '@/components/TechnicalSpecs';
 
 const TechnicalDetails: React.FC = () => {
   return (
@@ -528,6 +529,19 @@ const TechnicalDetails: React.FC = () => {
                 </div>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Detailed Technical Specifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-6 w-6 text-primary" />
+              Detailed Technical Specifications
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TechnicalSpecs />
           </CardContent>
         </Card>
 
