@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, BookOpen, Zap, Settings } from 'lucide-react';
+import { Menu, ExternalLink, Info, Zap, Settings } from 'lucide-react';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { AccessibilityHelper } from '@/components/AccessibilityHelper';
 import { TechnicalSpecs } from '@/components/TechnicalSpecs';
@@ -37,26 +37,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           {/* Removed Advanced Features - Moved to Technical Details page */}
 
 
-          {/* Bee Education Hub */}
-          <div className="space-y-4">
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-left h-auto p-3"
-              onClick={() => setActiveSection(activeSection === 'education' ? null : 'education')}
-            >
-              <BookOpen className="h-4 w-4 mr-2" />
-              <span className="font-medium">🎓 {t('educationHub') || 'Bee Education Hub'}</span>
-              <Badge variant="secondary" className="ml-auto">{t('learn') || 'Learn'}</Badge>
-            </Button>
-            
-            {activeSection === 'education' && (
-              <div className="ml-4 border-l-2 border-accent pl-4 max-h-96 overflow-y-auto">
-                <BeeEducationHub />
-              </div>
-            )}
-          </div>
-
-          <Separator />
+          {/* Education Hub removed - available in Beeducation tab */}
 
           {/* Navigation Links */}
           <div className="space-y-4">

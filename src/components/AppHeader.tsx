@@ -81,7 +81,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               onClick={() => navigate('/learning-hub')}
               className="text-sm hover:text-primary flex items-center gap-1"
             >
-              🎓 Learning Hub
+              🐝 Beeducation
             </Button>
           </nav>
           
