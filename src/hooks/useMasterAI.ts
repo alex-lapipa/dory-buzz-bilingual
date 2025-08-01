@@ -4,7 +4,7 @@ import { useToast } from '@/hooks/use-toast';
 
 interface AIRequest {
   type: 'chat' | 'voice' | 'image' | 'analysis';
-  provider?: 'openai' | 'anthropic' | 'elevenlabs' | 'xai' | 'auto';
+  provider?: 'openai' | 'anthropic' | 'elevenlabs' | 'auto';
   input: string;
   context?: any;
   userId?: string;
@@ -81,7 +81,7 @@ export const useMasterAI = () => {
   const chat = useCallback(async (
     message: string, 
     context?: any, 
-    provider?: 'openai' | 'anthropic' | 'xai' | 'auto'
+    provider?: 'openai' | 'anthropic' | 'auto'
   ) => {
     return await processRequest({
       type: 'chat',

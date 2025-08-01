@@ -14,7 +14,7 @@ const corsHeaders = {
 
 interface AIRequest {
   type: 'chat' | 'voice' | 'image' | 'analysis';
-  provider: 'openai' | 'anthropic' | 'elevenlabs' | 'xai' | 'auto';
+  provider: 'openai' | 'anthropic' | 'elevenlabs' | 'auto';
   input: string;
   context?: any;
   userId?: string;
@@ -31,36 +31,36 @@ interface AIResponse {
   metadata?: any;
 }
 
-class MasterOrchestrator {
+class VoiceFocusedOrchestrator {
   private openaiKey = Deno.env.get('OPENAI_API_KEY');
   private anthropicKey = Deno.env.get('ANTHROPIC_API_KEY');
   private elevenlabsKey = Deno.env.get('ELEVENLABS_API_KEY');
-  private xaiKey = Deno.env.get('XAI_API_KEY');
 
   async processRequest(request: AIRequest): Promise<AIResponse> {
-    console.log('Processing request:', request.type, 'with provider:', request.provider);
+    console.log('🎯 Voice-focused processing:', request.type, 'with provider:', request.provider);
 
     try {
-      // Auto-select best provider if not specified
+      // Voice-first auto-selection
       if (request.provider === 'auto') {
-        request.provider = this.selectBestProvider(request.type, request.input);
+        request.provider = this.selectVoiceFirstProvider(request.type, request.input);
+        console.log('🤖 Auto-selected provider:', request.provider);
       }
 
-      // Route to appropriate handler
+      // Prioritize voice interactions
       switch (request.type) {
-        case 'chat':
-          return await this.handleChat(request);
         case 'voice':
           return await this.handleVoice(request);
-        case 'image':
-          return await this.handleImage(request);
+        case 'chat':
+          return await this.handleChat(request);
         case 'analysis':
           return await this.handleAnalysis(request);
+        case 'image':
+          return await this.handleImage(request);
         default:
           throw new Error(`Unsupported request type: ${request.type}`);
       }
     } catch (error) {
-      console.error('Error processing request:', error);
+      console.error('❌ Error in voice-focused processing:', error);
       return {
         success: false,
         error: error.message,
@@ -70,23 +70,16 @@ class MasterOrchestrator {
     }
   }
 
-  private selectBestProvider(type: string, input: string): 'openai' | 'anthropic' | 'elevenlabs' | 'xai' {
+  private selectVoiceFirstProvider(type: string, input: string): 'openai' | 'anthropic' | 'elevenlabs' {
     switch (type) {
-      case 'chat':
-        // Use Anthropic for complex reasoning, XAI for creative tasks
-        if (input.includes('analyze') || input.includes('explain') || input.includes('reason')) {
-          return 'anthropic';
-        }
-        if (input.includes('creative') || input.includes('story') || input.includes('imagine')) {
-          return 'xai';
-        }
-        return 'openai'; // Default for general chat
       case 'voice':
-        return 'elevenlabs';
-      case 'image':
-        return 'openai';
+        return 'elevenlabs'; // ElevenLabs for high-quality TTS
+      case 'chat':
+        return 'openai'; // OpenAI for voice-friendly chat responses
       case 'analysis':
-        return 'anthropic';
+        return 'anthropic'; // Claude only for deep analysis
+      case 'image':
+        return 'openai'; // OpenAI for image generation
       default:
         return 'openai';
     }
@@ -108,9 +101,6 @@ Current context: The user is in ${context?.currentPage || 'the main app'}. ${con
         break;
       case 'anthropic':
         response = await this.callAnthropic(input, mochiContext);
-        break;
-      case 'xai':
-        response = await this.callXAI(input, mochiContext);
         break;
       default:
         throw new Error(`Unsupported chat provider: ${request.provider}`);
@@ -284,32 +274,6 @@ Current context: The user is in ${context?.currentPage || 'the main app'}. ${con
     };
   }
 
-  private async callXAI(input: string, context: string) {
-    const response = await fetch('https://api.x.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.xaiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'grok-beta',
-        messages: [
-          { role: 'system', content: context },
-          { role: 'user', content: input }
-        ],
-        temperature: 0.8
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`XAI API error: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return {
-      content: data.choices[0].message.content
-    };
-  }
 
   private async storeMessage(conversationId: string, type: string, content: string, userId: string | null) {
     try {
@@ -344,7 +308,7 @@ serve(async (req) => {
 
   try {
     const requestData: AIRequest = await req.json();
-    const orchestrator = new MasterOrchestrator();
+    const orchestrator = new VoiceFocusedOrchestrator();
     const result = await orchestrator.processRequest(requestData);
 
     return new Response(JSON.stringify(result), {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UnifiedMochiInterface } from '@/components/UnifiedMochiInterface';
+import { VoiceFirstInterface } from '@/components/VoiceFirstInterface';
 import { MochiInterface } from '@/components/MochiInterface';
 import { FloatingGarden } from '@/components/FloatingGarden';
 import MochiVideo from '@/components/MochiVideo';
@@ -86,7 +87,7 @@ const Index = () => {
               </TabsContent>
               
               <TabsContent value="voice">
-                <MochiInterface activeTab="voice" />
+                <VoiceFirstInterface />
               </TabsContent>
               
               <TabsContent value="generate">
