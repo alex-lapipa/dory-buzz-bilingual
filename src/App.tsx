@@ -17,6 +17,8 @@ import { AppStatusProvider } from "@/contexts/AppStatusContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
+import Chat from "./pages/Chat";
+import Voice from "./pages/Voice";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
@@ -148,6 +150,8 @@ const AppContent = () => {
                     <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
                       <Routes>
                         <Route path="/" element={<Index />} />
+                        <Route path="/chat" element={<Chat />} />
+                        <Route path="/voice" element={<Voice />} />
                         <Route path="/auth" element={<AuthPage />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />
