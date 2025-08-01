@@ -27,7 +27,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
   useEffect(() => {
     // Auto-select best mode for device
-    if (isMobile && (mode === 'realtime' || mode === 'simple')) {
+    if (isMobile && mode !== 'mobile') {
       setCurrentMode('mobile');
     }
   }, [isMobile, mode]);
