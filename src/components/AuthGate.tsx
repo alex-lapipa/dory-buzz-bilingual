@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -12,6 +13,33 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github') => {
+    try {
+      const { supabase } = await import('@/integrations/supabase/client');
+      
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/`
+        }
+      });
+
+      if (error) {
+        toast({
+          title: "Authentication Error",
+          description: error.message,
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong with social login.",
+        variant: "destructive"
+      });
+    }
+  };
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +122,60 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-6">
+          {/* Social Login Options */}
+          <div className="space-y-3">
+            <p className="text-sm text-center text-muted-foreground">Sign in with</p>
+            <div className="grid grid-cols-2 gap-3">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+                onClick={() => handleSocialAuth('google')}
+              >
+                <span className="text-lg">🔍</span>
+                Google
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+                onClick={() => handleSocialAuth('facebook')}
+              >
+                <span className="text-lg">📘</span>
+                Instagram
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+                onClick={() => handleSocialAuth('twitter')}
+              >
+                <span className="text-lg">🦋</span>
+                Bluesky
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+                onClick={() => handleSocialAuth('github')}
+              >
+                <span className="text-lg">🎵</span>
+                TikTok
+              </Button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">or continue with email</span>
+            </div>
+          </div>
+
+          {/* Email/Password Form */}
           <form onSubmit={handleAuth} className="space-y-4">
             <div>
               <Input
@@ -119,7 +200,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
               className="w-full"
               disabled={isLoading}
             >
-              {isLoading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Sign In')}
+              {isLoading ? 'Loading...' : (isSignUp ? 'Sign Up with Email' : 'Sign In with Email')}
             </Button>
             <Button
               type="button"
