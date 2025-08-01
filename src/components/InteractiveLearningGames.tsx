@@ -89,9 +89,10 @@ const GameCard: React.FC<GameCardProps> = ({
         <Button 
           onClick={onPlay}
           className="w-full" 
-          variant={completed ? "outline" : "default"}
+          variant="outline"
+          disabled
         >
-          {completed ? "Play Again" : "Start Game"}
+          Coming Soon
           <Gamepad2 className="ml-2 h-4 w-4" />
         </Button>
       </CardContent>
@@ -104,14 +105,9 @@ export const InteractiveLearningGames: React.FC = () => {
   const [completedGames, setCompletedGames] = useState<string[]>([]);
   
   const playGame = (gameId: string, gameTitle: string) => {
-    // Simulate game completion
-    if (!completedGames.includes(gameId)) {
-      setCompletedGames([...completedGames, gameId]);
-    }
-    
     toast({
-      title: `🎮 ${gameTitle} Started!`,
-      description: "Interactive learning game is loading...",
+      title: `🚧 ${gameTitle}`,
+      description: "Coming Soon! This interactive game is currently in development.",
     });
   };
 
@@ -124,7 +120,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Biology',
       icon: <Bug className="h-6 w-6" />,
       color: 'border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50',
-      progress: 75
+      progress: 0
     },
     {
       id: 'pollination-quest',
@@ -134,7 +130,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Pollination',
       icon: <Target className="h-6 w-6" />,
       color: 'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50',
-      progress: 30
+      progress: 0
     },
     {
       id: 'hive-builder',
@@ -144,7 +140,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Architecture',
       icon: <Puzzle className="h-6 w-6" />,
       color: 'border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50',
-      progress: 10
+      progress: 0
     },
     {
       id: 'flower-match',
@@ -154,7 +150,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Flower Recognition',
       icon: <Star className="h-6 w-6" />,
       color: 'border-pink-200 bg-gradient-to-br from-pink-50 to-rose-50',
-      progress: 90
+      progress: 0
     },
     {
       id: 'bee-dance',
@@ -164,7 +160,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Communication',
       icon: <Trophy className="h-6 w-6" />,
       color: 'border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50',
-      progress: 55
+      progress: 0
     },
     {
       id: 'lifecycle-lab',
@@ -184,7 +180,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Garden Design',
       icon: <Leaf className="h-6 w-6" />,
       color: 'border-teal-200 bg-gradient-to-br from-teal-50 to-green-50',
-      progress: 25
+      progress: 0
     },
     {
       id: 'species-spotter',
@@ -194,7 +190,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Species Identification',
       icon: <Camera className="h-6 w-6" />,
       color: 'border-indigo-200 bg-gradient-to-br from-indigo-50 to-blue-50',
-      progress: 40
+      progress: 0
     },
     {
       id: 'micro-world',
@@ -204,7 +200,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Vision',
       icon: <Microscope className="h-6 w-6" />,
       color: 'border-violet-200 bg-gradient-to-br from-violet-50 to-purple-50',
-      progress: 15
+      progress: 0
     },
     {
       id: 'bee-trivia',
@@ -214,7 +210,7 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'General Knowledge',
       icon: <Brain className="h-6 w-6" />,
       color: 'border-orange-200 bg-gradient-to-br from-orange-50 to-red-50',
-      progress: 65
+      progress: 0
     }
   ];
 
@@ -228,7 +224,7 @@ export const InteractiveLearningGames: React.FC = () => {
           <span className="animate-bee-bounce">🎮</span>
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Learn about bees and gardens through fun, interactive games! Each game teaches important concepts while keeping you engaged.
+          🚧 Interactive games are coming soon! These educational games will teach you about bees and gardens in fun, engaging ways.
         </p>
       </div>
 
