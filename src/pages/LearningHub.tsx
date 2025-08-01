@@ -222,9 +222,15 @@ const LearningHub: React.FC = () => {
       <div className="space-y-6">
         {/* Header */}
         <div className="text-center">
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
+              alt="MochiBee Character"
+              className="w-16 h-16 rounded-full object-cover border-2 border-yellow-300 shadow-lg animate-bounce"
+            />
+          </div>
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
             <GraduationCap className="h-10 w-10 text-blue-600" />
-            <span className="animate-bee-bounce">🐝</span>
             Beeducation
             <span className="animate-flower-sway">🌻</span>
           </h1>

@@ -40,10 +40,14 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           </button>
           <button 
             onClick={handleBeeClick}
-            className="text-2xl sm:text-3xl animate-bee-bounce hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
+            className="hover:scale-110 transition-transform cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg"
             aria-label="Go to home page"
           >
-            🐝
+            <img 
+              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
+              alt="MochiBee Character"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border border-primary/20 animate-bee-bounce"
+            />
           </button>
           <div className="flex flex-col">
             <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">

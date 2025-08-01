@@ -50,7 +50,13 @@ export const LanguageWelcome: React.FC<LanguageWelcomeProps> = ({ onLanguageSele
             <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
               {/* Mochi Character */}
               <div className="mb-4 sm:mb-6 animate-bee-bounce">
-                <div className="text-5xl sm:text-6xl md:text-7xl mb-3 sm:mb-4">🐝</div>
+                <div className="flex justify-center mb-3 sm:mb-4">
+                  <img 
+                    src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
+                    alt="MochiBee Character"
+                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-yellow-300 shadow-lg"
+                  />
+                </div>
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
                   ¡Hola! Hello!
                 </h1>
