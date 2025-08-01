@@ -151,8 +151,20 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               >
                 <Settings className="h-4 w-4 mr-2" />
                 Technical Details
-                <Badge variant="secondary" className="ml-auto">Tech</Badge>
+                <Badge variant="secondary" className="ml-auto">View</Badge>
               </Button>
+
+              <Link to="/technical-details">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start" 
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Info className="h-4 w-4 mr-2" />
+                  Full Tech Details
+                  <Badge variant="secondary" className="ml-auto">Page</Badge>
+                </Button>
+              </Link>
 
               <Button 
                 variant="outline" 
