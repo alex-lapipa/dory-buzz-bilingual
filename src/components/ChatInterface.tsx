@@ -399,8 +399,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         <div
           className={`max-w-[85%] rounded-lg p-3 ${
             message.type === 'user'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-muted text-muted-foreground'
+              ? 'bg-primary/90 backdrop-blur-sm text-primary-foreground border border-primary/20'
+              : 'bg-muted/70 backdrop-blur-sm text-muted-foreground border border-muted/20'
           }`}
         >
           <div className="space-y-2">
@@ -451,7 +451,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
-      <Card className="flex-1 flex flex-col">
+      <Card className="flex-1 flex flex-col bg-card/80 backdrop-blur-sm border-border/20">
         {/* Header with mode indicator */}
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -489,7 +489,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
         {/* Advanced Settings Panel */}
         {mode === 'advanced' && showAdvancedSettings && (
-          <div className="p-4 border-b bg-muted/20 space-y-4">
+          <div className="p-4 border-b bg-background/30 backdrop-blur-sm space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium">Reasoning Mode</label>
@@ -575,7 +575,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             {/* Loading indicator */}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-muted rounded-lg p-3 flex items-center gap-2">
+                <div className="bg-muted/60 backdrop-blur-sm rounded-lg p-3 flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
                   <span className="text-sm">Mochi is thinking...</span>
                 </div>
@@ -585,7 +585,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             {/* Image generation indicator */}
             {isGeneratingImage && (
               <div className="flex justify-start">
-                <div className="bg-muted rounded-lg p-3 flex items-center gap-2">
+                <div className="bg-muted/60 backdrop-blur-sm rounded-lg p-3 flex items-center gap-2">
                   <Sparkles className="h-4 w-4 animate-pulse" />
                   <span className="text-sm">Creating a helpful image...</span>
                 </div>
@@ -640,7 +640,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
       {/* Voice Interface Modal */}
       {showVoiceInterface && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden">
+          <div className="bg-background/80 backdrop-blur-md rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden border border-border/30">
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-semibold">{t('voiceChatTitle')}</h2>
               <Button

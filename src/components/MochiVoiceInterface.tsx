@@ -397,10 +397,10 @@ export function MochiVoiceInterface() {
   return (
     <Card className={`w-full max-w-4xl mx-auto transition-all duration-300 ${
       isOutdoorMode 
-        ? 'bg-white/95 backdrop-blur-sm shadow-2xl border-2 border-yellow-400/60' 
-        : 'bg-card/95 backdrop-blur-sm border-border/50'
+        ? 'bg-white/90 backdrop-blur-md shadow-2xl border-2 border-yellow-400/60' 
+        : 'bg-card/80 backdrop-blur-md border-border/20'
     }`}>
-      <CardHeader className={`border-b ${isOutdoorMode ? 'border-yellow-400/30 bg-yellow-50/80' : 'border-border/20'}`}>
+      <CardHeader className={`border-b ${isOutdoorMode ? 'border-yellow-400/30 bg-yellow-50/60' : 'border-border/20 bg-background/30'} backdrop-blur-sm`}>
         <div className="flex items-center justify-between">
           <CardTitle className={`flex items-center gap-3 ${isOutdoorMode ? 'text-yellow-900' : 'text-foreground'}`}>
             <span className="text-3xl animate-bounce">{getMochiEmoji()}</span>
@@ -445,14 +445,14 @@ export function MochiVoiceInterface() {
               className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] p-3 rounded-xl shadow-md transition-all duration-300 ${
+                className={`max-w-[85%] p-3 rounded-xl shadow-md transition-all duration-300 backdrop-blur-sm ${
                   message.type === 'user'
                     ? isOutdoorMode 
-                      ? 'bg-yellow-500 text-white border border-yellow-600'
-                      : 'bg-primary text-primary-foreground'
+                      ? 'bg-yellow-500/90 text-white border border-yellow-600/30'
+                      : 'bg-primary/90 text-primary-foreground border border-primary/20'
                     : isOutdoorMode
-                      ? 'bg-white border-2 border-yellow-300 text-yellow-900'
-                      : 'bg-muted text-muted-foreground'
+                      ? 'bg-white/90 border-2 border-yellow-300/50 text-yellow-900'
+                      : 'bg-muted/70 text-muted-foreground border border-muted/20'
                 } ${message.isAudio ? 'animate-fade-in' : ''}`}
               >
                 <div className="flex items-start gap-2">
