@@ -22,7 +22,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import DeploymentCenter from './DeploymentCenter';
-import { UnifiedVoiceInterface } from './UnifiedVoiceInterface';
+import { VoiceInterface } from './VoiceInterface';
 
 interface ProductionStatus {
   overall_health: number;
@@ -368,7 +368,7 @@ const ProductionDashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="h-96">
-                  <UnifiedVoiceInterface />
+                  <VoiceInterface />
                 </div>
               </CardContent>
             </Card>
