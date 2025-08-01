@@ -7,13 +7,13 @@ import { MobileVoiceChat } from './MobileVoiceChat';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Mic, Volume2, Brain, Smartphone } from 'lucide-react';
 
+type VoiceMode = 'simple' | 'realtime' | 'mobile';
+
 interface VoiceInterfaceProps {
-  mode?: 'simple' | 'realtime' | 'mobile';
+  mode?: VoiceMode;
   onSpeakingChange?: (speaking: boolean) => void;
   className?: string;
 }
-
-type VoiceMode = 'simple' | 'realtime' | 'mobile';
 
 export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({ 
   mode = 'realtime',
@@ -23,12 +23,14 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   const { toast } = useToast();
   const { trackEvent } = useUserAnalytics();
   const isMobile = useIsMobile();
-  const [currentMode, setCurrentMode] = useState<VoiceMode>(isMobile ? 'mobile' : mode);
+  const [currentMode, setCurrentMode] = useState<VoiceMode>('mobile');
 
   useEffect(() => {
     // Auto-select best mode for device
-    if (isMobile && mode !== 'mobile') {
+    if (isMobile) {
       setCurrentMode('mobile');
+    } else {
+      setCurrentMode(mode || 'realtime');
     }
   }, [isMobile, mode]);
 
@@ -38,10 +40,14 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       mode: currentMode,
       device: isMobile ? 'mobile' : 'desktop'
     });
-  }, []);
+  }, [currentMode, isMobile, trackEvent]);
 
-  // Mobile-first: Use MobileVoiceChat for mobile devices
-  if (isMobile || currentMode === 'mobile') {
+  // Mobile-first: Always use MobileVoiceChat for mobile devices or mobile mode
+  if (isMobile) {
+    return <MobileVoiceChat />;
+  }
+
+  if (currentMode === 'mobile') {
     return <MobileVoiceChat />;
   }
 
@@ -60,7 +66,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             <Button
               onClick={() => setCurrentMode('mobile')}
               className="w-full justify-start"
-              variant={currentMode === 'mobile' ? 'default' : 'outline'}
+              variant="outline"
             >
               <Smartphone className="h-4 w-4 mr-2" />
               Realtime Voice Chat (Recommended)
@@ -87,7 +93,18 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         </Card>
       </div>
       
-      {currentMode === 'mobile' && <MobileVoiceChat />}
+      <div className="flex-1">
+        {currentMode === 'simple' && (
+          <div className="p-6 text-center">
+            <p className="text-muted-foreground">Simple voice recording mode (coming soon)</p>
+          </div>
+        )}
+        {currentMode === 'realtime' && (
+          <div className="p-6 text-center">
+            <p className="text-muted-foreground">Advanced WebRTC mode (coming soon)</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
