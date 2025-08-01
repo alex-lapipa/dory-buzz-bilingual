@@ -156,6 +156,67 @@ export function MochiVoiceInterface() {
     }, 100);
   }, []);
 
+  const handleVoiceEvent = useCallback((event: any) => {
+    switch (event.type) {
+      case 'connected':
+        setIsConnected(true);
+        setConnectionStatus('connected');
+        break;
+        
+      case 'session.created':
+        console.log('🐝 Session created, updating settings...');
+        // Session will be configured automatically by OpenAI
+        break;
+        
+      case 'response.audio.delta':
+        // Audio is played automatically through WebRTC
+        setIsMochiSpeaking(true);
+        break;
+        
+      case 'response.audio_transcript.delta':
+        // Update live transcript
+        setMessages(prev => {
+          const lastMessage = prev[prev.length - 1];
+          if (lastMessage && lastMessage.type === 'mochi' && lastMessage.isAudio) {
+            return [
+              ...prev.slice(0, -1),
+              { ...lastMessage, content: lastMessage.content + event.delta }
+            ];
+          } else {
+            return [...prev, {
+              id: Date.now().toString(),
+              type: 'mochi',
+              content: event.delta,
+              timestamp: new Date(),
+              isAudio: true,
+              mood: 'helpful'
+            }];
+          }
+        });
+        break;
+        
+      case 'response.audio.done':
+        setIsMochiSpeaking(false);
+        setMochiMood('helpful');
+        break;
+        
+      case 'input_audio_buffer.speech_started':
+        setIsListening(true);
+        setMochiMood('thinking');
+        break;
+        
+      case 'input_audio_buffer.speech_stopped':
+        setIsListening(false);
+        setMochiMood('thinking');
+        break;
+        
+      case 'error':
+        console.error('🐝 Voice error:', event);
+        addMessage("Oops! Mochi's having a tiny technical buzz-up! 🐝⚡", 'mochi', false, 'funny');
+        break;
+    }
+  }, [addMessage]);
+
   const connectToMochi = useCallback(async () => {
     if (!user) {
       toast({
@@ -170,135 +231,27 @@ export function MochiVoiceInterface() {
     setConnectionStatus('connecting');
     
     try {
-      // Initialize audio processor
-      if (!audioProcessorRef.current) {
-        audioProcessorRef.current = new ReliableAudioProcessor();
-        const audioReady = await audioProcessorRef.current.initialize();
-        
-        if (!audioReady) {
-          throw new Error('Audio system not available');
-        }
-      }
+      // Use the new RealtimeVoiceChat for WebRTC connection
+      const { RealtimeVoiceChat } = await import('@/utils/realtimeAudio');
+      
+      const voiceChat = new RealtimeVoiceChat((event) => {
+        console.log('🐝 Voice event:', event.type);
+        handleVoiceEvent(event);
+      });
 
-      // Connect to Mochi's voice service
-      const wsUrl = `wss://zrdywdregcrykmbiytvl.supabase.co/functions/v1/mochi_realtime_voice`;
-      wsRef.current = new WebSocket(wsUrl);
-
-      wsRef.current.onopen = async () => {
-        console.log('🐝 Connected to Mochi!');
-        setIsConnected(true);
-        setConnectionStatus('connected');
-        setIsConnecting(false);
-        
-        addMessage("Buzz buzz! Mochi is here and ready to chat about your garden! 🐝🌻", 'mochi', true, 'excited');
-        
-        // Auto-start listening immediately after connection
-        await startContinuousListening();
-        
-        hapticFeedback('light');
-        toast({
-          title: "🐝 Mochi Connected!",
-          description: "Start talking! Mochi is listening continuously!",
-        });
-      };
-
-      wsRef.current.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          console.log('🐝 Received:', data.type);
-
-          switch (data.type) {
-            case 'mochi_status':
-              if (data.status === 'connected') {
-                addMessage(data.message, 'mochi', false, 'excited');
-              }
-              break;
-
-            case 'response.audio.delta':
-              // Play audio chunks in real-time
-              if (data.delta && audioProcessorRef.current) {
-                const audioData = Uint8Array.from(atob(data.delta), c => c.charCodeAt(0));
-                audioProcessorRef.current.playAudioChunk(audioData.buffer);
-                setIsMochiSpeaking(true);
-              }
-              break;
-
-            case 'response.audio_transcript.delta':
-              // Update Mochi's message as it's being spoken
-              setMessages(prev => {
-                const lastMessage = prev[prev.length - 1];
-                if (lastMessage && lastMessage.type === 'mochi' && lastMessage.isAudio) {
-                  return [
-                    ...prev.slice(0, -1),
-                    { ...lastMessage, content: lastMessage.content + data.delta }
-                  ];
-                } else {
-                  return [...prev, {
-                    id: Date.now().toString(),
-                    type: 'mochi',
-                    content: data.delta,
-                    timestamp: new Date(),
-                    isAudio: true,
-                    mood: 'helpful'
-                  }];
-                }
-              });
-              break;
-
-            case 'response.audio.done':
-              setIsMochiSpeaking(false);
-              setMochiMood('helpful');
-              break;
-
-            case 'input_audio_buffer.speech_started':
-              setIsListening(true);
-              setMochiMood('thinking');
-              break;
-
-            case 'input_audio_buffer.speech_stopped':
-              setIsListening(false);
-              setMochiMood('thinking');
-              break;
-
-            case 'mochi_error':
-              addMessage(data.message, 'mochi', false, 'funny');
-              break;
-
-            case 'error':
-              console.error('🐝 WebSocket error:', data);
-              addMessage("Oops! Mochi's having a tiny technical buzz-up! 🐝⚡", 'mochi', false, 'funny');
-              break;
-          }
-        } catch (error) {
-          console.error('🐝 Message parsing error:', error);
-        }
-      };
-
-      wsRef.current.onerror = (error) => {
-        console.error('🐝 WebSocket error:', error);
-        setConnectionStatus('error');
-        
-        toast({
-          title: "🐝 Connection Issue",
-          description: "Mochi is having trouble connecting. Trying again...",
-          variant: "destructive"
-        });
-      };
-
-      wsRef.current.onclose = () => {
-        console.log('🐝 Disconnected from Mochi');
-        setIsConnected(false);
-        setConnectionStatus('disconnected');
-        setIsListening(false);
-        setIsMochiSpeaking(false);
-        
-        // Auto-reconnect after 3 seconds
-        retryTimeoutRef.current = setTimeout(() => {
-          if (!isConnected) {
-            connectToMochi();
-          }
-        }, 3000);
-      };
+      await voiceChat.connect();
+      
+      setIsConnected(true);
+      setConnectionStatus('connected');
+      setIsConnecting(false);
+      
+      addMessage("Buzz buzz! Mochi is here and ready to chat about your garden! 🐝🌻", 'mochi', true, 'excited');
+      
+      hapticFeedback();
+      toast({
+        title: "🐝 Mochi Connected!",
+        description: "Voice chat is ready! Mochi can hear you now!",
+      });
 
     } catch (error) {
       console.error('🐝 Connection failed:', error);
@@ -307,11 +260,11 @@ export function MochiVoiceInterface() {
       
       toast({
         title: "🐝 Connection Failed",
-        description: "Couldn't connect to Mochi. Please try again!",
+        description: `Couldn't connect to Mochi: ${error.message}`,
         variant: "destructive"
       });
     }
-  }, [user, toast, hapticFeedback, isConnected, addMessage]);
+  }, [user, toast, hapticFeedback, addMessage]);
 
   const startContinuousListening = useCallback(async () => {
     if (!wsRef.current || !audioProcessorRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
@@ -333,7 +286,7 @@ export function MochiVoiceInterface() {
     if (success) {
       console.log('🐝 Continuous listening started');
       setIsListening(true);
-      hapticFeedback('light');
+      hapticFeedback();
     }
   }, [hapticFeedback]);
 
