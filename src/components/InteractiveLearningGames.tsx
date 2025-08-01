@@ -18,6 +18,8 @@ import {
   Leaf,
   Bug
 } from 'lucide-react';
+import { FlowerMemoryGame } from './games/FlowerMemoryGame';
+import { BeeTrivia } from './games/BeeTrivia';
 
 interface GameCardProps {
   title: string;
@@ -29,6 +31,7 @@ interface GameCardProps {
   onPlay: () => void;
   completed?: boolean;
   progress?: number;
+  isPlayable?: boolean;
 }
 
 const GameCard: React.FC<GameCardProps> = ({ 
@@ -40,7 +43,8 @@ const GameCard: React.FC<GameCardProps> = ({
   color, 
   onPlay, 
   completed = false,
-  progress = 0 
+  progress = 0,
+  isPlayable = false
 }) => {
   const difficultyColors = {
     Easy: 'bg-green-100 text-green-700 border-green-200',
@@ -89,10 +93,10 @@ const GameCard: React.FC<GameCardProps> = ({
         <Button 
           onClick={onPlay}
           className="w-full" 
-          variant="outline"
-          disabled
+          variant={isPlayable ? (completed ? "outline" : "default") : "outline"}
+          disabled={!isPlayable}
         >
-          Coming Soon
+          {isPlayable ? (completed ? "Play Again" : "Start Game") : "Coming Soon"}
           <Gamepad2 className="ml-2 h-4 w-4" />
         </Button>
       </CardContent>
@@ -103,12 +107,36 @@ const GameCard: React.FC<GameCardProps> = ({
 export const InteractiveLearningGames: React.FC = () => {
   const { toast } = useToast();
   const [completedGames, setCompletedGames] = useState<string[]>([]);
+  const [currentGame, setCurrentGame] = useState<string | null>(null);
+  const [gameScores, setGameScores] = useState<Record<string, number>>({});
   
   const playGame = (gameId: string, gameTitle: string) => {
+    // Check if game is functional
+    if (gameId === 'flower-match' || gameId === 'bee-trivia') {
+      setCurrentGame(gameId);
+    } else {
+      toast({
+        title: `🚧 ${gameTitle}`,
+        description: "Coming Soon! This interactive game is currently in development.",
+      });
+    }
+  };
+
+  const handleGameComplete = (gameId: string, score: number) => {
+    if (!completedGames.includes(gameId)) {
+      setCompletedGames([...completedGames, gameId]);
+    }
+    setGameScores(prev => ({ ...prev, [gameId]: Math.max(prev[gameId] || 0, score) }));
+    setCurrentGame(null);
+    
     toast({
-      title: `🚧 ${gameTitle}`,
-      description: "Coming Soon! This interactive game is currently in development.",
+      title: "🎉 Game Completed!",
+      description: `Great job! Your score: ${score}`,
     });
+  };
+
+  const handleCloseGame = () => {
+    setCurrentGame(null);
   };
 
   const learningGames = [
@@ -150,7 +178,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Flower Recognition',
       icon: <Star className="h-6 w-6" />,
       color: 'border-pink-200 bg-gradient-to-br from-pink-50 to-rose-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'bee-dance',
@@ -210,9 +239,33 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'General Knowledge',
       icon: <Brain className="h-6 w-6" />,
       color: 'border-orange-200 bg-gradient-to-br from-orange-50 to-red-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     }
   ];
+
+  // Show individual game if one is selected
+  if (currentGame === 'flower-match') {
+    return (
+      <div className="space-y-6">
+        <FlowerMemoryGame 
+          onGameComplete={(score) => handleGameComplete('flower-match', score)}
+          onClose={handleCloseGame}
+        />
+      </div>
+    );
+  }
+
+  if (currentGame === 'bee-trivia') {
+    return (
+      <div className="space-y-6">
+        <BeeTrivia 
+          onGameComplete={(score) => handleGameComplete('bee-trivia', score)}
+          onClose={handleCloseGame}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -224,7 +277,7 @@ export const InteractiveLearningGames: React.FC = () => {
           <span className="animate-bee-bounce">🎮</span>
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          🚧 Interactive games are coming soon! These educational games will teach you about bees and gardens in fun, engaging ways.
+          🎯 Learn about bees and gardens through fun, interactive games! Some games are playable now, others coming soon.
         </p>
       </div>
 
@@ -241,7 +294,8 @@ export const InteractiveLearningGames: React.FC = () => {
             color={game.color}
             onPlay={() => playGame(game.id, game.title)}
             completed={completedGames.includes(game.id)}
-            progress={game.progress}
+            progress={gameScores[game.id] ? Math.min(100, (gameScores[game.id] / 150) * 100) : 0}
+            isPlayable={game.isPlayable || false}
           />
         ))}
       </div>
@@ -261,14 +315,14 @@ export const InteractiveLearningGames: React.FC = () => {
               <div className="text-sm text-yellow-600">Games Completed</div>
             </div>
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-orange-700">{learningGames.length}</div>
-              <div className="text-sm text-orange-600">Total Games</div>
+              <div className="text-2xl font-bold text-orange-700">{learningGames.filter(g => g.isPlayable).length}</div>
+              <div className="text-sm text-orange-600">Playable Games</div>
             </div>
             <div className="space-y-2">
               <div className="text-2xl font-bold text-amber-700">
-                {Math.round((completedGames.length / learningGames.length) * 100)}%
+                {Object.values(gameScores).reduce((total, score) => total + score, 0)}
               </div>
-              <div className="text-sm text-amber-600">Progress</div>
+              <div className="text-sm text-amber-600">Total Score</div>
             </div>
           </div>
         </CardContent>
@@ -286,7 +340,7 @@ export const InteractiveLearningGames: React.FC = () => {
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2">
               <span>🎯</span>
-              <div><strong>Start with Easy games</strong> - Build confidence with simpler challenges first</div>
+              <div><strong>Try the playable games</strong> - Flower Memory and Bee Trivia are fully functional!</div>
             </li>
             <li className="flex items-start gap-2">
               <span>🔄</span>
@@ -294,7 +348,7 @@ export const InteractiveLearningGames: React.FC = () => {
             </li>
             <li className="flex items-start gap-2">
               <span>🏆</span>
-              <div><strong>Track progress</strong> - Complete games to unlock achievements and new content</div>
+              <div><strong>Beat your high score</strong> - Challenge yourself to improve each time</div>
             </li>
             <li className="flex items-start gap-2">
               <span>🤝</span>
