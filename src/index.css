@@ -148,6 +148,54 @@ All colors MUST be HSL.
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    /* Better mobile scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile-first responsive font sizes */
+  .text-responsive-base {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 640px) {
+    .text-responsive-base {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+
+  /* Better touch targets for mobile */
+  button, 
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Enhanced mobile form controls */
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"] {
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px;
+  }
+
+  /* Better mobile scrolling */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced focus states for mobile accessibility */
+  .focus-enhanced:focus {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
     overscroll-behavior: none;
     /* Better font rendering on all devices */
     text-rendering: optimizeLegibility;

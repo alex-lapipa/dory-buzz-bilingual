@@ -34,9 +34,9 @@ createRoot(document.getElementById("root")!).render(
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <ConsentProvider>
-            <LanguageProvider>
-              <AuthProvider>
+          <AuthProvider>
+            <ConsentProvider>
+              <LanguageProvider>
                 <VoiceProvider>
                   <AppStatusProvider>
                     <AnalyticsProvider>
@@ -51,9 +51,9 @@ createRoot(document.getElementById("root")!).render(
                     </AnalyticsProvider>
                   </AppStatusProvider>
                 </VoiceProvider>
-              </AuthProvider>
-            </LanguageProvider>
-          </ConsentProvider>
+              </LanguageProvider>
+            </ConsentProvider>
+          </AuthProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ErrorBoundary>
