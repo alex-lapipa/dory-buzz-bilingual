@@ -10,7 +10,7 @@ import { AppStatusProvider } from "@/contexts/AppStatusContext";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { ComprehensiveHealthCheck } from "@/components/ComprehensiveHealthCheck";
+
 import App from "./App.tsx";
 import "./index.css";
 
@@ -40,7 +40,7 @@ createRoot(document.getElementById("root")!).render(
                 <VoiceProvider>
                   <AppStatusProvider>
                     <AnalyticsProvider>
-                      <ComprehensiveHealthCheck />
+                      
                       <App />
                       <Toaster 
                         position="bottom-right"
