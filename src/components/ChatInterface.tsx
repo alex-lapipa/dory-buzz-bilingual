@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -51,7 +51,7 @@ interface ChatInterfaceProps {
   showVoiceToggle?: boolean;
 }
 
-export const ChatInterface: React.FC<ChatInterfaceProps> = ({ 
+export const ChatInterface = memo<ChatInterfaceProps>(({ 
   className, 
   mode = 'simple',
   showVoiceToggle = true 
@@ -659,4 +659,4 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       )}
     </div>
   );
-};
+});

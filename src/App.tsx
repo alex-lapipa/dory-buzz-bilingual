@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -25,9 +25,11 @@ import AuthPage from "./pages/AuthPage";
 import LearningHub from "./pages/LearningHub";
 import TechnicalDetails from "./pages/TechnicalDetails";
 
-const BeeBasics = React.lazy(() => import('./pages/learning/BeeBasics'));
-const GardenBasics = React.lazy(() => import('./pages/learning/GardenBasics'));
-import ProductionDashboard from "@/components/ProductionDashboard";
+// Lazy load heavy components and pages
+const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
+const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
+const ProductionDashboard = lazy(() => import('@/components/ProductionDashboard'));
+
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
 import { Footer } from "@/components/Footer";
@@ -156,17 +158,21 @@ const AppContent = () => {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />
                         <Route path="/learning/bee-basics" element={
-                          <React.Suspense fallback={<div>Loading...</div>}>
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
                             <BeeBasics />
-                          </React.Suspense>
+                          </Suspense>
                         } />
                         <Route path="/learning/garden-basics" element={
-                          <React.Suspense fallback={<div>Loading...</div>}>
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
                             <GardenBasics />
-                          </React.Suspense>
+                          </Suspense>
+                        } />
+                        <Route path="/production" element={
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <ProductionDashboard />
+                          </Suspense>
                         } />
                         <Route path="/technical-details" element={<TechnicalDetails />} />
-                        <Route path="/production" element={<ProductionDashboard />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </div>

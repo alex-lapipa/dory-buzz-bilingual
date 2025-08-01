@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { ChatInterface } from './ChatInterface';
-import { VoiceInterface } from './VoiceInterface';
-import { ImageGenerator } from './ImageGenerator';
-import { MochiVideoFeed } from './MochiVideoFeed';
+import React, { useState, useEffect, memo, lazy, Suspense } from 'react';
+// Lazy load heavy components
+const ChatInterface = lazy(() => import('./ChatInterface').then(module => ({ default: module.ChatInterface })));
+const VoiceInterface = lazy(() => import('./VoiceInterface').then(module => ({ default: module.VoiceInterface })));
+const ImageGenerator = lazy(() => import('./ImageGenerator').then(module => ({ default: module.ImageGenerator })));
+const MochiVideoFeed = lazy(() => import('./MochiVideoFeed').then(module => ({ default: module.MochiVideoFeed })));
 import { OnboardingTip } from './OnboardingTip';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,7 +16,7 @@ interface MochiInterfaceProps {
   activeTab?: string;
 }
 
-export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'chat' }) => {
+export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' }) => {
   const { t } = useLanguage();
   const { trackFeatureUsage, trackInteraction } = useUsageTracking();
   usePageTracking();
@@ -61,31 +62,41 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
       case 'voice':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'h-[50vh] sm:h-[60vh] lg:h-[70vh] max-h-[600px]'} overflow-auto`}>
-            <VoiceInterface className="h-full" />
+            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+              <VoiceInterface className="h-full" />
+            </Suspense>
           </div>
         );
       case 'chat-advanced':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
-            <ChatInterface className="h-full" mode="advanced" />
+            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+              <ChatInterface className="h-full" mode="advanced" />
+            </Suspense>
           </div>
         );
       case 'generate':
         return (
           <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'} p-3 sm:p-4`}>
-            <ImageGenerator />
+            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+              <ImageGenerator />
+            </Suspense>
           </div>
         );
       case 'video':
         return (
           <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'}`}>
-            <MochiVideoFeed />
+            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+              <MochiVideoFeed />
+            </Suspense>
           </div>
         );
       default:
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
-            <ChatInterface className="h-full" mode="simple" />
+            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+              <ChatInterface className="h-full" mode="simple" />
+            </Suspense>
           </div>
         );
     }
@@ -173,4 +184,4 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
       )}
     </>
   );
-};
+});
