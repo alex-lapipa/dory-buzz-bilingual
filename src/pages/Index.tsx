@@ -73,7 +73,7 @@ const Index = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <GraduationCap className="h-5 w-5 text-blue-600" />
-                Learning Hub
+                🐝 Beeducation
               </CardTitle>
             </CardHeader>
             <CardContent>

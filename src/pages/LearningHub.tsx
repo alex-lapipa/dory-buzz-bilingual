@@ -13,8 +13,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap } from 'lucide-react';
+import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap, Gamepad2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 
 interface BeeFact {
   id: string;
@@ -224,7 +225,7 @@ const LearningHub: React.FC = () => {
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
             <GraduationCap className="h-10 w-10 text-blue-600" />
             <span className="animate-bee-bounce">🐝</span>
-            Learning Hub
+            Beeducation
             <span className="animate-flower-sway">🌻</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -292,55 +293,48 @@ const LearningHub: React.FC = () => {
           <Card 
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-purple-200 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 group"
             onClick={() => {
-              toast({
-                title: "🌸 Coming Soon!",
-                description: "Pollination adventures are being prepared with interactive AR experiences!",
-              });
+              // Scroll to games section
+              document.getElementById('interactive-games')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-purple-800">
-                <span className="text-4xl group-hover:animate-bounce">🌸</span>
-                Pollination Adventures
-                <Badge variant="outline" className="text-xs border-purple-300 text-purple-600 ml-auto">
-                  Soon
+                <span className="text-4xl group-hover:animate-bounce">🎮</span>
+                Interactive Games
+                <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-600 ml-auto">
+                  Play Now
                 </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-purple-700 line-clamp-2">
-                Follow pollen on its incredible journey! Experience how flowers and bees work together in this interactive adventure.
+                Learn through fun, interactive games! From bee anatomy puzzles to pollination adventures.
               </p>
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">Interactive</Badge>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">Adventure</Badge>
-                <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">AR Ready</Badge>
+                <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">Games</Badge>
+                <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">Fun Learning</Badge>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-purple-600">
-                  <span>Progress</span>
-                  <span>18 lessons</span>
+                  <span>Available</span>
+                  <span>10 games</span>
                 </div>
-                <Progress value={0} className="h-2" />
+                <Progress value={100} className="h-2" />
               </div>
             </CardContent>
           </Card>
           
           <Card 
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-blue-200 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 group"
-            onClick={() => {
-              toast({
-                title: "🌍 Coming Soon!",
-                description: "Ecosystem exploration with virtual field trips is being developed!",
-              });
-            }}
+            onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-blue-800">
                 <span className="text-4xl group-hover:animate-spin-slow">🌍</span>
                 Ecosystem Explorer
-                <Badge variant="outline" className="text-xs border-blue-300 text-blue-600 ml-auto">
-                  Soon
+                <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-600 ml-auto">
+                  Available
                 </Badge>
               </CardTitle>
             </CardHeader>
@@ -351,33 +345,24 @@ const LearningHub: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">Advanced</Badge>
                 <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">Discovery</Badge>
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">Virtual Tours</Badge>
+                <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">Learn More</Badge>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-blue-600">
-                  <span>Progress</span>
-                  <span>20 lessons</span>
-                </div>
-                <Progress value={0} className="h-2" />
-              </div>
+              <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                Explore Now
+              </Button>
             </CardContent>
           </Card>
           
           <Card 
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-orange-200 bg-gradient-to-br from-orange-50 via-red-50 to-orange-100 group"
-            onClick={() => {
-              toast({
-                title: "🍯 Coming Soon!",
-                description: "Beekeeping basics course is being prepared!",
-              });
-            }}
+            onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-orange-800">
                 <span className="text-4xl group-hover:animate-bounce">🍯</span>
                 Beekeeping Basics
-                <Badge variant="outline" className="text-xs border-orange-300 text-orange-600 ml-auto">
-                  Soon
+                <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-600 ml-auto">
+                  Available
                 </Badge>
               </CardTitle>
             </CardHeader>
@@ -390,13 +375,9 @@ const LearningHub: React.FC = () => {
                 <Badge variant="secondary" className="bg-orange-100 text-orange-700 text-xs">Practical</Badge>
                 <Badge variant="secondary" className="bg-orange-100 text-orange-700 text-xs">Expert Tips</Badge>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-orange-600">
-                  <span>Progress</span>
-                  <span>25 lessons</span>
-                </div>
-                <Progress value={0} className="h-2" />
-              </div>
+              <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white">
+                Start Learning
+              </Button>
             </CardContent>
           </Card>
           
@@ -404,38 +385,39 @@ const LearningHub: React.FC = () => {
             className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-teal-200 bg-gradient-to-br from-teal-50 via-green-50 to-teal-100 group"
             onClick={() => {
               toast({
-                title: "🌿 Coming Soon!",
-                description: "Conservation heroes program is launching soon!",
+                title: "🌿 Chat with Mochi!",
+                description: "Ask Mochi about conservation and environmental protection!",
               });
             }}
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-teal-800">
                 <span className="text-4xl group-hover:animate-pulse">🌿</span>
-                Conservation Heroes
-                <Badge variant="outline" className="text-xs border-teal-300 text-teal-600 ml-auto">
-                  Soon
+                Conservation Chat
+                <Badge variant="secondary" className="text-xs bg-teal-100 text-teal-600 ml-auto">
+                  Chat
                 </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-teal-700 line-clamp-2">
-                Become a conservation hero! Learn how to protect bees, plants, and the environment in your community.
+                Chat with Mochi about conservation! Learn how to protect bees, plants, and the environment.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">Action-Oriented</Badge>
-                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">Community</Badge>
-                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">Impact</Badge>
+                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">Chat-Based</Badge>
+                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">Conservation</Badge>
+                <Badge variant="secondary" className="bg-teal-100 text-teal-700 text-xs">AI Helper</Badge>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-teal-600">
-                  <span>Progress</span>
-                  <span>16 lessons</span>
-                </div>
-                <Progress value={0} className="h-2" />
-              </div>
+              <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white">
+                Chat Now
+              </Button>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Interactive Learning Games Section */}
+        <div id="interactive-games">
+          <InteractiveLearningGames />
         </div>
 
         {/* Progress Overview */}
