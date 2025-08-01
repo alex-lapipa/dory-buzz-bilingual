@@ -18,7 +18,7 @@ serve(async (req) => {
       prompt, 
       context, 
       reasoning_type = "analysis",
-      model = "claude-opus-4-20250514", // Latest and most capable Claude 4 model
+      model = "claude-3-5-sonnet-20241022", // Latest stable Claude model
       user_id,
       temperature = 0.7,
       max_tokens = 8000
