@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { 
   Mic, 
   MicOff, 
@@ -18,6 +19,17 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { AudioRecorder, AudioQueue, encodeAudioForAPI } from '@/utils/realtimeAudio';
+import { 
+  createMobileWebSocket, 
+  isMobile, 
+  isIOS, 
+  isAndroid, 
+  requestMobilePermissions,
+  createMobileAudioContext,
+  resumeAudioContextOnMobile,
+  handleMobileVoiceError,
+  getMobileAudioConstraints
+} from '@/utils/mobileVoiceUtils';
 
 interface Message {
   id: string;
@@ -29,10 +41,15 @@ interface Message {
 
 interface VoiceInterfaceProps {
   className?: string;
+  mode?: 'simple' | 'realtime' | 'mobile';
 }
 
-export const UnifiedVoiceInterface: React.FC<VoiceInterfaceProps> = ({ className }) => {
+export const UnifiedVoiceInterface: React.FC<VoiceInterfaceProps> = ({ 
+  className, 
+  mode = 'simple' 
+}) => {
   const { toast } = useToast();
+  const { incrementGrowth } = usePlantGrowth();
   
   // Connection States
   const [isConnected, setIsConnected] = useState(false);
@@ -49,616 +66,551 @@ export const UnifiedVoiceInterface: React.FC<VoiceInterfaceProps> = ({ className
   const [currentTranscript, setCurrentTranscript] = useState('');
   const [deviceCapabilities, setDeviceCapabilities] = useState<any>(null);
   
-  // Refs
+  // Refs for audio handling
   const wsRef = useRef<WebSocket | null>(null);
   const audioRecorderRef = useRef<AudioRecorder | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioQueueRef = useRef<AudioQueue | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
-  // Initialize device capabilities on mount
-  useEffect(() => {
-    const caps = {
-      microphone: !!navigator.mediaDevices?.getUserMedia,
-      audioContext: !!(window.AudioContext || (window as any).webkitAudioContext),
-      webRTC: !!(window.RTCPeerConnection || (window as any).webkitRTCPeerConnection),
-      isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-      isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent)
-    };
-    setDeviceCapabilities(caps);
-    console.log('🔧 Device capabilities detected:', caps);
-    
-    if (!caps.microphone) {
-      setConnectionError('Microphone not available on this device');
-    }
-    
-    if (!caps.audioContext) {
-      setConnectionError('Web Audio API not supported on this device');
-    }
-  }, []);
-
-  // Auto-scroll to bottom when messages change
-  useEffect(() => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // Audio data handler with level detection
-  const handleAudioData = useCallback((audioData: Float32Array) => {
-    if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      // Calculate audio level for UI feedback
-      const level = Math.sqrt(audioData.reduce((sum, sample) => sum + sample * sample, 0) / audioData.length);
-      setAudioLevel(Math.min(level * 100, 100));
-      
-      // Send audio to unified voice hub
-      const encodedAudio = encodeAudioForAPI(audioData);
-      wsRef.current.send(JSON.stringify({
-        type: 'audio_chunk',
-        audio: encodedAudio,
-        timestamp: Date.now()
-      }));
-    }
   }, []);
 
-  // Initialize audio system with mobile optimizations
-  const initializeAudio = async () => {
-    try {
-      if (!audioContextRef.current) {
-        audioContextRef.current = new AudioContext({ 
-          sampleRate: 24000,
-          latencyHint: 'interactive'
-        });
-        
-        // Mobile optimization: Resume audio context if suspended
-        if (audioContextRef.current.state === 'suspended') {
-          await audioContextRef.current.resume();
-        }
-        
-        audioQueueRef.current = new AudioQueue(audioContextRef.current);
-      }
-      
-      // Resume audio context if suspended (mobile requirement)
-      if (audioContextRef.current.state === 'suspended') {
-        await audioContextRef.current.resume();
-        console.log('🔊 Audio context resumed for mobile');
-      }
-      
-      return true;
-    } catch (error) {
-      console.error('Failed to initialize audio:', error);
-      return false;
-    }
-  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
 
-  // Connect to unified voice hub with fallback strategy
-  const connectToVoiceHub = async () => {
+  useEffect(() => {
+    // Check device capabilities on mount
+    const capabilities = {
+      isMobile: isMobile(),
+      isIOS: isIOS(),
+      isAndroid: isAndroid(),
+      hasMediaDevices: !!navigator.mediaDevices,
+      hasGetUserMedia: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+      hasWebAudio: !!(window.AudioContext || (window as any).webkitAudioContext),
+      hasWebSocket: !!window.WebSocket
+    };
+    setDeviceCapabilities(capabilities);
+  }, []);
+
+  const addMessage = useCallback((content: string, type: 'user' | 'assistant', isVoice = false) => {
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      type,
+      content,
+      timestamp: new Date(),
+      isVoice
+    };
+    setMessages(prev => [...prev, newMessage]);
+    return newMessage.id;
+  }, []);
+
+  // Realtime WebSocket connection for advanced mode
+  const connectRealtimeAPI = useCallback(async () => {
+    if (mode !== 'realtime') return;
+    
     try {
       setIsConnecting(true);
       setConnectionError(null);
       
-      // Initialize audio first
-      const audioReady = await initializeAudio();
-      if (!audioReady) {
-        throw new Error('Failed to initialize audio system');
+      // Initialize audio context
+      if (!audioContextRef.current) {
+        audioContextRef.current = isMobile() 
+          ? await createMobileAudioContext()
+          : new AudioContext({ sampleRate: 24000 });
+        audioQueueRef.current = new AudioQueue(audioContextRef.current);
       }
 
-      // Connect to unified voice hub WebSocket
-      const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/unified_voice_hub`;
+      // Resume audio context on mobile
+      if (isMobile()) {
+        await resumeAudioContextOnMobile(audioContextRef.current);
+      }
+
+      // Connect to WebSocket
+      const wsUrl = isMobile() 
+        ? `wss://zrdywdregcrykmbiytvl.functions.supabase.co/mochi_realtime_voice`
+        : `wss://zrdywdregcrykmbiytvl.functions.supabase.co/mochi_realtime_voice`;
+      
       wsRef.current = new WebSocket(wsUrl);
 
       wsRef.current.onopen = () => {
-        console.log('🚀 Connected to Unified Voice Hub');
+        console.log('Connected to realtime voice API');
         setIsConnected(true);
         setIsConnecting(false);
         
-        // Send initial configuration
-        wsRef.current?.send(JSON.stringify({
-          type: 'configure',
-          config: {
-            voice_provider: 'auto',
-            language: 'en',
-            voice: 'aria',
-            real_time: true,
-            mobile_optimized: deviceCapabilities?.isMobile || false
-          }
-        }));
-        
         toast({
-          title: "🐝 Mochi Voice Ready!",
-          description: "Advanced voice chat is now active. Speak naturally!",
-          duration: 4000,
+          title: "🎤 Voice Chat Connected",
+          description: "You can now speak naturally with Mochi!"
         });
       };
 
       wsRef.current.onmessage = async (event) => {
-        try {
-          const data = JSON.parse(event.data);
-          console.log('📨 Voice Hub message:', data.type);
-          
-          await handleVoiceMessage(data);
-        } catch (error) {
-          console.error('Error handling voice message:', error);
+        const data = JSON.parse(event.data);
+        
+        switch (data.type) {
+          case 'session.created':
+            console.log('Voice session created');
+            break;
+            
+          case 'input_audio_buffer.speech_started':
+            setIsListening(true);
+            setCurrentTranscript('');
+            break;
+            
+          case 'input_audio_buffer.speech_stopped':
+            setIsListening(false);
+            break;
+            
+          case 'response.audio.delta':
+            if (data.delta && audioQueueRef.current) {
+              const binaryString = atob(data.delta);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+              audioQueueRef.current.addToQueue(bytes);
+              setIsSpeaking(true);
+            }
+            break;
+            
+          case 'response.audio.done':
+            setIsSpeaking(false);
+            incrementGrowth();
+            break;
+            
+          case 'conversation.item.input_audio_transcription.completed':
+            if (data.transcript) {
+              addMessage(data.transcript, 'user', true);
+              setCurrentTranscript('');
+            }
+            break;
+            
+          case 'response.audio_transcript.delta':
+            if (data.delta) {
+              setCurrentTranscript(prev => prev + data.delta);
+            }
+            break;
+            
+          case 'response.audio_transcript.done':
+            if (currentTranscript) {
+              addMessage(currentTranscript, 'assistant', true);
+              setCurrentTranscript('');
+            }
+            break;
+            
+          case 'error':
+            console.error('Realtime API error:', data.error);
+            setConnectionError(data.error.message || 'Connection error');
+            break;
         }
       };
 
       wsRef.current.onerror = (error) => {
         console.error('WebSocket error:', error);
-        setConnectionError('Connection failed. Please check your internet and try again.');
+        if (isMobile()) {
+          console.error('Mobile voice error:', error);
+        } else {
+          setConnectionError('Connection failed. Please try again.');
+        }
         setIsConnecting(false);
         setIsConnected(false);
       };
 
-      wsRef.current.onclose = (event) => {
-        console.log('WebSocket closed:', event.code, event.reason);
+      wsRef.current.onclose = () => {
+        console.log('WebSocket connection closed');
         setIsConnected(false);
         setIsConnecting(false);
         setIsListening(false);
         setIsSpeaking(false);
-        
-        // Auto-reconnect if not intentionally closed
-        if (event.code !== 1000 && !connectionError) {
-          scheduleReconnect();
-        }
       };
 
     } catch (error) {
-      console.error('Error connecting to voice hub:', error);
-      setConnectionError(error instanceof Error ? error.message : 'Connection failed');
+      console.error('Error connecting to realtime API:', error);
+      if (isMobile()) {
+        console.error('Mobile voice error:', error);
+      } else {
+        setConnectionError('Failed to initialize voice chat');
+      }
       setIsConnecting(false);
     }
-  };
+  }, [mode, addMessage, currentTranscript, incrementGrowth, toast]);
 
-  // Handle different types of voice messages
-  const handleVoiceMessage = async (data: any) => {
-    switch (data.type) {
-      case 'voice_ready':
-        console.log('🎤 Voice system ready');
-        await startListening();
-        break;
-        
-      case 'transcription':
-        if (data.text) {
-          const userMessage: Message = {
-            id: Date.now().toString(),
-            type: 'user',
-            content: data.text,
-            timestamp: new Date(),
-            isVoice: true
-          };
-          setMessages(prev => [...prev, userMessage]);
-          
-          // Send to unified chat orchestrator
-          await processWithChat(data.text);
-        }
-        break;
-        
-      case 'audio_response':
-        setIsSpeaking(true);
-        if (data.audio && audioQueueRef.current) {
-          const binaryString = atob(data.audio);
-          const bytes = new Uint8Array(binaryString.length);
-          for (let i = 0; i < binaryString.length; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-          }
-          await audioQueueRef.current.addToQueue(bytes);
-        }
-        break;
-        
-      case 'audio_complete':
-        setIsSpeaking(false);
-        break;
-        
-      case 'chat_response':
-        if (data.text) {
-          const assistantMessage: Message = {
-            id: Date.now().toString(),
-            type: 'assistant',
-            content: data.text,
-            timestamp: new Date(),
-            isVoice: true
-          };
-          setMessages(prev => [...prev, assistantMessage]);
-        }
-        break;
-        
-      case 'error':
-        console.error('Voice Hub error:', data.error);
-        toast({
-          title: "Voice Error",
-          description: data.error || "Something went wrong with voice processing",
-          variant: "destructive",
-        });
-        break;
-    }
-  };
-
-  // Process text through unified chat orchestrator
-  const processWithChat = async (text: string) => {
+  // Simple voice recording for basic mode
+  const startSimpleRecording = useCallback(async () => {
     try {
-      const response = await supabase.functions.invoke('unified_chat_orchestrator', {
-        body: {
-          message: text,
-          platform: 'auto',
-          specialty: 'bee_education',
-          conversation_history: messages.slice(-10).map(m => ({
-            role: m.type === 'user' ? 'user' : 'assistant',
-            content: m.content
-          })),
-          advanced_features: {
-            voice_response: true
-          }
+      // Request permissions on mobile
+      if (isMobile()) {
+        await requestMobilePermissions();
+      }
+
+      const constraints: MediaStreamConstraints = { audio: true };
+        
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
         }
+      };
+
+      mediaRecorderRef.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        await processSimpleVoiceInput(audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorderRef.current.start();
+      setIsListening(true);
+      
+      toast({
+        title: "🎤 Recording...",
+        description: "Speak now, then tap the button again to send!"
+      });
+    } catch (error) {
+      console.error('Error starting recording:', error);
+      if (isMobile()) {
+        console.error('Mobile voice error:', error);
+      } else {
+        toast({
+          title: "Microphone Error",
+          description: "Could not access microphone. Please check permissions.",
+          variant: "destructive"
+        });
+      }
+    }
+  }, [toast]);
+
+  const stopSimpleRecording = useCallback(() => {
+    if (mediaRecorderRef.current && isListening) {
+      mediaRecorderRef.current.stop();
+      setIsListening(false);
+    }
+  }, [isListening]);
+
+  const processSimpleVoiceInput = useCallback(async (audioBlob: Blob) => {
+    try {
+      // Convert to text using STT
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.wav');
+      
+      const { data: sttData, error: sttError } = await supabase.functions.invoke('stt_chat', {
+        body: formData
       });
 
-      if (response.error) throw response.error;
+      if (sttError) throw sttError;
 
-      // Send response back to voice hub for TTS
-      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify({
-          type: 'synthesize_speech',
-          text: response.data.response,
-          voice: 'aria',
-          provider: 'auto'
-        }));
+      if (sttData.text) {
+        addMessage(sttData.text, 'user', true);
+        
+        // Get response from Mochi
+        const { data: chatData, error: chatError } = await supabase.functions.invoke('chat_mochi', {
+          body: {
+            message: sttData.text,
+            conversation_history: messages.slice(-5)
+          }
+        });
+
+        if (chatError) throw chatError;
+
+        const response = chatData.response || "I'm having trouble understanding. Could you try again?";
+        addMessage(response, 'assistant', false);
+
+        // Convert response to speech
+        const { data: ttsData, error: ttsError } = await supabase.functions.invoke('elevenlabs_tts', {
+          body: {
+            text: response,
+            voice: 'alloy'
+          }
+        });
+
+        if (!ttsError && ttsData.audioContent) {
+          const audio = new Audio(`data:audio/mp3;base64,${ttsData.audioContent}`);
+          setIsSpeaking(true);
+          audio.onended = () => setIsSpeaking(false);
+          await audio.play();
+        }
+
+        incrementGrowth();
       }
-      
     } catch (error) {
-      console.error('Chat processing error:', error);
+      console.error('Error processing voice input:', error);
+      toast({
+        title: "Voice Processing Error",
+        description: "Failed to process your voice input. Please try again.",
+        variant: "destructive"
+      });
     }
-  };
+  }, [addMessage, messages, incrementGrowth, toast]);
 
-  // Start listening with mobile optimizations
-  const startListening = async () => {
+  const startAdvancedListening = useCallback(async () => {
+    if (!isConnected) return;
+    
     try {
-      if (!audioContextRef.current) {
-        await initializeAudio();
-      }
-      
-      // Mobile-specific: Ensure audio context is resumed
-      if (audioContextRef.current?.state === 'suspended') {
-        await audioContextRef.current.resume();
-      }
-      
       if (!audioRecorderRef.current) {
+        const handleAudioData = (audioData: Float32Array) => {
+          if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+            const encodedAudio = encodeAudioForAPI(audioData);
+            wsRef.current.send(JSON.stringify({
+              type: 'input_audio_buffer.append',
+              audio: encodedAudio
+            }));
+          }
+        };
+        
         audioRecorderRef.current = new AudioRecorder(handleAudioData);
       }
       
       await audioRecorderRef.current.start();
-      setIsListening(true);
-      
-      console.log('🎤 Voice input started');
-      
     } catch (error) {
-      console.error('Error starting voice input:', error);
-      toast({
-        title: "Microphone Error",
-        description: "Could not access microphone. Check permissions and try again.",
-        variant: "destructive",
-      });
+      console.error('Error starting advanced listening:', error);
+      if (isMobile()) {
+        console.error('Mobile voice error:', error);
+      }
     }
-  };
+  }, [isConnected, toast]);
 
-  // Stop listening
-  const stopListening = () => {
+  const stopAdvancedListening = useCallback(() => {
     if (audioRecorderRef.current) {
       audioRecorderRef.current.stop();
       audioRecorderRef.current = null;
     }
-    setIsListening(false);
-    setAudioLevel(0);
-  };
+  }, []);
 
-  // Auto-reconnect with backoff
-  const scheduleReconnect = () => {
-    if (reconnectTimeoutRef.current) {
-      clearTimeout(reconnectTimeoutRef.current);
-    }
-    
-    reconnectTimeoutRef.current = setTimeout(() => {
-      console.log('🔄 Attempting to reconnect...');
-      connectToVoiceHub();
-    }, 3000);
-  };
-
-  // Start conversation
-  const startConversation = async () => {
-    // Mobile optimization: Request audio context activation with user gesture
-    if (deviceCapabilities?.isMobile) {
-      try {
-        await navigator.mediaDevices.getUserMedia({ audio: true });
-        console.log('📱 Mobile audio permissions granted');
-      } catch (error) {
-        toast({
-          title: "Microphone Access Required",
-          description: "Please allow microphone access for voice chat to work",
-          variant: "destructive",
-        });
-        return;
+  const toggleVoiceChat = useCallback(async () => {
+    if (mode === 'realtime') {
+      if (isConnected) {
+        // Disconnect
+        stopAdvancedListening();
+        if (wsRef.current) {
+          wsRef.current.close();
+        }
+        setIsConnected(false);
+        setMessages([]);
+      } else {
+        // Connect
+        await connectRealtimeAPI();
+        if (wsRef.current?.readyState === WebSocket.OPEN) {
+          await startAdvancedListening();
+        }
+      }
+    } else {
+      // Simple mode
+      if (isListening) {
+        stopSimpleRecording();
+      } else {
+        await startSimpleRecording();
       }
     }
-    
-    await connectToVoiceHub();
-  };
+  }, [mode, isConnected, isListening, connectRealtimeAPI, startAdvancedListening, stopAdvancedListening, startSimpleRecording, stopSimpleRecording]);
 
-  // Disconnect
-  const disconnect = () => {
-    stopListening();
-    
-    if (reconnectTimeoutRef.current) {
-      clearTimeout(reconnectTimeoutRef.current);
-      reconnectTimeoutRef.current = null;
-    }
-    
-    if (wsRef.current) {
-      wsRef.current.close(1000, 'User disconnected');
-      wsRef.current = null;
-    }
-    
-    if (audioQueueRef.current) {
-      audioQueueRef.current.clear();
-    }
-    
-    setIsConnected(false);
-    setIsConnecting(false);
-    setIsSpeaking(false);
-    setMessages([]);
-    setCurrentTranscript('');
-    setConnectionError(null);
-    
-    toast({
-      title: "🐝 Voice chat ended",
-      description: "Thanks for talking with Mochi!",
-    });
-  };
-
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      disconnect();
+      // Cleanup on unmount
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+      if (audioRecorderRef.current) {
+        audioRecorderRef.current.stop();
+      }
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+      }
     };
   }, []);
 
-  // Render device compatibility warning
-  const renderCompatibilityCheck = () => {
-    if (!deviceCapabilities) return null;
-    
-    const issues = [];
-    if (!deviceCapabilities.microphone) issues.push('Microphone not available');
-    if (!deviceCapabilities.audioContext) issues.push('Web Audio not supported');
-    if (!deviceCapabilities.webRTC) issues.push('WebRTC not supported');
-    
-    if (issues.length === 0) return null;
+  const renderModeIndicator = () => {
+    const modeLabels = {
+      simple: 'Simple Voice',
+      realtime: 'Realtime Voice',
+      mobile: 'Mobile Optimized'
+    };
     
     return (
-      <Alert variant="destructive" className="mb-4">
-        <AlertTriangle className="h-4 w-4" />
-        <AlertDescription>
-          <strong>Compatibility Issues:</strong>
-          <ul className="mt-2 list-disc list-inside">
-            {issues.map((issue, index) => (
-              <li key={index}>{issue}</li>
-            ))}
-          </ul>
-        </AlertDescription>
-      </Alert>
+      <Badge variant="outline" className="flex items-center gap-1">
+        {deviceCapabilities?.isMobile && <Smartphone className="w-3 h-3" />}
+        {mode === 'realtime' && <Zap className="w-3 h-3" />}
+        {modeLabels[mode]}
+      </Badge>
+    );
+  };
+
+  const renderConnectionStatus = () => {
+    if (mode === 'simple') {
+      return (
+        <Badge variant={isListening ? "default" : "secondary"}>
+          {isListening ? <Mic className="w-3 h-3 mr-1" /> : <MicOff className="w-3 h-3 mr-1" />}
+          {isListening ? 'Recording...' : 'Ready'}
+        </Badge>
+      );
+    }
+    
+    return (
+      <Badge variant={isConnected ? "default" : "secondary"}>
+        {isConnecting && <Loader2 className="w-3 h-3 animate-spin mr-1" />}
+        {isConnected && !isConnecting && <Wifi className="w-3 h-3 mr-1" />}
+        {!isConnected && !isConnecting && <AlertTriangle className="w-3 h-3 mr-1" />}
+        {isConnecting ? 'Connecting...' : isConnected ? 'Connected' : 'Disconnected'}
+      </Badge>
     );
   };
 
   return (
-    <div className={`flex flex-col h-full ${className}`}>
-      {/* Header */}
-      <div className="p-3 sm:p-4 bg-gradient-to-r from-yellow-50/90 to-orange-50/90 backdrop-blur-sm border-b border-yellow-200/50">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="text-xl sm:text-2xl animate-bee-bounce">🚀</span>
-            <div>
-              <h2 className="text-base sm:text-lg font-bold">Unified Voice Chat</h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">
-                Advanced AI voice conversation with cross-device optimization
-              </p>
+    <div className={`h-full flex flex-col ${className}`}>
+      <Card className="flex-1 flex flex-col">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">
+              <span className="text-2xl">🐝</span>
+              Voice Chat with Mochi
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              {renderModeIndicator()}
+              {renderConnectionStatus()}
             </div>
           </div>
-          
-          <div className="flex items-center gap-1 sm:gap-2">
-            {deviceCapabilities?.isMobile && (
-              <Badge variant="outline" className="text-xs">
-                <Smartphone className="h-3 w-3 mr-1" />
-                Mobile
-              </Badge>
+        </CardHeader>
+
+        <CardContent className="flex-1 flex flex-col">
+          {/* Device capabilities warning for mobile */}
+          {deviceCapabilities?.isMobile && !deviceCapabilities?.hasGetUserMedia && (
+            <Alert className="mb-4">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                Your device may have limited voice chat capabilities. For best experience, use a desktop browser.
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {/* Connection error */}
+          {connectionError && (
+            <Alert variant="destructive" className="mb-4">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>{connectionError}</AlertDescription>
+            </Alert>
+          )}
+
+          {/* Messages area */}
+          <div className="flex-1 overflow-y-auto mb-4 space-y-3">
+            {messages.length === 0 ? (
+              <div className="text-center text-muted-foreground py-8">
+                <div className="text-4xl mb-2">🎤</div>
+                <p className="text-lg mb-2">Voice Chat with Mochi</p>
+                <p className="text-sm">
+                  {mode === 'realtime' 
+                    ? "Connect for natural conversation with automatic voice detection"
+                    : "Tap and hold to record your message, release to send"
+                  }
+                </p>
+                {deviceCapabilities?.isMobile && (
+                  <p className="text-xs mt-2 text-muted-foreground">
+                    Optimized for mobile • {deviceCapabilities.isIOS ? 'iOS' : deviceCapabilities.isAndroid ? 'Android' : 'Mobile'} detected
+                  </p>
+                )}
+              </div>
+            ) : (
+              messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.type === 'user'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-muted-foreground'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="text-sm">{message.content}</div>
+                      {message.isVoice && (
+                        <Volume2 className="h-3 w-3 flex-shrink-0 mt-0.5" />
+                      )}
+                    </div>
+                    <div className="text-xs opacity-70 mt-1">
+                      {message.timestamp.toLocaleTimeString()}
+                    </div>
+                  </div>
+                </div>
+              ))
             )}
             
-            {isConnected && (
-              <>
-                <Badge variant={isSpeaking ? "default" : "secondary"} className="flex items-center gap-1 text-xs">
-                  <Volume2 className="h-3 w-3" />
-                  <span className="hidden xs:inline">{isSpeaking ? "Speaking" : "Ready"}</span>
-                </Badge>
-                
-                <Badge variant={isListening ? "default" : "outline"} className="flex items-center gap-1 text-xs">
-                  <Mic className="h-3 w-3" />
-                  <span className="hidden xs:inline">{isListening ? "Listening" : "Idle"}</span>
-                  {isListening && audioLevel > 0 && (
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  )}
-                </Badge>
-              </>
+            {/* Current transcript for realtime mode */}
+            {currentTranscript && (
+              <div className="flex justify-start">
+                <div className="bg-muted/50 p-3 rounded-lg border-dashed border">
+                  <div className="text-sm">{currentTranscript}</div>
+                  <div className="text-xs opacity-70 mt-1">Mochi is responding...</div>
+                </div>
+              </div>
             )}
-          </div>
-        </div>
-      </div>
-
-      {/* Compatibility Check */}
-      {renderCompatibilityCheck()}
-
-      {/* Connection Error */}
-      {connectionError && (
-        <Alert variant="destructive" className="m-3 sm:m-4">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertDescription>{connectionError}</AlertDescription>
-        </Alert>
-      )}
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
-        {messages.length === 0 ? (
-          <div className="text-center text-muted-foreground py-6 sm:py-8">
-            <div className="text-3xl sm:text-4xl mb-2">🚀</div>
-            <p className="text-base sm:text-lg mb-2">Unified Voice Chat</p>
-            <p className="text-sm px-4">
-              {isConnected 
-                ? "🐝 Ready for natural voice conversation! Speak and I'll respond with intelligent voice synthesis."
-                : "Press the button below to start an advanced voice conversation with Mochi using our unified AI platform! 🌻"}
-            </p>
             
-            {deviceCapabilities && (
-              <div className="mt-4 flex flex-wrap justify-center gap-2">
-                <Badge variant={deviceCapabilities.microphone ? "default" : "destructive"}>
-                  <Mic className="h-3 w-3 mr-1" />
-                  Microphone: {deviceCapabilities.microphone ? "Ready" : "Not Available"}
-                </Badge>
-                <Badge variant={deviceCapabilities.webRTC ? "default" : "secondary"}>
-                  <Wifi className="h-3 w-3 mr-1" />
-                  WebRTC: {deviceCapabilities.webRTC ? "Supported" : "Limited"}
+            {/* Voice activity indicators */}
+            {isListening && (
+              <div className="flex justify-center">
+                <Badge variant="outline" className="animate-pulse">
+                  <Mic className="w-3 h-3 mr-1" />
+                  {mode === 'realtime' ? 'Listening...' : 'Recording...'}
                 </Badge>
               </div>
             )}
+            
+            {isSpeaking && (
+              <div className="flex justify-center">
+                <Badge variant="outline" className="animate-pulse">
+                  <Volume2 className="w-3 h-3 mr-1" />
+                  Mochi Speaking...
+                </Badge>
+              </div>
+            )}
+            
+            <div ref={messagesEndRef} />
           </div>
-        ) : (
-          messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <Card className={`max-w-[80%] ${
-                message.type === 'user' 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-muted/70 backdrop-blur-sm'
-              }`}>
-                <CardContent className="p-3">
-                  <div className="flex items-start gap-2">
-                    {message.type === 'assistant' && (
-                      <span className="text-xl animate-bee-bounce">🐝</span>
-                    )}
-                    <div className="flex-1">
-                      <p className="text-sm">{message.content}</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        {message.isVoice && (
-                          <Badge variant="outline" className="text-xs">
-                            <Mic className="h-3 w-3 mr-1" />
-                            Voice
-                          </Badge>
-                        )}
-                        <span className="text-xs opacity-70">
-                          {message.timestamp.toLocaleTimeString()}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))
-        )}
-        
-        {currentTranscript && (
-          <div className="flex justify-start">
-            <Card className="max-w-[80%] bg-muted/70 backdrop-blur-sm">
-              <CardContent className="p-3">
-                <div className="flex items-start gap-2">
-                  <span className="text-xl animate-bee-bounce">🐝</span>
-                  <div className="flex-1">
-                    <p className="text-sm">{currentTranscript}</p>
-                    <Badge variant="outline" className="text-xs mt-2">
-                      <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                      Processing...
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-        
-        <div ref={messagesEndRef} />
-      </div>
 
-      {/* Controls */}
-      <div className="p-3 sm:p-4 border-t border-border/50 bg-background/60 backdrop-blur-sm space-y-3 sm:space-y-4">
-        {/* Audio Level Indicator */}
-        {isListening && (
-          <div className="flex items-center gap-2">
-            <Mic className="h-4 w-4 text-green-500" />
-            <div className="flex-1 bg-muted rounded-full h-2">
-              <div 
-                className="bg-green-500 h-2 rounded-full transition-all duration-100"
-                style={{ width: `${audioLevel}%` }}
-              />
-            </div>
-            <span className="text-xs text-muted-foreground">{Math.round(audioLevel)}%</span>
-          </div>
-        )}
-        
-        {/* Main Control */}
-        <div className="flex justify-center">
-          {!isConnected ? (
-            <Button 
-              onClick={startConversation}
-              disabled={isConnecting || !!connectionError}
-              className="bg-primary hover:bg-primary/90 text-white px-6 sm:px-8"
+          {/* Controls */}
+          <div className="flex justify-center">
+            <Button
+              onClick={toggleVoiceChat}
               size="lg"
+              variant={isConnected || isListening ? "destructive" : "default"}
+              disabled={isConnecting}
+              className="gap-2"
             >
               {isConnecting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  <span className="text-sm sm:text-base">Connecting...</span>
-                </>
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (isConnected || isListening) ? (
+                <MicOff className="w-4 h-4" />
               ) : (
-                <>
-                  <Zap className="h-4 w-4 mr-2" />
-                  <span className="text-sm sm:text-base">Start Unified Voice</span>
-                </>
+                <Mic className="w-4 h-4" />
               )}
+              {isConnecting 
+                ? 'Connecting...' 
+                : mode === 'realtime'
+                  ? (isConnected ? 'Disconnect' : 'Start Voice Chat')
+                  : (isListening ? 'Stop Recording' : 'Record Message')
+              }
             </Button>
-          ) : (
-            <div className="flex gap-2">
-              <Button 
-                onClick={isListening ? stopListening : startListening}
-                variant={isListening ? "destructive" : "default"}
-                size="lg"
-              >
-                {isListening ? (
-                  <>
-                    <MicOff className="h-4 w-4 mr-2" />
-                    <span className="text-sm sm:text-base">Stop Listening</span>
-                  </>
-                ) : (
-                  <>
-                    <Mic className="h-4 w-4 mr-2" />
-                    <span className="text-sm sm:text-base">Start Listening</span>
-                  </>
-                )}
-              </Button>
-              
-              <Button 
-                onClick={disconnect}
-                variant="outline"
-                size="lg"
-              >
-                End Chat
-              </Button>
-            </div>
-          )}
-        </div>
-        
-        {/* Mobile Tips */}
-        {deviceCapabilities?.isMobile && (
-          <div className="text-center">
-            <p className="text-xs text-muted-foreground">
-              💡 For best results: Use WiFi, enable microphone permissions, and keep device unmuted
-            </p>
           </div>
-        )}
-      </div>
+
+          {/* Status text */}
+          <div className="text-center text-xs text-muted-foreground mt-2">
+            {mode === 'realtime' && isConnected && (
+              "🐝 Connected • Speak naturally, I'll respond automatically"
+            )}
+            {mode === 'simple' && (
+              "🎤 Tap to record • I'll transcribe and respond with voice"
+            )}
+            {deviceCapabilities?.isMobile && (
+              ` • Mobile optimized for ${deviceCapabilities.isIOS ? 'iOS' : 'your device'}`
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

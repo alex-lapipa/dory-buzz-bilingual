@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MochiChat } from './MochiChat';
-import { VoiceChat } from './VoiceChat';
+import { ChatInterface } from './ChatInterface';
 import { VoiceInterface } from './VoiceInterface';
 import { ImageGenerator } from './ImageGenerator';
 import { MochiVideoFeed } from './MochiVideoFeed';
@@ -65,10 +64,10 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
             <VoiceInterface className="h-full" />
           </div>
         );
-      case 'voice-classic':
+      case 'chat-advanced':
         return (
-          <div className={`${isFullscreen ? 'h-full' : 'h-[50vh] sm:h-[60vh] lg:h-[70vh] max-h-[600px]'} overflow-auto`}>
-            <VoiceChat className="h-full" />
+          <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
+            <ChatInterface className="h-full" mode="advanced" />
           </div>
         );
       case 'generate':
@@ -86,7 +85,7 @@ export const MochiInterface: React.FC<MochiInterfaceProps> = ({ activeTab = 'cha
       default:
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
-            <MochiChat className="h-full" />
+            <ChatInterface className="h-full" mode="simple" />
           </div>
         );
     }
