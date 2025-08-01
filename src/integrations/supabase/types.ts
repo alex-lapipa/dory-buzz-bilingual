@@ -736,6 +736,45 @@ export type Database = {
         }
         Relationships: []
       }
+      voice_conversations: {
+        Row: {
+          conversation_data: Json
+          created_at: string | null
+          id: string
+          last_interaction_at: string | null
+          session_id: string
+          total_duration_seconds: number | null
+          total_messages: number | null
+          updated_at: string | null
+          user_id: string | null
+          voice_settings: Json | null
+        }
+        Insert: {
+          conversation_data?: Json
+          created_at?: string | null
+          id?: string
+          last_interaction_at?: string | null
+          session_id: string
+          total_duration_seconds?: number | null
+          total_messages?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          voice_settings?: Json | null
+        }
+        Update: {
+          conversation_data?: Json
+          created_at?: string | null
+          id?: string
+          last_interaction_at?: string | null
+          session_id?: string
+          total_duration_seconds?: number | null
+          total_messages?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          voice_settings?: Json | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
