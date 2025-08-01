@@ -1,5 +1,8 @@
 project_id = "zrdywdregcrykmbiytvl"
 
+[functions.mochi_realtime_voice]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321

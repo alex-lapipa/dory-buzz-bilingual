@@ -746,7 +746,7 @@ export type Database = {
           total_duration_seconds: number | null
           total_messages: number | null
           updated_at: string | null
-          user_id: string | null
+          user_id: string
           voice_settings: Json | null
         }
         Insert: {
@@ -758,7 +758,7 @@ export type Database = {
           total_duration_seconds?: number | null
           total_messages?: number | null
           updated_at?: string | null
-          user_id?: string | null
+          user_id: string
           voice_settings?: Json | null
         }
         Update: {
@@ -770,7 +770,7 @@ export type Database = {
           total_duration_seconds?: number | null
           total_messages?: number | null
           updated_at?: string | null
-          user_id?: string | null
+          user_id?: string
           voice_settings?: Json | null
         }
         Relationships: []
