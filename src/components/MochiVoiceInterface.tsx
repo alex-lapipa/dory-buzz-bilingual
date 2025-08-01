@@ -122,11 +122,11 @@ class ReliableAudioProcessor {
 
 export function MochiVoiceInterface() {
   const [messages, setMessages] = useState<VoiceMessage[]>([]);
-  const [isConnecting, setIsConnecting] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(true); // Auto-start connecting
   const [isConnected, setIsConnected] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isMochiSpeaking, setIsMochiSpeaking] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('disconnected');
+  const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected' | 'error'>('connecting'); // Auto-start
   const [mochiMood, setMochiMood] = useState<'excited' | 'helpful' | 'funny' | 'thinking'>('excited');
   
   const { user } = useAuth();
@@ -184,7 +184,7 @@ export function MochiVoiceInterface() {
       const wsUrl = `wss://zrdywdregcrykmbiytvl.supabase.co/functions/v1/mochi_realtime_voice`;
       wsRef.current = new WebSocket(wsUrl);
 
-      wsRef.current.onopen = () => {
+      wsRef.current.onopen = async () => {
         console.log('🐝 Connected to Mochi!');
         setIsConnected(true);
         setConnectionStatus('connected');
@@ -192,10 +192,13 @@ export function MochiVoiceInterface() {
         
         addMessage("Buzz buzz! Mochi is here and ready to chat about your garden! 🐝🌻", 'mochi', true, 'excited');
         
+        // Auto-start listening immediately after connection
+        await startContinuousListening();
+        
         hapticFeedback('light');
         toast({
           title: "🐝 Mochi Connected!",
-          description: "Ready for voice gardening conversations!",
+          description: "Start talking! Mochi is listening continuously!",
         });
       };
 
@@ -310,18 +313,14 @@ export function MochiVoiceInterface() {
     }
   }, [user, toast, hapticFeedback, isConnected, addMessage]);
 
-  const startListening = useCallback(async () => {
+  const startContinuousListening = useCallback(async () => {
     if (!wsRef.current || !audioProcessorRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-      toast({
-        title: "🐝 Not Ready",
-        description: "Please connect to Mochi first!",
-        variant: "destructive"
-      });
+      console.log('🐝 WebSocket not ready for continuous listening');
       return;
     }
 
     const success = await audioProcessorRef.current.startRecording((audioData) => {
-      // Convert to PCM16 and send to Mochi
+      // Convert to PCM16 and send to Mochi continuously
       const pcmData = new Int16Array(audioData);
       const base64Audio = btoa(String.fromCharCode(...new Uint8Array(pcmData.buffer)));
       
@@ -332,21 +331,17 @@ export function MochiVoiceInterface() {
     });
 
     if (success) {
+      console.log('🐝 Continuous listening started');
       setIsListening(true);
-      hapticFeedback('medium');
-      
-      toast({
-        title: "🎙️ Listening...",
-        description: "Mochi is all ears (or antennae)! 🐝",
-      });
+      hapticFeedback('light');
     }
-  }, [toast, hapticFeedback]);
+  }, [hapticFeedback]);
 
-  const stopListening = useCallback(() => {
+  const stopContinuousListening = useCallback(() => {
     audioProcessorRef.current?.stopRecording();
     setIsListening(false);
-    hapticFeedback('light');
-  }, [hapticFeedback]);
+    console.log('🐝 Continuous listening stopped');
+  }, []);
 
   const disconnect = useCallback(() => {
     if (retryTimeoutRef.current) {
@@ -363,12 +358,22 @@ export function MochiVoiceInterface() {
     setConnectionStatus('disconnected');
   }, []);
 
-  // Cleanup on unmount
+  // Auto-connect on mount and cleanup on unmount
   useEffect(() => {
+    // Auto-connect when component mounts
+    connectToMochi();
+    
     return () => {
       disconnect();
     };
-  }, [disconnect]);
+  }, []);
+
+  // Auto-reconnect and restart listening when connection is restored
+  useEffect(() => {
+    if (isConnected && !isListening && !isMochiSpeaking) {
+      startContinuousListening();
+    }
+  }, [isConnected, isListening, isMochiSpeaking, startContinuousListening]);
 
   const getMochiEmoji = () => {
     switch (mochiMood) {
@@ -489,12 +494,54 @@ export function MochiVoiceInterface() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Voice Controls */}
+        {/* Live Voice Status - No Manual Controls Needed */}
         <div className="space-y-4">
-          {!isConnected ? (
+          {isConnecting && (
+            <div className={`p-4 rounded-2xl text-center ${
+              isOutdoorMode 
+                ? 'bg-yellow-100 border-2 border-yellow-300' 
+                : 'bg-muted border border-muted-foreground/20'
+            }`}>
+              <Loader2 className="w-8 h-8 mx-auto mb-2 animate-spin text-primary" />
+              <p className="font-medium">Connecting to Mochi...</p>
+              <p className="text-sm opacity-70">Setting up continuous voice chat</p>
+            </div>
+          )}
+
+          {isConnected && (
+            <div className={`p-4 rounded-2xl text-center transition-all duration-500 ${
+              isListening 
+                ? isOutdoorMode
+                  ? 'bg-green-100 border-2 border-green-400 animate-pulse'
+                  : 'bg-green-50 border-2 border-green-400 animate-pulse'
+                : isOutdoorMode
+                  ? 'bg-blue-100 border-2 border-blue-300'
+                  : 'bg-blue-50 border border-blue-200'
+            }`}>
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <div className={`w-4 h-4 rounded-full animate-pulse ${
+                  isListening ? 'bg-green-500' : 'bg-blue-500'
+                }`}></div>
+                <span className="text-2xl animate-bounce">🐝</span>
+                <div className={`w-4 h-4 rounded-full animate-pulse ${
+                  isListening ? 'bg-green-500' : 'bg-blue-500'
+                }`}></div>
+              </div>
+              <p className="font-medium text-lg">
+                {isListening ? '🎙️ Listening...' : '🌻 Ready to Chat'}
+              </p>
+              <p className="text-sm opacity-70 mt-1">
+                {isListening 
+                  ? 'Mochi is all ears! Just speak naturally.' 
+                  : 'Start talking anytime - Mochi will hear you!'
+                }
+              </p>
+            </div>
+          )}
+
+          {connectionStatus === 'error' && (
             <Button
               onClick={connectToMochi}
-              disabled={isConnecting}
               size="lg"
               className={`w-full h-16 text-lg font-bold rounded-2xl transition-all duration-300 shadow-lg ${
                 isOutdoorMode
@@ -502,77 +549,40 @@ export function MochiVoiceInterface() {
                   : 'bg-primary hover:bg-primary/90'
               }`}
             >
-              {isConnecting ? (
-                <>
-                  <Loader2 className="w-6 h-6 mr-3 animate-spin" />
-                  Connecting to Mochi...
-                </>
-              ) : (
-                <>
-                  <Heart className="w-6 h-6 mr-3" />
-                  Connect to Mochi 🐝
-                </>
-              )}
+              <Heart className="w-6 h-6 mr-3" />
+              Reconnect to Mochi 🐝
             </Button>
-          ) : (
-            <div className="space-y-3">
-              <Button
-                onClick={isListening ? stopListening : startListening}
-                disabled={isMochiSpeaking}
-                size="lg"
-                className={`w-full h-16 text-lg font-bold rounded-2xl transition-all duration-300 shadow-lg ${
-                  isListening 
-                    ? 'bg-red-500 hover:bg-red-600 animate-pulse border-2 border-red-600' 
-                    : isOutdoorMode
-                      ? 'bg-green-500 hover:bg-green-600 text-white border-2 border-green-600'
-                      : 'bg-green-500 hover:bg-green-600 text-white'
-                } ${isListening ? 'voice-button-active' : ''}`}
-              >
-                {isListening ? (
-                  <>
-                    <MicOff className="w-6 h-6 mr-3" />
-                    Tap to Stop Talking
-                  </>
-                ) : (
-                  <>
-                    <Mic className="w-6 h-6 mr-3" />
-                    Hold to Talk to Mochi
-                  </>
-                )}
-              </Button>
-              
-              <Button
-                onClick={disconnect}
-                variant="outline"
-                className={`w-full ${
-                  isOutdoorMode ? 'border-yellow-400 text-yellow-800 hover:bg-yellow-100' : ''
-                }`}
-              >
-                <WifiOff className="w-4 h-4 mr-2" />
-                Disconnect
-              </Button>
-            </div>
           )}
         </div>
 
-        {/* Status Display */}
+        {/* Live Status Display */}
         <div className={`text-center text-sm p-3 rounded-lg ${
           isOutdoorMode 
             ? 'bg-yellow-50/80 text-yellow-800 border border-yellow-200' 
             : 'text-muted-foreground bg-muted/50'
         }`}>
-          {isListening && "🎙️ Mochi is listening to your garden questions..."}
-          {isMochiSpeaking && "🐝 Mochi is sharing her buzzing garden wisdom..."}
+          {isMochiSpeaking && (
+            <div>
+              <p className="font-medium">🐝 Mochi is sharing her buzzing garden wisdom...</p>
+              <p className="text-xs mt-1">Listen to her helpful tips!</p>
+            </div>
+          )}
+          {isConnected && isListening && !isMochiSpeaking && (
+            <div>
+              <p className="font-medium">🎙️ Mochi is listening...</p>
+              <p className="text-xs mt-1">Just speak naturally about your garden! 🌱</p>
+            </div>
+          )}
           {isConnected && !isListening && !isMochiSpeaking && (
             <div>
-              <p className="font-medium">🌞 Ready for Garden Chat!</p>
-              <p className="text-xs mt-1">Tap and hold the mic to ask Mochi about your plants! 🌱</p>
+              <p className="font-medium">🌞 Live Voice Chat Active!</p>
+              <p className="text-xs mt-1">Completely hands-free - just start talking! 🌻</p>
             </div>
           )}
           {!isConnected && (
             <div>
-              <p className="font-medium">🐝 Mochi's Hive Offline</p>
-              <p className="text-xs mt-1">Connect to start your funny, helpful garden conversations!</p>
+              <p className="font-medium">🐝 Connecting to Mochi's Hive...</p>
+              <p className="text-xs mt-1">Preparing your hands-free garden conversations!</p>
             </div>
           )}
         </div>
