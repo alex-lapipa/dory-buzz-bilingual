@@ -7,6 +7,18 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 
+// Utility function to extract UTM parameters from URL
+const extractUTMParams = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    utm_source: urlParams.get('utm_source'),
+    utm_medium: urlParams.get('utm_medium'),
+    utm_campaign: urlParams.get('utm_campaign'),
+    utm_term: urlParams.get('utm_term'),
+    utm_content: urlParams.get('utm_content'),
+  };
+};
+
 interface UserRegistrationProps {
   onComplete: () => void;
   inline?: boolean;
@@ -70,11 +82,19 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
         age: ageNum,
         language,
         registeredAt: new Date().toISOString(),
+        device_info: {
+          userAgent: navigator.userAgent,
+          screen: `${screen.width}x${screen.height}`,
+          language: navigator.language,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        },
+        utm_params: extractUTMParams(),
+        referral_source: document.referrer || 'direct',
       };
       
       localStorage.setItem('userRegistration', JSON.stringify(registrationData));
 
-      // Try to save registration to database (gracefully handle failures)
+      // Try to save enhanced registration to database
       try {
         const { error: dbError } = await supabase
           .from('user_registrations')
@@ -82,15 +102,17 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             email,
             age: ageNum,
             language,
+            device_info: registrationData.device_info,
+            utm_params: registrationData.utm_params,
+            referral_source: registrationData.referral_source,
+            user_agent: navigator.userAgent,
           });
 
         if (dbError) {
           console.warn('Database save warning:', dbError.message);
-          // Continue - app works without DB connection
         }
       } catch (dbError) {
         console.warn('Database connection issue:', dbError);
-        // Continue with registration anyway - app can work offline
       }
 
       // Try to send welcome email (optional and non-blocking)

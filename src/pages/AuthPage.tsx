@@ -12,6 +12,7 @@ import { PageLayout } from '@/components/PageLayout';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
+import { useUserAnalytics } from '@/hooks/useUserAnalytics';
 import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
 
 const AuthPage = () => {
@@ -19,6 +20,7 @@ const AuthPage = () => {
   const { toast } = useToast();
   const { signUp, signIn, loading: authLoading } = useAuth();
   const { giveConsent } = useConsent();
+  const { trackEvent, trackUserAction } = useUserAnalytics();
   
   const [activeTab, setActiveTab] = useState('signin');
   const [loading, setLoading] = useState(false);
@@ -45,10 +47,22 @@ const AuthPage = () => {
     setLoading(true);
     setError('');
 
+    // Track sign-in attempt
+    await trackEvent('signin_attempt', 'auth', { 
+      email_domain: email.split('@')[1],
+      method: 'email_password' 
+    });
+
     try {
       const { error } = await signIn(email, password);
       
       if (error) {
+        // Track signin error
+        await trackEvent('signin_error', 'auth', { 
+          error_type: error.message?.includes('Invalid login credentials') ? 'invalid_credentials' : 'other',
+          error_message: error.message 
+        });
+
         if (error.message?.includes('Invalid login credentials')) {
           setError('Invalid email or password. Please check your credentials and try again.');
         } else if (error.message?.includes('Email not confirmed')) {
@@ -57,6 +71,11 @@ const AuthPage = () => {
           setError(error.message || 'Failed to sign in. Please try again.');
         }
       } else {
+        // Track successful signin
+        await trackEvent('signin_success', 'auth', { 
+          email_domain: email.split('@')[1] 
+        });
+
         toast({
           title: "🐝 Welcome back!",
           description: "You've successfully signed in to BeeCrazy Garden World.",
@@ -64,6 +83,10 @@ const AuthPage = () => {
         navigate('/');
       }
     } catch (err: any) {
+      await trackEvent('signin_error', 'auth', { 
+        error_type: 'unexpected',
+        error_message: err.message 
+      });
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -74,6 +97,14 @@ const AuthPage = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    // Track signup attempt
+    await trackEvent('signup_attempt', 'auth', { 
+      age: parseInt(age),
+      language,
+      email_domain: email.split('@')[1],
+      consents_given: Object.values(consents).filter(Boolean).length
+    });
 
     // Validation
     if (password !== confirmPassword) {
@@ -111,6 +142,14 @@ const AuthPage = () => {
       const { error } = await signUp(email, password, userData);
       
       if (error) {
+        // Track signup error
+        await trackEvent('signup_error', 'auth', { 
+          error_type: error.message?.includes('User already registered') ? 'user_exists' : 'other',
+          error_message: error.message,
+          age: ageNum,
+          language
+        });
+
         if (error.message?.includes('User already registered')) {
           setError('An account with this email already exists. Please sign in instead.');
           setActiveTab('signin');
@@ -120,6 +159,14 @@ const AuthPage = () => {
           setError(error.message || 'Failed to create account. Please try again.');
         }
       } else {
+        // Track successful signup
+        await trackEvent('signup_success', 'auth', { 
+          age: ageNum,
+          language,
+          email_domain: email.split('@')[1],
+          consents_given: Object.keys(consents).filter(key => consents[key as keyof typeof consents])
+        });
+
         // Record GDPR consents
         try {
           if (consents.dataProcessing) {

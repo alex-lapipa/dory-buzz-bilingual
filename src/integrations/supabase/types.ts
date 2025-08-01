@@ -644,26 +644,41 @@ export type Database = {
         Row: {
           age: number
           created_at: string
+          device_info: Json | null
           email: string
           id: string
           language: string
+          referral_source: string | null
+          signup_ip: unknown | null
           updated_at: string
+          user_agent: string | null
+          utm_params: Json | null
         }
         Insert: {
           age: number
           created_at?: string
+          device_info?: Json | null
           email: string
           id?: string
           language?: string
+          referral_source?: string | null
+          signup_ip?: unknown | null
           updated_at?: string
+          user_agent?: string | null
+          utm_params?: Json | null
         }
         Update: {
           age?: number
           created_at?: string
+          device_info?: Json | null
           email?: string
           id?: string
           language?: string
+          referral_source?: string | null
+          signup_ip?: unknown | null
           updated_at?: string
+          user_agent?: string | null
+          utm_params?: Json | null
         }
         Relationships: []
       }
@@ -790,6 +805,17 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
         }
         Returns: boolean
+      }
+      track_user_event: {
+        Args: {
+          p_event_name: string
+          p_event_type?: string
+          p_page_url?: string
+          p_element_id?: string
+          p_element_class?: string
+          p_metadata?: Json
+        }
+        Returns: string
       }
     }
     Enums: {
