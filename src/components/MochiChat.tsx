@@ -575,7 +575,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
   return (
     <div className={`flex flex-col h-full ${className}`}>
       {/* Header - Mobile Optimized */}
-      <div className="p-2 sm:p-4 bg-gradient-bee/70 backdrop-blur-sm rounded-t-xl border-b border-border/50">
+      <div className="p-2 sm:p-4 bg-gradient-bee/50 backdrop-blur-sm rounded-t-xl border-b border-border/50">
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="text-2xl sm:text-3xl animate-bee-bounce">🐝</div>
           <div className="flex-1 min-w-0">
@@ -601,7 +601,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
                 className={`max-w-[85%] sm:max-w-[80%] rounded-lg p-2 sm:p-3 ${
                   message.type === 'user'
                     ? 'bg-primary text-primary-foreground'
-                    : 'bg-card/70 backdrop-blur-sm text-card-foreground border border-border/50 shadow-sm'
+                    : 'bg-card/50 backdrop-blur-sm text-card-foreground border border-border/50 shadow-sm'
                 }`}
               >
                 {message.type === 'mochi' && (
@@ -638,7 +638,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-card/70 backdrop-blur-sm text-card-foreground border border-border/50 rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] shadow-sm">
+              <div className="bg-card/50 backdrop-blur-sm text-card-foreground border border-border/50 rounded-lg p-2 sm:p-3 max-w-[85%] sm:max-w-[80%] shadow-sm">
                 <div className="flex items-center gap-2">
                   <div className="animate-spin text-sm">🐝</div>
                   <span className="text-xs sm:text-sm">Mochi is thinking...</span>
@@ -656,7 +656,7 @@ Style this as a beautiful garden illustration that families would love - colorfu
       </ScrollArea>
 
       {/* Input Area - Mobile Optimized with Visual Enhancements */}
-      <div className="p-2 sm:p-4 border-t border-border/50 bg-card/60 backdrop-blur-sm safe-area-bottom">
+      <div className="p-2 sm:p-4 border-t border-border/50 bg-card/50 backdrop-blur-sm safe-area-bottom">
         <div className="flex flex-col space-y-2">
           {/* Helpful hints - simplified */}
           <div className="text-xs text-muted-foreground text-center">
