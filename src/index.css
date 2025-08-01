@@ -2080,7 +2080,6 @@ All colors MUST be HSL.
     background-position: center;
     background-attachment: fixed;
   }
-}
 
 /* Mobile-First Outdoor Optimizations */
 @media (max-width: 768px) {
