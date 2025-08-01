@@ -387,3 +387,147 @@ export class RealtimeChat {
     console.log('Realtime Chat disconnected');
   }
 }
+
+// WebSocket-based real-time voice chat
+export class RealtimeVoiceChat {
+  private ws: WebSocket | null = null;
+  private recorder: AudioRecorder | null = null;
+  private audioContext: AudioContext | null = null;
+  private audioQueue: AudioQueue | null = null;
+  private isConnected = false;
+
+  constructor(
+    private onMessage: (message: any) => void,
+    private onConnectionChange: (connected: boolean) => void
+  ) {}
+
+  async connect() {
+    try {
+      console.log("🔗 Connecting to voice chat...");
+      
+      // Initialize audio context
+      this.audioContext = new AudioContext({ sampleRate: 24000 });
+      this.audioQueue = new AudioQueue(this.audioContext);
+      
+      // Connect to WebSocket
+      const wsUrl = `wss://zrdywdregcrykmbiytvl.supabase.co/functions/v1/realtime_voice_chat`;
+      this.ws = new WebSocket(wsUrl);
+
+      this.ws.onopen = () => {
+        console.log("✅ Connected to voice chat server");
+        this.isConnected = true;
+        this.onConnectionChange(true);
+        this.startRecording();
+      };
+
+      this.ws.onmessage = async (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          console.log("📨 Received:", data.type);
+          
+          this.onMessage(data);
+
+          if (data.type === 'response.audio.delta' && this.audioQueue) {
+            // Convert base64 to Uint8Array and play
+            const binaryString = atob(data.delta);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+            }
+            await this.audioQueue.addToQueue(bytes);
+          }
+        } catch (error) {
+          console.error("❌ Error processing message:", error);
+        }
+      };
+
+      this.ws.onclose = () => {
+        console.log("🔌 Connection closed");
+        this.isConnected = false;
+        this.onConnectionChange(false);
+        this.cleanup();
+      };
+
+      this.ws.onerror = (error) => {
+        console.error("❌ WebSocket error:", error);
+        this.isConnected = false;
+        this.onConnectionChange(false);
+      };
+
+    } catch (error) {
+      console.error("❌ Error connecting:", error);
+      throw error;
+    }
+  }
+
+  private async startRecording() {
+    try {
+      this.recorder = new AudioRecorder((audioData) => {
+        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+          this.ws.send(JSON.stringify({
+            type: 'input_audio_buffer.append',
+            audio: encodeAudioForAPI(audioData)
+          }));
+        }
+      });
+      
+      await this.recorder.start();
+      console.log("🎤 Recording started");
+    } catch (error) {
+      console.error("❌ Error starting recording:", error);
+    }
+  }
+
+  sendTextMessage(text: string) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      console.warn("⚠️ WebSocket not connected");
+      return;
+    }
+
+    const event = {
+      type: 'conversation.item.create',
+      item: {
+        type: 'message',
+        role: 'user',
+        content: [
+          {
+            type: 'input_text',
+            text
+          }
+        ]
+      }
+    };
+
+    this.ws.send(JSON.stringify(event));
+    this.ws.send(JSON.stringify({ type: 'response.create' }));
+  }
+
+  disconnect() {
+    console.log("🔌 Disconnecting...");
+    this.cleanup();
+  }
+
+  private cleanup() {
+    if (this.recorder) {
+      this.recorder.stop();
+      this.recorder = null;
+    }
+    
+    if (this.ws) {
+      this.ws.close();
+      this.ws = null;
+    }
+    
+    if (this.audioContext) {
+      this.audioContext.close();
+      this.audioContext = null;
+    }
+    
+    this.audioQueue = null;
+    this.isConnected = false;
+  }
+
+  get connected() {
+    return this.isConnected;
+  }
+}

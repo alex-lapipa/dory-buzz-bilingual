@@ -164,3 +164,6 @@ verify_jwt = false
 
 [functions.health_monitor]
 verify_jwt = false
+
+[functions.realtime_voice_chat]
+verify_jwt = false
