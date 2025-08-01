@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { prompt, size = "1024x1024", quality = "standard" } = await req.json();
+    const { prompt, size = "1024x1024", quality = "auto" } = await req.json();
 
     if (!prompt) {
       throw new Error('Prompt is required');
