@@ -13,13 +13,14 @@ const corsHeaders = {
 };
 
 interface AIRequest {
-  type: 'chat' | 'voice' | 'image' | 'analysis';
+  type: 'chat' | 'voice' | 'analysis';
   provider: 'openai' | 'anthropic' | 'elevenlabs' | 'auto';
   input: string;
   context?: any;
   userId?: string;
   conversationId?: string;
   settings?: any;
+  generateMedia?: boolean; // For automatic media generation
 }
 
 interface AIResponse {
@@ -54,8 +55,6 @@ class VoiceFocusedOrchestrator {
           return await this.handleChat(request);
         case 'analysis':
           return await this.handleAnalysis(request);
-        case 'image':
-          return await this.handleImage(request);
         default:
           throw new Error(`Unsupported request type: ${request.type}`);
       }
@@ -78,8 +77,6 @@ class VoiceFocusedOrchestrator {
         return 'openai'; // OpenAI for voice-friendly chat responses
       case 'analysis':
         return 'anthropic'; // Claude only for deep analysis
-      case 'image':
-        return 'openai'; // OpenAI for image generation
       default:
         return 'openai';
     }
@@ -164,38 +161,6 @@ Current context: The user is in ${context?.currentPage || 'the main app'}. ${con
     };
   }
 
-  private async handleImage(request: AIRequest): Promise<AIResponse> {
-    const response = await fetch('https://api.openai.com/v1/images/generations', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.openaiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-image-1',
-        prompt: request.input,
-        n: 1,
-        size: '1024x1024',
-        quality: 'standard'
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`OpenAI Image API error: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-
-    return {
-      success: true,
-      data: {
-        imageUrl: data.data[0].url,
-        prompt: request.input
-      },
-      provider: 'openai',
-      type: 'image'
-    };
-  }
 
   private async handleAnalysis(request: AIRequest): Promise<AIResponse> {
     // Use Anthropic Claude for deep analysis

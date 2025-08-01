@@ -3,13 +3,14 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 interface AIRequest {
-  type: 'chat' | 'voice' | 'image' | 'analysis';
+  type: 'chat' | 'voice' | 'analysis';
   provider?: 'openai' | 'anthropic' | 'elevenlabs' | 'auto';
   input: string;
   context?: any;
   userId?: string;
   conversationId?: string;
   settings?: any;
+  generateMedia?: boolean;
 }
 
 interface AIResponse {
@@ -99,13 +100,31 @@ export const useMasterAI = () => {
     });
   }, [processRequest]);
 
+  // Keep generateImage for internal automatic generation only
   const generateImage = useCallback(async (prompt: string) => {
-    return await processRequest({
-      type: 'image',
-      provider: 'openai',
-      input: prompt
-    });
-  }, [processRequest]);
+    // Use OpenAI directly for automatic image generation in chat context
+    try {
+      const { data, error } = await supabase.functions.invoke('generate_image', {
+        body: { prompt }
+      });
+      
+      if (error) throw new Error(error.message);
+      
+      return {
+        success: true,
+        data: { imageUrl: data.image_url || data.imageUrl },
+        provider: 'openai',
+        type: 'auto-image'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Image generation failed',
+        provider: 'openai',
+        type: 'auto-image'
+      };
+    }
+  }, []);
 
   const analyze = useCallback(async (content: string) => {
     return await processRequest({

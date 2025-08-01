@@ -53,17 +53,13 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Mobile-Optimized Interface */}
+        {/* Mobile-Optimized Interface - Chat Focused */}
         <div className="w-full">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-4 h-12">
+            <TabsList className="grid w-full grid-cols-2 mb-4 h-12">
               <TabsTrigger value="voice" className="text-sm font-semibold">
                 <Mic className="h-4 w-4 mr-2" />
                 Voice Chat
-              </TabsTrigger>
-              <TabsTrigger value="unified" className="text-sm font-semibold">
-                <Zap className="h-4 w-4 mr-2" />
-                All Tools
               </TabsTrigger>
               <TabsTrigger value="chat" className="text-sm font-semibold">
                 <MessageCircle className="h-4 w-4 mr-2" />
@@ -73,10 +69,6 @@ const Index = () => {
             
             <TabsContent value="voice" className="mt-0">
               <VoiceFirstInterface />
-            </TabsContent>
-            
-            <TabsContent value="unified" className="mt-0">
-              <UnifiedMochiInterface />
             </TabsContent>
             
             <TabsContent value="chat" className="mt-0">

@@ -12,6 +12,9 @@ interface Message {
   type: 'user' | 'assistant';
   timestamp: Date;
   isVoice?: boolean;
+  imageUrl?: string;
+  videoUrl?: string;
+  isGeneratingMedia?: boolean;
 }
 
 export function VoiceFirstInterface() {
