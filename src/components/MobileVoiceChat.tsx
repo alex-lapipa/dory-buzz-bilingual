@@ -117,7 +117,7 @@ export const MobileVoiceChat: React.FC = () => {
         mobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       });
       
-      chatRef.current = new RealtimeVoiceChat(handleMessage, handleConnectionChange);
+      chatRef.current = new RealtimeVoiceChat(handleMessage);
       await chatRef.current.connect();
       
     } catch (error) {
