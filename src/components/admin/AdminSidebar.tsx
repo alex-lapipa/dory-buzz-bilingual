@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Settings, Activity, BarChart3, BookOpen, Flower2, TreeDeciduous, MessageCircle,
   Palette, Layers, Globe, ExternalLink, Wrench, HeartPulse, Shield, Lock,
-  Accessibility, Cog, Download, Pin, PinOff, ChevronDown
+  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 export type AdminSection =
   | 'control' | 'production' | 'analytics'
   | 'beeducation' | 'bee-basics' | 'garden-basics' | 'chat'
-  | 'brand' | 'design'
+  | 'brand' | 'design' | 'audio-sound'
   | 'google-ecosystem'
   | 'technical' | 'system-health'
   | 'privacy' | 'accessibility'
@@ -54,6 +54,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'brand', label: 'Brand Book', icon: Palette },
       { id: 'design', label: 'Design System', icon: Layers },
+      { id: 'audio-sound', label: 'Audio & Sound', icon: Music },
     ],
   },
   {

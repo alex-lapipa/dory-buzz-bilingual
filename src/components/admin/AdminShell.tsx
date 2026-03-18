@@ -18,6 +18,7 @@ const GardenBasicsAdmin = lazy(() => import('@/components/admin/GardenBasicsAdmi
 const ChatManagement = lazy(() => import('@/components/admin/ChatManagement'));
 const ContentIngestion = lazy(() => import('@/components/admin/ContentIngestion'));
 const AnalyticsDashboard = lazy(() => import('@/components/admin/AnalyticsDashboard'));
+const AudioSoundDesign = lazy(() => import('@/components/admin/AudioSoundDesign'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
@@ -46,6 +47,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   chat: 'Chat Management',
   brand: 'Brand Book',
   design: 'Design System',
+  'audio-sound': 'Audio & Sound Design',
   'google-ecosystem': 'Google Ecosystem',
   technical: 'Technical Details',
   'system-health': 'System Health',
@@ -164,6 +166,8 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
       return <BrandBook />;
     case 'design':
       return <DesignSystem />;
+    case 'audio-sound':
+      return <AudioSoundDesign />;
     case 'google-ecosystem':
       return <GoogleEcosystemDashboard />;
     case 'technical':
