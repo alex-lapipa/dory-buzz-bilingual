@@ -1,10 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
 import { PageSEO } from '@/components/PageSEO';
-import { useConversation } from '@11labs/react';
 import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
 import ParentMixPicker from '@/components/buzzy-bees/ParentMixPicker';
 import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
