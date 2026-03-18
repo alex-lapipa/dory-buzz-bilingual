@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface PageTransitionProps {
@@ -7,25 +7,27 @@ interface PageTransitionProps {
 
 export const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const location = useLocation();
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState<'enter' | 'exit'>('enter');
+  const [stage, setStage] = useState<'enter' | 'idle'>('enter');
+  const prevKey = useRef(location.key);
 
   useEffect(() => {
-    if (children !== displayChildren) {
-      setTransitionStage('exit');
-      const timeout = setTimeout(() => {
-        setDisplayChildren(children);
-        setTransitionStage('enter');
-      }, 200);
-      return () => clearTimeout(timeout);
+    if (location.key !== prevKey.current) {
+      prevKey.current = location.key;
+      setStage('enter');
     }
-  }, [children, location.pathname]);
+  }, [location.key]);
+
+  // Remove animation class after it finishes to avoid replaying
+  const handleAnimationEnd = () => {
+    setStage('idle');
+  };
 
   return (
     <div
-      className={`page-transition ${transitionStage === 'enter' ? 'page-enter' : 'page-exit'}`}
+      className={`page-transition ${stage === 'enter' ? 'page-enter' : ''}`}
+      onAnimationEnd={handleAnimationEnd}
     >
-      {displayChildren}
+      {children}
     </div>
   );
 };
