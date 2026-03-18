@@ -235,7 +235,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Vision',
       icon: <Microscope className="h-6 w-6" />,
       color: 'border-violet-200 bg-gradient-to-br from-violet-50 to-purple-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'bee-trivia',
