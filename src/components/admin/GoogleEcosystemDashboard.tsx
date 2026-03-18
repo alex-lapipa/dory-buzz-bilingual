@@ -176,7 +176,38 @@ const GoogleEcosystemDashboard: React.FC = () => {
         })}
       </div>
 
-      {/* Ecosystem info */}
+      {/* Multi-Model Orchestrator */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2">
+            <Bot className="h-4 w-4 text-primary" />
+            Multi-Model Orchestrator
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground mb-4">
+            MochiBee's chat backend uses a cascading multi-model architecture. If the primary model fails, it automatically falls back to the next provider.
+          </p>
+          <div className="space-y-2">
+            {[
+              { priority: 1, provider: 'Google Gemini', model: 'gemini-2.5-flash', role: 'Primary', color: 'bg-primary/15 text-primary' },
+              { priority: 2, provider: 'Anthropic Claude', model: 'claude-sonnet-4', role: 'Fallback', color: 'bg-accent/50 text-accent-foreground' },
+              { priority: 3, provider: 'OpenAI GPT', model: 'gpt-4.1', role: 'Final fallback', color: 'bg-muted text-muted-foreground' },
+            ].map((m) => (
+              <div key={m.priority} className="flex items-center gap-3 p-2.5 rounded-lg border border-border">
+                <span className="text-xs font-bold text-muted-foreground w-5">#{m.priority}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium">{m.provider}</p>
+                  <p className="text-xs text-muted-foreground font-mono">{m.model}</p>
+                </div>
+                <Badge variant="outline" className={m.color}>{m.role}</Badge>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Configured Secrets */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
@@ -187,9 +218,9 @@ const GoogleEcosystemDashboard: React.FC = () => {
         <CardContent>
           <div className="grid gap-2 sm:grid-cols-2">
             {[
-              { name: 'GOOGLE_AI_STUDIO', desc: 'Gemini API key for AI features' },
-              { name: 'OPENAI_API_KEY', desc: 'OpenAI fallback for chat' },
-              { name: 'ANTHROPIC_API_KEY', desc: 'Claude reasoning engine' },
+              { name: 'GOOGLE_AI_STUDIO', desc: 'Gemini API key — primary model' },
+              { name: 'ANTHROPIC_API_KEY', desc: 'Claude — fallback model' },
+              { name: 'OPENAI_API_KEY', desc: 'GPT — final fallback + embeddings' },
               { name: 'XAI_API_KEY', desc: 'Grok integration' },
               { name: 'ELEVENLABS_API_KEY', desc: 'Voice synthesis (Mochi TTS)' },
               { name: 'RESEND_API_KEY', desc: 'Email service' },
