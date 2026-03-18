@@ -143,7 +143,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
               >
                 <div className="flex-shrink-0">
                   {completedSteps.includes(index) ? (
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                    <BloomingCheck className="h-5 w-5 text-green-500" />
                   ) : index === currentStep ? (
                     <div className="h-5 w-5 rounded-full bg-primary animate-pulse" />
                   ) : (
