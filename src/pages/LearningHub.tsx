@@ -17,6 +17,7 @@ import {
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap, Gamepad2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
+import { LearningProgressChart } from '@/components/LearningProgressChart';
 
 interface BeeFact {
   id: string;
@@ -240,6 +241,32 @@ const LearningHub: React.FC = () => {
             Choose your learning adventure below.
           </p>
         </div>
+
+        {/* Progress Chart */}
+        <ScrollReveal>
+          <LearningProgressChart
+            overallPercent={(() => {
+              const totalFacts = beeFacts.length;
+              const totalCompleted = progress.reduce((sum, p) => sum + (p.completed_lessons?.length || 0), 0);
+              return totalFacts > 0 ? Math.round((totalCompleted / totalFacts) * 100) : 0;
+            })()}
+            categories={categories.filter(c => c !== 'all').map(cat => {
+              const prog = getProgressForCategory(cat);
+              const colorMap: Record<string, string> = {
+                'bee_biology': 'hsl(45 100% 50%)',
+                'garden': 'hsl(120 40% 50%)',
+                'ecology': 'hsl(200 60% 50%)',
+                'pollination': 'hsl(30 90% 55%)',
+                'beekeeping': 'hsl(25 85% 55%)',
+              };
+              return {
+                label: cat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                value: Math.round(prog.percentage),
+                color: colorMap[cat] || 'hsl(var(--primary))',
+              };
+            })}
+          />
+        </ScrollReveal>
 
         {/* Learning Paths Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
