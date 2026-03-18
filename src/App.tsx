@@ -22,6 +22,7 @@ import LearningHub from "./pages/LearningHub";
 const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
 const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
 const Admin = lazy(() => import('./pages/Admin'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";

@@ -22,6 +22,9 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSent, setForgotSent] = useState(false);
 
   const validateForm = () => {
     if (!email || !password) {
