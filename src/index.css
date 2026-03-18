@@ -104,10 +104,15 @@ All colors MUST be HSL.
     --sidebar-ring: 59 100% 50%;
 
     /* Chat colors */
-    --guest-message: 120 40% 25% / 0.85;
-    --guest-message-foreground: 120 30% 95%;
-    --mochi-message: 59 100% 50% / 0.9;
-    --mochi-message-foreground: 0 0% 0%;
+    --guest-message: 152 45% 28%;
+    --guest-message-foreground: 0 0% 98%;
+    --mochi-message: 40 80% 94%;
+    --mochi-message-foreground: 30 80% 12%;
+
+    /* Accessible text tokens */
+    --primary-text: 30 80% 12%;
+    --heading-on-nature: 30 60% 15%;
+    --text-on-primary: 30 100% 8%;
   }
 
   .dark {
@@ -166,7 +171,7 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-saira text-responsive-base font-semibold;
+    @apply bg-background text-foreground font-saira text-responsive-base font-normal;
     /* Mobile-first optimizations */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -214,7 +219,88 @@ All colors MUST be HSL.
     line-height: 1.1;
   }
 
-  /* Mobile-first spacing utilities */
+  /* Typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+  }
+  h1 { font-weight: 800; }
+
+  /* Accessible heading on nature backgrounds */
+  .heading-nature {
+    color: hsl(var(--heading-on-nature));
+    text-shadow: 0 1px 3px hsl(0 0% 100% / 0.6);
+  }
+
+  /* Text on primary yellow backgrounds */
+  .text-on-primary {
+    color: hsl(var(--text-on-primary));
+  }
+
+  /* Card variants */
+  .card-glass {
+    background: hsl(0 0% 100% / 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(0 0% 100% / 0.3);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+  .card-solid {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+  .card-elevated {
+    background: hsl(0 0% 100% / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(0 0% 100% / 0.4);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px -8px hsl(0 0% 0% / 0.15);
+  }
+
+  /* Prose for educational content */
+  .prose-garden {
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  .prose-garden h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
+  .prose-garden h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+  .prose-garden p { margin-bottom: 1rem; }
+  .prose-garden ul, .prose-garden ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+  .prose-garden li { margin-bottom: 0.25rem; }
+
+  /* Chat bubble styles using semantic tokens */
+  .bubble-user {
+    background: hsl(var(--guest-message));
+    color: hsl(var(--guest-message-foreground));
+    border: 1px solid hsl(var(--guest-message) / 0.3);
+  }
+  .bubble-mochi {
+    background: hsl(var(--mochi-message));
+    color: hsl(var(--mochi-message-foreground));
+    border: 1px solid hsl(var(--mochi-message) / 0.3);
+  }
+
+  /* Typing indicator */
+  .typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: hsl(var(--muted-foreground));
+    animation: typing-bounce 1.4s ease-in-out infinite;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typing-bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+
   .space-mobile { margin: var(--spacing-md); }
   .space-mobile-x { margin-left: var(--spacing-md); margin-right: var(--spacing-md); }
   .space-mobile-y { margin-top: var(--spacing-md); margin-bottom: var(--spacing-md); }

@@ -401,8 +401,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         <div
           className={`max-w-[85%] rounded-lg p-3 ${
             message.type === 'user'
-              ? 'bg-primary/90 backdrop-blur-sm text-primary-foreground border border-primary/20'
-              : 'bg-muted/70 backdrop-blur-sm text-muted-foreground border border-muted/20'
+              ? 'bubble-user'
+              : 'bubble-mochi'
           }`}
         >
           <div className="space-y-2">
@@ -453,7 +453,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
-      <Card className="flex-1 flex flex-col bg-card/80 backdrop-blur-sm border-border/20">
+      <Card className="flex-1 flex flex-col card-glass border-border/20">
         {/* Header with mode indicator */}
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -576,10 +576,14 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             
             {/* Loading indicator */}
             {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted/60 backdrop-blur-sm rounded-lg p-3 flex items-center gap-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
-                  <span className="text-sm">Mochi is thinking...</span>
+              <div className="flex justify-start mb-4">
+                <div className="bubble-mochi rounded-lg p-3 flex items-center gap-3">
+                  <div className="typing-indicator flex gap-1">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <span className="text-sm font-normal">Mochi is thinking...</span>
                 </div>
               </div>
             )}

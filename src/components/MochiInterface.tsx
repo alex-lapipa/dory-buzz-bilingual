@@ -44,10 +44,10 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
         <div className="min-h-[60vh] flex items-center justify-center p-4 sm:p-6 md:p-8 text-center">
           <div className="max-w-sm sm:max-w-md md:max-w-lg w-full">
             <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-5 animate-bee-bounce">🐝</div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5" style={{ color: '#fffd01' }}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 heading-nature">
               {t('welcome')} BeeCrazy Garden World!
             </h2>
-            <p className="text-base sm:text-lg mb-6 sm:mb-7" style={{ color: '#fffd01' }}>
+            <p className="text-base sm:text-lg mb-6 sm:mb-7 text-foreground">
               {t('language') === 'es' 
                 ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
                 : 'Complete your registration to access all chat features with Mochi.'

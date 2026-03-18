@@ -156,7 +156,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
       <Card className={`shadow-honey border border-border/30 bg-card/90 backdrop-blur ${inline ? 'w-full max-w-xs sm:max-w-sm' : 'max-w-xs sm:max-w-sm md:max-w-md w-full'}`}>
         <CardHeader className="text-center">
           <div className="text-5xl sm:text-6xl mb-3 sm:mb-4 animate-bee-bounce">🐝</div>
-          <CardTitle className="text-responsive-xl sm:text-responsive-2xl font-bold" style={{ color: '#fffd01' }}>
+          <CardTitle className="text-responsive-xl sm:text-responsive-2xl font-bold heading-nature">
             {language === 'es' ? '¡Únete a BeeCrazy!' : 'Join BeeCrazy!'}
           </CardTitle>
           <p className="text-responsive-xs sm:text-responsive-sm text-muted-foreground mt-2">
@@ -203,8 +203,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             
             <Button 
               type="submit" 
-              className="w-full font-semibold text-responsive-sm sm:text-responsive-base text-black hover:opacity-90"
-              style={{ backgroundColor: '#fffd01' }}
+              className="w-full font-semibold text-responsive-sm sm:text-responsive-base text-on-primary bg-primary hover:opacity-90"
               disabled={isSubmitting}
             >
               {isSubmitting 
