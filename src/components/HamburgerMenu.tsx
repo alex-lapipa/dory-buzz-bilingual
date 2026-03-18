@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, LogOut, User, Shield, Heart, BookOpen, MessageCircle, BarChart3 } from 'lucide-react';
+import { Menu, ExternalLink, LogOut, User, Shield, Heart, BookOpen, MessageCircle, BarChart3, Music } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -62,6 +62,11 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/learning')}>
               <BookOpen className="h-4 w-4 mr-3" />
               📚 {t('learn') || 'Learn'}
+            </Button>
+
+            <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
+              <Music className="h-4 w-4 mr-3" />
+              🎵 Buzzy Bees
             </Button>
 
             {user && (

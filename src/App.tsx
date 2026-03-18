@@ -27,6 +27,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
+const BuzzyBees = lazy(() => import('./pages/BuzzyBees'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -143,6 +144,13 @@ const App = () => {
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
                               <GardenBasics />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/buzzy-bees" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <BuzzyBees />
                             </Suspense>
                           </PageTransition>
                         } />
