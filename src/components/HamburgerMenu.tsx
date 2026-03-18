@@ -13,9 +13,7 @@ interface HamburgerMenuProps {
 
 export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
   const { t } = useLanguage();
-  
   // Check if user has completed registration
   const isUserRegistered = localStorage.getItem('userRegistration') !== null;
 
