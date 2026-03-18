@@ -675,7 +675,7 @@ export const NatureWarning: React.FC<IconProps> = (props) => (
 
 /** MessageSquare replacement */
 export const BeeChatSquare: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z" />
   </svg>
 );
