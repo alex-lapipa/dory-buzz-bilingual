@@ -310,7 +310,7 @@ export const InteractiveLearningGames: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-yellow-700">{completedGames.length}</div>
+              <div className="text-2xl font-bold text-yellow-700">{completedCount}</div>
               <div className="text-sm text-yellow-600">Games Completed</div>
             </div>
             <div className="space-y-2">
@@ -319,9 +319,9 @@ export const InteractiveLearningGames: React.FC = () => {
             </div>
             <div className="space-y-2">
               <div className="text-2xl font-bold text-amber-700">
-                {Object.values(gameScores).reduce((total, score) => total + score, 0)}
+                {totalScore}
               </div>
-              <div className="text-sm text-amber-600">Total Score</div>
+              <div className="text-sm text-amber-600">Total High Score</div>
             </div>
           </div>
         </CardContent>
