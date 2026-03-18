@@ -52,7 +52,7 @@ export const BeeFlying: React.FC<IconProps> = (props) => (
 
 /** Friendly bee face — replaces User */
 export const BeeFace: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <circle cx="12" cy="13" r="7" />
     <circle cx="9.5" cy="12" r="1" fill="currentColor" stroke="none" />
     <circle cx="14.5" cy="12" r="1" fill="currentColor" stroke="none" />
