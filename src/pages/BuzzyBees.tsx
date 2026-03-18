@@ -173,12 +173,6 @@ const BuzzyBees: React.FC = () => {
         </div>
       </div>
 
-      {/* Kids ElevenLabs BeeBee Widget (native embed) */}
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `<elevenlabs-convai agent-id="${KIDS_AGENT_ID}"></elevenlabs-convai>`,
-        }}
-      />
     </>
   );
 };

@@ -181,6 +181,7 @@ const App = () => {
             )}
             
             <FloatingGarden />
+            <GlobalVoiceAgent />
           </div>
         </AuthWrapper>
       </TooltipProvider>
