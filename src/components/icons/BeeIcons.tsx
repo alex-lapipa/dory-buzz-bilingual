@@ -199,7 +199,7 @@ export const FlowerPlay: React.FC<IconProps> = (props) => (
 
 /** Flower pause — replaces Pause */
 export const FlowerPause: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="12" r="9" />
     <line x1="10" y1="8" x2="10" y2="16" strokeWidth="2.5" />
     <line x1="14" y1="8" x2="14" y2="16" strokeWidth="2.5" />
