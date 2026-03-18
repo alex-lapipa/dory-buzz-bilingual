@@ -262,6 +262,9 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   autoComplete="email"
                 />
               </div>
+              {isLawtonEmail(email) && (
+                <p className="text-xs text-primary">🏫 Lawton School account — you'll be redirected to Microsoft sign-in</p>
+              )}
             </div>
 
             {isSignUp && (

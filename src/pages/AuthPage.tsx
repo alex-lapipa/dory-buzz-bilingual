@@ -304,7 +304,7 @@ const AuthPage = () => {
 
               <TabsContent value="signin" className="space-y-4">
                 <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
+                   <div className="space-y-2">
                     <Label htmlFor="signin-email">Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -313,11 +313,20 @@ const AuthPage = () => {
                         type="email"
                         placeholder="Enter your email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          // Auto-redirect on blur/typing a Lawton domain
+                          if (isLawtonEmail(e.target.value)) {
+                            setError('');
+                          }
+                        }}
                         className="pl-10"
                         required
                       />
                     </div>
+                    {isLawtonEmail(email) && (
+                      <p className="text-xs text-primary">🏫 Lawton School account detected — you'll be redirected to Microsoft sign-in</p>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
