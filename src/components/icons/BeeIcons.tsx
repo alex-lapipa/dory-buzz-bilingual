@@ -482,7 +482,7 @@ export const GamepadFlower: React.FC<IconProps> = (props) => (
 
 /** Volume flower — replaces Volume2 */
 export const VolumeFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M11 5L6 9H2v6h4l5 4V5z" />
     <path d="M15.5 8.5c1 1.5 1 5.5 0 7" opacity=".6" />
     <path d="M18 6c2 3 2 9 0 12" opacity=".4" />
