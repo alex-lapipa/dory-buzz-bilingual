@@ -16,9 +16,19 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(true);
 
+  // Pre-authorized owner emails — always granted admin access
+  const OWNER_EMAILS = ['alex@lawtonschool.com', 'alex@idiomas.io'];
+
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
+      setChecking(false);
+      return;
+    }
+
+    // Owner bypass — instant admin access
+    if (user.email && OWNER_EMAILS.includes(user.email.toLowerCase())) {
+      setIsAdmin(true);
       setChecking(false);
       return;
     }
