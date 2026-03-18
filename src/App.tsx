@@ -153,6 +153,10 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
+                        <Route path="/privacy" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><PrivacyPolicy /></Suspense></PageTransition>} />
+                        <Route path="/terms" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><TermsOfService /></Suspense></PageTransition>} />
+                        <Route path="/cookies" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><CookiePolicy /></Suspense></PageTransition>} />
+                        <Route path="/sitemap" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><SitemapPage /></Suspense></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
