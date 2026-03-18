@@ -4,6 +4,13 @@
  * Shared pattern across Lawton edtech platforms: idiomas.io, lawtonx.com, mochinillo.com
  */
 
+const LAWTON_DOMAINS = ['lawtonschool.com', 'idiomas.io', 'lawtonx.com'];
+
+export function isLawtonEmail(email: string): boolean {
+  const domain = email.split('@')[1]?.toLowerCase();
+  return LAWTON_DOMAINS.includes(domain);
+}
+
 export function isInIframe(): boolean {
   try {
     return window.self !== window.top;
