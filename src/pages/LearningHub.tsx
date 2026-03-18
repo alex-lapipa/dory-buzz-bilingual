@@ -336,9 +336,11 @@ const LearningHub: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={240}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-4 h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
