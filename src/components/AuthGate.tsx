@@ -8,6 +8,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { shouldSkipBrowserRedirect, navigateToOAuth } from '@/utils/oauthRedirect';
 
 export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading, signUp, signIn } = useAuth();
@@ -49,14 +51,23 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
     try {
       setIsLoading(true);
-      const { supabase } = await import('@/integrations/supabase/client');
+      const callbackUrl = `${window.location.origin}/auth`;
+      const skipRedirect = shouldSkipBrowserRedirect();
       
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: callbackUrl,
+          skipBrowserRedirect: skipRedirect,
+          ...(provider === 'azure' && { scopes: 'openid email profile' }),
         }
       });
+
+      // When skipBrowserRedirect is true, navigate manually
+      if (!error && skipRedirect && data?.url) {
+        navigateToOAuth(data.url);
+        return;
+      }
 
       if (error) {
         setError(error.message);
