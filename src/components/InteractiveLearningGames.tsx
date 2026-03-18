@@ -252,27 +252,21 @@ export const InteractiveLearningGames: React.FC = () => {
     }
   ];
 
-  // Show individual game if one is selected
-  if (currentGame === 'flower-match') {
-    return (
-      <div className="space-y-6">
-        <FlowerMemoryGame 
-          onGameComplete={(score) => handleGameComplete('flower-match', score)}
-          onClose={handleCloseGame}
-        />
-      </div>
-    );
-  }
+  const gameComponents: Record<string, React.ReactNode> = {
+    'flower-match': <FlowerMemoryGame onGameComplete={(s) => handleGameComplete('flower-match', s)} onClose={handleCloseGame} />,
+    'bee-trivia': <BeeTrivia onGameComplete={(s) => handleGameComplete('bee-trivia', s)} onClose={handleCloseGame} />,
+    'bee-anatomy': <BeeAnatomyExplorer onGameComplete={(s) => handleGameComplete('bee-anatomy', s)} onClose={handleCloseGame} />,
+    'pollination-quest': <PollinationQuest onGameComplete={(s) => handleGameComplete('pollination-quest', s)} onClose={handleCloseGame} />,
+    'hive-builder': <HiveBuilder onGameComplete={(s) => handleGameComplete('hive-builder', s)} onClose={handleCloseGame} />,
+    'bee-dance': <BeeDanceDecoder onGameComplete={(s) => handleGameComplete('bee-dance', s)} onClose={handleCloseGame} />,
+    'lifecycle-lab': <LifecycleLab onGameComplete={(s) => handleGameComplete('lifecycle-lab', s)} onClose={handleCloseGame} />,
+    'garden-planner': <GardenPlanner onGameComplete={(s) => handleGameComplete('garden-planner', s)} onClose={handleCloseGame} />,
+    'species-spotter': <SpeciesSpotter onGameComplete={(s) => handleGameComplete('species-spotter', s)} onClose={handleCloseGame} />,
+    'micro-world': <MicroscopicBeeWorld onGameComplete={(s) => handleGameComplete('micro-world', s)} onClose={handleCloseGame} />,
+  };
 
-  if (currentGame === 'bee-trivia') {
-    return (
-      <div className="space-y-6">
-        <BeeTrivia 
-          onGameComplete={(score) => handleGameComplete('bee-trivia', score)}
-          onClose={handleCloseGame}
-        />
-      </div>
-    );
+  if (currentGame && gameComponents[currentGame]) {
+    return <div className="space-y-6">{gameComponents[currentGame]}</div>;
   }
 
   return (
