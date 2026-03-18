@@ -24,6 +24,7 @@ const LOCAL_VARIATIONS = [
 export const useBuzzyBeesAudio = () => {
   const [variations, setVariations] = useState<AudioVariation[]>([]);
   const playIndexRef = useRef(0);
+  const [currentMix, setCurrentMix] = useState<{ index: number; total: number } | null>(null);
 
   useEffect(() => {
     const load = async () => {
