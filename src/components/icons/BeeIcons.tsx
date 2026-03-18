@@ -500,7 +500,7 @@ export const GardenLock: React.FC<IconProps> = (props) => (
 
 /** Wifi flower — replaces Wifi */
 export const WifiFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <path d="M2 8.5c3-3 7-5 10-5s7 2 10 5" opacity=".4" />
     <path d="M5 12c2-2 4-3.5 7-3.5s5 1.5 7 3.5" opacity=".6" />
     <path d="M8.5 15.5c1-1 2.2-1.5 3.5-1.5s2.5.5 3.5 1.5" opacity=".8" />
