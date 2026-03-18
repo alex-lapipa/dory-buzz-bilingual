@@ -617,7 +617,7 @@ const LearningHub: React.FC = () => {
                   
                   {isCompleted && (
                     <div className="flex items-center justify-center gap-2 text-green-600 bg-green-50 p-2 rounded-lg">
-                      <Award className="h-4 w-4" />
+                      <HoneycombTrophy className="h-4 w-4" />
                       <span className="text-sm font-medium">Completed!</span>
                     </div>
                   )}
