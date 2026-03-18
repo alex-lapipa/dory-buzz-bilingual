@@ -15,7 +15,7 @@ export type AdminSection =
   | 'google-ecosystem'
   | 'technical' | 'system-health'
   | 'privacy' | 'accessibility'
-  | 'settings';
+  | 'settings' | 'lunar-calendar';
 
 interface NavItem {
   id: AdminSection;
