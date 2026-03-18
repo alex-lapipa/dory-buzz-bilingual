@@ -585,7 +585,7 @@ const LearningHub: React.FC = () => {
                       }}
                       className="text-xs"
                     >
-                      <Brain className="h-3 w-3 mr-1" />
+                      <Firefly className="h-3 w-3 mr-1" />
                       Analyze
                     </Button>
                     
