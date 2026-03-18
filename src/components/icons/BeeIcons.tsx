@@ -451,7 +451,7 @@ export const GardenExpand: React.FC<IconProps> = (props) => (
 
 /** Graduation bee — replaces GraduationCap */
 export const GraduationBee: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M2 10l10-5 10 5-10 5z" />
     <path d="M6 12v5c0 2 3 4 6 4s6-2 6-4v-5" />
     <line x1="22" y1="10" x2="22" y2="17" />
