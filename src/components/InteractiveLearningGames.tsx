@@ -202,7 +202,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Life Sciences',
       icon: <FlaskConical className="h-6 w-6" />,
       color: 'border-green-200 bg-gradient-to-br from-green-50 to-emerald-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'garden-planner',
