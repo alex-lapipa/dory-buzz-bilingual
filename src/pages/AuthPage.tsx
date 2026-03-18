@@ -103,13 +103,23 @@ const AuthPage = () => {
     await trackEvent(`${label}_signin_attempt`, 'auth', { method: `${label}_oauth` });
     
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const callbackUrl = `${window.location.origin}/auth`;
+      const skipRedirect = shouldSkipBrowserRedirect();
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/`,
-          ...(provider === 'azure' ? { scopes: 'email profile openid' } : {}),
+          redirectTo: callbackUrl,
+          skipBrowserRedirect: skipRedirect,
+          ...(provider === 'azure' && { scopes: 'openid email profile' }),
         }
       });
+
+      // When skipBrowserRedirect is true, navigate manually
+      if (!error && skipRedirect && data?.url) {
+        navigateToOAuth(data.url);
+        return;
+      }
       
       if (error) {
         await trackEvent(`${label}_signin_error`, 'auth', { 
