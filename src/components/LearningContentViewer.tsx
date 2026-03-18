@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -6,28 +6,15 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { 
-  BookOpen, 
-  Brain, 
-  FlaskConical, 
-  Play, 
-  Star, 
-  Award,
-  Volume2,
-  Camera,
-  CheckCircle,
-  Lightbulb,
-  Target,
-  Clock,
-  Users
+import {
+  Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,
+} from '@/components/ui/carousel';
+import {
+  BookOpen, Brain, FlaskConical, Play, Star, Award, Volume2, Camera,
+  CheckCircle, Lightbulb, Target, Clock, Users, Loader2, Sparkles,
 } from 'lucide-react';
+
+/* ─── Types ─── */
 
 interface LearningContentProps {
   category: string;
@@ -51,23 +38,100 @@ interface LearningItem {
   options?: string[];
   correct_answer?: string;
   explanation?: string;
+  steps?: string[];
+  purpose?: string;
+  duration?: string;
 }
 
+/* ─── Interactive Quiz Card ─── */
+
+const QuizCard: React.FC<{
+  quiz: LearningItem;
+  index: number;
+  isCompleted: (id: string, type: string) => boolean;
+  markComplete: (id: string, type: string) => void;
+}> = ({ quiz, index, isCompleted, markComplete }) => {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(false);
+  const completed = isCompleted(index.toString(), 'quiz');
+  const isCorrect = selected === quiz.correct_answer;
+
+  const handleSelect = (opt: string) => {
+    if (revealed || completed) return;
+    setSelected(opt);
+  };
+
+  const handleReveal = () => {
+    setRevealed(true);
+    if (isCorrect) markComplete(index.toString(), 'quiz');
+  };
+
+  return (
+    <Card className="hover:shadow-lg transition-all">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm flex items-center justify-between">
+          <span className="flex items-center gap-2">
+            <Brain className="h-4 w-4 text-primary" />
+            Q{index + 1}
+          </span>
+          {completed && <CheckCircle className="h-5 w-5 text-green-500" />}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm font-medium">{quiz.question || quiz.content}</p>
+
+        {quiz.options && quiz.options.length > 0 && (
+          <div className="space-y-2">
+            {quiz.options.map((opt, i) => {
+              let cls = 'border rounded-lg p-2 text-sm cursor-pointer transition-colors ';
+              if (revealed && opt === quiz.correct_answer) cls += 'border-green-500 bg-green-500/10 ';
+              else if (revealed && opt === selected) cls += 'border-destructive bg-destructive/10 ';
+              else if (selected === opt) cls += 'border-primary bg-primary/10 ';
+              else cls += 'border-border hover:border-primary/50 ';
+
+              return (
+                <div key={i} className={cls} onClick={() => handleSelect(opt)}>
+                  <span className="font-medium mr-2">{String.fromCharCode(65 + i)}.</span>
+                  {opt}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {selected && !revealed && (
+          <Button size="sm" onClick={handleReveal} className="w-full">
+            Check Answer
+          </Button>
+        )}
+
+        {revealed && (
+          <div className={`p-3 rounded-lg text-sm ${isCorrect ? 'bg-green-500/10 text-green-700' : 'bg-destructive/10 text-destructive'}`}>
+            {isCorrect ? '🎉 Correct!' : `❌ The answer is: ${quiz.correct_answer}`}
+            {quiz.explanation && <p className="mt-1 text-xs opacity-80">{quiz.explanation}</p>}
+          </div>
+        )}
+
+        {revealed && !isCorrect && !completed && (
+          <Button size="sm" variant="outline" onClick={() => { setSelected(null); setRevealed(false); }} className="w-full">
+            Try Again
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+/* ─── Main Component ─── */
+
 export const LearningContentViewer: React.FC<LearningContentProps> = ({
-  category,
-  topicTitle,
-  difficulty,
-  description,
-  contentTypes
+  category, topicTitle, difficulty, description, contentTypes,
 }) => {
-  const [content, setContent] = useState<{[key: string]: LearningItem[]}>({
-    facts: [],
-    activities: [],
-    quizzes: [],
-    experiments: [],
-    videos: []
+  const [content, setContent] = useState<{ [key: string]: LearningItem[] }>({
+    facts: [], activities: [], quizzes: [], experiments: [], videos: [],
   });
   const [loading, setLoading] = useState(true);
+  const [generating, setGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [completedItems, setCompletedItems] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState('facts');
@@ -78,11 +142,10 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
     loadProgress();
   }, [category]);
 
+  /* ─── Load from DB ─── */
   const loadContent = async () => {
     try {
       setLoading(true);
-      
-      // First try to load from database
       const { data: dbContent, error } = await supabase
         .from('bee_facts')
         .select('*')
@@ -90,119 +153,128 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
         .order('difficulty_level', { ascending: true });
 
       if (!error && dbContent && dbContent.length > 0) {
-        // Transform and organize content by type
-        const organizedContent = {
+        setContent({
           facts: dbContent
-            .filter(item => !item.title.includes('Activity') && !item.title.includes('Experiment') && !item.title.includes('Quiz'))
-            .map((item, index) => ({
-              id: item.id,
-              title: item.title,
-              content: item.content,
-              type: 'fact' as const,
-              difficulty_level: item.difficulty_level || 1,
-              fun_fact: item.fun_fact || false
-            })),
+            .filter(i => !i.title.includes('Activity') && !i.title.includes('Experiment') && !i.title.includes('Quiz'))
+            .map(i => ({ id: i.id, title: i.title, content: i.content, type: 'fact' as const, difficulty_level: i.difficulty_level || 1, fun_fact: i.fun_fact || false })),
           activities: dbContent
-            .filter(item => item.title.includes('Activity'))
-            .map((item, index) => ({
-              id: item.id,
-              title: item.title,
-              content: item.content,
-              type: 'activity' as const,
-              difficulty_level: item.difficulty_level || 1,
-              materials: item.content.includes('Materials:') ? 
-                item.content.split('Materials:')[1]?.split('.')[0]?.split(',').map(m => m.trim()) : 
-                ['Basic materials needed'],
-              instructions: item.content
+            .filter(i => i.title.includes('Activity'))
+            .map(i => ({
+              id: i.id, title: i.title, content: i.content, type: 'activity' as const, difficulty_level: i.difficulty_level || 1,
+              materials: i.content.includes('Materials:') ? i.content.split('Materials:')[1]?.split('.')[0]?.split(',').map((m: string) => m.trim()) : ['Basic materials needed'],
+              instructions: i.content,
             })),
           experiments: dbContent
-            .filter(item => item.title.includes('Experiment'))
-            .map((item, index) => ({
-              id: item.id,
-              title: item.title,
-              content: item.content,
-              type: 'experiment' as const,
-              difficulty_level: item.difficulty_level || 1
-            })),
+            .filter(i => i.title.includes('Experiment'))
+            .map(i => ({ id: i.id, title: i.title, content: i.content, type: 'experiment' as const, difficulty_level: i.difficulty_level || 1 })),
           quizzes: dbContent
-            .filter(item => item.title.includes('Quiz'))
-            .map((item, index) => ({
-              id: item.id,
-              title: item.title,
-              content: item.content,
-              type: 'quiz' as const,
-              difficulty_level: item.difficulty_level || 1,
-              question: item.content.split('Answer:')[0] || item.content,
-              correct_answer: item.content.includes('Answer:') ? 
-                item.content.split('Answer:')[1]?.trim() : 
-                'Learn more!',
-              explanation: `This helps you understand ${topicTitle} better!`
+            .filter(i => i.title.includes('Quiz'))
+            .map(i => ({
+              id: i.id, title: i.title, content: i.content, type: 'quiz' as const, difficulty_level: i.difficulty_level || 1,
+              question: i.content.split('Answer:')[0] || i.content,
+              correct_answer: i.content.includes('Answer:') ? i.content.split('Answer:')[1]?.trim() : 'Learn more!',
+              explanation: `This helps you understand ${topicTitle} better!`,
             })),
-          videos: [] as LearningItem[] // Videos will be generated separately
-        };
-        
-        setContent(organizedContent);
+          videos: [],
+        });
       } else {
-        // Fallback: Generate new content using AI
-        await generateFreshContent();
+        // No DB content — don't auto-generate, let user click
       }
     } catch (error) {
       console.error('Error loading content:', error);
-      await generateFreshContent();
     } finally {
       setLoading(false);
     }
   };
 
-  const generateFreshContent = async () => {
+  /* ─── Generate via AI Orchestrator ─── */
+  const generateFreshContent = useCallback(async (types?: string[]) => {
+    setGenerating(true);
     try {
       const { data, error } = await supabase.functions.invoke('learning_content_orchestrator', {
         body: {
           topic: topicTitle,
-          category: category,
+          category,
           difficulty_level: difficulty,
-          content_types: contentTypes,
+          content_types: types || contentTypes,
           language: 'en',
-          age_group: 'children'
-        }
+          age_group: 'children',
+        },
       });
 
       if (error) throw error;
-      
-      setContent(data.content);
-      
-      toast({
-        title: "🎓 Fresh Content Generated!",
-        description: "AI has created new learning materials just for you!",
-      });
-    } catch (error) {
-      console.error('Error generating content:', error);
-      // Provide fallback content
-      setContent({
-        facts: [{
-          id: '1',
-          title: `Amazing ${topicTitle} Facts`,
-          content: `Discover the fascinating world of ${topicTitle}! These amazing creatures and plants have evolved incredible abilities over millions of years.`,
-          type: 'fact',
-          difficulty_level: difficulty,
-          fun_fact: true
-        }],
-        activities: [{
-          id: '1',
-          title: `${topicTitle} Observation`,
-          content: 'Create your own field journal to record observations and discoveries.',
-          type: 'activity',
-          difficulty_level: difficulty,
-          materials: ['notebook', 'colored pencils', 'magnifying glass'],
-          instructions: 'Spend time outdoors observing and sketching what you find.'
-        }],
-        experiments: [],
-        quizzes: [],
-        videos: []
-      });
-    }
-  };
+      const gen = data?.content;
+      if (!gen) throw new Error('No content returned');
 
+      // Merge AI-generated content into current state
+      setContent(prev => ({
+        facts: gen.facts?.length ? mapGenerated(gen.facts, 'fact') : prev.facts,
+        activities: gen.activities?.length ? mapActivities(gen.activities) : prev.activities,
+        quizzes: gen.quizzes?.length ? mapQuizzes(gen.quizzes) : prev.quizzes,
+        experiments: gen.experiments?.length ? mapExperiments(gen.experiments) : prev.experiments,
+        videos: gen.videos?.length ? mapGenerated(gen.videos, 'video') : prev.videos,
+      }));
+
+      toast({ title: '🎓 Content Generated!', description: `AI created ${types?.join(', ') || 'all'} content for ${topicTitle}` });
+    } catch (e: any) {
+      console.error('Content generation error:', e);
+      toast({ title: 'Generation Failed', description: e.message || 'Try again later', variant: 'destructive' });
+    } finally {
+      setGenerating(false);
+    }
+  }, [topicTitle, category, difficulty, contentTypes]);
+
+  /* ─── Mappers for AI output ─── */
+  const mapGenerated = (items: any[], type: string): LearningItem[] =>
+    items.map((it: any, i: number) => ({
+      id: `gen_${type}_${i}`,
+      title: it.title || it.name || `${type} ${i + 1}`,
+      content: it.content || it.description || JSON.stringify(it),
+      type: type as any,
+      difficulty_level: difficulty,
+      fun_fact: it.fun_fact,
+      duration: it.duration,
+    }));
+
+  const mapActivities = (items: any[]): LearningItem[] =>
+    items.map((it: any, i: number) => ({
+      id: `gen_act_${i}`,
+      title: it.name || it.title || `Activity ${i + 1}`,
+      content: it.instructions || it.content || it.description || '',
+      type: 'activity' as const,
+      difficulty_level: difficulty,
+      materials: Array.isArray(it.materials) ? it.materials : it.materials ? [it.materials] : [],
+      instructions: typeof it.instructions === 'string' ? it.instructions : typeof it.steps === 'object' ? JSON.stringify(it.steps) : '',
+      safety_notes: it.safety_notes || it.safety || undefined,
+    }));
+
+  const mapQuizzes = (items: any[]): LearningItem[] =>
+    items.map((it: any, i: number) => ({
+      id: `gen_quiz_${i}`,
+      title: it.title || `Question ${i + 1}`,
+      content: it.question || it.content || '',
+      type: 'quiz' as const,
+      difficulty_level: difficulty,
+      question: it.question || it.content,
+      options: Array.isArray(it.options) ? it.options : undefined,
+      correct_answer: it.correct_answer || it.answer,
+      explanation: it.explanation,
+    }));
+
+  const mapExperiments = (items: any[]): LearningItem[] =>
+    items.map((it: any, i: number) => ({
+      id: `gen_exp_${i}`,
+      title: it.name || it.title || `Experiment ${i + 1}`,
+      content: it.purpose || it.description || it.content || '',
+      type: 'experiment' as const,
+      difficulty_level: difficulty,
+      materials: Array.isArray(it.materials) ? it.materials : it.materials ? [it.materials] : [],
+      steps: Array.isArray(it.steps) ? it.steps : undefined,
+      safety_notes: it.safety || it.safety_precautions || it.safety_notes || undefined,
+      purpose: it.purpose || it.expected_results,
+    }));
+
+  /* ─── Progress ─── */
   const loadProgress = () => {
     try {
       const saved = localStorage.getItem(`${category}_progress`);
@@ -211,86 +283,54 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
         setCompletedItems(data.completed || []);
         setProgress(data.progress || 0);
       }
-    } catch (error) {
-      console.error('Error loading progress:', error);
-    }
+    } catch { /* ignore */ }
   };
 
   const markComplete = (itemId: string, type: string) => {
-    const completionKey = `${type}_${itemId}`;
-    if (completedItems.includes(completionKey)) return;
-
-    const newCompleted = [...completedItems, completionKey];
+    const key = `${type}_${itemId}`;
+    if (completedItems.includes(key)) return;
+    const newCompleted = [...completedItems, key];
     setCompletedItems(newCompleted);
-    
-    // Calculate progress
-    const totalItems = Object.values(content).reduce((sum, items) => sum + items.length, 0);
-    const newProgress = totalItems > 0 ? (newCompleted.length / totalItems) * 100 : 0;
-    setProgress(newProgress);
-
-    // Save progress
-    localStorage.setItem(`${category}_progress`, JSON.stringify({
-      completed: newCompleted,
-      progress: newProgress
-    }));
-
-    toast({
-      title: "Excellent Work! 🌟",
-      description: "You're making great progress in your learning journey!",
-    });
+    const total = Object.values(content).reduce((s, a) => s + a.length, 0);
+    const p = total > 0 ? (newCompleted.length / total) * 100 : 0;
+    setProgress(p);
+    localStorage.setItem(`${category}_progress`, JSON.stringify({ completed: newCompleted, progress: p }));
+    toast({ title: 'Excellent Work! 🌟', description: 'Great progress on your learning journey!' });
   };
 
-  const isCompleted = (itemId: string, type: string) => {
-    return completedItems.includes(`${type}_${itemId}`);
-  };
+  const isCompleted = (id: string, type: string) => completedItems.includes(`${type}_${id}`);
 
+  /* ─── TTS ─── */
   const speakContent = async (text: string) => {
     try {
       const { data, error } = await supabase.functions.invoke('elevenlabs_tts', {
-        body: { 
-          text: `${text}`,
-          voice_id: "9BWtsMINqrJLrRacOk9x"
-        }
+        body: { text, voice_id: '9BWtsMINqrJLrRacOk9x' },
       });
-
       if (error) throw error;
-      
-      const audioBlob = new Blob([Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
-      const audio = new Audio(URL.createObjectURL(audioBlob));
-      audio.play();
-    } catch (error) {
-      console.error('TTS error:', error);
-      toast({
-        title: "Audio Unavailable",
-        description: "Unable to play audio at this moment.",
-        variant: "destructive"
-      });
-    }
+      const blob = new Blob([Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))], { type: 'audio/mpeg' });
+      new Audio(URL.createObjectURL(blob)).play();
+    } catch { toast({ title: 'Audio Unavailable', variant: 'destructive' }); }
   };
 
-  const generateImage = async (prompt: string) => {
-    try {
-      const { data, error } = await supabase.functions.invoke('advanced_image_generation', {
-        body: { 
-          prompt: `Educational illustration: ${prompt}, child-friendly, colorful, detailed`,
-          model: "gpt-image-1",
-          quality: "high"
-        }
-      });
+  /* ─── Generate button ─── */
+  const GenerateBtn: React.FC<{ types: string[]; label?: string }> = ({ types, label }) => (
+    <Button onClick={() => generateFreshContent(types)} disabled={generating} variant="default">
+      {generating ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Sparkles className="h-4 w-4 mr-1" />}
+      {label || 'Generate with AI'}
+    </Button>
+  );
 
-      if (error) throw error;
-      
-      toast({
-        title: "🎨 Image Created!",
-        description: "A beautiful illustration has been generated!",
-      });
-      
-      return data.image;
-    } catch (error) {
-      console.error('Image generation error:', error);
-      return null;
-    }
-  };
+  /* ─── Empty state ─── */
+  const EmptyTab: React.FC<{ emoji: string; label: string; types: string[] }> = ({ emoji, label, types }) => (
+    <Card className="text-center p-8">
+      <CardContent>
+        <div className="text-6xl mb-4">{emoji}</div>
+        <h3 className="text-lg font-semibold mb-2">No {label} Yet</h3>
+        <p className="text-muted-foreground mb-4">Generate {label.toLowerCase()} for this topic using AI!</p>
+        <GenerateBtn types={types} label={`Generate ${label}`} />
+      </CardContent>
+    </Card>
+  );
 
   if (loading) {
     return (
@@ -309,99 +349,64 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
       {/* Header */}
       <div className="text-center space-y-4">
         <h2 className="text-3xl font-bold flex items-center justify-center gap-3">
-          <Lightbulb className="h-8 w-8 text-yellow-500" />
+          <Lightbulb className="h-8 w-8 text-primary" />
           {topicTitle}
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">{description}</p>
-        
-        <div className="flex items-center justify-center gap-4">
-          <Badge variant="secondary" className="flex items-center gap-1">
-            <Target className="h-3 w-3" />
-            Level {difficulty}
-          </Badge>
-          <Badge variant="secondary" className="flex items-center gap-1">
-            <Clock className="h-3 w-3" />
-            {Math.round(progress)}% Complete
-          </Badge>
-          <Badge variant="secondary" className="flex items-center gap-1">
-            <Users className="h-3 w-3" />
-            All Ages
-          </Badge>
+        <div className="flex items-center justify-center gap-4 flex-wrap">
+          <Badge variant="secondary" className="flex items-center gap-1"><Target className="h-3 w-3" /> Level {difficulty}</Badge>
+          <Badge variant="secondary" className="flex items-center gap-1"><Clock className="h-3 w-3" /> {Math.round(progress)}% Complete</Badge>
+          <Badge variant="secondary" className="flex items-center gap-1"><Users className="h-3 w-3" /> All Ages</Badge>
         </div>
-        
         <Progress value={progress} className="w-64 mx-auto" />
       </div>
 
-      {/* Content Tabs */}
+      {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-5 mb-6">
-          <TabsTrigger value="facts" className="flex items-center gap-2">
-            <BookOpen className="h-4 w-4" />
-            Facts ({content.facts?.length || 0})
+          <TabsTrigger value="facts" className="flex items-center gap-1 text-xs sm:text-sm">
+            <BookOpen className="h-4 w-4" /> Facts ({content.facts?.length || 0})
           </TabsTrigger>
-          <TabsTrigger value="activities" className="flex items-center gap-2">
-            <Star className="h-4 w-4" />
-            Activities ({content.activities?.length || 0})
+          <TabsTrigger value="activities" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Star className="h-4 w-4" /> Activities ({content.activities?.length || 0})
           </TabsTrigger>
-          <TabsTrigger value="quizzes" className="flex items-center gap-2">
-            <Brain className="h-4 w-4" />
-            Quizzes ({content.quizzes?.length || 0})
+          <TabsTrigger value="quizzes" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Brain className="h-4 w-4" /> Quizzes ({content.quizzes?.length || 0})
           </TabsTrigger>
-          <TabsTrigger value="experiments" className="flex items-center gap-2">
-            <FlaskConical className="h-4 w-4" />
-            Experiments ({content.experiments?.length || 0})
+          <TabsTrigger value="experiments" className="flex items-center gap-1 text-xs sm:text-sm">
+            <FlaskConical className="h-4 w-4" /> Experiments ({content.experiments?.length || 0})
           </TabsTrigger>
-          <TabsTrigger value="videos" className="flex items-center gap-2">
-            <Play className="h-4 w-4" />
-            Videos ({content.videos?.length || 0})
+          <TabsTrigger value="videos" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Play className="h-4 w-4" /> Videos ({content.videos?.length || 0})
           </TabsTrigger>
         </TabsList>
 
-        {/* Facts Tab */}
+        {/* ─── Facts ─── */}
         <TabsContent value="facts">
-          {content.facts && content.facts.length > 0 ? (
+          {content.facts.length > 0 ? (
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
-                {content.facts.map((fact, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2">
-                    <Card className="h-full hover:shadow-lg transition-all duration-300">
+                {content.facts.map((fact, i) => (
+                  <CarouselItem key={i} className="md:basis-1/2">
+                    <Card className="h-full hover:shadow-lg transition-all">
                       <CardHeader>
-                        <CardTitle className="flex items-center justify-between">
+                        <CardTitle className="flex items-center justify-between text-sm">
                           <span className="flex items-center gap-2">
                             {fact.fun_fact && <Star className="h-4 w-4 text-yellow-500" />}
                             {fact.title}
                           </span>
-                          {isCompleted(index.toString(), 'fact') && (
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                          )}
+                          {isCompleted(i.toString(), 'fact') && <CheckCircle className="h-5 w-5 text-green-500" />}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <p className="text-sm leading-relaxed">{fact.content}</p>
                         <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => speakContent(fact.content)}
-                          >
-                            <Volume2 className="h-3 w-3 mr-1" />
-                            Listen
+                          <Button size="sm" variant="outline" onClick={() => speakContent(fact.content)}>
+                            <Volume2 className="h-3 w-3 mr-1" /> Listen
                           </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => generateImage(fact.title)}
-                          >
-                            <Camera className="h-3 w-3 mr-1" />
-                            Visualize
-                          </Button>
-                          {!isCompleted(index.toString(), 'fact') && (
-                            <Button
-                              size="sm"
-                              onClick={() => markComplete(index.toString(), 'fact')}
-                            >
-                              <Award className="h-3 w-3 mr-1" />
-                              Mark Learned
+                          {!isCompleted(i.toString(), 'fact') && (
+                            <Button size="sm" onClick={() => markComplete(i.toString(), 'fact')}>
+                              <Award className="h-3 w-3 mr-1" /> Mark Learned
                             </Button>
                           )}
                         </div>
@@ -414,168 +419,44 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
               <CarouselNext />
             </Carousel>
           ) : (
-            <Card className="text-center p-8">
-              <CardContent>
-                <div className="text-6xl mb-4">📚</div>
-                <h3 className="text-lg font-semibold mb-2">No Facts Available Yet</h3>
-                <p className="text-muted-foreground mb-4">We're working on creating amazing facts for this topic!</p>
-                <Button onClick={generateFreshContent}>
-                  Generate Content
-                </Button>
-              </CardContent>
-            </Card>
+            <EmptyTab emoji="📚" label="Facts" types={['facts']} />
           )}
         </TabsContent>
 
-        {/* Activities Tab */}
+        {/* ─── Activities ─── */}
         <TabsContent value="activities">
-          {content.activities && content.activities.length > 0 ? (
+          {content.activities.length > 0 ? (
             <Carousel className="w-full max-w-5xl mx-auto">
               <CarouselContent>
-                {content.activities.map((activity, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2">
-                    <Card className="h-full hover:shadow-lg transition-all duration-300">
+                {content.activities.map((act, i) => (
+                  <CarouselItem key={i} className="md:basis-1/2">
+                    <Card className="h-full hover:shadow-lg transition-all">
                       <CardHeader>
-                        <CardTitle className="flex items-center justify-between">
-                          {activity.title}
-                          {isCompleted(index.toString(), 'activity') && (
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                          )}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <p className="text-sm">{activity.content}</p>
-                        {activity.materials && (
-                          <div>
-                            <h4 className="font-medium mb-2">Materials Needed:</h4>
-                            <ul className="text-sm list-disc list-inside space-y-1">
-                              {activity.materials.map((material, i) => (
-                                <li key={i}>{material}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        {activity.instructions && (
-                          <div>
-                            <h4 className="font-medium mb-2">Instructions:</h4>
-                            <p className="text-sm">{activity.instructions}</p>
-                          </div>
-                        )}
-                        {activity.safety_notes && (
-                          <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <p className="text-xs text-yellow-800">
-                              ⚠️ Safety: {activity.safety_notes}
-                            </p>
-                          </div>
-                        )}
-                        {!isCompleted(index.toString(), 'activity') && (
-                          <Button
-                            size="sm"
-                            onClick={() => markComplete(index.toString(), 'activity')}
-                            className="w-full"
-                          >
-                            <Award className="h-3 w-3 mr-1" />
-                            Mark Complete
-                          </Button>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          ) : (
-            <Card className="text-center p-8">
-              <CardContent>
-                <div className="text-6xl mb-4">🔬</div>
-                <h3 className="text-lg font-semibold mb-2">Activities Coming Soon</h3>
-                <p className="text-muted-foreground">Hands-on activities are being prepared!</p>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-
-        {/* Quizzes Tab */}
-        <TabsContent value="quizzes">
-          {content.quizzes && content.quizzes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-              {content.quizzes.map((quiz, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all">
-                  <CardHeader>
-                    <CardTitle className="text-sm flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <Brain className="h-4 w-4" />
-                        {quiz.title}
-                      </span>
-                      {isCompleted(index.toString(), 'quiz') && (
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                      )}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="text-sm">{quiz.question || quiz.content}</p>
-                    {quiz.explanation && (
-                      <p className="text-xs text-muted-foreground italic">{quiz.explanation}</p>
-                    )}
-                    {!isCompleted(index.toString(), 'quiz') && (
-                      <Button size="sm" onClick={() => markComplete(index.toString(), 'quiz')} className="w-full">
-                        <Award className="h-3 w-3 mr-1" /> Mark Complete
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <Card className="text-center p-8">
-              <CardContent>
-                <div className="text-6xl mb-4">🧠</div>
-                <h3 className="text-lg font-semibold mb-2">No Quizzes Yet</h3>
-                <p className="text-muted-foreground mb-4">Generate quizzes for this topic!</p>
-                <Button onClick={generateFreshContent}>Generate Content</Button>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-
-        {/* Experiments Tab */}
-        <TabsContent value="experiments">
-          {content.experiments && content.experiments.length > 0 ? (
-            <Carousel className="w-full max-w-5xl mx-auto">
-              <CarouselContent>
-                {content.experiments.map((exp, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2">
-                    <Card className="h-full hover:shadow-lg transition-all duration-300">
-                      <CardHeader>
-                        <CardTitle className="flex items-center justify-between">
+                        <CardTitle className="text-sm flex items-center justify-between">
                           <span className="flex items-center gap-2">
-                            <FlaskConical className="h-4 w-4 text-purple-500" />
-                            {exp.title}
+                            <Star className="h-4 w-4 text-amber-500" />
+                            {act.title}
                           </span>
-                          {isCompleted(index.toString(), 'experiment') && (
-                            <CheckCircle className="h-5 w-5 text-green-500" />
-                          )}
+                          {isCompleted(i.toString(), 'activity') && <CheckCircle className="h-5 w-5 text-green-500" />}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <p className="text-sm">{exp.content}</p>
-                        {exp.materials && (
+                        <p className="text-sm">{act.content}</p>
+                        {act.materials && act.materials.length > 0 && (
                           <div>
-                            <h4 className="font-medium text-sm mb-1">🧪 Materials:</h4>
+                            <h4 className="font-medium text-sm mb-1">🧰 Materials:</h4>
                             <ul className="text-xs list-disc list-inside space-y-0.5">
-                              {exp.materials.map((m, i) => <li key={i}>{m}</li>)}
+                              {act.materials.map((m, j) => <li key={j}>{m}</li>)}
                             </ul>
                           </div>
                         )}
-                        {exp.safety_notes && (
-                          <div className="p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                            ⚠️ {exp.safety_notes}
+                        {act.safety_notes && (
+                          <div className="p-2 bg-accent/50 border border-accent rounded text-xs">
+                            ⚠️ {act.safety_notes}
                           </div>
                         )}
-                        {!isCompleted(index.toString(), 'experiment') && (
-                          <Button size="sm" onClick={() => markComplete(index.toString(), 'experiment')} className="w-full">
+                        {!isCompleted(i.toString(), 'activity') && (
+                          <Button size="sm" onClick={() => markComplete(i.toString(), 'activity')} className="w-full">
                             <Award className="h-3 w-3 mr-1" /> Mark Complete
                           </Button>
                         )}
@@ -588,27 +469,93 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
               <CarouselNext />
             </Carousel>
           ) : (
-            <Card className="text-center p-8">
-              <CardContent>
-                <div className="text-6xl mb-4">⚗️</div>
-                <h3 className="text-lg font-semibold mb-2">No Experiments Yet</h3>
-                <p className="text-muted-foreground mb-4">Generate experiments for this topic!</p>
-                <Button onClick={generateFreshContent}>Generate Content</Button>
-              </CardContent>
-            </Card>
+            <EmptyTab emoji="🔬" label="Activities" types={['activities']} />
           )}
         </TabsContent>
 
-        {/* Videos Tab */}
-        <TabsContent value="videos">
-          {content.videos && content.videos.length > 0 ? (
+        {/* ─── Quizzes ─── */}
+        <TabsContent value="quizzes">
+          {content.quizzes.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-              {content.videos.map((video, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all">
+              {content.quizzes.map((quiz, i) => (
+                <QuizCard key={i} quiz={quiz} index={i} isCompleted={isCompleted} markComplete={markComplete} />
+              ))}
+            </div>
+          ) : (
+            <EmptyTab emoji="🧠" label="Quizzes" types={['quizzes']} />
+          )}
+        </TabsContent>
+
+        {/* ─── Experiments ─── */}
+        <TabsContent value="experiments">
+          {content.experiments.length > 0 ? (
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {content.experiments.map((exp, i) => (
+                  <CarouselItem key={i} className="md:basis-1/2">
+                    <Card className="h-full hover:shadow-lg transition-all">
+                      <CardHeader>
+                        <CardTitle className="text-sm flex items-center justify-between">
+                          <span className="flex items-center gap-2">
+                            <FlaskConical className="h-4 w-4 text-primary" />
+                            {exp.title}
+                          </span>
+                          {isCompleted(i.toString(), 'experiment') && <CheckCircle className="h-5 w-5 text-green-500" />}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        {exp.purpose && <p className="text-xs text-muted-foreground italic">🎯 {exp.purpose}</p>}
+                        <p className="text-sm">{exp.content}</p>
+                        {exp.materials && exp.materials.length > 0 && (
+                          <div>
+                            <h4 className="font-medium text-sm mb-1">🧪 Materials:</h4>
+                            <ul className="text-xs list-disc list-inside space-y-0.5">
+                              {exp.materials.map((m, j) => <li key={j}>{m}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                        {exp.steps && exp.steps.length > 0 && (
+                          <div>
+                            <h4 className="font-medium text-sm mb-1">📋 Steps:</h4>
+                            <ol className="text-xs list-decimal list-inside space-y-0.5">
+                              {exp.steps.map((s, j) => <li key={j}>{s}</li>)}
+                            </ol>
+                          </div>
+                        )}
+                        {exp.safety_notes && (
+                          <div className="p-2 bg-accent/50 border border-accent rounded text-xs">
+                            ⚠️ {exp.safety_notes}
+                          </div>
+                        )}
+                        {!isCompleted(i.toString(), 'experiment') && (
+                          <Button size="sm" onClick={() => markComplete(i.toString(), 'experiment')} className="w-full">
+                            <Award className="h-3 w-3 mr-1" /> Mark Complete
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ) : (
+            <EmptyTab emoji="⚗️" label="Experiments" types={['experiments']} />
+          )}
+        </TabsContent>
+
+        {/* ─── Videos ─── */}
+        <TabsContent value="videos">
+          {content.videos.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+              {content.videos.map((video, i) => (
+                <Card key={i} className="hover:shadow-lg transition-all">
                   <CardHeader>
                     <CardTitle className="text-sm flex items-center gap-2">
-                      <Play className="h-4 w-4 text-red-500" />
+                      <Play className="h-4 w-4 text-destructive" />
                       {video.title}
+                      {video.duration && <Badge variant="outline" className="text-xs ml-auto">{video.duration}</Badge>}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -618,13 +565,7 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
               ))}
             </div>
           ) : (
-            <Card className="text-center p-8">
-              <CardContent>
-                <div className="text-6xl mb-4">🎬</div>
-                <h3 className="text-lg font-semibold mb-2">No Videos Yet</h3>
-                <p className="text-muted-foreground">Video content will be available soon!</p>
-              </CardContent>
-            </Card>
+            <EmptyTab emoji="🎬" label="Videos" types={['videos']} />
           )}
         </TabsContent>
       </Tabs>
