@@ -71,14 +71,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             >
               🐝 Beeducation
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/chat')}
-              className="text-sm hover:text-primary"
-            >
-              Chat
-            </Button>
           </nav>
           
           {/* Action Buttons */}
