@@ -28,7 +28,7 @@ const defaults = (props: IconProps, category: IconCategory = 'flower') => ({
 
 /** 3 hexagons arranged as a honeycomb — replaces Menu/hamburger */
 export const HoneycombMenu: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M12 2l4 2.5v5L12 12 8 9.5v-5L12 2z" />
     <path d="M4 9.5l4 2.5v5L4 19.5 0 17v-5l4-2.5z" opacity=".7" />
     <path d="M20 9.5l4 2.5v5L20 19.5 16 17v-5l4-2.5z" opacity=".7" />
