@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, lazy, Suspense } from 'react';
 // Lazy load heavy components
 const ChatInterface = lazy(() => import('./ChatInterface').then(module => ({ default: module.ChatInterface })));
-const VoiceInterface = lazy(() => import('./VoiceInterface').then(module => ({ default: module.VoiceInterface })));
+
 const ImageGenerator = lazy(() => import('./ImageGenerator').then(module => ({ default: module.ImageGenerator })));
 const MochiVideoFeed = lazy(() => import('./MochiVideoFeed').then(module => ({ default: module.MochiVideoFeed })));
 import { OnboardingTip } from './OnboardingTip';

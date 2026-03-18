@@ -13,7 +13,7 @@ import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { useMochiAssets } from '@/hooks/useMochiAssets';
 import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { VoiceInterface } from './VoiceInterface';
+
 import { 
   Mic, 
   MicOff, 
