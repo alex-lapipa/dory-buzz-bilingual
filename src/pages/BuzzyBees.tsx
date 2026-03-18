@@ -148,7 +148,12 @@ const BuzzyBees: React.FC = () => {
         {/* Song grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {SONGS.map((song) => (
-            <SingAlongCard key={song.id} song={song} language={language} />
+            <SingAlongCard
+              key={song.id}
+              song={song}
+              language={language}
+              getAudioSrc={song.id === 'mochis-playful-day' ? getRandomAudioSrc : undefined}
+            />
           ))}
         </div>
 
