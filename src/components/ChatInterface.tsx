@@ -213,11 +213,13 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
       };
 
       // Choose the appropriate endpoint based on mode
-      const functionName = mode === 'advanced' ? 'enhanced_mochi_claude' : 'chat_mochi';
+      const functionName = 'mochi_master_orchestrator'; // Unified orchestrator: routes, RAG, Claude
       
       const { data, error } = await supabase.functions.invoke(functionName, {
         body: {
           message,
+          language: t('language') === 'es' ? 'es' : 'en',
+          user_id: user?.id || guestId,
           ...context
         }
       });
