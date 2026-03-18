@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { Button } from '@/components/ui/button';
-import { Heart, User, LogOut } from 'lucide-react';
+import { Heart, User, LogOut, Shield } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -15,6 +16,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const isAdmin = useIsAdmin();
 
   const handleBeeClick = () => {
     navigate('/');
@@ -71,6 +73,17 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           {/* Auth Button */}
           {user ? (
             <div className="flex items-center gap-2">
+              {isAdmin && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/admin')}
+                  className="text-xs text-muted-foreground hover:text-primary"
+                  title="Admin Panel"
+                >
+                  <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                </Button>
+              )}
               <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">
                 {user.email}
               </span>
