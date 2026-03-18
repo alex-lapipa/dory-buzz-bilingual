@@ -64,8 +64,6 @@ const App = () => {
       setShowLanding(true);
     } else if (!selectedLanguage) {
       setShowLanguageSelect(true);
-    } else if (!userRegistration) {
-      setShowRegistration(true);
     } else if (!completedOnboarding) {
       setShowOnboarding(true);
     }
