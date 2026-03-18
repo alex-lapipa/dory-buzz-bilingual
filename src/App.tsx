@@ -85,16 +85,10 @@ const App = () => {
     localStorage.setItem('mochi_language_selected', 'true');
     setShowLanguageSelect(false);
     
-    // Check if user has already registered
-    const existingRegistration = localStorage.getItem('userRegistration');
-    if (!existingRegistration) {
-      setShowRegistration(true);
-    } else {
-      // Check if user has completed onboarding
-      const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
-      if (!completedOnboarding) {
-        setShowOnboarding(true);
-      }
+    // Check if user has completed onboarding
+    const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
+    if (!completedOnboarding) {
+      setShowOnboarding(true);
     }
   };
 
