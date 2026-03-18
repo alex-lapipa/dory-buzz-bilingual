@@ -1,54 +1,161 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const socialLinks = [
+  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', icon: '📸' },
+  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', icon: '📘' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', icon: '💼' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', icon: '🎬' },
+];
 
 export const Footer: React.FC = () => {
+  const { language } = useLanguage();
+  const isEs = language === 'es';
+
   return (
-    <footer className="bg-card/90 backdrop-blur-sm py-8 px-4 mt-auto">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center md:text-left">
-          {/* Left - idiomas.io */}
-          <div className="md:text-left">
-            <a 
-              href="https://idiomas.io" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-yellow-400 hover:text-yellow-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]"
-            >
-              idiomas.io
-            </a>
-            <p className="text-yellow-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(255,215,0,0.6)]">
-              Language Learning Platform
-            </p>
-          </div>
-
-          {/* Center - Built by Alex Lawton */}
-          <div className="text-center">
-            <p className="text-yellow-400 text-sm drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]">
-              Built by{' '}
-              <a 
-                href="https://www.alexlawton.io" 
-                target="_blank" 
+    <footer className="bg-card/95 backdrop-blur-sm border-t border-border/40 mt-auto">
+      {/* Top bar */}
+      <div className="border-b border-border/30">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-sm text-muted-foreground font-medium">
+            {isEs ? '🐝 Aprende sobre jardines, abejas y naturaleza' : '🐝 Learn about gardens, bees & nature'}
+          </p>
+          <div className="flex items-center gap-3">
+            {socialLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-yellow-300 hover:text-yellow-200 transition-colors font-semibold drop-shadow-[0_0_10px_rgba(255,215,0,1)]"
+                className="text-lg hover:scale-125 transition-transform"
+                aria-label={link.name}
+                title={link.name}
               >
-                Alex Lawton
+                {link.icon}
               </a>
-            </p>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main columns */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Column 1: Explore MochiBee */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              {isEs ? 'Explorar MochiBee' : 'Explore MochiBee'}
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { to: '/', label: isEs ? '🌻 Beeducación' : '🌻 Beeducation' },
+                { to: '/chat', label: isEs ? '💬 Chat con Mochi' : '💬 Chat with Mochi' },
+                { to: '/learning/bee-basics', label: isEs ? '🐝 Básicos de Abejas' : '🐝 Bee Basics' },
+                { to: '/learning/garden-basics', label: isEs ? '🌱 Básicos de Jardín' : '🌱 Garden Basics' },
+              ].map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Right - lapipa.io */}
-          <div className="md:text-right">
-            <a 
-              href="https://lapipa.io" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-yellow-400 hover:text-yellow-300 transition-colors text-base font-semibold drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]"
-            >
-              lapipa.io
-            </a>
-            <p className="text-yellow-300 text-sm mt-1 drop-shadow-[0_0_6px_rgba(255,215,0,0.6)]">
-              Digital Solutions
-            </p>
+          {/* Column 2: idiomas.io */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              idiomas.io
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { url: 'https://idiomas.io', label: isEs ? '🏠 Página Principal' : '🏠 Homepage' },
+                { url: 'https://idiomas.io/courses', label: isEs ? '📚 Cursos' : '📚 Courses' },
+                { url: 'https://idiomas.io/placement-test', label: isEs ? '📝 Prueba de Nivel' : '📝 Placement Test' },
+                { url: 'https://idiomas.io/contact', label: isEs ? '✉️ Contacto' : '✉️ Contact' },
+              ].map((item) => (
+                <li key={item.url}>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          {/* Column 3: Connect */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              {isEs ? 'Conectar' : 'Connect'}
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="mailto:info@thelawtonschool.com"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  ✉️ info@thelawtonschool.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.alexlawton.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  🌐 alexlawton.io
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://lapipa.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  🚀 lapipa.io
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://idiomas.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  🗣️ idiomas.io
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-border/30">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} MochiBee · BeeCrazy Garden World</p>
+          <p>
+            {isEs ? 'Diseñado por' : 'Designed by'}{' '}
+            <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
+              Alex Lawton
+            </a>
+            {' · '}
+            {isEs ? 'Desarrollado por' : 'Built by'}{' '}
+            <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
+              La Pipa
+            </a>
+          </p>
         </div>
       </div>
     </footer>
