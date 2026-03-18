@@ -551,7 +551,7 @@ const LearningHub: React.FC = () => {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      {fact.fun_fact && <Star className="h-4 w-4 text-yellow-500" />}
+                      {fact.fun_fact && <SunflowerStar className="h-4 w-4 text-primary" />}
                       {fact.title}
                     </CardTitle>
                     <Badge variant={isCompleted ? "default" : "secondary"}>
