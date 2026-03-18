@@ -261,23 +261,40 @@ const ContentIngestion: React.FC = () => {
 
         {/* ── Suggested URLs ── */}
         <TabsContent value="suggested">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {SUGGESTED_URLS.map((s, i) => (
-              <Card key={i} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4 flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="font-medium text-sm truncate">{s.label}</p>
-                    <p className="text-xs text-muted-foreground truncate">{s.url}</p>
-                    <Badge variant="secondary" className="mt-1 text-xs capitalize">{s.domain.replace(/_/g, ' ')}</Badge>
-                  </div>
-                  <Button size="sm" variant="outline" onClick={() => startCrawl(s.url, s.domain)} disabled={crawling}>
-                    {crawling ? <Loader2 className="h-3 w-3 animate-spin" /> : <Globe className="h-3 w-3" />}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">Click any source to scrape, chunk & embed into the knowledge base.</p>
+              <Button
+                size="sm"
+                variant="default"
+                onClick={async () => {
+                  for (const s of SUGGESTED_URLS) {
+                    await startCrawl(s.url, s.domain);
+                  }
+                }}
+                disabled={crawling}
+              >
+                {crawling ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Zap className="h-3 w-3 mr-1" />}
+                Ingest All ({SUGGESTED_URLS.length})
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {SUGGESTED_URLS.map((s, i) => (
+                <Card key={i} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="font-medium text-sm truncate">{s.label}</p>
+                      <p className="text-xs text-muted-foreground truncate">{s.url}</p>
+                      <Badge variant="secondary" className="mt-1 text-xs capitalize">{s.domain.replace(/_/g, ' ')}</Badge>
+                    </div>
+                    <Button size="sm" variant="outline" onClick={() => startCrawl(s.url, s.domain)} disabled={crawling}>
+                      {crawling ? <Loader2 className="h-3 w-3 animate-spin" /> : <Globe className="h-3 w-3" />}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </TabsContent>
 
         {/* ── Tools ── */}
         <TabsContent value="tools">
