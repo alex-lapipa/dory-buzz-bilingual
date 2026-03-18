@@ -41,7 +41,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Habla naturalmente con Mochi como un amigo' 
         : 'Speak naturally with Mochi like a friend',
-      icon: <Mic className="h-8 w-8" />,
+      icon: <BeeAntenna className="h-8 w-8" />,
       action: language === 'es' ? 'Probar Voz' : 'Try Voice'
     },
     {
