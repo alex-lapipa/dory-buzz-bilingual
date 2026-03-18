@@ -434,12 +434,15 @@ const LearningHub: React.FC = () => {
           </ScrollReveal>
         </div>
 
+        <ScrollReveal>
         {/* Interactive Learning Games Section */}
         <div id="interactive-games">
           <InteractiveLearningGames />
         </div>
+        </ScrollReveal>
 
         {/* Progress Overview */}
+        <ScrollReveal delay={100}>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
