@@ -46,6 +46,7 @@ const LearningHub: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [currentFact, setCurrentFact] = useState<BeeFact | null>(null);
   const { toast } = useToast();
+  const { completedCount, totalScore, scores } = useGameScores();
 
   useEffect(() => {
     loadBeeEducationData();
