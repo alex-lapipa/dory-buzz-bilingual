@@ -1,14 +1,13 @@
+// Vercel serverless function — deploys Supabase edge functions via Management API
+// Uses Buffer (Node-native) to build multipart body reliably
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const SBP = "sbp_e6fa2634a8f24038346a53da90248f2f0d7f84cf";
 const PROJECT = "zrdywdregcrykmbiytvl";
-const DEPLOY_SECRET = "mochi-bee-setup-2026";
+const SECRET = "mochi-bee-setup-2026";
 
-const FUNCTIONS: { slug: string; name: string; code: string }[] = [
-  {
-    slug: "mochi-master-orchestrator",
-    name: "mochi-master-orchestrator",
-    code: `import "https://deno.land/x/xhr@0.1.0/mod.ts";
+const FUNCTIONS: { slug: string; code: string }[] = [
+  { slug: "mochi-master-orchestrator", code: `import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 
@@ -159,12 +158,8 @@ serve(async (req: Request) => {
     });
   }
 });
-`
-  },
-  {
-    slug: "mochi-embed",
-    name: "mochi-embed",
-    code: `import "https://deno.land/x/xhr@0.1.0/mod.ts";
+` },
+  { slug: "mochi-embed",              code: `import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 
@@ -242,87 +237,57 @@ serve(async (req: Request) => {
     headers: { ...corsHeaders, "Content-Type": "application/json" }
   });
 });
-`
-  }
+` },
 ];
 
-async function deployFunction(slug: string, name: string, code: string) {
-  const baseUrl = `https://api.supabase.com/v1/projects/${PROJECT}/functions`;
+async function deployFn(slug: string, code: string) {
+  const base = `https://api.supabase.com/v1/projects/${PROJECT}/functions`;
+  const authHeader = { "Authorization": `Bearer ${SBP}` };
 
   // Check if function already exists
-  const listRes = await fetch(baseUrl, {
-    headers: { "Authorization": `Bearer ${SBP}` }
-  });
+  const listRes = await fetch(base, { headers: authHeader });
   const existing: any[] = listRes.ok ? await listRes.json() : [];
-  const exists = existing.some((f: any) => f.slug === slug);
-
-  // Build multipart form — Supabase expects metadata + file
-  const boundary = "----MochiBoundary" + Date.now();
-  const metadata = JSON.stringify({ slug, name, verify_jwt: false });
-  
-  const encoder = new TextEncoder();
-  const parts: Uint8Array[] = [];
-  
-  const metaPart = `--${boundary}\r\nContent-Disposition: form-data; name="metadata"\r\nContent-Type: application/json\r\n\r\n${metadata}\r\n`;
-  parts.push(encoder.encode(metaPart));
-  
-  const filePart = `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="index.ts"\r\nContent-Type: application/typescript\r\n\r\n${code}\r\n`;
-  parts.push(encoder.encode(filePart));
-  
-  const closing = encoder.encode(`--${boundary}--\r\n`);
-  parts.push(closing);
-  
-  const totalLength = parts.reduce((sum, p) => sum + p.length, 0);
-  const body = new Uint8Array(totalLength);
-  let offset = 0;
-  for (const p of parts) { body.set(p, offset); offset += p.length; }
-
+  const exists = Array.isArray(existing) && existing.some((f: any) => f.slug === slug);
   const method = exists ? "PATCH" : "POST";
-  const url = exists ? `${baseUrl}/${slug}` : baseUrl;
+  const url    = exists ? `${base}/${slug}` : base;
+
+  // Build multipart body using Buffer (Node.js native — no Uint8Array spread issues)
+  const boundary = "MochiBoundary" + Date.now();
+  const meta = JSON.stringify({ slug, name: slug, verify_jwt: false });
+  const CRLF = "\r\n";
+
+  const parts = [
+    `--${boundary}${CRLF}Content-Disposition: form-data; name="metadata"${CRLF}Content-Type: application/json${CRLF}${CRLF}${meta}${CRLF}`,
+    `--${boundary}${CRLF}Content-Disposition: form-data; name="file"; filename="index.ts"${CRLF}Content-Type: application/typescript${CRLF}${CRLF}${code}${CRLF}`,
+    `--${boundary}--${CRLF}`,
+  ];
+  const body = Buffer.concat(parts.map(p => Buffer.from(p, "utf8")));
 
   const res = await fetch(url, {
     method,
     headers: {
-      "Authorization": `Bearer ${SBP}`,
-      "Content-Type": `multipart/form-data; boundary=${boundary}`
+      ...authHeader,
+      "Content-Type": `multipart/form-data; boundary=${boundary}`,
+      "Content-Length": String(body.length),
     },
-    body
+    body,
   });
 
   const text = await res.text();
   let parsed: any = {};
-  try { parsed = JSON.parse(text); } catch (_) {}
-  
-  return {
-    slug,
-    method,
-    status: res.status,
-    ok: res.ok,
-    response: parsed,
-    raw: res.ok ? undefined : text.slice(0, 300)
-  };
+  try { parsed = JSON.parse(text); } catch (_) { parsed = { raw: text.slice(0, 300) }; }
+  return { slug, method, status: res.status, ok: res.ok, response: parsed };
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const secret = req.headers["x-setup-secret"] || req.query["secret"];
-  if (secret !== DEPLOY_SECRET) return res.status(401).json({ error: "Unauthorized" });
+  const secret = (req.headers["x-setup-secret"] as string) || (req.query["secret"] as string);
+  if (secret !== SECRET) return res.status(401).json({ error: "Unauthorized" });
 
   const target = req.query["fn"] as string | undefined;
-  const toDeploy = target
-    ? FUNCTIONS.filter(f => f.slug === target)
-    : FUNCTIONS;
-
+  const toDeploy = target ? FUNCTIONS.filter(f => f.slug === target) : FUNCTIONS;
   if (!toDeploy.length) return res.status(404).json({ error: `Function '${target}' not found` });
 
-  const results = [];
-  for (const fn of toDeploy) {
-    const result = await deployFunction(fn.slug, fn.name, fn.code);
-    results.push(result);
-  }
-
+  const results = await Promise.all(toDeploy.map(f => deployFn(f.slug, f.code)));
   const passed = results.filter(r => r.ok).length;
-  return res.status(200).json({
-    summary: `${passed}/${results.length} functions deployed`,
-    results
-  });
+  return res.status(200).json({ summary: `${passed}/${results.length} functions deployed`, results });
 }
