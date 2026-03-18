@@ -45,6 +45,7 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
       if (intervalRef.current) clearInterval(intervalRef.current);
       setIsPlaying(false);
       setActiveLine(-1);
+      onStop?.();
       return;
     }
 
