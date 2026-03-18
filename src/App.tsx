@@ -6,6 +6,7 @@ import { PageTransition } from "@/components/PageTransition";
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
+import { GlobalVoiceAgent } from "@/components/GlobalVoiceAgent";
 import { MochiVideoProcessor } from "@/components/MochiVideoProcessor";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
 
