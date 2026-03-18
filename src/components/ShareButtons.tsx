@@ -118,7 +118,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 variant="outline"
                 size="sm"
               >
-                <ExternalLink className="h-3 w-3" />
+                <ButterflyLink className="h-3 w-3" />
               </Button>
             </div>
           </div>
