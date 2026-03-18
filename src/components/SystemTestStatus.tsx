@@ -138,7 +138,7 @@ export const SystemTestStatus: React.FC = () => {
           
         case 'image-generation':
           // Test if the endpoint is accessible
-          const response = await fetch('https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/generate_image', {
+          const response = await fetch('https://zrdywdregcrykmbiytvl.supabase.co/functions/v1/unified_image_generator', {
             method: 'OPTIONS'
           });
           if (response.ok) {
