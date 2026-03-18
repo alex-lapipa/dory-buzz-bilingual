@@ -68,7 +68,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Descubre herramientas de IA avanzadas' 
         : 'Discover advanced AI tools',
-      icon: <Zap className="h-8 w-8" />,
+      icon: <PollenSparkle className="h-8 w-8" />,
       action: language === 'es' ? 'Ver Avanzadas' : 'View Advanced'
     }
   ];
