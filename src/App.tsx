@@ -7,7 +7,7 @@ import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
 import { MochiVideoProcessor } from "@/components/MochiVideoProcessor";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
-import { UserRegistration } from "@/components/UserRegistration";
+
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { LandingPage } from "@/components/LandingPage";
 import { useLanguage } from "@/contexts/LanguageContext";
