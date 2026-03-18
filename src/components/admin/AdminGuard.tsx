@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Shield, LogIn, ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { isOwnerEmail } from '@/lib/adminAccess';
 
 interface AdminGuardProps {
   children: React.ReactNode;
@@ -16,18 +17,15 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [checking, setChecking] = useState(true);
 
-  // Pre-authorized owner emails — always granted admin access
-  const OWNER_EMAILS = ['alex@lawtonschool.com', 'alex@idiomas.io'];
-
   useEffect(() => {
     if (authLoading) return;
+
     if (!user) {
       setChecking(false);
       return;
     }
 
-    // Owner bypass — instant admin access
-    if (user.email && OWNER_EMAILS.includes(user.email.toLowerCase())) {
+    if (isOwnerEmail(user.email)) {
       setIsAdmin(true);
       setChecking(false);
       return;
@@ -39,6 +37,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children }) => {
           _user_id: user.id,
           _role: 'admin',
         });
+
         if (error) {
           console.error('Admin check error:', error);
           setIsAdmin(false);
