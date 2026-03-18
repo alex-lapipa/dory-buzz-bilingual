@@ -469,7 +469,7 @@ export const NatureLeaf: React.FC<IconProps> = (props) => (
 
 /** Gamepad flower — replaces Gamepad2 */
 export const GamepadFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <rect x="2" y="8" width="20" height="10" rx="4" />
     <line x1="8" y1="11" x2="8" y2="15" />
     <line x1="6" y1="13" x2="10" y2="13" />
