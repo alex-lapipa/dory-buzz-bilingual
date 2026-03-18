@@ -102,25 +102,24 @@ export const useMasterAI = () => {
 
   // Keep generateImage for internal automatic generation only
   const generateImage = useCallback(async (prompt: string) => {
-    // Use OpenAI directly for automatic image generation in chat context
     try {
-      const { data, error } = await supabase.functions.invoke('generate_image', {
-        body: { prompt }
+      const { data, error } = await supabase.functions.invoke('unified_image_generator', {
+        body: { prompt, model: 'flux.schnell', width: 512, height: 512 }
       });
       
       if (error) throw new Error(error.message);
       
       return {
         success: true,
-        data: { imageUrl: data.image_url || data.imageUrl },
-        provider: 'openai',
+        data: { imageUrl: data.imageUrl },
+        provider: 'unified',
         type: 'auto-image'
       };
     } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Image generation failed',
-        provider: 'openai',
+        provider: 'unified',
         type: 'auto-image'
       };
     }
