@@ -92,7 +92,6 @@ const SONGS: SongCard[] = [
   },
 ];
 
-];
 
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
