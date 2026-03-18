@@ -117,34 +117,61 @@ export type Database = {
       }
       bee_facts: {
         Row: {
+          age_level: string | null
           category: string
           content: string
           created_at: string
           difficulty_level: number | null
+          domain: string | null
+          embedding: string | null
           fun_fact: boolean | null
           id: string
           image_url: string | null
+          language: string | null
+          metadata: Json | null
+          name_es: string | null
+          source: string | null
+          tags: string[] | null
           title: string
+          updated_at: string | null
         }
         Insert: {
+          age_level?: string | null
           category: string
           content: string
           created_at?: string
           difficulty_level?: number | null
+          domain?: string | null
+          embedding?: string | null
           fun_fact?: boolean | null
           id?: string
           image_url?: string | null
+          language?: string | null
+          metadata?: Json | null
+          name_es?: string | null
+          source?: string | null
+          tags?: string[] | null
           title: string
+          updated_at?: string | null
         }
         Update: {
+          age_level?: string | null
           category?: string
           content?: string
           created_at?: string
           difficulty_level?: number | null
+          domain?: string | null
+          embedding?: string | null
           fun_fact?: boolean | null
           id?: string
           image_url?: string | null
+          language?: string | null
+          metadata?: Json | null
+          name_es?: string | null
+          source?: string | null
+          tags?: string[] | null
           title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -235,6 +262,51 @@ export type Database = {
         }
         Relationships: []
       }
+      crawl_jobs: {
+        Row: {
+          chunks_created: number | null
+          completed_at: string | null
+          crawl_config: Json | null
+          created_at: string | null
+          domain: string
+          error_msg: string | null
+          firecrawl_id: string | null
+          id: string
+          nodes_created: number | null
+          started_at: string | null
+          status: string | null
+          url: string
+        }
+        Insert: {
+          chunks_created?: number | null
+          completed_at?: string | null
+          crawl_config?: Json | null
+          created_at?: string | null
+          domain?: string
+          error_msg?: string | null
+          firecrawl_id?: string | null
+          id?: string
+          nodes_created?: number | null
+          started_at?: string | null
+          status?: string | null
+          url: string
+        }
+        Update: {
+          chunks_created?: number | null
+          completed_at?: string | null
+          crawl_config?: Json | null
+          created_at?: string | null
+          domain?: string
+          error_msg?: string | null
+          firecrawl_id?: string | null
+          id?: string
+          nodes_created?: number | null
+          started_at?: string | null
+          status?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
       feature_usage: {
         Row: {
           created_at: string
@@ -318,6 +390,144 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      kg_edges: {
+        Row: {
+          bidirectional: boolean | null
+          created_at: string | null
+          id: string
+          metadata: Json | null
+          relation: string
+          relation_es: string | null
+          relation_label: string | null
+          source_doc: string | null
+          source_id: string
+          target_id: string
+          verified: boolean | null
+          weight: number | null
+        }
+        Insert: {
+          bidirectional?: boolean | null
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          relation: string
+          relation_es?: string | null
+          relation_label?: string | null
+          source_doc?: string | null
+          source_id: string
+          target_id: string
+          verified?: boolean | null
+          weight?: number | null
+        }
+        Update: {
+          bidirectional?: boolean | null
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          relation?: string
+          relation_es?: string | null
+          relation_label?: string | null
+          source_doc?: string | null
+          source_id?: string
+          target_id?: string
+          verified?: boolean | null
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kg_edges_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "kg_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kg_edges_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "kg_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kg_nodes: {
+        Row: {
+          age_level: string | null
+          bf_fact_id: string | null
+          created_at: string | null
+          description: string | null
+          description_es: string | null
+          domain: string
+          embedding: string | null
+          id: string
+          image_url: string | null
+          kb_chunk_id: string | null
+          metadata: Json | null
+          name: string
+          name_es: string | null
+          node_type: string
+          source_url: string | null
+          tags: string[] | null
+          updated_at: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          age_level?: string | null
+          bf_fact_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          description_es?: string | null
+          domain?: string
+          embedding?: string | null
+          id?: string
+          image_url?: string | null
+          kb_chunk_id?: string | null
+          metadata?: Json | null
+          name: string
+          name_es?: string | null
+          node_type?: string
+          source_url?: string | null
+          tags?: string[] | null
+          updated_at?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          age_level?: string | null
+          bf_fact_id?: string | null
+          created_at?: string | null
+          description?: string | null
+          description_es?: string | null
+          domain?: string
+          embedding?: string | null
+          id?: string
+          image_url?: string | null
+          kb_chunk_id?: string | null
+          metadata?: Json | null
+          name?: string
+          name_es?: string | null
+          node_type?: string
+          source_url?: string | null
+          tags?: string[] | null
+          updated_at?: string | null
+          verified?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kg_nodes_bf_fact_id_fkey"
+            columns: ["bf_fact_id"]
+            isOneToOne: false
+            referencedRelation: "bee_facts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kg_nodes_kb_chunk_id_fkey"
+            columns: ["kb_chunk_id"]
+            isOneToOne: false
+            referencedRelation: "mochi_knowledge_base"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       live_metrics: {
         Row: {
@@ -461,40 +671,49 @@ export type Database = {
       }
       mochi_knowledge_base: {
         Row: {
+          age_level: string | null
           category: string
           content: string
           created_at: string | null
+          domain: string | null
           embedding: string | null
           id: string
           language: string
           metadata: Json | null
           source: string | null
+          subcategory: string | null
           tags: string[] | null
           title: string
           updated_at: string | null
         }
         Insert: {
+          age_level?: string | null
           category?: string
           content: string
           created_at?: string | null
+          domain?: string | null
           embedding?: string | null
           id?: string
           language?: string
           metadata?: Json | null
           source?: string | null
+          subcategory?: string | null
           tags?: string[] | null
           title: string
           updated_at?: string | null
         }
         Update: {
+          age_level?: string | null
           category?: string
           content?: string
           created_at?: string | null
+          domain?: string | null
           embedding?: string | null
           id?: string
           language?: string
           metadata?: Json | null
           source?: string | null
+          subcategory?: string | null
           tags?: string[] | null
           title?: string
           updated_at?: string | null
@@ -1038,6 +1257,89 @@ export type Database = {
         }
         Relationships: []
       }
+      vocabulary_cards: {
+        Row: {
+          age_level: string | null
+          audio_url_en: string | null
+          audio_url_es: string | null
+          category: string
+          correct_rate: number | null
+          created_at: string | null
+          difficulty_level: number | null
+          domain: string
+          embedding: string | null
+          example_en: string | null
+          example_es: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          kg_node_id: string | null
+          phonetic_en: string | null
+          phonetic_es: string | null
+          tags: string[] | null
+          times_practiced: number | null
+          updated_at: string | null
+          word_en: string
+          word_es: string
+        }
+        Insert: {
+          age_level?: string | null
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          category?: string
+          correct_rate?: number | null
+          created_at?: string | null
+          difficulty_level?: number | null
+          domain?: string
+          embedding?: string | null
+          example_en?: string | null
+          example_es?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          kg_node_id?: string | null
+          phonetic_en?: string | null
+          phonetic_es?: string | null
+          tags?: string[] | null
+          times_practiced?: number | null
+          updated_at?: string | null
+          word_en: string
+          word_es: string
+        }
+        Update: {
+          age_level?: string | null
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          category?: string
+          correct_rate?: number | null
+          created_at?: string | null
+          difficulty_level?: number | null
+          domain?: string
+          embedding?: string | null
+          example_en?: string | null
+          example_es?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          kg_node_id?: string | null
+          phonetic_en?: string | null
+          phonetic_es?: string | null
+          tags?: string[] | null
+          times_practiced?: number | null
+          updated_at?: string | null
+          word_en?: string
+          word_es?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vocabulary_cards_kg_node_id_fkey"
+            columns: ["kg_node_id"]
+            isOneToOne: false
+            referencedRelation: "kg_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       voice_conversations: {
         Row: {
           conversation_data: Json
@@ -1127,12 +1429,66 @@ export type Database = {
         Returns: undefined
       }
       get_current_user_role: { Args: never; Returns: string }
+      get_kg_neighbours: {
+        Args: { p_depth?: number; p_node_name: string; p_relation?: string }
+        Returns: {
+          depth: number
+          domain: string
+          relation: string
+          source_name: string
+          target_es: string
+          target_name: string
+          weight: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      match_bee_facts: {
+        Args: {
+          filter_age?: string
+          filter_difficulty?: number
+          filter_domain?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          age_level: string
+          category: string
+          content: string
+          difficulty_level: number
+          domain: string
+          fun_fact: boolean
+          id: string
+          similarity: number
+          title: string
+        }[]
+      }
+      match_kg_nodes: {
+        Args: {
+          filter_age?: string
+          filter_domain?: string
+          filter_type?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          age_level: string
+          description: string
+          domain: string
+          id: string
+          name: string
+          name_es: string
+          node_type: string
+          similarity: number
+          tags: string[]
+        }[]
       }
       match_mochi_knowledge: {
         Args: {
@@ -1150,6 +1506,30 @@ export type Database = {
           similarity: number
           tags: string[]
           title: string
+        }[]
+      }
+      match_vocabulary_cards: {
+        Args: {
+          filter_age?: string
+          filter_difficulty?: number
+          filter_domain?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          age_level: string
+          category: string
+          difficulty_level: number
+          domain: string
+          example_en: string
+          example_es: string
+          id: string
+          phonetic_en: string
+          phonetic_es: string
+          similarity: number
+          word_en: string
+          word_es: string
         }[]
       }
       orchestrate_mochi_request: {
@@ -1171,6 +1551,26 @@ export type Database = {
           p_page_url?: string
         }
         Returns: string
+      }
+      unified_mochi_search: {
+        Args: {
+          filter_age?: string
+          filter_domain?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          age_level: string
+          content: string
+          domain: string
+          extra: Json
+          id: string
+          language: string
+          similarity: number
+          source: string
+          title: string
+        }[]
       }
     }
     Enums: {
