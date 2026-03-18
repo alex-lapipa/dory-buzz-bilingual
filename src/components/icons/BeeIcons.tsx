@@ -153,7 +153,7 @@ export const PollenSparkle: React.FC<IconProps> = (props) => (
 
 /** Growing seedling chart — replaces BarChart3 */
 export const SeedlingChart: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <line x1="3" y1="21" x2="21" y2="21" />
     <path d="M7 21v-4" />
     <path d="M7 17c-1-2 0-4 0-4s1 2 0 4z" fill="currentColor" stroke="none" opacity=".4" />
