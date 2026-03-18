@@ -142,7 +142,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
               className="p-2 hover:bg-background/20"
               aria-label={t('enterFullscreen')}
             >
-              <Expand className="h-3 w-3 sm:h-4 sm:w-4" />
+              <GardenExpand className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         )}
