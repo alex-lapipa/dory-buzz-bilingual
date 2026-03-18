@@ -567,7 +567,7 @@ export const CodeVine: React.FC<IconProps> = (props) => (
 
 /** Share blossom — replaces Share2 */
 export const ShareBlossom: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="18" cy="5" r="3" />
     <circle cx="6" cy="12" r="3" />
     <circle cx="18" cy="19" r="3" />
