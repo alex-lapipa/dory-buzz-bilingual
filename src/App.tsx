@@ -7,7 +7,7 @@ import { AuthWrapper } from "@/components/AuthWrapper";
 import { FloatingGarden } from "@/components/FloatingGarden";
 import { MochiVideoProcessor } from "@/components/MochiVideoProcessor";
 import { LanguageWelcome } from "@/components/LanguageWelcome";
-import { UserRegistration } from "@/components/UserRegistration";
+
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { LandingPage } from "@/components/LandingPage";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -45,27 +45,24 @@ const App = () => {
   const [activeTab, setActiveTab] = useState('chat');
   const [showLanding, setShowLanding] = useState(!localStorage.getItem('hasVisited'));
   const [showLanguageSelect, setShowLanguageSelect] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(false);
+  
   const [showOnboarding, setShowOnboarding] = useState(false);
   const { setLanguage } = useLanguage();
   const { user, loading: authLoading } = useAuth();
 
   // Debug log to verify state
-  console.log('App state:', { showLanding, showLanguageSelect, showRegistration, showOnboarding });
+  console.log('App state:', { showLanding, showLanguageSelect, showOnboarding });
 
   useEffect(() => {
     // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
     const selectedLanguage = localStorage.getItem('selectedLanguage');
-    const userRegistration = localStorage.getItem('userRegistration');
     const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
 
     if (!hasVisited) {
       setShowLanding(true);
     } else if (!selectedLanguage) {
       setShowLanguageSelect(true);
-    } else if (!userRegistration) {
-      setShowRegistration(true);
     } else if (!completedOnboarding) {
       setShowOnboarding(true);
     }
@@ -78,11 +75,6 @@ const App = () => {
     const selectedLanguage = localStorage.getItem('selectedLanguage');
     if (!selectedLanguage) {
       setShowLanguageSelect(true);
-    } else {
-      const userRegistration = localStorage.getItem('userRegistration');
-      if (!userRegistration) {
-        setShowRegistration(true);
-      }
     }
   };
 
@@ -92,27 +84,13 @@ const App = () => {
     localStorage.setItem('mochi_language_selected', 'true');
     setShowLanguageSelect(false);
     
-    // Check if user has already registered
-    const existingRegistration = localStorage.getItem('userRegistration');
-    if (!existingRegistration) {
-      setShowRegistration(true);
-    } else {
-      // Check if user has completed onboarding
-      const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
-      if (!completedOnboarding) {
-        setShowOnboarding(true);
-      }
-    }
-  };
-
-  const handleRegistrationComplete = () => {
-    setShowRegistration(false);
-    // Show onboarding after registration
+    // Check if user has completed onboarding
     const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
     if (!completedOnboarding) {
       setShowOnboarding(true);
     }
   };
+
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
@@ -126,7 +104,7 @@ const App = () => {
           <MochiVideoProcessor />
           <div className="flex flex-col min-h-screen bg-gradient-nature">
             {/* Only show header when user is fully onboarded */}
-            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+            {!showLanding && !showLanguageSelect && !showOnboarding && (
               <AppHeader onTabSelect={setActiveTab} />
             )}
             <main className="flex-1 overflow-auto relative z-10">
@@ -135,8 +113,6 @@ const App = () => {
                 <LandingPage onGetStarted={handleGetStarted} />
               ) : showLanguageSelect ? (
                 <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
-              ) : showRegistration ? (
-                <UserRegistration onComplete={handleRegistrationComplete} />
               ) : showOnboarding ? (
                 <OnboardingFlow onComplete={handleOnboardingComplete} />
               ) : (
@@ -176,7 +152,7 @@ const App = () => {
             </main>
             
             {/* Footer - only show when user is fully onboarded */}
-            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+            {!showLanding && !showLanguageSelect && !showOnboarding && (
               <Footer />
             )}
             

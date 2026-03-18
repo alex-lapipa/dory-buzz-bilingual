@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "12.2.12 (cd3cf9e)"
@@ -73,6 +73,39 @@ export type Database = {
           last_activity?: string
           level?: number | null
           topic?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string | null
+          id: string
+          language: string | null
+          last_active: string | null
+          message_count: number | null
+          metadata: Json | null
+          session_id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          last_active?: string | null
+          message_count?: number | null
+          metadata?: Json | null
+          session_id?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          last_active?: string | null
+          message_count?: number | null
+          metadata?: Json | null
+          session_id?: string
           user_id?: string | null
         }
         Relationships: []
@@ -325,6 +358,48 @@ export type Database = {
         }
         Relationships: []
       }
+      mochi_knowledge_base: {
+        Row: {
+          category: string
+          content: string
+          created_at: string | null
+          embedding: string | null
+          id: string
+          language: string
+          metadata: Json | null
+          source: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string
+          content: string
+          created_at?: string | null
+          embedding?: string | null
+          id?: string
+          language?: string
+          metadata?: Json | null
+          source?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string | null
+          embedding?: string | null
+          id?: string
+          language?: string
+          metadata?: Json | null
+          source?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       production_deployments: {
         Row: {
           created_at: string
@@ -409,6 +484,39 @@ export type Database = {
         }
         Relationships: []
       }
+      rag_queries: {
+        Row: {
+          created_at: string | null
+          id: string
+          language: string | null
+          matched_knowledge_ids: string[] | null
+          query_text: string
+          response_preview: string | null
+          session_id: string | null
+          similarity_scores: number[] | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          matched_knowledge_ids?: string[] | null
+          query_text: string
+          response_preview?: string | null
+          session_id?: string | null
+          similarity_scores?: number[] | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          language?: string | null
+          matched_knowledge_ids?: string[] | null
+          query_text?: string
+          response_preview?: string | null
+          session_id?: string | null
+          similarity_scores?: number[] | null
+        }
+        Relationships: []
+      }
       system_health: {
         Row: {
           error_message: string | null
@@ -480,7 +588,7 @@ export type Database = {
           consent_version: string | null
           email: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           user_agent: string | null
           user_id: string | null
           withdrawn_at: string | null
@@ -492,7 +600,7 @@ export type Database = {
           consent_version?: string | null
           email?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
           withdrawn_at?: string | null
@@ -504,7 +612,7 @@ export type Database = {
           consent_version?: string | null
           email?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
           withdrawn_at?: string | null
@@ -649,7 +757,7 @@ export type Database = {
           id: string
           language: string
           referral_source: string | null
-          signup_ip: unknown | null
+          signup_ip: unknown
           updated_at: string
           user_agent: string | null
           utm_params: Json | null
@@ -662,7 +770,7 @@ export type Database = {
           id?: string
           language?: string
           referral_source?: string | null
-          signup_ip?: unknown | null
+          signup_ip?: unknown
           updated_at?: string
           user_agent?: string | null
           utm_params?: Json | null
@@ -675,7 +783,7 @@ export type Database = {
           id?: string
           language?: string
           referral_source?: string | null
-          signup_ip?: unknown | null
+          signup_ip?: unknown
           updated_at?: string
           user_agent?: string | null
           utm_params?: Json | null
@@ -790,30 +898,78 @@ export type Database = {
         }
         Relationships: []
       }
+      voice_sessions: {
+        Row: {
+          created_at: string | null
+          duration_seconds: number | null
+          elevenlabs_conversation_id: string | null
+          id: string
+          language: string | null
+          metadata: Json | null
+          transcript: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          duration_seconds?: number | null
+          elevenlabs_conversation_id?: string | null
+          id?: string
+          language?: string | null
+          metadata?: Json | null
+          transcript?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          duration_seconds?: number | null
+          elevenlabs_conversation_id?: string | null
+          id?: string
+          language?: string | null
+          metadata?: Json | null
+          transcript?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      get_current_user_role: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_current_user_role: { Args: never; Returns: string }
       has_role: {
         Args: {
-          _user_id: string
           _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
         }
         Returns: boolean
       }
+      match_mochi_knowledge: {
+        Args: {
+          filter_category?: string
+          filter_language?: string
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+        }
+        Returns: {
+          category: string
+          content: string
+          id: string
+          language: string
+          similarity: number
+          tags: string[]
+          title: string
+        }[]
+      }
       track_user_event: {
         Args: {
+          p_element_class?: string
+          p_element_id?: string
           p_event_name: string
           p_event_type?: string
-          p_page_url?: string
-          p_element_id?: string
-          p_element_class?: string
           p_metadata?: Json
+          p_page_url?: string
         }
         Returns: string
       }
