@@ -29,6 +29,9 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const BuzzyBees = lazy(() => import('./pages/BuzzyBees'));
+const KidsStories = lazy(() => import('./pages/kids/KidsStories'));
+const KidsGames = lazy(() => import('./pages/kids/KidsGames'));
+const KidsSongs = lazy(() => import('./pages/kids/KidsSongs'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
