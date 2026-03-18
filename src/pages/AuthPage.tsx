@@ -46,6 +46,13 @@ const AuthPage = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Auto-redirect Lawton domain emails to Microsoft SSO
+    if (isLawtonEmail(email)) {
+      handleOAuthSignIn('azure');
+      return;
+    }
+    
     setLoading(true);
     setError('');
 
