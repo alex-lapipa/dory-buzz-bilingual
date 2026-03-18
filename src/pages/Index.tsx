@@ -1,4 +1,5 @@
 import React from 'react';
+import { MochiConvAI } from '@/components/MochiConvAI';
 import { MochiInterface } from '@/components/MochiInterface';
 import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
@@ -95,6 +96,12 @@ const Index = () => {
             <Leaf className="h-4 w-4" />
           </p>
         </div>
+      </div>
+    </div>
+
+      {/* Floating Mochi Voice Widget — bottom right corner */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <MochiConvAI compact />
       </div>
     </div>
   );
