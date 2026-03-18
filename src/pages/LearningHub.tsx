@@ -633,7 +633,7 @@ const LearningHub: React.FC = () => {
         <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-yellow-800">
-              <Lightbulb className="h-5 w-5" />
+              <Firefly className="h-5 w-5" />
               Bee Learning Tips
             </CardTitle>
           </CardHeader>
