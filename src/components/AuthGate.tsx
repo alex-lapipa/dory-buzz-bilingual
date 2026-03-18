@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { shouldSkipBrowserRedirect, navigateToOAuth } from '@/utils/oauthRedirect';
+import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail } from '@/utils/oauthRedirect';
 
 export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading, signUp, signIn } = useAuth();
@@ -92,6 +92,12 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    
+    // Auto-redirect Lawton domain emails to Microsoft SSO
+    if (isLawtonEmail(email)) {
+      handleSocialAuth('azure');
+      return;
+    }
     
     if (!validateForm()) return;
 
@@ -256,6 +262,9 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   autoComplete="email"
                 />
               </div>
+              {isLawtonEmail(email) && (
+                <p className="text-xs text-primary">🏫 Lawton School account — you'll be redirected to Microsoft sign-in</p>
+              )}
             </div>
 
             {isSignUp && (
