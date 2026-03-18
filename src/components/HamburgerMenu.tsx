@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Zap, Settings } from 'lucide-react';
-import { BeeEducationHub } from '@/components/BeeEducationHub';
-import { AccessibilityHelper } from '@/components/AccessibilityHelper';
-import { TechnicalSpecs } from '@/components/TechnicalSpecs';
+import { Menu, ExternalLink, Info, Settings } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface HamburgerMenuProps {
@@ -17,9 +13,7 @@ interface HamburgerMenuProps {
 
 export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
   const { t } = useLanguage();
-  
   // Check if user has completed registration
   const isUserRegistered = localStorage.getItem('userRegistration') !== null;
 
@@ -47,28 +41,17 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </h3>
             
             <div className="space-y-2">
-              <Link to="/technical-details">
+              <Link to="/admin">
                 <Button 
                   variant="outline" 
                   className="w-full justify-start" 
                   onClick={() => setIsOpen(false)}
                 >
                   <Settings className="h-4 w-4 mr-2" />
-                  Technical Details
-                  <Badge variant="secondary" className="ml-auto">Full</Badge>
+                  Admin Panel
+                  <Badge variant="secondary" className="ml-auto">🔒</Badge>
                 </Button>
               </Link>
-
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                onClick={() => {
-                  setActiveSection(activeSection === 'accessibility' ? null : 'accessibility');
-                }}
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                System Help
-              </Button>
               
                <Button 
                 variant="outline" 
@@ -143,20 +126,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           </div>
 
 
-          {/* Accessibility Helper */}
-          {activeSection === 'accessibility' && (
-            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
-              <div className="max-w-md mx-auto">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">{t('systemHelp') || 'System Help'}</h2>
-                  <Button variant="outline" onClick={() => setActiveSection(null)}>
-                    ✕
-                  </Button>
-                </div>
-                <AccessibilityHelper />
-              </div>
-            </div>
-          )}
 
         </div>
       </SheetContent>

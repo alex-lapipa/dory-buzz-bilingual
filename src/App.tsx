@@ -14,16 +14,14 @@ import { LandingPage } from "@/components/LandingPage";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
-import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import LearningHub from "./pages/LearningHub";
-import TechnicalDetails from "./pages/TechnicalDetails";
 
 // Lazy load heavy components and pages
 const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
 const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
-const ProductionDashboard = lazy(() => import('@/components/ProductionDashboard'));
+const Admin = lazy(() => import('./pages/Admin'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -123,7 +121,6 @@ const App = () => {
                       <Routes>
                         <Route path="/" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/chat" element={<PageTransition><Chat /></PageTransition>} />
-                        <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
                         <Route path="/learning-hub" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/learning/bee-basics" element={
                           <PageTransition>
@@ -139,14 +136,13 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
-                        <Route path="/production" element={
+                        <Route path="/admin" element={
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                              <ProductionDashboard />
+                              <Admin />
                             </Suspense>
                           </PageTransition>
                         } />
-                        <Route path="/technical-details" element={<PageTransition><TechnicalDetails /></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
