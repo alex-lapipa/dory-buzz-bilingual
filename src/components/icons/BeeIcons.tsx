@@ -129,7 +129,7 @@ export const LeafBook: React.FC<IconProps> = (props) => (
 
 /** Speech bubble with tiny bee wing — replaces MessageCircle */
 export const BeeChat: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M21 12c0 4-4 7-9 7-1.5 0-3-.3-4.2-.8L3 20l1.5-3.5C3.5 15.2 3 13.7 3 12c0-4 4-7 9-7s9 3 9 7z" />
     <path d="M17 7c1-2 2.5-3 2.5-3" opacity=".5" />
     <path d="M18.5 5.5c.5-1.5 1.5-2 1.5-2" opacity=".5" />
