@@ -16,15 +16,19 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   className = ""
 }) => {
   return (
-    <div className="min-h-screen bg-gradient-nature relative overflow-hidden">
-      {/* Background Elements */}
-      {showFloatingGarden && <FloatingGarden />}
+    <div className="min-h-screen bg-gradient-nature relative overflow-hidden parallax-container">
+      {/* Background Elements - parallax back layer */}
+      {showFloatingGarden && (
+        <div className="parallax-layer-back">
+          <FloatingGarden />
+        </div>
+      )}
       
       {/* Header */}
       {showHeader && <AppHeader />}
       
       {/* Main Content - Mobile-first responsive spacing */}
-      <main className={`relative z-10 content-spacing ${className}`}>
+      <main className={`relative z-10 content-spacing parallax-layer-front ${className}`}>
         <div className="max-w-7xl mx-auto w-full">
           {children}
         </div>

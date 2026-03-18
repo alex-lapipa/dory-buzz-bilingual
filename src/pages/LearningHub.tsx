@@ -388,7 +388,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-teal-200 bg-gradient-to-br from-teal-50 via-green-50 to-teal-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-6 h-64 cursor-pointer border-teal-200/50 bg-gradient-to-br from-teal-50/60 via-green-50/40 to-teal-100/50 group"
             onClick={() => {
               toast({
                 title: "🌿 Chat with Mochi!",
