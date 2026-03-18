@@ -297,7 +297,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-purple-200 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-3 h-64 cursor-pointer border-purple-200/50 bg-gradient-to-br from-purple-50/60 via-pink-50/40 to-purple-100/50 group"
             onClick={() => {
               // Scroll to games section
               document.getElementById('interactive-games')?.scrollIntoView({ behavior: 'smooth' });
