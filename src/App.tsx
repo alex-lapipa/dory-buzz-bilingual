@@ -161,7 +161,7 @@ const App = () => {
             </main>
             
             {/* Footer - only show when user is fully onboarded */}
-            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+            {!showLanding && !showLanguageSelect && !showOnboarding && (
               <Footer />
             )}
             
