@@ -431,7 +431,7 @@ export const BeeDownload: React.FC<IconProps> = (props) => (
 
 /** Shrink — replaces Shrink (keep same shape but nature-styled) */
 export const GardenShrink: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M4 14h6v6" />
     <path d="M20 10h-6V4" />
     <line x1="4" y1="20" x2="10" y2="14" />
