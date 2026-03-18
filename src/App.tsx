@@ -120,7 +120,7 @@ const App = () => {
                   ) : (
                     <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
                       <Routes>
-                        <Route path="/" element={<Index />} />
+                        <Route path="/" element={<LearningHub />} />
                         <Route path="/chat" element={<Chat />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />

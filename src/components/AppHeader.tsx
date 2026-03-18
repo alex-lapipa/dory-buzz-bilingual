@@ -18,7 +18,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { user, signOut } = useAuth();
 
   const handleBeeClick = () => {
-    navigate('/chat');
+    navigate('/');
   };
 
   return (
