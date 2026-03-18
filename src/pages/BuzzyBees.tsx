@@ -1,12 +1,12 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { FlowerPlay, FlowerPause, VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
-import { supabase } from '@/integrations/supabase/client';
+import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
 import { PageSEO } from '@/components/PageSEO';
 import { useConversation } from '@11labs/react';
+import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
+import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
 
 const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
 
