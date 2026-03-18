@@ -170,15 +170,31 @@ serve(async (req: Request) => {
 
       const rawJson = await generateWithCascade(GENERATION_PROMPT, userMessage);
 
-      // Parse and validate the JSON
+      // Parse and validate the JSON — handle truncation from token limits
       let parsed;
       try {
-        // Handle potential markdown code fences
         const cleaned = rawJson.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
         parsed = JSON.parse(cleaned);
       } catch (parseErr) {
-        console.error("JSON parse error:", parseErr, "Raw:", rawJson.slice(0, 500));
-        continue;
+        // Attempt to repair truncated JSON by closing open strings/arrays/objects
+        try {
+          let repaired = rawJson.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+          // Remove trailing incomplete key-value pairs after last comma
+          repaired = repaired.replace(/,\s*"[^"]*"?\s*:?\s*"?[^"]*$/, "");
+          // Count open brackets and close them
+          const opens = (repaired.match(/[\[{]/g) || []).length;
+          const closes = (repaired.match(/[\]}]/g) || []).length;
+          for (let b = 0; b < opens - closes; b++) {
+            // Determine what to close based on last unclosed opener
+            const lastOpen = repaired.lastIndexOf("[") > repaired.lastIndexOf("{") ? "]" : "}";
+            repaired += lastOpen;
+          }
+          parsed = JSON.parse(repaired);
+          console.log("Repaired truncated JSON successfully");
+        } catch (repairErr) {
+          console.error("JSON parse error (unrecoverable):", parseErr, "Raw:", rawJson.slice(0, 500));
+          continue;
+        }
       }
 
       const { storycard, panels, quiz } = parsed;
