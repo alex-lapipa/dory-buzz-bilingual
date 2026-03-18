@@ -123,7 +123,6 @@ const App = () => {
                       <Routes>
                         <Route path="/" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/chat" element={<PageTransition><Chat /></PageTransition>} />
-                        <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
                         <Route path="/learning-hub" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/learning/bee-basics" element={
                           <PageTransition>
@@ -139,14 +138,13 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
-                        <Route path="/production" element={
+                        <Route path="/admin" element={
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                              <ProductionDashboard />
+                              <Admin />
                             </Suspense>
                           </PageTransition>
                         } />
-                        <Route path="/technical-details" element={<PageTransition><TechnicalDetails /></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
