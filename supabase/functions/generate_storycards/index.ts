@@ -9,7 +9,7 @@ const corsHeaders = {
 
 const GENERATION_PROMPT = `You are a bilingual educational content designer for Mochi the Garden Bee, a children's learning platform about bees, pollination, gardens, and nature.
 
-Generate a complete storycard module with the following JSON structure. All content must be in BOTH English and Spanish.
+Generate a complete storycard module with the following JSON structure. All content MUST be in BOTH English and Spanish. Keep all text CONCISE — narrations should be 1-2 short sentences max, scene descriptions under 15 words.
 
 The storycard should:
 - Be age-appropriate (ages 4-10)
