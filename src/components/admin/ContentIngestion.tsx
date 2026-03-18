@@ -295,6 +295,7 @@ const ContentIngestion: React.FC = () => {
               ))}
             </div>
           </div>
+        </TabsContent>
 
         {/* ── Tools ── */}
         <TabsContent value="tools">
