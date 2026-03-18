@@ -191,7 +191,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Communication',
       icon: <Trophy className="h-6 w-6" />,
       color: 'border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'lifecycle-lab',
