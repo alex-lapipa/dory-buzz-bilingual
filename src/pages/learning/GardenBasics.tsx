@@ -1,102 +1,200 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageLayout } from '@/components/PageLayout';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ArrowLeft, Sprout, MessageCircle, Languages, Send, Loader2, Leaf } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import plantLifecycleImage from '@/assets/plant-lifecycle.jpg';
+import { supabase } from '@/integrations/supabase/client';
+
+interface KBEntry {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  domain: string | null;
+  tags: string[] | null;
+  subcategory: string | null;
+}
+
+interface VocabHint {
+  word_en: string;
+  word_es: string;
+}
 
 const GardenBasics: React.FC = () => {
   const navigate = useNavigate();
+  const [entries, setEntries] = useState<KBEntry[]>([]);
+  const [vocab, setVocab] = useState<VocabHint[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [askingMochi, setAskingMochi] = useState(false);
+  const [mochiQuestion, setMochiQuestion] = useState('');
+  const [mochiAnswer, setMochiAnswer] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadContent();
+  }, []);
+
+  const loadContent = async () => {
+    try {
+      const [kbRes, vocabRes] = await Promise.all([
+        supabase
+          .from('mochi_knowledge_base')
+          .select('id, title, content, category, domain, tags, subcategory')
+          .or('domain.eq.permaculture,domain.eq.garden,category.eq.permaculture,category.eq.seeds,category.eq.garden_basics')
+          .order('created_at', { ascending: false })
+          .limit(60),
+        supabase
+          .from('vocabulary_cards')
+          .select('word_en, word_es')
+          .eq('domain', 'permaculture')
+          .limit(12),
+      ]);
+
+      if (kbRes.data) setEntries(kbRes.data);
+      if (vocabRes.data) setVocab(vocabRes.data);
+    } catch (e) {
+      console.error('Failed to load garden content:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const askMochi = async () => {
+    if (!mochiQuestion.trim()) return;
+    setAskingMochi(true);
+    setMochiAnswer(null);
+    try {
+      const { data, error } = await supabase.functions.invoke('mochi_rag_v2', {
+        body: { message: mochiQuestion, language: 'en', age_level: 'child' },
+      });
+      if (error) throw error;
+      setMochiAnswer(data.response);
+    } catch (e) {
+      setMochiAnswer("Bzz! I couldn't find an answer right now. Try again later! 🐝");
+    } finally {
+      setAskingMochi(false);
+    }
+  };
+
+  const categories = [...new Set(entries.map(e => e.category))];
+  const filtered = activeCategory ? entries.filter(e => e.category === activeCategory) : entries;
 
   return (
     <PageLayout>
-      <div className="max-w-4xl mx-auto space-y-8 p-6">
-        {/* Header */}
+      <div className="max-w-6xl mx-auto space-y-8 p-4 md:p-6">
         <div className="flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => navigate('/learning-hub')}
-            className="flex items-center gap-2"
-          >
+          <Button variant="ghost" size="sm" onClick={() => navigate('/learning-hub')} className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
             Back to Beeducation
           </Button>
         </div>
 
-        {/* Title */}
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-3">
           <h1 className="text-4xl font-bold flex items-center justify-center gap-3">
             <span className="text-5xl animate-pulse">🌱</span>
             Garden Basics
           </h1>
           <p className="text-lg text-muted-foreground">
-            Learn how plants grow and discover the secrets of successful gardening!
+            {entries.length} entries from the knowledge base — learn about plants, seeds & permaculture!
           </p>
         </div>
 
-        {/* Hero Image */}
-        <div className="flex justify-center">
-          <img 
-            src={plantLifecycleImage} 
-            alt="Plant growth lifecycle from seed to mature plant"
-            className="rounded-lg shadow-lg max-w-full h-auto"
-          />
+        {/* Category filters */}
+        <div className="flex flex-wrap gap-2 justify-center">
+          <Badge variant={activeCategory === null ? 'default' : 'outline'} className="cursor-pointer" onClick={() => setActiveCategory(null)}>
+            All ({entries.length})
+          </Badge>
+          {categories.map(cat => (
+            <Badge key={cat} variant={activeCategory === cat ? 'default' : 'outline'} className="cursor-pointer capitalize" onClick={() => setActiveCategory(cat)}>
+              {cat.replace(/_/g, ' ')} ({entries.filter(e => e.category === cat).length})
+            </Badge>
+          ))}
         </div>
 
-        {/* Content */}
-        <div className="prose prose-lg max-w-none">
-          <h2>🌿 Understanding Plant Growth</h2>
-          
-          <h3>🌰 Seeds: The Beginning of Life</h3>
-          <p>
-            Every plant starts as a tiny seed containing everything needed to grow into a full plant. Seeds are like nature's time capsules - they can wait for months or even years for the perfect conditions to begin growing. Inside each seed is a baby plant (called an embryo) and stored food to help it grow its first leaves and roots.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <div className="lg:col-span-3 space-y-4">
+            {loading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...Array(6)].map((_, i) => (
+                  <Card key={i}><CardContent className="p-6"><Skeleton className="h-24 w-full" /></CardContent></Card>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filtered.map(entry => (
+                  <Card key={entry.id} className="hover:shadow-lg transition-shadow">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <Leaf className="h-4 w-4 text-green-500 shrink-0" />
+                        <span className="line-clamp-2">{entry.title}</span>
+                      </CardTitle>
+                      <div className="flex gap-1 flex-wrap">
+                        <Badge variant="secondary" className="text-xs capitalize">{entry.category?.replace(/_/g, ' ')}</Badge>
+                        {entry.domain && <Badge variant="outline" className="text-xs capitalize">{entry.domain.replace(/_/g, ' ')}</Badge>}
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground line-clamp-4">{entry.content}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
 
-          <h3>🌱 Germination: Waking Up</h3>
-          <p>
-            When a seed gets enough water, warmth, and oxygen, it "wakes up" and begins to germinate. The first thing to emerge is usually the root, which grows downward to anchor the plant and search for water and nutrients. Then comes the shoot, which grows upward toward the light to become the stem and leaves.
-          </p>
+            {!loading && filtered.length === 0 && (
+              <Card className="text-center p-8">
+                <CardContent>
+                  <p className="text-2xl mb-2">🌿</p>
+                  <p className="text-muted-foreground">No garden content found for this category.</p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
 
-          <h3>🌞 What Plants Need to Grow</h3>
-          <p>
-            Plants need six essential things to grow healthy and strong: sunlight (for energy), water (for drinking and chemical reactions), air (carbon dioxide for photosynthesis), nutrients (food from the soil), the right temperature (not too hot or cold), and space (room for roots and branches to spread).
-          </p>
+          <div className="space-y-6">
+            <Card className="border-primary/30">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4" />
+                  Ask Mochi 🐝
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex gap-2">
+                  <Input placeholder="How do seeds germinate?" value={mochiQuestion} onChange={e => setMochiQuestion(e.target.value)} onKeyDown={e => e.key === 'Enter' && askMochi()} className="text-sm" />
+                  <Button size="icon" onClick={askMochi} disabled={askingMochi}>
+                    {askingMochi ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                  </Button>
+                </div>
+                {mochiAnswer && <div className="p-3 bg-primary/5 rounded-lg text-sm">{mochiAnswer}</div>}
+              </CardContent>
+            </Card>
 
-          <h3>🍃 Photosynthesis: Nature's Food Factory</h3>
-          <p>
-            Plants are amazing because they make their own food! Through a process called photosynthesis, plants use sunlight, water, and carbon dioxide from the air to create sugar (glucose) for energy. The green color in leaves comes from chlorophyll, which captures sunlight like tiny solar panels.
-          </p>
-
-          <h3>🌳 Plant Parts and Their Jobs</h3>
-          <p>
-            Each part of a plant has a special job. Roots anchor the plant and absorb water and nutrients from soil. The stem supports the plant and carries water and nutrients up from the roots to the leaves. Leaves capture sunlight and make food through photosynthesis. Flowers attract pollinators to help plants reproduce.
-          </p>
-
-          <h3>💧 The Water Cycle in Plants</h3>
-          <p>
-            Plants drink water through their roots and transport it up through their stems to their leaves. This process is called transpiration. Water evaporates from the leaves, which helps draw more water up from the roots - like a natural drinking straw system!
-          </p>
-
-          <h3>🌾 Starting Your Own Garden</h3>
-          <p>
-            Starting a garden is easy and fun! Begin with easy-to-grow plants like herbs (basil, mint), vegetables (lettuce, radishes), or flowers (marigolds, sunflowers). Choose a sunny spot, prepare the soil by adding compost, plant your seeds at the right depth, water gently, and be patient as nature works its magic.
-          </p>
-
-          <h3>🐛 Garden Friends and Helpers</h3>
-          <p>
-            Gardens are full of helpful creatures! Earthworms improve soil by eating organic matter and creating nutrient-rich castings. Ladybugs eat aphids that damage plants. Bees and butterflies pollinate flowers. Even some bacteria help plant roots absorb nutrients better.
-          </p>
-
-          <h3>🌡️ Seasons and Plant Growth</h3>
-          <p>
-            Plants respond to changing seasons. In spring, many plants begin growing new leaves and flowers. Summer provides long days of sunlight for growth. Fall signals plants to prepare for winter by dropping leaves or producing seeds. Winter is a rest period for most plants in cold climates.
-          </p>
-
-          <h3>🌱 Caring for Your Plants</h3>
-          <p>
-            Good plant care includes watering regularly (but not too much!), providing proper drainage so roots don't rot, feeding plants with compost or fertilizer, removing weeds that compete for nutrients, and watching for signs of pests or diseases. Remember: healthy soil grows healthy plants!
-          </p>
+            {vocab.length > 0 && (
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Languages className="h-4 w-4" />
+                    Vocabulary / Vocabulario
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {vocab.map((v, i) => (
+                      <div key={i} className="text-xs p-2 rounded bg-muted/50">
+                        <span className="font-medium">{v.word_en}</span>
+                        <span className="text-muted-foreground"> / {v.word_es}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </PageLayout>

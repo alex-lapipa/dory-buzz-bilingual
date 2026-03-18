@@ -13,6 +13,10 @@ const MasterControlPanel = lazy(() => import('@/components/MasterControlPanel'))
 const ProductionDashboard = lazy(() => import('@/components/ProductionDashboard'));
 const TechnicalDetails = lazy(() => import('@/pages/TechnicalDetails'));
 const GoogleEcosystemDashboard = lazy(() => import('@/components/admin/GoogleEcosystemDashboard'));
+const BeeBasicsAdmin = lazy(() => import('@/components/admin/BeeBasicsAdmin'));
+const GardenBasicsAdmin = lazy(() => import('@/components/admin/GardenBasicsAdmin'));
+const ChatManagement = lazy(() => import('@/components/admin/ChatManagement'));
+const ContentIngestion = lazy(() => import('@/components/admin/ContentIngestion'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
@@ -46,7 +50,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   'system-health': 'System Health',
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
-  settings: 'Settings',
+  settings: 'Content Ingestion',
 };
 
 const AdminShell: React.FC = () => {
@@ -155,14 +159,11 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'beeducation':
       return <LearningHub />;
     case 'bee-basics':
+      return <BeeBasicsAdmin />;
     case 'garden-basics':
+      return <GardenBasicsAdmin />;
     case 'chat':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">🐝</p>
-          <p>Content management for {section} coming soon</p>
-        </div>
-      );
+      return <ChatManagement />;
     case 'brand':
       return <BrandBook />;
     case 'design':
@@ -178,12 +179,7 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'accessibility':
       return <AccessibilityHelper />;
     case 'settings':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">⚙️</p>
-          <p>Platform settings coming soon</p>
-        </div>
-      );
+      return <ContentIngestion />;
     default:
       return null;
   }
