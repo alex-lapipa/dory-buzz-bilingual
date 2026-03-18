@@ -5,6 +5,7 @@ const ChatInterface = lazy(() => import('./ChatInterface').then(module => ({ def
 const ImageGenerator = lazy(() => import('./ImageGenerator').then(module => ({ default: module.ImageGenerator })));
 const MochiVideoFeed = lazy(() => import('./MochiVideoFeed').then(module => ({ default: module.MochiVideoFeed })));
 import { OnboardingTip } from './OnboardingTip';
+import { MochiConvAI } from './MochiConvAI';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -60,6 +61,11 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
 
     switch (currentTab) {
       case 'voice':
+        return (
+          <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px]'} flex items-center justify-center`}>
+            <MochiConvAI className="w-full" />
+          </div>
+        );
       case 'chat-advanced':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
