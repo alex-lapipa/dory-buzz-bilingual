@@ -18,7 +18,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { user, signOut } = useAuth();
 
   const handleBeeClick = () => {
-    navigate('/chat');
+    navigate('/');
   };
 
   return (
@@ -66,18 +66,18 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/chat')}
-              className="text-sm hover:text-primary"
+              onClick={() => navigate('/')}
+              className="text-sm hover:text-primary flex items-center gap-1"
             >
-              Chat
+              🐝 Beeducation
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/learning-hub')}
-              className="text-sm hover:text-primary flex items-center gap-1"
+              onClick={() => navigate('/chat')}
+              className="text-sm hover:text-primary"
             >
-              🐝 Beeducation
+              Chat
             </Button>
           </nav>
           
