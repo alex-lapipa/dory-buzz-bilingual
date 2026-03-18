@@ -473,7 +473,7 @@ const AuthPage = () => {
                   <div className="space-y-2">
                     <Label htmlFor="display-name">Display Name</Label>
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <BeeFace className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="display-name"
                         type="text"
