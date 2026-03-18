@@ -167,7 +167,7 @@ export const SeedlingChart: React.FC<IconProps> = (props) => (
 
 /** Musical flower — replaces Music */
 export const MusicalFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M12 22v-12" />
     <circle cx="8" cy="20" r="3" opacity=".6" />
     <path d="M12 10c2-4 6-5 8-4" />
