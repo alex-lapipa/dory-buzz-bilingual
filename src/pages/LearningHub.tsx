@@ -499,7 +499,7 @@ const LearningHub: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Award className="h-5 w-5" />
+              <HoneycombTrophy className="h-5 w-5" />
               Your Learning Progress
             </CardTitle>
           </CardHeader>
