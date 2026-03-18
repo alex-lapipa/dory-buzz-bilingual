@@ -121,7 +121,7 @@ const BuzzyBees: React.FC = () => {
           <div className="flex items-center justify-center gap-2">
             <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
             <Badge variant="secondary" className="text-sm px-3 py-1">
-              {language === 'es' ? '3-6 años' : 'Ages 3-6'}
+              Ages 3-6 · 3-6 años
             </Badge>
             <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
           </div>
@@ -132,15 +132,16 @@ const BuzzyBees: React.FC = () => {
             <span className="text-3xl sm:text-4xl">🐝🎵</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
-            {language === 'es'
-              ? '¡Canta y aprende con Mochi! Toca una canción para empezar.'
-              : 'Sing & learn with Mochi! Tap a song to start singing.'}
+          <p className="text-lg sm:text-xl text-foreground max-w-md mx-auto leading-relaxed font-medium">
+            Sing & learn with Mochi! Tap a song to start singing.
+          </p>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto italic">
+            ¡Canta y aprende con Mochi! Toca una canción para empezar.
           </p>
 
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <VolumeFlower className="h-4 w-4" />
-            <span>{language === 'es' ? 'Con música y letra' : 'With music & lyrics'}</span>
+            <span>With music & lyrics · Con música y letra</span>
             <MusicalFlower className="h-4 w-4" />
           </div>
         </div>
