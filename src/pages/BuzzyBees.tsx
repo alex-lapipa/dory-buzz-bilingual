@@ -154,6 +154,8 @@ const BuzzyBees: React.FC = () => {
               song={song}
               language={language}
               getAudioSrc={song.id === 'mochis-playful-day' ? getRandomAudioSrc : undefined}
+              currentMix={song.id === 'mochis-playful-day' ? currentMix : undefined}
+              onStop={song.id === 'mochis-playful-day' ? clearCurrentMix : undefined}
             />
           ))}
         </div>
