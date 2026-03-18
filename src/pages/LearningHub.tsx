@@ -242,7 +242,7 @@ const LearningHub: React.FC = () => {
             />
           </div>
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-            <GraduationCap className="h-10 w-10 text-blue-600" />
+            <GraduationBee className="h-10 w-10 text-primary" />
             Beeducation
             <span className="animate-flower-sway">🌻</span>
           </h1>
