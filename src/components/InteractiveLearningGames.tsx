@@ -169,7 +169,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Architecture',
       icon: <Puzzle className="h-6 w-6" />,
       color: 'border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'flower-match',
