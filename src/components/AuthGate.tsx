@@ -93,6 +93,12 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
     e.preventDefault();
     setError('');
     
+    // Auto-redirect Lawton domain emails to Microsoft SSO
+    if (isLawtonEmail(email)) {
+      handleSocialAuth('azure');
+      return;
+    }
+    
     if (!validateForm()) return;
 
     setIsLoading(true);
