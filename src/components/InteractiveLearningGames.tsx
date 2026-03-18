@@ -292,8 +292,8 @@ export const InteractiveLearningGames: React.FC = () => {
             icon={game.icon}
             color={game.color}
             onPlay={() => playGame(game.id, game.title)}
-            completed={completedGames.includes(game.id)}
-            progress={gameScores[game.id] ? Math.min(100, (gameScores[game.id] / 150) * 100) : 0}
+            completed={isCompleted(game.id)}
+            progress={getHighScore(game.id) ? Math.min(100, (getHighScore(game.id) / 150) * 100) : 0}
             isPlayable={game.isPlayable || false}
           />
         ))}
