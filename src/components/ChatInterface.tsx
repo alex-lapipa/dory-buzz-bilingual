@@ -479,7 +479,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 size="sm"
                 onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
               >
-                <Settings className="h-4 w-4" />
+                <GardenTools className="h-4 w-4" />
               </Button>
             )}
             
