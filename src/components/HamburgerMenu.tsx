@@ -126,20 +126,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           </div>
 
 
-          {/* Accessibility Helper */}
-          {activeSection === 'accessibility' && (
-            <div className="fixed inset-0 bg-background z-50 overflow-y-auto p-4">
-              <div className="max-w-md mx-auto">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-bold">{t('systemHelp') || 'System Help'}</h2>
-                  <Button variant="outline" onClick={() => setActiveSection(null)}>
-                    ✕
-                  </Button>
-                </div>
-                <AccessibilityHelper />
-              </div>
-            </div>
-          )}
 
         </div>
       </SheetContent>
