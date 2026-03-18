@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, Info, Zap, Settings } from 'lucide-react';
-import { BeeEducationHub } from '@/components/BeeEducationHub';
-import { AccessibilityHelper } from '@/components/AccessibilityHelper';
-import { TechnicalSpecs } from '@/components/TechnicalSpecs';
+import { Menu, ExternalLink, Info, Settings } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface HamburgerMenuProps {
