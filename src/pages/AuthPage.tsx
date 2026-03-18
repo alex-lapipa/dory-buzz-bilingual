@@ -329,6 +329,7 @@ const AuthPage = () => {
                     )}
                   </div>
                   
+                  {!isLawtonEmail(email) && (
                   <div className="space-y-2">
                     <Label htmlFor="signin-password">Password</Label>
                     <div className="relative">
@@ -344,13 +345,16 @@ const AuthPage = () => {
                       />
                     </div>
                   </div>
+                  )}
                   
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Signing In...
+                        {isLawtonEmail(email) ? 'Redirecting to Microsoft...' : 'Signing In...'}
                       </>
+                    ) : isLawtonEmail(email) ? (
+                      '🏫 Continue with Microsoft'
                     ) : (
                       'Sign In'
                     )}
