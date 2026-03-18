@@ -51,14 +51,23 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
     try {
       setIsLoading(true);
-      const { supabase } = await import('@/integrations/supabase/client');
+      const callbackUrl = `${window.location.origin}/auth`;
+      const skipRedirect = shouldSkipBrowserRedirect();
       
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/`
+          redirectTo: callbackUrl,
+          skipBrowserRedirect: skipRedirect,
+          ...(provider === 'azure' && { scopes: 'openid email profile' }),
         }
       });
+
+      // When skipBrowserRedirect is true, navigate manually
+      if (!error && skipRedirect && data?.url) {
+        navigateToOAuth(data.url);
+        return;
+      }
 
       if (error) {
         setError(error.message);
