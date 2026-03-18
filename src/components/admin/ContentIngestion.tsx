@@ -35,6 +35,7 @@ interface KBStats {
 const DOMAINS = [
   { value: 'bee_biology', label: '🐝 Bee Biology' },
   { value: 'bee_culture', label: '🍯 Bee Culture' },
+  { value: 'bee_conservation', label: '🌍 Bee Conservation' },
   { value: 'permaculture', label: '🌿 Permaculture' },
   { value: 'garden', label: '🌻 Garden' },
   { value: 'seeds', label: '🌱 Seeds' },
