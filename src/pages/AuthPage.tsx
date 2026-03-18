@@ -362,7 +362,7 @@ const AuthPage = () => {
                     >
                       {loading ? (
                         <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                         <DandelionSpin className="mr-2 h-4 w-4 animate-spin" />
                           Redirecting to Microsoft...
                         </>
                       ) : (
