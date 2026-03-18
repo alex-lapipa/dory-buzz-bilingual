@@ -366,7 +366,7 @@ export const GardenTools: React.FC<IconProps> = (props) => (
 
 /** Butterfly search — replaces Search */
 export const ButterflySearch: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'butterfly')}>
     <circle cx="11" cy="11" r="7" />
     <line x1="16" y1="16" x2="21" y2="21" />
     <path d="M9 8c-1.5-2-.5-4 1-4s2 2 1 4" opacity=".5" fill="currentColor" stroke="none" />
