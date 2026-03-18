@@ -138,7 +138,7 @@ export const BeeChat: React.FC<IconProps> = (props) => (
 
 /** Pollen sparkle — replaces Sparkles / Zap */
 export const PollenSparkle: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
     <line x1="12" y1="2" x2="12" y2="7" />
     <line x1="12" y1="17" x2="12" y2="22" />
