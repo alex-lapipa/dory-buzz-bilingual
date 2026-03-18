@@ -570,7 +570,7 @@ const LearningHub: React.FC = () => {
                       onClick={() => speakFact(fact.content)}
                       className="text-xs"
                     >
-                      <Volume2 className="h-3 w-3 mr-1" />
+                      <VolumeFlower className="h-3 w-3 mr-1" />
                       Listen
                     </Button>
                     
