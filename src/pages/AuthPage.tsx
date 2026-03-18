@@ -15,7 +15,7 @@ import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { useUserAnalytics } from '@/hooks/useUserAnalytics';
 import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { shouldSkipBrowserRedirect, navigateToOAuth } from '@/utils/oauthRedirect';
+import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail } from '@/utils/oauthRedirect';
 
 const AuthPage = () => {
   const navigate = useNavigate();
