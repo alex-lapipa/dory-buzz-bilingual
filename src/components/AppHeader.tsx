@@ -37,10 +37,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             className="w-10 h-10 sm:w-12 sm:h-12 filter drop-shadow-md animate-bee-bounce group-hover:scale-110 transition-transform"
           />
           <div className="flex flex-col">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary">
-              MochiBee 🌻
+            <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-primary">
+              <span className="sm:hidden">Mochi 🐝</span>
+              <span className="hidden sm:inline">MochiBee 🌻</span>
             </h1>
-            <p className="text-xs sm:text-sm text-primary/90 font-medium">
+            <p className="text-xs sm:text-sm text-primary/90 font-medium hidden xs:block">
               A Buzztastical Bee
             </p>
           </div>
