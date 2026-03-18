@@ -1,8 +1,6 @@
-// Vercel serverless — deploys Supabase edge functions
-// Fetches code from public GitHub raw at runtime (no embedded secrets, no escaping)
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-const SBP    = process.env.SB_SERVICE_TOKEN || "sbp_e6fa2634a8f24038346a53da90248f2f0d7f84cf";
+const SBP    = "sbp_e6fa2634a8f24038346a53da90248f2f0d7f84cf";
 const PRJ    = "zrdywdregcrykmbiytvl";
 const SECRET = "mochi-bee-setup-2026";
 const RAW    = "https://raw.githubusercontent.com/alex-lapipa/dory-buzz-bilingual/main";
@@ -13,20 +11,20 @@ const FN_PATHS: Record<string, string> = {
 };
 
 async function fetchCode(slug: string): Promise<string> {
-  const path = FN_PATHS[slug];
-  const res  = await fetch(`${RAW}/${path}`);
-  if (!res.ok) throw new Error(`GitHub raw fetch failed ${res.status}: ${path}`);
+  const res = await fetch(`${RAW}/${FN_PATHS[slug]}`);
+  if (!res.ok) throw new Error(`GitHub ${res.status}: ${FN_PATHS[slug]}`);
   return res.text();
 }
 
 async function deployFn(slug: string): Promise<object> {
-  const [code, listRes] = await Promise.all([
-    fetchCode(slug),
-    fetch(`https://api.supabase.com/v1/projects/${PRJ}/functions`, {
-      headers: { Authorization: `Bearer ${SBP}` },
-    }),
-  ]);
+  // 1. Fetch code
+  const code = await fetchCode(slug);
 
+  // 2. Check if function already exists on Supabase
+  const listRes = await fetch(
+    `https://api.supabase.com/v1/projects/${PRJ}/functions`,
+    { headers: { Authorization: `Bearer ${SBP}` } }
+  );
   const existing: any[] = listRes.ok ? await listRes.json() : [];
   const exists = Array.isArray(existing) && existing.some((f: any) => f.slug === slug);
   const method = exists ? "PATCH" : "POST";
@@ -34,22 +32,33 @@ async function deployFn(slug: string): Promise<object> {
     ? `https://api.supabase.com/v1/projects/${PRJ}/functions/${slug}`
     : `https://api.supabase.com/v1/projects/${PRJ}/functions`;
 
-  // FormData — Node 18+ native, sets Content-Type + boundary automatically
-  const form = new FormData();
-  form.append(
-    "metadata",
-    new Blob(
-      [JSON.stringify({ slug, name: slug, verify_jwt: false })],
-      { type: "application/json" }
-    )
-  );
-  form.append(
-    "file",
-    new Blob([code], { type: "application/typescript" }),
-    "index.ts"
+  // 3. Build multipart body as a plain string — no Buffer, no Blob, no FormData
+  const boundary = "MochiBee" + Date.now();
+  const CRLF     = "\r\n";
+  const meta     = JSON.stringify({ slug, name: slug, verify_jwt: false });
+
+  const bodyStr = (
+    "--" + boundary + CRLF +
+    "Content-Disposition: form-data; name=\"metadata\"" + CRLF +
+    "Content-Type: application/json" + CRLF + CRLF +
+    meta + CRLF +
+    "--" + boundary + CRLF +
+    "Content-Disposition: form-data; name=\"file\"; filename=\"index.ts\"" + CRLF +
+    "Content-Type: application/typescript" + CRLF + CRLF +
+    code + CRLF +
+    "--" + boundary + "--" + CRLF
   );
 
-  const res  = await fetch(url, { method, headers: { Authorization: `Bearer ${SBP}` }, body: form });
+  // 4. Deploy
+  const res = await fetch(url, {
+    method,
+    headers: {
+      Authorization: `Bearer ${SBP}`,
+      "Content-Type": `multipart/form-data; boundary=${boundary}`,
+    },
+    body: bodyStr,
+  });
+
   const text = await res.text();
   let parsed: any = {};
   try { parsed = JSON.parse(text); } catch (_) { parsed = { raw: text.slice(0, 400) }; }
@@ -58,15 +67,26 @@ async function deployFn(slug: string): Promise<object> {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const secret = (req.headers["x-setup-secret"] as string) ?? (req.query["secret"] as string);
-  if (secret !== SECRET) return res.status(401).json({ error: "Unauthorized" });
+  try {
+    const secret = (req.headers["x-setup-secret"] as string) ?? (req.query["secret"] as string);
+    if (secret !== SECRET) return res.status(401).json({ error: "Unauthorized" });
 
-  const target = req.query["fn"] as string | undefined;
-  const slugs  = target ? [target] : Object.keys(FN_PATHS);
-  const bad    = slugs.filter(s => !FN_PATHS[s]);
-  if (bad.length) return res.status(404).json({ error: `Unknown functions: ${bad.join(", ")}` });
+    const target = req.query["fn"] as string | undefined;
+    const slugs  = target ? [target] : Object.keys(FN_PATHS);
 
-  const results = await Promise.all(slugs.map(deployFn));
-  const passed  = results.filter((r: any) => r.ok).length;
-  return res.status(200).json({ summary: `${passed}/${results.length} functions deployed`, results });
+    const results = [];
+    for (const slug of slugs) {
+      try {
+        const r = await deployFn(slug);
+        results.push(r);
+      } catch (e: any) {
+        results.push({ slug, ok: false, error: e.message });
+      }
+    }
+
+    const passed = results.filter((r: any) => r.ok).length;
+    return res.status(200).json({ summary: `${passed}/${results.length} functions deployed`, results });
+  } catch (e: any) {
+    return res.status(500).json({ error: e.message, stack: e.stack?.split("\n").slice(0, 5) });
+  }
 }
