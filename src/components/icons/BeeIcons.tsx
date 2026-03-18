@@ -180,7 +180,7 @@ export const MusicalFlower: React.FC<IconProps> = (props) => (
 
 /** Closed flower bud — replaces X / Close */
 export const FlowerBudClose: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M12 22v-8" />
     <path d="M12 14c-2-3-1-7 0-9 1 2 2 6 0 9z" />
     <path d="M12 10c-3-2-6-1-7 0 2 1 5 1 7 0z" opacity=".7" />
