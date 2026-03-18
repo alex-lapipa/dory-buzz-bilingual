@@ -461,7 +461,7 @@ export const GraduationBee: React.FC<IconProps> = (props) => (
 
 /** Leaf / nature — keeps Leaf concept */
 export const NatureLeaf: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M12 22c-4-4-8-10-4-16 6 0 12 4 12 8s-4 8-8 8z" />
     <path d="M8 6c2 4 4 8 4 16" opacity=".5" />
   </svg>
