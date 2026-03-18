@@ -519,7 +519,7 @@ export const HiveDatabase: React.FC<IconProps> = (props) => (
 
 /** Activity vine — replaces Activity */
 export const ActivityVine: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <polyline points="22 12 18 12 15 18 9 6 6 12 2 12" />
   </svg>
 );
