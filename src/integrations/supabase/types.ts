@@ -1434,11 +1434,11 @@ export type Database = {
         Returns: {
           depth: number
           domain: string
+          edge_weight: number
           relation: string
           source_name: string
           target_es: string
           target_name: string
-          weight: number
         }[]
       }
       has_role: {
