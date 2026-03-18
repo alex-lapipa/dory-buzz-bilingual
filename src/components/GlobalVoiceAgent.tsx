@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 const MOCHI_AGENT_ID = "agent_1301kkyvc82vey5896n39y1cm5hc";
 const BEEBEE_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
 
-const KIDS_ROUTES = ["/buzzy-bees"];
+const KIDS_ROUTES = ["/buzzy-bees", "/kids-stories", "/kids-games", "/kids-songs"];
 
 export const GlobalVoiceAgent: React.FC = () => {
   const location = useLocation();

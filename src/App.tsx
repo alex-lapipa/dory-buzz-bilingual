@@ -29,6 +29,9 @@ const TermsOfService = lazy(() => import('./pages/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 const BuzzyBees = lazy(() => import('./pages/BuzzyBees'));
+const KidsStories = lazy(() => import('./pages/kids/KidsStories'));
+const KidsGames = lazy(() => import('./pages/kids/KidsGames'));
+const KidsSongs = lazy(() => import('./pages/kids/KidsSongs'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -152,6 +155,27 @@ const App = () => {
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
                               <BuzzyBees />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/kids-stories" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsStories />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/kids-games" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsGames />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/kids-songs" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsSongs />
                             </Suspense>
                           </PageTransition>
                         } />
