@@ -301,7 +301,7 @@ export const LadybugInfo: React.FC<IconProps> = (props) => (
 
 /** Earth with vine — replaces Globe */
 export const EarthVine: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <circle cx="12" cy="12" r="9" />
     <path d="M3 12h18" opacity=".4" />
     <ellipse cx="12" cy="12" rx="4" ry="9" opacity=".4" />
