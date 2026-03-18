@@ -116,45 +116,77 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Mochi's Bee Theme - Dark Mode - Semitransparent */
-    --background: 0 0% 100% / 0.8;
-    --foreground: 52 100% 90%;
+    /* 🌙 Moonlit Garden — dark mode */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 90%;
 
-    --card: 0 0% 100% / 0.8;
-    --card-foreground: 52 100% 95%;
+    --card: 220 40% 14%;
+    --card-foreground: 210 35% 88%;
 
-    --popover: 0 0% 100% / 0.8;
-    --popover-foreground: 52 100% 90%;
+    --popover: 222 47% 13%;
+    --popover-foreground: 210 40% 90%;
 
-    /* Golden Yellow Primary for dark */
-    --primary: 59 100% 50%;
-    --primary-foreground: 39 100% 5%;
+    /* Moonlit golden-amber primary */
+    --primary: 45 93% 58%;
+    --primary-foreground: 222 47% 8%;
 
-    /* Warm Honey Secondary */
-    --secondary: 0 0% 100% / 0.8;
-    --secondary-foreground: 35 100% 85%;
+    /* Deep indigo-teal secondary */
+    --secondary: 215 35% 20%;
+    --secondary-foreground: 210 30% 82%;
 
-    --muted: 0 0% 100% / 0.8;
-    --muted-foreground: 52 20% 65%;
+    --muted: 220 30% 18%;
+    --muted-foreground: 215 20% 55%;
 
-    /* Soft Flower Accent */
-    --accent: 0 0% 100% / 0.8;
-    --accent-foreground: 320 70% 85%;
+    /* Moonflower lavender accent */
+    --accent: 270 40% 30%;
+    --accent-foreground: 270 60% 88%;
 
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 100% / 0.8;
-    --input: 0 0% 100% / 0.8;
-    --ring: 59 100% 50%;
-    --sidebar-background: 0 0% 100% / 0.8;
-    --sidebar-foreground: 52 100% 85%;
-    --sidebar-primary: 59 100% 50%;
-    --sidebar-primary-foreground: 39 100% 5%;
-    --sidebar-accent: 0 0% 100% / 0.8;
-    --sidebar-accent-foreground: 52 100% 85%;
-    --sidebar-border: 0 0% 100% / 0.8;
-    --sidebar-ring: 59 100% 50%;
+    --border: 220 30% 22%;
+    --input: 220 35% 18%;
+    --ring: 45 93% 58%;
+
+    /* Night-garden gradients */
+    --gradient-nature:
+      linear-gradient(135deg,
+        hsl(222 50% 12%) 0%,
+        hsl(230 45% 15%) 30%,
+        hsl(250 35% 18%) 60%,
+        hsl(220 40% 10%) 100%
+      );
+    --gradient-bee: hsl(45 93% 58%);
+    --gradient-garden: linear-gradient(120deg, hsl(160 30% 22%) 0%, hsl(130 25% 20%) 40%, hsl(45 50% 25%) 100%);
+    --gradient-flower: linear-gradient(135deg, hsl(270 40% 30%), hsl(300 35% 28%));
+
+    /* Moonlit shadows */
+    --shadow-honey: 0 15px 40px -10px hsl(45 93% 58% / 0.2);
+    --shadow-garden: 0 8px 25px -5px hsl(160 30% 30% / 0.15);
+    --shadow-flower: 0 0 40px hsl(270 40% 40% / 0.15);
+    --shadow-card: 0 4px 20px -4px hsl(222 50% 5% / 0.5);
+    --shadow-button: 0 2px 12px -2px hsl(45 93% 58% / 0.25);
+
+    /* Sidebar */
+    --sidebar-background: 222 47% 13%;
+    --sidebar-foreground: 210 35% 82%;
+    --sidebar-primary: 45 93% 58%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 270 40% 25%;
+    --sidebar-accent-foreground: 270 60% 88%;
+    --sidebar-border: 220 30% 22%;
+    --sidebar-ring: 45 93% 58%;
+
+    /* Chat colors — night garden */
+    --guest-message: 160 35% 22%;
+    --guest-message-foreground: 160 20% 92%;
+    --mochi-message: 222 35% 20%;
+    --mochi-message-foreground: 45 80% 90%;
+
+    /* Accessible text on dark */
+    --primary-text: 210 35% 88%;
+    --heading-on-nature: 45 60% 85%;
+    --text-on-primary: 222 47% 8%;
   }
 }
 
