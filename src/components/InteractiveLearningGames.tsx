@@ -158,7 +158,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Pollination',
       icon: <Target className="h-6 w-6" />,
       color: 'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'hive-builder',
