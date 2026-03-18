@@ -66,13 +66,16 @@ export const useBuzzyBeesAudio = () => {
   /** Returns the next audio source, cycling through DB variations or local files. */
   const getNextAudioSrc = useCallback((): string => {
     if (variations.length > 0) {
-      const src = variations[playIndexRef.current % variations.length].file_path;
+      const idx = playIndexRef.current % variations.length;
+      const src = variations[idx].file_path;
       playIndexRef.current += 1;
+      setCurrentMix({ index: idx + 1, total: variations.length });
       return src;
     }
-    // Fallback: cycle through local files
-    const src = LOCAL_VARIATIONS[playIndexRef.current % LOCAL_VARIATIONS.length];
+    const idx = playIndexRef.current % LOCAL_VARIATIONS.length;
+    const src = LOCAL_VARIATIONS[idx];
     playIndexRef.current += 1;
+    setCurrentMix({ index: idx + 1, total: LOCAL_VARIATIONS.length });
     return src;
   }, [variations]);
 
@@ -80,12 +83,15 @@ export const useBuzzyBeesAudio = () => {
   const getRandomAudioSrc = useCallback((): string => {
     if (variations.length > 0) {
       const idx = Math.floor(Math.random() * variations.length);
+      setCurrentMix({ index: idx + 1, total: variations.length });
       return variations[idx].file_path;
     }
-    // Fallback: pick random local file
     const idx = Math.floor(Math.random() * LOCAL_VARIATIONS.length);
+    setCurrentMix({ index: idx + 1, total: LOCAL_VARIATIONS.length });
     return LOCAL_VARIATIONS[idx];
   }, [variations]);
 
-  return { variations, getNextAudioSrc, getRandomAudioSrc, defaultAudio: DEFAULT_AUDIO };
+  const clearCurrentMix = useCallback(() => setCurrentMix(null), []);
+
+  return { variations, getNextAudioSrc, getRandomAudioSrc, currentMix, clearCurrentMix, defaultAudio: DEFAULT_AUDIO };
 };
