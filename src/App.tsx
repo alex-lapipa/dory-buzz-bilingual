@@ -158,6 +158,27 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
+                        <Route path="/kids-stories" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsStories />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/kids-games" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsGames />
+                            </Suspense>
+                          </PageTransition>
+                        } />
+                        <Route path="/kids-songs" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <KidsSongs />
+                            </Suspense>
+                          </PageTransition>
+                        } />
                         <Route path="/admin" element={
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
