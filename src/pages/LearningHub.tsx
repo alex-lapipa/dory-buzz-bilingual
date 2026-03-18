@@ -610,7 +610,7 @@ const LearningHub: React.FC = () => {
                       className="w-full"
                       onClick={() => markLessonComplete(fact.id, fact.category)}
                     >
-                      <BookOpen className="h-4 w-4 mr-2" />
+                      <LeafBook className="h-4 w-4 mr-2" />
                       Mark as Learned
                     </Button>
                   )}
