@@ -179,12 +179,7 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'accessibility':
       return <AccessibilityHelper />;
     case 'settings':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">⚙️</p>
-          <p>Platform settings coming soon</p>
-        </div>
-      );
+      return <ContentIngestion />;
     default:
       return null;
   }

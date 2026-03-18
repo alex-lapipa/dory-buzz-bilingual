@@ -502,7 +502,30 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
           {content.quizzes && content.quizzes.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
               {content.quizzes.map((quiz, index) => (
-                <QuizCard key={index} quiz={quiz} index={index} isCompleted={isCompleted} markComplete={markComplete} />
+                <Card key={index} className="hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center justify-between">
+                      <span className="flex items-center gap-2">
+                        <Brain className="h-4 w-4" />
+                        {quiz.title}
+                      </span>
+                      {isCompleted(index.toString(), 'quiz') && (
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                      )}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm">{quiz.question || quiz.content}</p>
+                    {quiz.explanation && (
+                      <p className="text-xs text-muted-foreground italic">{quiz.explanation}</p>
+                    )}
+                    {!isCompleted(index.toString(), 'quiz') && (
+                      <Button size="sm" onClick={() => markComplete(index.toString(), 'quiz')} className="w-full">
+                        <Award className="h-3 w-3 mr-1" /> Mark Complete
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
               ))}
             </div>
           ) : (
