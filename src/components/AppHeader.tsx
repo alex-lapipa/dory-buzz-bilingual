@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { Button } from '@/components/ui/button';
-import { Heart, User, LogOut } from 'lucide-react';
+import { Heart, User, LogOut, Shield } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { useIsAdmin } from '@/hooks/useIsAdmin';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
