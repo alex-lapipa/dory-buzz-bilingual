@@ -6,6 +6,9 @@ verify_jwt = false
 [functions.mochi_master_orchestrator]
 verify_jwt = false
 
+[functions.google_health_ping]
+verify_jwt = false
+
 [functions.mochi_embed]
 verify_jwt = false
 
