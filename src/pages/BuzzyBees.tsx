@@ -161,7 +161,13 @@ const BuzzyBees: React.FC = () => {
           ))}
         </div>
 
-        {/* Fun footer */}
+        {/* Parent controls */}
+        <ParentMixPicker
+          favoriteIndex={favoriteIndex}
+          setFavorite={setFavorite}
+          totalMixes={totalMixes}
+        />
+
         <div className="text-center py-6 space-y-2">
           <div className="flex items-center justify-center gap-1">
             {[SunflowerStar, FlowerHeart, SunflowerStar, FlowerHeart, SunflowerStar].map((Icon, i) => (
