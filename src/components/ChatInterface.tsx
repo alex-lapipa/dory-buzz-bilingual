@@ -401,8 +401,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         <div
           className={`max-w-[85%] rounded-lg p-3 ${
             message.type === 'user'
-              ? 'bg-primary/90 backdrop-blur-sm text-primary-foreground border border-primary/20'
-              : 'bg-muted/70 backdrop-blur-sm text-muted-foreground border border-muted/20'
+              ? 'bubble-user'
+              : 'bubble-mochi'
           }`}
         >
           <div className="space-y-2">

@@ -203,8 +203,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
             
             <Button 
               type="submit" 
-              className="w-full font-semibold text-responsive-sm sm:text-responsive-base text-black hover:opacity-90"
-              style={{ backgroundColor: '#fffd01' }}
+              className="w-full font-semibold text-responsive-sm sm:text-responsive-base text-on-primary bg-primary hover:opacity-90"
               disabled={isSubmitting}
             >
               {isSubmitting 

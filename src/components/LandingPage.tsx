@@ -63,8 +63,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <Button 
           onClick={onGetStarted}
           size="lg" 
-          className="font-bold text-responsive-base sm:text-responsive-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover-bouncy w-full sm:w-auto animate-bouncy-enter stagger-3"
-          style={{ backgroundColor: '#fffd01', color: '#000000' }}
+          className="font-bold text-responsive-base sm:text-responsive-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover-bouncy w-full sm:w-auto animate-bouncy-enter stagger-3 bg-primary text-on-primary hover:opacity-90"
         >
           {language === 'es' ? '🌟 ¡Comenzar Aventura!' : '🌟 Start Adventure!'}
         </Button>
