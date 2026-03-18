@@ -76,11 +76,6 @@ const App = () => {
     const selectedLanguage = localStorage.getItem('selectedLanguage');
     if (!selectedLanguage) {
       setShowLanguageSelect(true);
-    } else {
-      const userRegistration = localStorage.getItem('userRegistration');
-      if (!userRegistration) {
-        setShowRegistration(true);
-      }
     }
   };
 
