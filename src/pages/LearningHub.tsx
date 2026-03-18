@@ -19,6 +19,7 @@ import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
+import { useGameScores } from '@/hooks/useGameScores';
 
 interface BeeFact {
   id: string;
