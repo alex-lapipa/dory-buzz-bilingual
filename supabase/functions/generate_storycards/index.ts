@@ -9,7 +9,7 @@ const corsHeaders = {
 
 const GENERATION_PROMPT = `You are a bilingual educational content designer for Mochi the Garden Bee, a children's learning platform about bees, pollination, gardens, and nature.
 
-Generate a complete storycard module with the following JSON structure. All content must be in BOTH English and Spanish.
+Generate a complete storycard module with the following JSON structure. All content MUST be in BOTH English and Spanish. Keep all text CONCISE — narrations should be 1-2 short sentences max, scene descriptions under 15 words.
 
 The storycard should:
 - Be age-appropriate (ages 4-10)
@@ -88,7 +88,7 @@ async function generateWithCascade(prompt: string, userMessage: string): Promise
           body: JSON.stringify({
             system_instruction: { parts: [{ text: prompt }] },
             contents: [{ role: "user", parts: [{ text: userMessage }] }],
-            generationConfig: { temperature: 0.8, maxOutputTokens: 4096, responseMimeType: "application/json" },
+            generationConfig: { temperature: 0.7, maxOutputTokens: 8192, responseMimeType: "application/json" },
           }),
         }),
       extract: (j: any) => j.candidates?.[0]?.content?.parts?.[0]?.text ?? "",
@@ -103,8 +103,8 @@ async function generateWithCascade(prompt: string, userMessage: string): Promise
           body: JSON.stringify({
             model: "gpt-4.1-2025-04-14",
             messages: [{ role: "system", content: prompt }, { role: "user", content: userMessage }],
-            max_tokens: 4096,
-            temperature: 0.8,
+            max_tokens: 8192,
+            temperature: 0.7,
             response_format: { type: "json_object" },
           }),
         }),
@@ -170,15 +170,31 @@ serve(async (req: Request) => {
 
       const rawJson = await generateWithCascade(GENERATION_PROMPT, userMessage);
 
-      // Parse and validate the JSON
+      // Parse and validate the JSON — handle truncation from token limits
       let parsed;
       try {
-        // Handle potential markdown code fences
         const cleaned = rawJson.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
         parsed = JSON.parse(cleaned);
       } catch (parseErr) {
-        console.error("JSON parse error:", parseErr, "Raw:", rawJson.slice(0, 500));
-        continue;
+        // Attempt to repair truncated JSON by closing open strings/arrays/objects
+        try {
+          let repaired = rawJson.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+          // Remove trailing incomplete key-value pairs after last comma
+          repaired = repaired.replace(/,\s*"[^"]*"?\s*:?\s*"?[^"]*$/, "");
+          // Count open brackets and close them
+          const opens = (repaired.match(/[\[{]/g) || []).length;
+          const closes = (repaired.match(/[\]}]/g) || []).length;
+          for (let b = 0; b < opens - closes; b++) {
+            // Determine what to close based on last unclosed opener
+            const lastOpen = repaired.lastIndexOf("[") > repaired.lastIndexOf("{") ? "]" : "}";
+            repaired += lastOpen;
+          }
+          parsed = JSON.parse(repaired);
+          console.log("Repaired truncated JSON successfully");
+        } catch (repairErr) {
+          console.error("JSON parse error (unrecoverable):", parseErr, "Raw:", rawJson.slice(0, 500));
+          continue;
+        }
       }
 
       const { storycard, panels, quiz } = parsed;
