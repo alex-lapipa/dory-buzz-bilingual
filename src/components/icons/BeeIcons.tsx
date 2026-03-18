@@ -543,7 +543,7 @@ export const BeeTrailRight: React.FC<IconProps> = (props) => (
 
 /** Rotate back — replaces RotateCcw */
 export const DandelionBack: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <path d="M3 12a9 9 0 1 0 3-7" />
     <polyline points="3 3 3 8 8 8" />
   </svg>
