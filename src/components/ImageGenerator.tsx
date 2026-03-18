@@ -32,7 +32,7 @@ export const ImageGenerator: React.FC = () => {
     try {
       const userId = getGuestUserId();
       
-      const { data, error } = await supabase.functions.invoke('generate_image_sora', {
+      const { data, error } = await supabase.functions.invoke('unified_image_generator', {
         body: {
           prompt: prompt.trim(),
           type: type,

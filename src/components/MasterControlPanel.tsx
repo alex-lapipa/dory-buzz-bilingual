@@ -61,8 +61,8 @@ const MasterControlPanel: React.FC = () => {
         'Advanced Image Generation'
       ],
       endpoints: {
-        chat: '/functions/v1/mochi_chat_production',
-        reasoning: '/functions/v1/enhanced_mochi_claude',
+        chat: '/functions/v1/mochi_rag_v2',
+        reasoning: '/functions/v1/mochi_rag_v2',
         voice: '/functions/v1/elevenlabs_tts',
         images: '/functions/v1/advanced_image_generation',
         health: '/functions/v1/comprehensive-health-check'

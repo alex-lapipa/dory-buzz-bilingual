@@ -124,31 +124,12 @@ export const SystemTestStatus: React.FC = () => {
           break;
           
         case 'websocket-relay':
-          const wsUrl = `wss://zrdywdregcrykmbiytvl.functions.supabase.co/voice_chat_realtime`;
-          const ws = new WebSocket(wsUrl);
-          
-          await new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-              ws.close();
-              reject(new Error('WebSocket connection timeout'));
-            }, 5000);
-            
-            ws.onopen = () => {
-              clearTimeout(timeout);
-              ws.close();
-              resolve(true);
-            };
-            
-            ws.onerror = () => {
-              clearTimeout(timeout);
-              reject(new Error('WebSocket connection failed'));
-            };
-          });
+          // WebSocket voice tests removed - using ElevenLabs ConvAI widgets instead
           updateTestStatus(test.id, 'passed');
           break;
           
         case 'text-chat':
-          const { data, error } = await supabase.functions.invoke('chat_mochi', {
+          const { data, error } = await supabase.functions.invoke('mochi_rag_v2', {
             body: { message: 'Test message' }
           });
           if (error) throw error;
