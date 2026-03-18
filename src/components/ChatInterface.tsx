@@ -598,7 +598,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             {isGeneratingImage && (
               <div className="flex justify-start">
                 <div className="bg-muted/60 backdrop-blur-sm rounded-lg p-3 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 animate-pulse" />
+                  <PollenSparkle className="h-4 w-4 animate-pulse" />
                   <span className="text-sm">Creating a helpful image...</span>
                 </div>
               </div>
