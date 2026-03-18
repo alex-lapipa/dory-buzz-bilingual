@@ -27,8 +27,11 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const lyrics = language === 'es' ? song.lyrics_es : song.lyrics_en;
-  const title = language === 'es' ? song.title_es : song.title_en;
+  // Always use English lyrics as primary (learning target), Spanish as support
+  const lyrics = song.lyrics_en;
+  const secondaryLyrics = song.lyrics_es;
+  const title = song.title_en;
+  const subtitle = language === 'es' ? song.title_es : undefined;
 
   const handlePlay = useCallback(() => {
     if (!lyrics) return;
