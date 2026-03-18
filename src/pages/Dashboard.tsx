@@ -8,6 +8,7 @@ import { MochiInterface } from '@/components/MochiInterface';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { ImageGenerator } from '@/components/ImageGenerator';
 import { ConsentSettings } from '@/components/GDPRConsent';
+import LunarCalendarWidget from '@/components/LunarCalendarWidget';
 import { PollenSparkle, BeeChat, LeafBook, ButterflyFrame, GardenTools, BeehiveSafe } from '@/components/icons';
 
 const Dashboard: React.FC = () => {
@@ -31,6 +32,11 @@ const Dashboard: React.FC = () => {
             </Badge>
           </div>
         </div>
+      </div>
+
+      {/* Lunar Calendar Widget */}
+      <div className="mb-6">
+        <LunarCalendarWidget />
       </div>
 
         {/* Main Dashboard Tabs */}
