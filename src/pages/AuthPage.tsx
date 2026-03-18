@@ -265,7 +265,7 @@ const AuthPage = () => {
   }
 
   return (
-    <PageLayout showHeader={false} className="flex items-center justify-center min-h-screen">
+    <PageLayout className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md relative z-10">
         {/* Header */}
         <div className="text-center mb-6">
