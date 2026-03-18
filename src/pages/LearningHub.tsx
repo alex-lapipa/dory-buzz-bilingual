@@ -17,6 +17,7 @@ import {
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap, Gamepad2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
+import { LearningProgressChart } from '@/components/LearningProgressChart';
 
 interface BeeFact {
   id: string;
