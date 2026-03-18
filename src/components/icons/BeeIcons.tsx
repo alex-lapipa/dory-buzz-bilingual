@@ -312,7 +312,7 @@ export const EarthVine: React.FC<IconProps> = (props) => (
 
 /** Two leaves — replaces Copy */
 export const TwoLeaves: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M8 16c-4-2-6-8-4-12 4 0 8 4 8 8" />
     <path d="M4 4c2 3 4 6 8 8" opacity=".5" />
     <path d="M16 16c4-2 6-8 4-12-4 0-8 4-8 8" />
