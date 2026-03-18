@@ -440,7 +440,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                     className="h-6 w-6 p-0"
                     disabled={isPlaying}
                   >
-                    {isPlaying ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
+                    {isPlaying ? <VolumeMuted className="h-3 w-3" /> : <VolumeFlower className="h-3 w-3" />}
                   </Button>
                   
                   {message.metadata?.model && (
