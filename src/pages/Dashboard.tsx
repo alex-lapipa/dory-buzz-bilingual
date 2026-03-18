@@ -21,18 +21,18 @@ const Dashboard: React.FC = () => {
   return (
     <PageLayout>
       {/* Dashboard Header */}
-      <div className="mb-8">
+      <div className="mb-8 glass-card rounded-xl p-6 animate-bouncy-enter">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
               BeeCrazy Garden World 🐝
             </h1>
-            <p className="text-lg text-gray-600 mt-2">
+            <p className="text-lg text-muted-foreground mt-2">
               Your AI-Powered Garden Companion with Advanced Intelligence
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Badge variant="default" className="gap-1">
+            <Badge variant="default" className="gap-1 animate-bee-flutter">
               <Zap className="h-3 w-3" />
               Production Ready
             </Badge>

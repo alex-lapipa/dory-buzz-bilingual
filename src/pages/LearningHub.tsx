@@ -243,7 +243,7 @@ const LearningHub: React.FC = () => {
         {/* Learning Paths Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-yellow-200 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-1 h-64 cursor-pointer border-yellow-200/50 bg-gradient-to-br from-yellow-50/60 via-orange-50/40 to-yellow-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
@@ -272,7 +272,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-green-200 bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-2 h-64 cursor-pointer border-green-200/50 bg-gradient-to-br from-green-50/60 via-emerald-50/40 to-green-100/50 group"
             onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
@@ -297,7 +297,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-purple-200 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-3 h-64 cursor-pointer border-purple-200/50 bg-gradient-to-br from-purple-50/60 via-pink-50/40 to-purple-100/50 group"
             onClick={() => {
               // Scroll to games section
               document.getElementById('interactive-games')?.scrollIntoView({ behavior: 'smooth' });
@@ -332,7 +332,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-blue-200 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-4 h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
@@ -360,7 +360,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-orange-200 bg-gradient-to-br from-orange-50 via-red-50 to-orange-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-5 h-64 cursor-pointer border-orange-200/50 bg-gradient-to-br from-orange-50/60 via-red-50/40 to-orange-100/50 group"
             onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
@@ -388,7 +388,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-teal-200 bg-gradient-to-br from-teal-50 via-green-50 to-teal-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-6 h-64 cursor-pointer border-teal-200/50 bg-gradient-to-br from-teal-50/60 via-green-50/40 to-teal-100/50 group"
             onClick={() => {
               toast({
                 title: "🌿 Chat with Mochi!",

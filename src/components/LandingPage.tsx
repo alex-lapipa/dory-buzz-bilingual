@@ -26,7 +26,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </h1>
         
 
-        <Card className="shadow-honey border border-border/30 bg-card/60 backdrop-blur-md max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-6 sm:mb-8">
+        <Card className="glass-card shadow-honey border border-white/30 max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-6 sm:mb-8 animate-bouncy-enter">
           <CardContent className="p-4 sm:p-6">
             <div className="space-y-3 sm:space-y-4">
               <div className="flex items-center gap-2 sm:gap-3">
@@ -63,7 +63,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <Button 
           onClick={onGetStarted}
           size="lg" 
-          className="font-bold text-responsive-base sm:text-responsive-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg transform transition-all duration-200 hover:scale-105 w-full sm:w-auto"
+          className="font-bold text-responsive-base sm:text-responsive-lg px-6 sm:px-8 py-3 sm:py-4 rounded-lg hover-bouncy w-full sm:w-auto animate-bouncy-enter stagger-3"
           style={{ backgroundColor: '#fffd01', color: '#000000' }}
         >
           {language === 'es' ? '🌟 ¡Comenzar Aventura!' : '🌟 Start Adventure!'}

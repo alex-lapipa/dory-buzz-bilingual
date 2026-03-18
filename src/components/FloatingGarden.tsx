@@ -11,8 +11,8 @@ export const FloatingGarden: React.FC = () => {
       {!isMobile && (
         <>
           {/* Fast-moving bees chasing sunflowers */}
-          <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-4xl">🌻</span></div>
-          <div className="garden-insect animate-bee-flight" style={{animationDelay: '23s'}}>🐝<span className="text-4xl">🌸</span></div>
+          <div className="garden-insect animate-bee-flutter" style={{animationDelay: '0s'}}>🐝<span className="text-4xl">🌻</span></div>
+          <div className="garden-insect animate-bee-flutter" style={{animationDelay: '1s'}}>🐝<span className="text-4xl">🌸</span></div>
       
       {/* Slower bees feeding at bottom */}
       <div className="garden-insect animate-bee-feed-bottom" style={{animationDelay: '13s'}}>🐝<span className="text-3xl">🌼</span></div>
@@ -76,7 +76,7 @@ export const FloatingGarden: React.FC = () => {
       )}
       
       {/* Essential elements for mobile */}
-      <div className="garden-insect animate-bee-flight" style={{animationDelay: '3s'}}>🐝<span className="text-3xl">🌻</span></div>
+      <div className="garden-insect animate-bee-flutter" style={{animationDelay: '0s'}}>🐝<span className="text-3xl">🌻</span></div>
       <div className="garden-insect animate-flower-float" style={{animationDelay: '7s'}}><span className="text-4xl">🌺</span></div>
       <div className="garden-insect animate-flower-float" style={{animationDelay: '17s'}}><span className="text-3xl">🌸</span></div>
     </div>

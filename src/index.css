@@ -2279,3 +2279,141 @@ All colors MUST be HSL.
   outline: 3px solid #fbbf24;
   outline-offset: 2px;
 }
+
+/* ========== Glassmorphism & Bouncy Effects ========== */
+
+/* Glass card utility */
+.glass-card {
+  background: hsla(0, 0%, 100%, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsla(0, 0%, 100%, 0.4);
+  box-shadow: 
+    0 8px 32px hsla(0, 0%, 0%, 0.08),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.6);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 
+    0 16px 48px hsla(0, 0%, 0%, 0.12),
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.7);
+}
+
+/* Parallax container */
+.parallax-container {
+  perspective: 1200px;
+  perspective-origin: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.parallax-layer-back {
+  transform: translateZ(-200px) scale(1.2);
+}
+
+.parallax-layer-front {
+  transform: translateZ(0);
+}
+
+/* Bouncy keyframes */
+@keyframes bouncy-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(40px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08) translateY(-8px);
+  }
+  70% {
+    transform: scale(0.96) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(6deg); }
+  30% { transform: rotate(-5deg); }
+  45% { transform: rotate(4deg); }
+  60% { transform: rotate(-3deg); }
+  75% { transform: rotate(2deg); }
+}
+
+@keyframes bee-flutter {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  25% { transform: translateY(-6px) rotate(3deg) scale(1.05); }
+  50% { transform: translateY(-2px) rotate(-2deg) scale(0.97); }
+  75% { transform: translateY(-8px) rotate(2deg) scale(1.03); }
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation classes */
+.animate-bouncy-enter {
+  animation: bouncy-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.6s ease-in-out;
+}
+
+.animate-bee-flutter {
+  animation: bee-flutter 2s ease-in-out infinite;
+}
+
+.animate-float-up {
+  animation: float-up 0.6s ease-out both;
+}
+
+/* Hover bouncy effect */
+.hover-bouncy {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.hover-bouncy:hover {
+  transform: scale(1.04) translateY(-4px);
+}
+
+.hover-bouncy:active {
+  transform: scale(0.97);
+}
+
+/* Stagger delay utilities */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* Reduced motion override for new animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-bouncy-enter,
+  .animate-wiggle,
+  .animate-bee-flutter,
+  .animate-float-up {
+    animation: none !important;
+  }
+  .hover-bouncy:hover {
+    transform: none !important;
+  }
+  .glass-card {
+    transition: none !important;
+  }
+}
