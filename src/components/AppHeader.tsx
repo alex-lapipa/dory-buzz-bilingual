@@ -73,6 +73,17 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           {/* Auth Button */}
           {user ? (
             <div className="flex items-center gap-2">
+              {isAdmin && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/admin')}
+                  className="text-xs text-muted-foreground hover:text-primary"
+                  title="Admin Panel"
+                >
+                  <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                </Button>
+              )}
               <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">
                 {user.email}
               </span>
