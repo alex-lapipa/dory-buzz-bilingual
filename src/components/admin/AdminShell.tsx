@@ -17,6 +17,7 @@ const BeeBasicsAdmin = lazy(() => import('@/components/admin/BeeBasicsAdmin'));
 const GardenBasicsAdmin = lazy(() => import('@/components/admin/GardenBasicsAdmin'));
 const ChatManagement = lazy(() => import('@/components/admin/ChatManagement'));
 const ContentIngestion = lazy(() => import('@/components/admin/ContentIngestion'));
+const AnalyticsDashboard = lazy(() => import('@/components/admin/AnalyticsDashboard'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
@@ -150,12 +151,7 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'production':
       return <ProductionDashboard />;
     case 'analytics':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">📊</p>
-          <p>Analytics dashboard coming soon</p>
-        </div>
-      );
+      return <AnalyticsDashboard />;
     case 'beeducation':
       return <LearningHub />;
     case 'bee-basics':
