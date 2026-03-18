@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ScrollReveal } from '@/components/ScrollReveal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -242,8 +243,9 @@ const LearningHub: React.FC = () => {
 
         {/* Learning Paths Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <ScrollReveal delay={0}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-1 h-64 cursor-pointer border-yellow-200/50 bg-gradient-to-br from-yellow-50/60 via-orange-50/40 to-yellow-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-yellow-200/50 bg-gradient-to-br from-yellow-50/60 via-orange-50/40 to-yellow-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
@@ -270,9 +272,11 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={80}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-2 h-64 cursor-pointer border-green-200/50 bg-gradient-to-br from-green-50/60 via-emerald-50/40 to-green-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-green-200/50 bg-gradient-to-br from-green-50/60 via-emerald-50/40 to-green-100/50 group"
             onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
@@ -295,9 +299,11 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={160}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-3 h-64 cursor-pointer border-purple-200/50 bg-gradient-to-br from-purple-50/60 via-pink-50/40 to-purple-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-purple-200/50 bg-gradient-to-br from-purple-50/60 via-pink-50/40 to-purple-100/50 group"
             onClick={() => {
               // Scroll to games section
               document.getElementById('interactive-games')?.scrollIntoView({ behavior: 'smooth' });
@@ -330,9 +336,11 @@ const LearningHub: React.FC = () => {
               </div>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={240}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-4 h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
@@ -358,9 +366,11 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={320}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-5 h-64 cursor-pointer border-orange-200/50 bg-gradient-to-br from-orange-50/60 via-red-50/40 to-orange-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-orange-200/50 bg-gradient-to-br from-orange-50/60 via-red-50/40 to-orange-100/50 group"
             onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
@@ -386,9 +396,11 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
           
+          <ScrollReveal delay={400}>
           <Card 
-            className="glass-card hover-bouncy animate-bouncy-enter stagger-6 h-64 cursor-pointer border-teal-200/50 bg-gradient-to-br from-teal-50/60 via-green-50/40 to-teal-100/50 group"
+            className="glass-card hover-bouncy h-64 cursor-pointer border-teal-200/50 bg-gradient-to-br from-teal-50/60 via-green-50/40 to-teal-100/50 group"
             onClick={() => {
               toast({
                 title: "🌿 Chat with Mochi!",
@@ -419,14 +431,18 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
         </div>
 
+        <ScrollReveal>
         {/* Interactive Learning Games Section */}
         <div id="interactive-games">
           <InteractiveLearningGames />
         </div>
+        </ScrollReveal>
 
         {/* Progress Overview */}
+        <ScrollReveal delay={100}>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -453,6 +469,7 @@ const LearningHub: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+        </ScrollReveal>
 
         {/* Category Filter */}
         <div className="flex flex-wrap gap-2 justify-center">
@@ -476,7 +493,8 @@ const LearningHub: React.FC = () => {
             const isCompleted = categoryProgress?.completed_lessons.includes(fact.id) || false;
             
             return (
-              <Card key={fact.id} className="relative group hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <ScrollReveal key={fact.id} delay={80}>
+              <Card className="relative group hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center gap-2">
@@ -552,10 +570,12 @@ const LearningHub: React.FC = () => {
                   )}
                 </CardContent>
               </Card>
+              </ScrollReveal>
             );
           })}
         </div>
 
+        <ScrollReveal direction="up">
         {/* Fun Learning Tips */}
         <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
           <CardHeader>
@@ -589,6 +609,7 @@ const LearningHub: React.FC = () => {
             </ul>
           </CardContent>
         </Card>
+        </ScrollReveal>
       </div>
     </PageLayout>
   );
