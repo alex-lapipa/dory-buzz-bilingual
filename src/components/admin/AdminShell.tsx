@@ -166,6 +166,8 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
       return <BrandBook />;
     case 'design':
       return <DesignSystem />;
+    case 'audio-sound':
+      return <AudioSoundDesign />;
     case 'google-ecosystem':
       return <GoogleEcosystemDashboard />;
     case 'technical':
