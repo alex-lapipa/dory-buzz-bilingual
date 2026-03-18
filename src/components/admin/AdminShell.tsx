@@ -159,14 +159,11 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'beeducation':
       return <LearningHub />;
     case 'bee-basics':
+      return <BeeBasicsAdmin />;
     case 'garden-basics':
+      return <GardenBasicsAdmin />;
     case 'chat':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">🐝</p>
-          <p>Content management for {section} coming soon</p>
-        </div>
-      );
+      return <ChatManagement />;
     case 'brand':
       return <BrandBook />;
     case 'design':
