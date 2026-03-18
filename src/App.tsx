@@ -108,47 +108,47 @@ const App = () => {
               <AppHeader onTabSelect={setActiveTab} />
             )}
             <main className="flex-1 overflow-auto relative z-10">
-              {/* Show landing page first for new visitors */}
-              {showLanding ? (
-                <LandingPage onGetStarted={handleGetStarted} />
-              ) : showLanguageSelect ? (
-                <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
-              ) : showOnboarding ? (
-                <OnboardingFlow onComplete={handleOnboardingComplete} />
-              ) : (
-                /* Normal app routes */
-                <>
-                  <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
-                    <Routes>
-                      <Route path="/" element={<Index />} />
-                      <Route path="/chat" element={<Chat />} />
-                      <Route path="/voice" element={<Voice />} />
-                      <Route path="/auth" element={<AuthPage />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/learning-hub" element={<LearningHub />} />
-                      <Route path="/learning/bee-basics" element={
-                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                          <BeeBasics />
-                        </Suspense>
-                      } />
-                      <Route path="/learning/garden-basics" element={
-                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                          <GardenBasics />
-                        </Suspense>
-                      } />
-                      <Route path="/production" element={
-                        <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                          <ProductionDashboard />
-                        </Suspense>
-                      } />
-                      <Route path="/technical-details" element={<TechnicalDetails />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </div>
-                  {/* GDPR Consent Banner */}
-                  <GDPRConsentBanner />
-                </>
-              )}
+              {/* Auth page is always accessible */}
+              <Routes>
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="*" element={
+                  showLanding ? (
+                    <LandingPage onGetStarted={handleGetStarted} />
+                  ) : showLanguageSelect ? (
+                    <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
+                  ) : showOnboarding ? (
+                    <OnboardingFlow onComplete={handleOnboardingComplete} />
+                  ) : (
+                    <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
+                      <Routes>
+                        <Route path="/" element={<Index />} />
+                        <Route path="/chat" element={<Chat />} />
+                        <Route path="/voice" element={<Voice />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/learning-hub" element={<LearningHub />} />
+                        <Route path="/learning/bee-basics" element={
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <BeeBasics />
+                          </Suspense>
+                        } />
+                        <Route path="/learning/garden-basics" element={
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <GardenBasics />
+                          </Suspense>
+                        } />
+                        <Route path="/production" element={
+                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <ProductionDashboard />
+                          </Suspense>
+                        } />
+                        <Route path="/technical-details" element={<TechnicalDetails />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                      <GDPRConsentBanner />
+                    </div>
+                  )
+                } />
+              </Routes>
             </main>
             
             {/* Footer - only show when user is fully onboarded */}
