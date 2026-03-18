@@ -170,9 +170,7 @@ const BuzzyBees: React.FC = () => {
             ))}
           </div>
           <p className="text-sm text-muted-foreground">
-            {language === 'es'
-              ? '🌻 Hecho con amor por Mochi la abeja'
-              : '🌻 Made with love by Mochi the Bee'}
+            🌻 Made with love by Mochi the Bee · Hecho con amor por Mochi la abeja
           </p>
         </div>
       </div>
