@@ -119,15 +119,7 @@ export const InteractiveLearningGames: React.FC = () => {
   const [gameScores, setGameScores] = useState<Record<string, number>>({});
   
   const playGame = (gameId: string, gameTitle: string) => {
-    // Check if game is functional
-    if (gameId === 'flower-match' || gameId === 'bee-trivia') {
-      setCurrentGame(gameId);
-    } else {
-      toast({
-        title: `🚧 ${gameTitle}`,
-        description: "Coming Soon! This interactive game is currently in development.",
-      });
-    }
+    setCurrentGame(gameId);
   };
 
   const handleGameComplete = (gameId: string, score: number) => {
