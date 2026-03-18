@@ -151,12 +151,7 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
     case 'production':
       return <ProductionDashboard />;
     case 'analytics':
-      return (
-        <div className="text-center py-12 text-muted-foreground">
-          <p className="text-2xl mb-2">📊</p>
-          <p>Analytics dashboard coming soon</p>
-        </div>
-      );
+      return <AnalyticsDashboard />;
     case 'beeducation':
       return <LearningHub />;
     case 'bee-basics':
