@@ -682,7 +682,7 @@ export const BeeChatSquare: React.FC<IconProps> = (props) => (
 
 /** Calendar — nature calendar */
 export const GardenCalendar: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <rect x="3" y="4" width="18" height="18" rx="2" />
     <line x1="16" y1="2" x2="16" y2="6" />
     <line x1="8" y1="2" x2="8" y2="6" />
