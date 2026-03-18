@@ -15,6 +15,9 @@ verify_jwt = false
 [functions.design_agent_review]
 verify_jwt = false
 
+[functions.mochi_rag_v2]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321
