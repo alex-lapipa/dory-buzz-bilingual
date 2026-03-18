@@ -287,7 +287,7 @@ export const SundialFlower: React.FC<IconProps> = (props) => (
 
 /** Ladybug info — replaces Info */
 export const LadybugInfo: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <circle cx="12" cy="13" r="8" />
     <line x1="12" y1="3" x2="12" y2="21" />
     <circle cx="9" cy="10" r="1.2" fill="currentColor" stroke="none" opacity=".4" />
