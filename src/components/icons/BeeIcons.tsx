@@ -526,7 +526,7 @@ export const ActivityVine: React.FC<IconProps> = (props) => (
 
 /** Trending vine — replaces TrendingUp */
 export const TrendingVine: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
     <polyline points="16 7 22 7 22 13" />
     <circle cx="13.5" cy="15.5" r="1" fill="currentColor" stroke="none" opacity=".4" />
