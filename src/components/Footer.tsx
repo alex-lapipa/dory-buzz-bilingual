@@ -50,8 +50,6 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2">
               {[
                 { to: '/', label: isEs ? '🌻 Beeducación' : '🌻 Beeducation' },
-                { to: '/chat', label: isEs ? '💬 Chat con Mochi' : '💬 Chat with Mochi' },
-                { to: '/learning/bee-basics', label: isEs ? '🐝 Básicos de Abejas' : '🐝 Bee Basics' },
                 { to: '/learning/garden-basics', label: isEs ? '🌱 Básicos de Jardín' : '🌱 Garden Basics' },
               ].map((item) => (
                 <li key={item.to}>
