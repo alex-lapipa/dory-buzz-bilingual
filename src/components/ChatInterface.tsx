@@ -453,7 +453,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
-      <Card className="flex-1 flex flex-col bg-card/80 backdrop-blur-sm border-border/20">
+      <Card className="flex-1 flex flex-col card-glass border-border/20">
         {/* Header with mode indicator */}
         <div className="p-4 border-b flex items-center justify-between">
           <div className="flex items-center gap-2">
