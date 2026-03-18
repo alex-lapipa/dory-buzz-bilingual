@@ -18,7 +18,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const { user, signOut } = useAuth();
 
   const handleBeeClick = () => {
-    navigate('/chat'); // Default to chat page instead of home
+    navigate('/chat');
   };
 
   return (
@@ -74,14 +74,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/voice')}
-              className="text-sm hover:text-primary"
-            >
-              Voice
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
               onClick={() => navigate('/learning-hub')}
               className="text-sm hover:text-primary flex items-center gap-1"
             >
@@ -100,7 +92,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           <ShareButtons />
           <HamburgerMenu onTabSelect={onTabSelect} />
           
-          {/* Auth Button - Moved to far right */}
+          {/* Auth Button */}
           {user ? (
             <div className="flex items-center gap-2">
               <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">

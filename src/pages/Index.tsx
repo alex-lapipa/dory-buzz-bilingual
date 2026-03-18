@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
-import { MochiVoiceInterface } from '@/components/MochiVoiceInterface';
+import React from 'react';
 import { MochiInterface } from '@/components/MochiInterface';
 import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
 import { 
   GraduationCap, 
   BarChart3,
   Leaf,
-  MessageCircle,
-  Mic
+  MessageCircle
 } from 'lucide-react';
 
 const Index = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('voice'); // Default to voice for mobile
 
   return (
     <div className="min-h-screen bg-gradient-nature relative overflow-hidden">
@@ -47,32 +43,11 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Mobile-Optimized Chat Interface */}
+        {/* Chat Interface */}
         <div className="w-full max-w-4xl mx-auto mb-mobile-3xl">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-mobile-lg h-12 md:h-14">
-              <TabsTrigger value="voice" className="text-responsive-sm font-semibold flex items-center gap-2">
-                <Mic className="h-4 w-4" />
-                <span className="hidden xs:inline">Voice</span> Chat
-              </TabsTrigger>
-              <TabsTrigger value="chat" className="text-responsive-sm font-semibold flex items-center gap-2">
-                <MessageCircle className="h-4 w-4" />
-                <span className="hidden xs:inline">Text</span> Chat
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="voice" className="mt-0">
-              <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
-                <MochiVoiceInterface />
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="chat" className="mt-0">
-              <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
-                <MochiInterface activeTab="chat" />
-              </div>
-            </TabsContent>
-          </Tabs>
+          <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
+            <MochiInterface activeTab="chat" />
+          </div>
         </div>
 
         {/* Quick Actions - Mobile Grid */}
