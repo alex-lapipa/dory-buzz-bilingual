@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,12 +15,13 @@ import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { useUserAnalytics } from '@/hooks/useUserAnalytics';
 import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail } from '@/utils/oauthRedirect';
+import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail, isInIframe } from '@/utils/oauthRedirect';
+import { isOwnerEmail } from '@/lib/adminAccess';
 
 const AuthPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signUp, signIn, loading: authLoading } = useAuth();
+  const { signUp, signIn, user, loading: authLoading } = useAuth();
   const { giveConsent } = useConsent();
   const { trackEvent, trackUserAction } = useUserAnalytics();
   
@@ -44,6 +45,12 @@ const AuthPage = () => {
     notifications: false
   });
 
+  useEffect(() => {
+    if (!authLoading && user) {
+      navigate(isOwnerEmail(user.email) ? '/admin' : '/', { replace: true });
+    }
+  }, [authLoading, user, navigate]);
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -56,10 +63,10 @@ const AuthPage = () => {
     setLoading(true);
     setError('');
 
-    // Track sign-in attempt
-    await trackEvent('signin_attempt', 'auth', { 
+    // Track sign-in attempt without blocking auth flow
+    void trackEvent('signin_attempt', 'auth', {
       email_domain: email.split('@')[1],
-      method: 'email_password' 
+      method: 'email_password'
     });
 
     try {
@@ -67,9 +74,9 @@ const AuthPage = () => {
       
       if (error) {
         // Track signin error
-        await trackEvent('signin_error', 'auth', { 
+        void trackEvent('signin_error', 'auth', {
           error_type: error.message?.includes('Invalid login credentials') ? 'invalid_credentials' : 'other',
-          error_message: error.message 
+          error_message: error.message
         });
 
         if (error.message?.includes('Invalid login credentials')) {
@@ -81,20 +88,20 @@ const AuthPage = () => {
         }
       } else {
         // Track successful signin
-        await trackEvent('signin_success', 'auth', { 
-          email_domain: email.split('@')[1] 
+        void trackEvent('signin_success', 'auth', {
+          email_domain: email.split('@')[1]
         });
 
         toast({
           title: "🐝 Welcome back!",
           description: "You've successfully signed in to BeeCrazy Garden World.",
         });
-        navigate('/');
+        navigate(isOwnerEmail(email) ? '/admin' : '/');
       }
     } catch (err: any) {
-      await trackEvent('signin_error', 'auth', { 
+      void trackEvent('signin_error', 'auth', {
         error_type: 'unexpected',
-        error_message: err.message 
+        error_message: err.message
       });
       setError('An unexpected error occurred. Please try again.');
     } finally {
@@ -107,7 +114,16 @@ const AuthPage = () => {
     setError('');
     
     const label = provider === 'azure' ? 'microsoft' : 'google';
-    await trackEvent(`${label}_signin_attempt`, 'auth', { method: `${label}_oauth` });
+    const shouldUsePopup = isInIframe();
+    const popupWindow = shouldUsePopup ? window.open('', '_blank', 'noopener,noreferrer') : null;
+
+    if (shouldUsePopup && !popupWindow) {
+      setLoading(false);
+      setError('Popup blocked. Please allow popups for this site and try again.');
+      return;
+    }
+
+    void trackEvent(`${label}_signin_attempt`, 'auth', { method: `${label}_oauth` });
     
     try {
       const callbackUrl = `${window.location.origin}/auth`;
@@ -122,25 +138,34 @@ const AuthPage = () => {
         }
       });
 
-      // When skipBrowserRedirect is true, navigate manually
-      if (!error && skipRedirect && data?.url) {
-        navigateToOAuth(data.url);
-        return;
-      }
-      
       if (error) {
-        await trackEvent(`${label}_signin_error`, 'auth', { 
+        if (popupWindow && !popupWindow.closed) popupWindow.close();
+        void trackEvent(`${label}_signin_error`, 'auth', {
           error_type: 'oauth_error',
-          error_message: error.message 
+          error_message: error.message
         });
         setError(error.message || `Failed to sign in with ${label}`);
-      } else {
-        await trackEvent(`${label}_signin_success`, 'auth', { method: `${label}_oauth` });
+        return;
       }
+
+      if (data?.url) {
+        if (popupWindow && !popupWindow.closed) {
+          popupWindow.location.href = data.url;
+          return;
+        }
+
+        if (skipRedirect) {
+          navigateToOAuth(data.url);
+          return;
+        }
+      }
+
+      void trackEvent(`${label}_signin_success`, 'auth', { method: `${label}_oauth` });
     } catch (err: any) {
-      await trackEvent(`${label}_signin_error`, 'auth', { 
+      if (popupWindow && !popupWindow.closed) popupWindow.close();
+      void trackEvent(`${label}_signin_error`, 'auth', {
         error_type: 'unexpected',
-        error_message: err.message 
+        error_message: err.message
       });
       setError(`An unexpected error occurred with ${label} sign-in`);
     } finally {
