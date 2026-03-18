@@ -23,7 +23,7 @@ import TechnicalDetails from "./pages/TechnicalDetails";
 // Lazy load heavy components and pages
 const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
 const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
-const ProductionDashboard = lazy(() => import('@/components/ProductionDashboard'));
+const Admin = lazy(() => import('./pages/Admin'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
