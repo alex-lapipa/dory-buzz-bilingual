@@ -20,6 +20,14 @@ import {
 } from 'lucide-react';
 import { FlowerMemoryGame } from './games/FlowerMemoryGame';
 import { BeeTrivia } from './games/BeeTrivia';
+import { BeeAnatomyExplorer } from './games/BeeAnatomyExplorer';
+import { PollinationQuest } from './games/PollinationQuest';
+import { HiveBuilder } from './games/HiveBuilder';
+import { BeeDanceDecoder } from './games/BeeDanceDecoder';
+import { LifecycleLab } from './games/LifecycleLab';
+import { GardenPlanner } from './games/GardenPlanner';
+import { SpeciesSpotter } from './games/SpeciesSpotter';
+import { MicroscopicBeeWorld } from './games/MicroscopicBeeWorld';
 
 interface GameCardProps {
   title: string;
@@ -111,15 +119,7 @@ export const InteractiveLearningGames: React.FC = () => {
   const [gameScores, setGameScores] = useState<Record<string, number>>({});
   
   const playGame = (gameId: string, gameTitle: string) => {
-    // Check if game is functional
-    if (gameId === 'flower-match' || gameId === 'bee-trivia') {
-      setCurrentGame(gameId);
-    } else {
-      toast({
-        title: `🚧 ${gameTitle}`,
-        description: "Coming Soon! This interactive game is currently in development.",
-      });
-    }
+    setCurrentGame(gameId);
   };
 
   const handleGameComplete = (gameId: string, score: number) => {
@@ -148,7 +148,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Biology',
       icon: <Bug className="h-6 w-6" />,
       color: 'border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'pollination-quest',
@@ -158,7 +159,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Pollination',
       icon: <Target className="h-6 w-6" />,
       color: 'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'hive-builder',
@@ -168,7 +170,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Architecture',
       icon: <Puzzle className="h-6 w-6" />,
       color: 'border-amber-200 bg-gradient-to-br from-amber-50 to-yellow-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'flower-match',
@@ -189,7 +192,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Communication',
       icon: <Trophy className="h-6 w-6" />,
       color: 'border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'lifecycle-lab',
@@ -199,7 +203,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Life Sciences',
       icon: <FlaskConical className="h-6 w-6" />,
       color: 'border-green-200 bg-gradient-to-br from-green-50 to-emerald-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'garden-planner',
@@ -209,7 +214,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Garden Design',
       icon: <Leaf className="h-6 w-6" />,
       color: 'border-teal-200 bg-gradient-to-br from-teal-50 to-green-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'species-spotter',
@@ -219,7 +225,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Species Identification',
       icon: <Camera className="h-6 w-6" />,
       color: 'border-indigo-200 bg-gradient-to-br from-indigo-50 to-blue-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'micro-world',
@@ -229,7 +236,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Vision',
       icon: <Microscope className="h-6 w-6" />,
       color: 'border-violet-200 bg-gradient-to-br from-violet-50 to-purple-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'bee-trivia',
@@ -244,27 +252,21 @@ export const InteractiveLearningGames: React.FC = () => {
     }
   ];
 
-  // Show individual game if one is selected
-  if (currentGame === 'flower-match') {
-    return (
-      <div className="space-y-6">
-        <FlowerMemoryGame 
-          onGameComplete={(score) => handleGameComplete('flower-match', score)}
-          onClose={handleCloseGame}
-        />
-      </div>
-    );
-  }
+  const gameComponents: Record<string, React.ReactNode> = {
+    'flower-match': <FlowerMemoryGame onGameComplete={(s) => handleGameComplete('flower-match', s)} onClose={handleCloseGame} />,
+    'bee-trivia': <BeeTrivia onGameComplete={(s) => handleGameComplete('bee-trivia', s)} onClose={handleCloseGame} />,
+    'bee-anatomy': <BeeAnatomyExplorer onGameComplete={(s) => handleGameComplete('bee-anatomy', s)} onClose={handleCloseGame} />,
+    'pollination-quest': <PollinationQuest onGameComplete={(s) => handleGameComplete('pollination-quest', s)} onClose={handleCloseGame} />,
+    'hive-builder': <HiveBuilder onGameComplete={(s) => handleGameComplete('hive-builder', s)} onClose={handleCloseGame} />,
+    'bee-dance': <BeeDanceDecoder onGameComplete={(s) => handleGameComplete('bee-dance', s)} onClose={handleCloseGame} />,
+    'lifecycle-lab': <LifecycleLab onGameComplete={(s) => handleGameComplete('lifecycle-lab', s)} onClose={handleCloseGame} />,
+    'garden-planner': <GardenPlanner onGameComplete={(s) => handleGameComplete('garden-planner', s)} onClose={handleCloseGame} />,
+    'species-spotter': <SpeciesSpotter onGameComplete={(s) => handleGameComplete('species-spotter', s)} onClose={handleCloseGame} />,
+    'micro-world': <MicroscopicBeeWorld onGameComplete={(s) => handleGameComplete('micro-world', s)} onClose={handleCloseGame} />,
+  };
 
-  if (currentGame === 'bee-trivia') {
-    return (
-      <div className="space-y-6">
-        <BeeTrivia 
-          onGameComplete={(score) => handleGameComplete('bee-trivia', score)}
-          onClose={handleCloseGame}
-        />
-      </div>
-    );
+  if (currentGame && gameComponents[currentGame]) {
+    return <div className="space-y-6">{gameComponents[currentGame]}</div>;
   }
 
   return (
