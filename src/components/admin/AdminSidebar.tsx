@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Settings, Activity, BarChart3, BookOpen, Flower2, TreeDeciduous, MessageCircle,
   Palette, Layers, Globe, ExternalLink, Wrench, HeartPulse, Shield, Lock,
-  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music
+  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -15,7 +15,7 @@ export type AdminSection =
   | 'google-ecosystem'
   | 'technical' | 'system-health'
   | 'privacy' | 'accessibility'
-  | 'settings';
+  | 'settings' | 'lunar-calendar';
 
 interface NavItem {
   id: AdminSection;
@@ -47,6 +47,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: 'bee-basics', label: 'Bee Basics', icon: Flower2 },
       { id: 'garden-basics', label: 'Garden Basics', icon: TreeDeciduous },
       { id: 'chat', label: 'Chat', icon: MessageCircle },
+      { id: 'lunar-calendar', label: 'Lunar Calendar', icon: Moon },
     ],
   },
   {
