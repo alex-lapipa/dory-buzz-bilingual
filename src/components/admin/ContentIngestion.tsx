@@ -9,9 +9,10 @@ import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
 import {
   Globe, Loader2, RefreshCw, Database, CheckCircle, XCircle, Clock,
-  Sparkles, Link2, Tag, FileText, Zap, ChevronDown, ChevronUp,
+  Sparkles, Link2, Tag, FileText, Zap, ChevronDown, ChevronUp, FileJson,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import RagJsonUploader from './RagJsonUploader';
 
 interface CrawlJob {
   id: string;
@@ -196,9 +197,12 @@ const ContentIngestion: React.FC = () => {
       )}
 
       <Tabs defaultValue="ingest">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="ingest" className="text-xs sm:text-sm">
             <Globe className="h-4 w-4 mr-1" /> Ingest URL
+          </TabsTrigger>
+          <TabsTrigger value="upload" className="text-xs sm:text-sm">
+            <FileJson className="h-4 w-4 mr-1" /> Upload JSON
           </TabsTrigger>
           <TabsTrigger value="suggested" className="text-xs sm:text-sm">
             <Sparkles className="h-4 w-4 mr-1" /> Suggested
@@ -207,6 +211,11 @@ const ContentIngestion: React.FC = () => {
             <Zap className="h-4 w-4 mr-1" /> Tools
           </TabsTrigger>
         </TabsList>
+
+        {/* ── Upload JSON Tab ── */}
+        <TabsContent value="upload">
+          <RagJsonUploader />
+        </TabsContent>
 
         {/* ── Ingest Tab ── */}
         <TabsContent value="ingest">
