@@ -111,7 +111,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 variant="outline"
                 size="sm"
               >
-                <Copy className="h-3 w-3" />
+                <TwoLeaves className="h-3 w-3" />
               </Button>
               <Button
                 onClick={openApp}
