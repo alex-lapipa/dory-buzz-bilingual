@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
-import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
 import { Heart, User, LogOut } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
