@@ -295,6 +295,9 @@ function mapDomain(category: string): string {
     permaculture: "permaculture", agroecology: "permaculture",
     garden_basics: "garden", garden: "garden",
     seeds_food: "seeds", activities: "bee_biology", fun_facts: "bee_biology",
+    audio_design: "creative_production", audio_guidelines: "creative_production",
+    audio_system: "creative_production", audio_production: "creative_production",
+    audio_scripts: "creative_production", audio_reference: "creative_production",
   };
   return map[category] || "bee_biology";
 }
