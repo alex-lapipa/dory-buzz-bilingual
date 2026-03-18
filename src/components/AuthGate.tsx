@@ -389,6 +389,20 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   </div>
                 )}
 
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowForgotPassword(true);
+                      setForgotEmail(email);
+                      setError('');
+                    }}
+                    className="text-sm text-primary hover:underline w-full text-right"
+                  >
+                    Forgot password?
+                  </button>
+                )}
+
                 <Button 
                   type="submit" 
                   className="w-full h-11"
