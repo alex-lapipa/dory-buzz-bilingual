@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const socialLinks = [
-  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', icon: '📸' },
-  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', icon: '📘' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', icon: '💼' },
-  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', icon: '🎬' },
+  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', icon: '🌸' },
+  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', icon: '🦋' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', icon: '🌿' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', icon: '🌺' },
 ];
 
 export const Footer: React.FC = () => {
@@ -68,11 +68,11 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { url: 'https://idiomas.io', label: '🗣️ idiomas.io' },
-                { url: 'https://lawtonx.com', label: '🏢 lawtonx.com' },
+                { url: 'https://idiomas.io', label: '🌍 idiomas.io' },
+                { url: 'https://lawtonx.com', label: '🏡 lawtonx.com' },
                 { url: 'https://www.alexlawton.io', label: '🌐 alexlawton.io' },
-                { url: 'https://miramonte.io', label: '🏡 miramonte.io' },
-                { url: 'https://lapipa.ai', label: '🚀 lapipa.ai' },
+                { url: 'https://miramonte.io', label: '🌻 miramonte.io' },
+                { url: 'https://lapipa.ai', label: '🦋 lapipa.ai' },
               ].map((item) => (
                 <li key={item.url}>
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -82,7 +82,7 @@ export const Footer: React.FC = () => {
               ))}
               <li>
                 <a href="mailto:hello@lawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  ✉️ hello@lawtonschool.com
+                  🌸 hello@lawtonschool.com
                 </a>
               </li>
             </ul>
@@ -90,7 +90,7 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom bar — legal links (single source of truth) + credits */}
+      {/* Bottom bar */}
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center gap-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-2 flex-wrap justify-center">

@@ -2,7 +2,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Home } from "lucide-react";
+import { NatureLeaf } from "@/components/icons";
 
 const NotFound = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const NotFound = () => {
           <p className="text-lg text-muted-foreground mb-6">Oops! This page doesn't exist in our garden</p>
           <Button asChild className="w-full">
             <Link to="/">
-              <Home className="h-4 w-4 mr-2" />
+              <NatureLeaf className="h-4 w-4 mr-2" />
               Return to Garden
             </Link>
           </Button>

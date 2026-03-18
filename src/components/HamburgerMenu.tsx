@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, ExternalLink, LogOut, User, Shield, Heart, BookOpen, MessageCircle, BarChart3, Music } from 'lucide-react';
+import { HoneycombMenu, ButterflyLink, BeeFlying, BeeFace, BeehiveSafe, FlowerHeart, LeafBook, BeeChat, SeedlingChart, MusicalFlower } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -30,7 +30,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="sm" className="p-2">
-          <Menu className="h-5 w-5" />
+          <HoneycombMenu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-72 p-0">
@@ -39,7 +39,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           {user && (
             <div className="flex items-center gap-3 pb-4 border-b border-border/30">
               <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <User className="h-5 w-5 text-primary" />
+                <BeeFace className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold truncate">{user.email}</p>
@@ -55,32 +55,32 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </h3>
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/')}>
-              <MessageCircle className="h-4 w-4 mr-3" />
+              <BeeChat className="h-4 w-4 mr-3" />
               🐝 Beeducation
             </Button>
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/learning')}>
-              <BookOpen className="h-4 w-4 mr-3" />
-              📚 {t('learn') || 'Learn'}
+              <LeafBook className="h-4 w-4 mr-3" />
+              🌿 {t('learn') || 'Learn'}
             </Button>
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
-              <Music className="h-4 w-4 mr-3" />
+              <MusicalFlower className="h-4 w-4 mr-3" />
               🎵 Buzzy Bees
             </Button>
 
             {user && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/dashboard')}>
-                <BarChart3 className="h-4 w-4 mr-3" />
-                📊 Dashboard
+                <SeedlingChart className="h-4 w-4 mr-3" />
+                🌱 Dashboard
               </Button>
             )}
 
             {isAdmin && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/admin')}>
-                <Shield className="h-4 w-4 mr-3" />
+                <BeehiveSafe className="h-4 w-4 mr-3" />
                 Admin Panel
-                <Badge variant="secondary" className="ml-auto text-[10px]">🔒</Badge>
+                <Badge variant="secondary" className="ml-auto text-[10px]">🐝</Badge>
               </Button>
             )}
           </div>
@@ -89,7 +89,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           <div className="space-y-2 pt-2 border-t border-border/30">
             <FollowMochiModal>
               <Button variant="default" size="sm" className="w-full text-sm">
-                <Heart className="h-4 w-4 mr-2" />
+                <FlowerHeart className="h-4 w-4 mr-2" />
                 {t('follow') || 'Follow'} {t('mochiName') || 'Mochi'}!
               </Button>
             </FollowMochiModal>
@@ -107,7 +107,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 setIsOpen(false);
               }}
             >
-              <ExternalLink className="h-4 w-4 mr-2" />
+              <ButterflyLink className="h-4 w-4 mr-2" />
               Lapipa.ai
             </Button>
           </div>
@@ -118,10 +118,10 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               <Button
                 variant="ghost"
                 size="sm"
-                className="w-full justify-start text-destructive hover:text-destructive"
+                className="w-full justify-start text-amber-600 hover:text-amber-700"
                 onClick={() => { signOut(); setIsOpen(false); }}
               >
-                <LogOut className="h-4 w-4 mr-3" />
+                <BeeFlying className="h-4 w-4 mr-3" />
                 Sign Out
               </Button>
             ) : (
@@ -131,7 +131,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 className="w-full"
                 onClick={() => navTo('/auth')}
               >
-                <User className="h-4 w-4 mr-2" />
+                <BeeFace className="h-4 w-4 mr-2" />
                 Sign In
               </Button>
             )}

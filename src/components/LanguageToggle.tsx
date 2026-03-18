@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Globe } from 'lucide-react';
+import { EarthVine } from '@/components/icons';
 
 export const LanguageToggle: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -18,7 +18,7 @@ export const LanguageToggle: React.FC = () => {
       className="p-2 animate-flower-sway"
       title={t('language')}
     >
-      <Globe className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+      <EarthVine className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
       <span className="text-xs sm:text-sm">
         {language === 'en' ? 'ES' : 'EN'}
       </span>
