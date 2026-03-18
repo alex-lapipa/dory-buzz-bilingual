@@ -46,7 +46,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
     return true;
   };
 
-  const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github') => {
+  const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
     try {
       setIsLoading(true);
       const { supabase } = await import('@/integrations/supabase/client');
