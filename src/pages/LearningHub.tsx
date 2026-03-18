@@ -575,6 +575,7 @@ const LearningHub: React.FC = () => {
           })}
         </div>
 
+        <ScrollReveal direction="up">
         {/* Fun Learning Tips */}
         <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
           <CardHeader>
@@ -608,6 +609,7 @@ const LearningHub: React.FC = () => {
             </ul>
           </CardContent>
         </Card>
+        </ScrollReveal>
       </div>
     </PageLayout>
   );
