@@ -212,15 +212,13 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         })
       };
 
-      // Choose the appropriate endpoint based on mode
-      const functionName = 'mochi_master_orchestrator'; // Unified orchestrator: routes, RAG, Claude
-      
-      const { data, error } = await supabase.functions.invoke(functionName, {
+      // Use RAG v2 for full unified search (KB + bee_facts + KG graph walk + vocabulary)
+      const { data, error } = await supabase.functions.invoke('mochi_rag_v2', {
         body: {
           message,
           language: t('language') === 'es' ? 'es' : 'en',
           user_id: user?.id || guestId,
-          ...context
+          age_level: audienceLevel === 'beginner' ? 'kids' : audienceLevel === 'expert' ? 'adult' : null,
         }
       });
 
