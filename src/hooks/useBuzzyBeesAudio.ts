@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface AudioVariation {
@@ -10,9 +10,20 @@ interface AudioVariation {
 
 const DEFAULT_AUDIO = '/audio/mochis_playful_day.mp3';
 
+/** Local audio files shipped with the app — used as fallback when DB has no entries */
+const LOCAL_VARIATIONS = [
+  '/audio/mochis_playful_day.mp3',
+  '/audio/mochis_playful_day_v1.mp3',
+  '/audio/mochis_playful_day_v2.mp3',
+  '/audio/mochis_playful_day_v3.mp3',
+  '/audio/mochis_playful_day_v4.mp3',
+  '/audio/mochis_playful_day_v5.mp3',
+  '/audio/mochis_playful_day_fav6.mp3',
+];
+
 export const useBuzzyBeesAudio = () => {
   const [variations, setVariations] = useState<AudioVariation[]>([]);
-  const [playIndex, setPlayIndex] = useState(0);
+  const playIndexRef = useRef(0);
 
   useEffect(() => {
     const load = async () => {
@@ -39,8 +50,10 @@ export const useBuzzyBeesAudio = () => {
                 variation: (meta?.variation as string) ?? 'unknown',
               };
             });
-          // Shuffle initially
-          setVariations(mapped.sort(() => Math.random() - 0.5));
+          if (mapped.length > 0) {
+            // Shuffle initially
+            setVariations(mapped.sort(() => Math.random() - 0.5));
+          }
         }
       } catch (err) {
         console.error('Failed to load buzzy bees audio variations:', err);
@@ -49,20 +62,29 @@ export const useBuzzyBeesAudio = () => {
     load();
   }, []);
 
-  /** Returns the next audio source, cycling through variations. Falls back to default. */
-  const getNextAudioSrc = (): string => {
-    if (variations.length === 0) return DEFAULT_AUDIO;
-    const src = variations[playIndex % variations.length].file_path;
-    setPlayIndex((i) => i + 1);
+  /** Returns the next audio source, cycling through DB variations or local files. */
+  const getNextAudioSrc = useCallback((): string => {
+    if (variations.length > 0) {
+      const src = variations[playIndexRef.current % variations.length].file_path;
+      playIndexRef.current += 1;
+      return src;
+    }
+    // Fallback: cycle through local files
+    const src = LOCAL_VARIATIONS[playIndexRef.current % LOCAL_VARIATIONS.length];
+    playIndexRef.current += 1;
     return src;
-  };
+  }, [variations]);
 
-  /** Returns a random audio source from available variations. */
-  const getRandomAudioSrc = (): string => {
-    if (variations.length === 0) return DEFAULT_AUDIO;
-    const idx = Math.floor(Math.random() * variations.length);
-    return variations[idx].file_path;
-  };
+  /** Returns a random audio source from DB variations or local files. */
+  const getRandomAudioSrc = useCallback((): string => {
+    if (variations.length > 0) {
+      const idx = Math.floor(Math.random() * variations.length);
+      return variations[idx].file_path;
+    }
+    // Fallback: pick random local file
+    const idx = Math.floor(Math.random() * LOCAL_VARIATIONS.length);
+    return LOCAL_VARIATIONS[idx];
+  }, [variations]);
 
   return { variations, getNextAudioSrc, getRandomAudioSrc, defaultAudio: DEFAULT_AUDIO };
 };
