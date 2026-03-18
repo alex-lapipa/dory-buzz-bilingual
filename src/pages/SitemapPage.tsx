@@ -16,8 +16,10 @@ const pages = [
 
 const externalLinks = [
   { url: 'https://idiomas.io', label: 'idiomas.io' },
+  { url: 'https://lawtonx.com', label: 'lawtonx.com' },
   { url: 'https://www.alexlawton.io', label: 'alexlawton.io' },
-  { url: 'https://lapipa.io', label: 'lapipa.io' },
+  { url: 'https://miramonte.io', label: 'miramonte.io' },
+  { url: 'https://lapipa.ai', label: 'lapipa.ai' },
 ];
 
 const SitemapPage: React.FC = () => {
