@@ -95,7 +95,7 @@ const SONGS: SongCardData[] = [
 
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
-  const { getRandomAudioSrc } = useBuzzyBeesAudio();
+  const { getRandomAudioSrc, currentMix, clearCurrentMix } = useBuzzyBeesAudio();
 
   useEffect(() => {
     const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
@@ -154,6 +154,8 @@ const BuzzyBees: React.FC = () => {
               song={song}
               language={language}
               getAudioSrc={song.id === 'mochis-playful-day' ? getRandomAudioSrc : undefined}
+              currentMix={song.id === 'mochis-playful-day' ? currentMix : undefined}
+              onStop={song.id === 'mochis-playful-day' ? clearCurrentMix : undefined}
             />
           ))}
         </div>

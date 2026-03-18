@@ -19,9 +19,13 @@ interface SingAlongCardProps {
   language: 'en' | 'es';
   /** If provided, overrides the song's default audioSrc each time play is pressed */
   getAudioSrc?: () => string;
+  /** Current mix indicator e.g. { index: 3, total: 7 } */
+  currentMix?: { index: number; total: number } | null;
+  /** Called when playback stops */
+  onStop?: () => void;
 }
 
-const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioSrc }) => {
+const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioSrc, currentMix, onStop }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeLine, setActiveLine] = useState(-1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -41,6 +45,7 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
       if (intervalRef.current) clearInterval(intervalRef.current);
       setIsPlaying(false);
       setActiveLine(-1);
+      onStop?.();
       return;
     }
 
@@ -126,6 +131,14 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
             </div>
           ))}
         </div>
+
+        {isPlaying && currentMix && (
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground animate-in fade-in duration-300">
+            <span className="inline-flex items-center gap-1 bg-primary/10 text-primary font-semibold rounded-full px-3 py-1">
+              🎶 Mix {currentMix.index} of {currentMix.total}
+            </span>
+          </div>
+        )}
 
         <Button
           onClick={handlePlay}
