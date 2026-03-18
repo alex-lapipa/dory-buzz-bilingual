@@ -551,7 +551,7 @@ export const DandelionBack: React.FC<IconProps> = (props) => (
 
 /** Video flower — replaces Video */
 export const VideoFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <rect x="2" y="6" width="14" height="12" rx="2" />
     <path d="M16 9l5-3v12l-5-3V9z" />
   </svg>
