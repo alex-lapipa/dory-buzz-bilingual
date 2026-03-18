@@ -328,6 +328,9 @@ export const InteractiveLearningGames: React.FC = () => {
         </CardContent>
       </Card>
 
+      {/* Leaderboard */}
+      <Leaderboard />
+
       {/* Game Tips */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
         <CardHeader>
