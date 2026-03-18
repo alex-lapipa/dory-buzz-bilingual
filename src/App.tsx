@@ -45,7 +45,7 @@ const App = () => {
   const [activeTab, setActiveTab] = useState('chat');
   const [showLanding, setShowLanding] = useState(!localStorage.getItem('hasVisited'));
   const [showLanguageSelect, setShowLanguageSelect] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(false);
+  
   const [showOnboarding, setShowOnboarding] = useState(false);
   const { setLanguage } = useLanguage();
   const { user, loading: authLoading } = useAuth();
