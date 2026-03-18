@@ -101,18 +101,29 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
         )}
       </div>
       <CardContent className="p-4 sm:p-5 space-y-3">
-        <div className="space-y-2 min-h-[140px]">
+        <div className="space-y-3 min-h-[140px]">
           {lyrics?.map((line, i) => (
-            <p
+            <div
               key={i}
-              className={`text-base sm:text-lg font-medium leading-relaxed transition-all duration-500 rounded-lg px-3 py-1.5 ${
+              className={`transition-all duration-500 rounded-lg px-3 py-1.5 ${
                 activeLine === i
-                  ? 'bg-primary/20 scale-105 text-primary font-bold'
-                  : 'text-muted-foreground'
+                  ? 'bg-primary/20 scale-105'
+                  : ''
               }`}
             >
-              {line}
-            </p>
+              <p className={`text-base sm:text-lg font-semibold leading-relaxed ${
+                activeLine === i ? 'text-primary font-bold' : 'text-foreground'
+              }`}>
+                {line}
+              </p>
+              {secondaryLyrics?.[i] && (
+                <p className={`text-xs sm:text-sm leading-snug mt-0.5 italic ${
+                  activeLine === i ? 'text-primary/60' : 'text-muted-foreground/70'
+                }`}>
+                  {secondaryLyrics[i]}
+                </p>
+              )}
+            </div>
           ))}
         </div>
 
