@@ -108,7 +108,7 @@ export const SunflowerStar: React.FC<IconProps> = (props) => (
 
 /** Beehive — replaces Shield / Lock */
 export const BeehiveSafe: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M12 2C8 2 5 5 5 8v6c0 3 2 6 7 8 5-2 7-5 7-8V8c0-3-3-6-7-6z" />
     <path d="M8 10h8" />
     <path d="M9 13h6" />
