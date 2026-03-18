@@ -349,6 +349,42 @@ export type Database = {
         }
         Relationships: []
       }
+      game_scores: {
+        Row: {
+          created_at: string
+          game_id: string
+          high_score: number
+          id: string
+          last_played_at: string
+          play_count: number
+          score: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          game_id: string
+          high_score?: number
+          id?: string
+          last_played_at?: string
+          play_count?: number
+          score?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          game_id?: string
+          high_score?: number
+          id?: string
+          last_played_at?: string
+          play_count?: number
+          score?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       improvement_insights: {
         Row: {
           affected_user_count: number | null
