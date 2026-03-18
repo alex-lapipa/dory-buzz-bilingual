@@ -493,7 +493,8 @@ const LearningHub: React.FC = () => {
             const isCompleted = categoryProgress?.completed_lessons.includes(fact.id) || false;
             
             return (
-              <Card key={fact.id} className="relative group hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <ScrollReveal key={fact.id} delay={80}>
+              <Card className="relative group hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center gap-2">
