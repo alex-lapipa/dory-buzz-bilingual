@@ -95,6 +95,7 @@ const SONGS: SongCard[] = [
 
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
+  const { getRandomAudioSrc } = useBuzzyBeesAudio();
 
   useEffect(() => {
     const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
