@@ -28,6 +28,7 @@ import { BeeDanceDecoder } from './games/BeeDanceDecoder';
 import { LifecycleLab } from './games/LifecycleLab';
 import { GardenPlanner } from './games/GardenPlanner';
 import { SpeciesSpotter } from './games/SpeciesSpotter';
+import { Leaderboard } from './games/Leaderboard';
 import { MicroscopicBeeWorld } from './games/MicroscopicBeeWorld';
 
 interface GameCardProps {
@@ -326,6 +327,9 @@ export const InteractiveLearningGames: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Leaderboard */}
+      <Leaderboard />
 
       {/* Game Tips */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
