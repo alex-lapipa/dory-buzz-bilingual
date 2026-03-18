@@ -121,7 +121,7 @@ const BuzzyBees: React.FC = () => {
           <div className="flex items-center justify-center gap-2">
             <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
             <Badge variant="secondary" className="text-sm px-3 py-1">
-              {language === 'es' ? '3-6 años' : 'Ages 3-6'}
+              Ages 3-6 · 3-6 años
             </Badge>
             <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
           </div>
@@ -132,15 +132,16 @@ const BuzzyBees: React.FC = () => {
             <span className="text-3xl sm:text-4xl">🐝🎵</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
-            {language === 'es'
-              ? '¡Canta y aprende con Mochi! Toca una canción para empezar.'
-              : 'Sing & learn with Mochi! Tap a song to start singing.'}
+          <p className="text-lg sm:text-xl text-foreground max-w-md mx-auto leading-relaxed font-medium">
+            Sing & learn with Mochi! Tap a song to start singing.
+          </p>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto italic">
+            ¡Canta y aprende con Mochi! Toca una canción para empezar.
           </p>
 
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <VolumeFlower className="h-4 w-4" />
-            <span>{language === 'es' ? 'Con música y letra' : 'With music & lyrics'}</span>
+            <span>With music & lyrics · Con música y letra</span>
             <MusicalFlower className="h-4 w-4" />
           </div>
         </div>
@@ -169,9 +170,7 @@ const BuzzyBees: React.FC = () => {
             ))}
           </div>
           <p className="text-sm text-muted-foreground">
-            {language === 'es'
-              ? '🌻 Hecho con amor por Mochi la abeja'
-              : '🌻 Made with love by Mochi the Bee'}
+            🌻 Made with love by Mochi the Bee · Hecho con amor por Mochi la abeja
           </p>
         </div>
       </div>
@@ -212,8 +211,8 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
       {conversation.status === 'connected' && (
         <div className="bg-primary/90 text-primary-foreground text-xs rounded-full px-3 py-1 animate-pulse shadow-lg">
           {conversation.isSpeaking
-            ? (language === 'es' ? '🐝 Mochi habla...' : '🐝 Mochi is talking...')
-            : (language === 'es' ? '🌸 Te escucho...' : '🌸 Listening...')}
+            ? '🐝 BeeBee is talking... · Hablando...'
+            : '🌸 Listening... · Escuchando...'}
         </div>
       )}
       <Button
@@ -226,7 +225,7 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
       </Button>
       {conversation.status === 'disconnected' && (
         <span className="text-xs text-muted-foreground font-medium">
-          {language === 'es' ? '¡Habla con Mochi!' : 'Talk to Mochi!'}
+          Talk to BeeBee! · ¡Habla con BeeBee!
         </span>
       )}
     </div>
