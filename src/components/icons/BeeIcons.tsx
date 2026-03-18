@@ -535,7 +535,7 @@ export const TrendingVine: React.FC<IconProps> = (props) => (
 
 /** Arrow right as bee trail */
 export const BeeTrailRight: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M5 12c3-2 5 2 7 0s3-2 7 0" />
     <polyline points="17 8 21 12 17 16" />
   </svg>
