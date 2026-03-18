@@ -401,7 +401,7 @@ export const Firefly: React.FC<IconProps> = (props) => (
 
 /** Butterfly frame — replaces Camera / Image */
 export const ButterflyFrame: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'butterfly')}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
     <path d="M12 12c-2-3-5-3-5 0s3 3 5 0z" opacity=".6" />
     <path d="M12 12c2-3 5-3 5 0s-3 3-5 0z" opacity=".6" />
