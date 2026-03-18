@@ -34,6 +34,11 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* Lunar Calendar Widget */}
+      <div className="mb-6">
+        <LunarCalendarWidget />
+      </div>
+
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="control" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
