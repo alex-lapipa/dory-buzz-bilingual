@@ -6,9 +6,9 @@ import { ExternalLink, Github, Globe, Heart } from 'lucide-react';
 export const ExternalLinks: React.FC = () => {
   const links = [
     {
-      title: 'La Pipa.io',
+      title: 'La Pipa.ai',
       description: 'Visit our main website',
-      url: 'https://lapipa.io',
+      url: 'https://lapipa.ai',
       icon: Globe,
       color: 'text-blue-600'
     },

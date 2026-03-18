@@ -185,7 +185,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={() => window.open('https://lapipa.io', '_blank')}
+            onClick={() => window.open('https://lapipa.ai', '_blank')}
             className="flex-1"
           >
             <ExternalLink className="h-3 w-3 mr-2" />

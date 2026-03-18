@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
 
       {/* Main columns */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
           {/* Column 1: Explore MochiBee */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
@@ -63,28 +63,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 2: idiomas.io */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
-              idiomas.io
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { url: 'https://idiomas.io', label: isEs ? '🏠 Página Principal' : '🏠 Homepage' },
-                { url: 'https://idiomas.io/courses', label: isEs ? '📚 Cursos' : '📚 Courses' },
-                { url: 'https://idiomas.io/placement-test', label: isEs ? '📝 Prueba de Nivel' : '📝 Placement Test' },
-                { url: 'https://idiomas.io/contact', label: isEs ? '✉️ Contacto' : '✉️ Contact' },
-              ].map((item) => (
-                <li key={item.url}>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: Legal */}
+          {/* Column 2: Legal */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Legal' : 'Legal'}
@@ -105,30 +84,28 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 4: Connect */}
-          <div>
+          {/* Column 3: Connect */}
+          <div className="col-span-2 sm:col-span-1">
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Conectar' : 'Connect'}
             </h3>
             <ul className="space-y-2">
+              {[
+                { url: 'https://idiomas.io', label: '🗣️ idiomas.io' },
+                { url: 'https://lawtonx.com', label: '🏢 lawtonx.com' },
+                { url: 'https://www.alexlawton.io', label: '🌐 alexlawton.io' },
+                { url: 'https://miramonte.io', label: '🏡 miramonte.io' },
+                { url: 'https://lapipa.ai', label: '🚀 lapipa.ai' },
+              ].map((item) => (
+                <li key={item.url}>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a href="mailto:info@thelawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   ✉️ info@thelawtonschool.com
-                </a>
-              </li>
-              <li>
-                <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  🌐 alexlawton.io
-                </a>
-              </li>
-              <li>
-                <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  🚀 lapipa.io
-                </a>
-              </li>
-              <li>
-                <a href="https://idiomas.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  🗣️ idiomas.io
                 </a>
               </li>
             </ul>
@@ -155,7 +132,7 @@ export const Footer: React.FC = () => {
             </a>
             {' · '}
             {isEs ? 'Desarrollado por' : 'Built by'}{' '}
-            <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
+            <a href="https://lapipa.ai" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
               La Pipa
             </a>
           </p>

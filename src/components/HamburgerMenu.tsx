@@ -98,12 +98,12 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               size="sm"
               className="w-full text-sm"
               onClick={() => {
-                window.open('https://lapipa.io', '_blank');
+                window.open('https://lapipa.ai', '_blank');
                 setIsOpen(false);
               }}
             >
               <ExternalLink className="h-4 w-4 mr-2" />
-              Lapipa.io
+              Lapipa.ai
             </Button>
           </div>
 
