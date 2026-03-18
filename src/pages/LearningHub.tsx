@@ -332,7 +332,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-blue-200 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-4 h-64 cursor-pointer border-blue-200/50 bg-gradient-to-br from-blue-50/60 via-cyan-50/40 to-blue-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
