@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
@@ -6,8 +6,6 @@ import { PageSEO } from '@/components/PageSEO';
 import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
 import ParentMixPicker from '@/components/buzzy-bees/ParentMixPicker';
 import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
-
-const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
 
 
 
@@ -96,13 +94,6 @@ const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
   const { getRandomAudioSrc, currentMix, clearCurrentMix, favoriteIndex, setFavorite, totalMixes } = useBuzzyBeesAudio();
 
-  useEffect(() => {
-    const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
-    if (globalWidget) (globalWidget as HTMLElement).style.display = 'none';
-    return () => {
-      if (globalWidget) (globalWidget as HTMLElement).style.display = '';
-    };
-  }, []);
 
   return (
     <>
@@ -182,12 +173,6 @@ const BuzzyBees: React.FC = () => {
         </div>
       </div>
 
-      {/* Kids ElevenLabs BeeBee Widget (native embed) */}
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `<elevenlabs-convai agent-id="${KIDS_AGENT_ID}"></elevenlabs-convai>`,
-        }}
-      />
     </>
   );
 };
