@@ -39,9 +39,9 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Main columns */}
+      {/* Main columns — 2 columns: Explore + Connect */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 gap-8">
           {/* Column 1: Explore MochiBee */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
@@ -63,29 +63,8 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 2: Legal */}
+          {/* Column 2: Connect */}
           <div>
-            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
-              {isEs ? 'Legal' : 'Legal'}
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { to: '/privacy', label: isEs ? '🔒 Privacidad' : '🔒 Privacy Policy' },
-                { to: '/terms', label: isEs ? '📄 Términos' : '📄 Terms of Service' },
-                { to: '/cookies', label: isEs ? '🍪 Cookies' : '🍪 Cookie Policy' },
-                { to: '/sitemap', label: isEs ? '🗺️ Mapa del Sitio' : '🗺️ Sitemap' },
-              ].map((item) => (
-                <li key={item.to}>
-                  <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3: Connect */}
-          <div className="col-span-2 sm:col-span-1">
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Conectar' : 'Connect'}
             </h3>
@@ -113,29 +92,35 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* Bottom bar — legal links (single source of truth) + credits */}
       <div className="border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center gap-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-2 flex-wrap justify-center">
-            <p>© {new Date().getFullYear()} MochiBee · BeeCrazy Garden World</p>
-            <span className="hidden sm:inline">·</span>
             <Link to="/privacy" className="hover:text-primary transition-colors">{isEs ? 'Privacidad' : 'Privacy'}</Link>
             <span>·</span>
             <Link to="/terms" className="hover:text-primary transition-colors">{isEs ? 'Términos' : 'Terms'}</Link>
             <span>·</span>
             <Link to="/cookies" className="hover:text-primary transition-colors">Cookies</Link>
+            <span>·</span>
+            <Link to="/sitemap" className="hover:text-primary transition-colors">{isEs ? 'Mapa del Sitio' : 'Sitemap'}</Link>
           </div>
-          <p>
-            {isEs ? 'Diseñado por' : 'Designed by'}{' '}
-            <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
-              Alex Lawton
-            </a>
-            {' · '}
-            {isEs ? 'Desarrollado por' : 'Built by'}{' '}
-            <a href="https://lapipa.ai" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
-              La Pipa
-            </a>
-          </p>
+          <div className="flex items-center gap-1 flex-wrap justify-center">
+            <p>© {new Date().getFullYear()} MochiBee · BeeCrazy Garden World</p>
+            <span>·</span>
+            <span>
+              {isEs ? 'Diseñado por' : 'Designed by'}{' '}
+              <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
+                Alex Lawton
+              </a>
+            </span>
+            <span>·</span>
+            <span>
+              {isEs ? 'Desarrollado por' : 'Built by'}{' '}
+              <a href="https://lapipa.ai" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
+                La Pipa
+              </a>
+            </span>
+          </div>
         </div>
       </div>
     </footer>
