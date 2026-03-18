@@ -6,6 +6,7 @@ import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle 
 import { PageSEO } from '@/components/PageSEO';
 import { useConversation } from '@11labs/react';
 import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
+import ParentMixPicker from '@/components/buzzy-bees/ParentMixPicker';
 import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
 
 const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
