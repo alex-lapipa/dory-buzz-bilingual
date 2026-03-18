@@ -79,28 +79,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     try {
-      // Clean up any existing auth state first
-      try {
-        await supabase.auth.signOut({ scope: 'global' });
-      } catch (err) {
-        // Continue even if this fails
-      }
-
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
-        options: {
-          captchaToken: null, // Disable captcha for development
-        }
       });
 
       if (error) throw error;
-      
-      if (data.user) {
-        // Force page reload for clean state
-        window.location.href = '/';
-      }
-      
       return { data, error: null };
     } catch (error: any) {
       console.error('Login error:', error);

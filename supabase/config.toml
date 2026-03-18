@@ -41,7 +41,9 @@ site_url = "https://www.mochinillo.com"
 additional_redirect_urls = [
   "https://www.mochinillo.com/**",
   "https://mochinillo.com/**",
-  "https://5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovableproject.com/**"
+  "https://5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovableproject.com/**",
+  "https://dorybee-isavela.lovable.app/**",
+  "https://id-preview--5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovable.app/**"
 ]
 jwt_expiry = 3600
 refresh_token_rotation_enabled = true
