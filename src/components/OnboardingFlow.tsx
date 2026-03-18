@@ -50,7 +50,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Crea hermosas imágenes de jardines y naturaleza' 
         : 'Create beautiful garden and nature images',
-      icon: <Image className="h-8 w-8" />,
+      icon: <ButterflyFrame className="h-8 w-8" />,
       action: language === 'es' ? 'Crear Imagen' : 'Create Image'
     },
     {
