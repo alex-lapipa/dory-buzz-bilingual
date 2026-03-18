@@ -364,12 +364,10 @@ const ProductionDashboard: React.FC = () => {
           <TabsContent value="voice">
             <Card>
               <CardHeader>
-                <CardTitle>Live Voice System Test</CardTitle>
+                <CardTitle>Voice System</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-96">
-                  <VoiceInterface />
-                </div>
+                <p className="text-muted-foreground">Voice is now handled by the ElevenLabs ConvAI widget.</p>
               </CardContent>
             </Card>
           </TabsContent>

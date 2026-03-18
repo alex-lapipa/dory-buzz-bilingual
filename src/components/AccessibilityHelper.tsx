@@ -152,8 +152,6 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
         </CardContent>
       </Card>
 
-      {/* Voice Setup Guide */}
-      <VoiceSetupGuide />
 
       {/* User Progress */}
       <UserProgress />
