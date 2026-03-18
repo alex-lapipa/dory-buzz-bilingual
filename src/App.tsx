@@ -110,7 +110,11 @@ const App = () => {
               {/* Auth page is always accessible */}
               <Routes>
                 <Route path="/auth" element={<AuthPage />} />
-                <Route path="*" element={
+                <Route path="/reset-password" element={
+                  <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                    <ResetPassword />
+                  </Suspense>
+                } />
                   showLanding ? (
                     <LandingPage onGetStarted={handleGetStarted} />
                   ) : showLanguageSelect ? (

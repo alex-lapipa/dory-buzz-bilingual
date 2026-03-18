@@ -51,6 +51,31 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
     return true;
   };
 
+  const handleForgotPassword = async () => {
+    const emailToReset = forgotEmail || email;
+    if (!emailToReset) {
+      setError('Please enter your email address');
+      return;
+    }
+    setIsLoading(true);
+    setError('');
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(emailToReset, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setForgotSent(true);
+      toast({
+        title: '📧 Check your email',
+        description: 'We sent you a password reset link.',
+      });
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
     try {
       setIsLoading(true);
