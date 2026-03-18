@@ -13,7 +13,7 @@ import { usePlantGrowth } from '@/hooks/usePlantGrowth';
 import { useMochiAssets } from '@/hooks/useMochiAssets';
 import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { VoiceInterface } from './VoiceInterface';
+
 import { 
   Mic, 
   MicOff, 
@@ -638,25 +638,6 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
       </Card>
 
       {/* Voice Interface Modal */}
-      {showVoiceInterface && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background/80 backdrop-blur-md rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden border border-border/30">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h2 className="text-lg font-semibold">{t('voiceChatTitle')}</h2>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowVoiceInterface(false)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="h-[60vh]">
-              <VoiceInterface className="h-full" />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { MessageCircle, Mic, Image, Video, Zap, Sparkles } from 'lucide-react';
+import { MessageCircle, Image, Video, Zap, Sparkles } from 'lucide-react';
 
 interface TabNavigatorProps {
   activeTab: string;
@@ -28,12 +28,6 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
       description: 'Chat with Mochi using text'
     },
     {
-      id: 'voice',
-      label: 'Voice Chat',
-      icon: Mic,
-      description: 'Talk to Mochi with your voice'
-    },
-    {
       id: 'generate',
       label: 'Image Generator',
       icon: Image,
@@ -50,7 +44,7 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
   return (
     <Card className={`w-full ${className}`}>
       <CardContent className="p-4">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;

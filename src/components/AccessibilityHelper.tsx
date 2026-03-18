@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, Zap, Users, MessageCircle, Image, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { UserProgress } from '@/components/UserProgress';
-import { VoiceSetupGuide } from '@/components/VoiceSetupGuide';
+
 
 interface AccessibilityHelperProps {
   className?: string;
@@ -152,8 +152,6 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
         </CardContent>
       </Card>
 
-      {/* Voice Setup Guide */}
-      <VoiceSetupGuide />
 
       {/* User Progress */}
       <UserProgress />

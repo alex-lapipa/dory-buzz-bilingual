@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, lazy, Suspense } from 'react';
 // Lazy load heavy components
 const ChatInterface = lazy(() => import('./ChatInterface').then(module => ({ default: module.ChatInterface })));
-const VoiceInterface = lazy(() => import('./VoiceInterface').then(module => ({ default: module.VoiceInterface })));
+
 const ImageGenerator = lazy(() => import('./ImageGenerator').then(module => ({ default: module.ImageGenerator })));
 const MochiVideoFeed = lazy(() => import('./MochiVideoFeed').then(module => ({ default: module.MochiVideoFeed })));
 import { OnboardingTip } from './OnboardingTip';
@@ -60,13 +60,6 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
 
     switch (currentTab) {
       case 'voice':
-        return (
-          <div className={`${isFullscreen ? 'h-full' : 'h-[50vh] sm:h-[60vh] lg:h-[70vh] max-h-[600px]'} overflow-auto`}>
-            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-              <VoiceInterface className="h-full" />
-            </Suspense>
-          </div>
-        );
       case 'chat-advanced':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>

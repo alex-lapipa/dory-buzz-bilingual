@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { ConsentProvider } from "@/contexts/ConsentContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { VoiceProvider } from "@/contexts/VoiceContext";
 import { AppStatusProvider } from "@/contexts/AppStatusContext";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { Toaster } from "@/components/ui/sonner";
@@ -37,20 +36,18 @@ createRoot(document.getElementById("root")!).render(
           <AuthProvider>
             <ConsentProvider>
               <LanguageProvider>
-                <VoiceProvider>
-                  <AppStatusProvider>
-                    <AnalyticsProvider>
-                      
-                      <App />
-                      <Toaster 
-                        position="bottom-right"
-                        expand={true}
-                        richColors={true}
-                        closeButton={true}
-                      />
-                    </AnalyticsProvider>
-                  </AppStatusProvider>
-                </VoiceProvider>
+                <AppStatusProvider>
+                  <AnalyticsProvider>
+                    
+                    <App />
+                    <Toaster 
+                      position="bottom-right"
+                      expand={true}
+                      richColors={true}
+                      closeButton={true}
+                    />
+                  </AnalyticsProvider>
+                </AppStatusProvider>
               </LanguageProvider>
             </ConsentProvider>
           </AuthProvider>

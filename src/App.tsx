@@ -13,7 +13,6 @@ import { LandingPage } from "@/components/LandingPage";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
-import Voice from "./pages/Voice";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
@@ -123,7 +122,6 @@ const App = () => {
                       <Routes>
                         <Route path="/" element={<Index />} />
                         <Route path="/chat" element={<Chat />} />
-                        <Route path="/voice" element={<Voice />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/learning-hub" element={<LearningHub />} />
                         <Route path="/learning/bee-basics" element={

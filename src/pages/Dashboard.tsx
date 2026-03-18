@@ -5,16 +5,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PageLayout } from '@/components/PageLayout';
 import MasterControlPanel from '@/components/MasterControlPanel';
 import { MochiInterface } from '@/components/MochiInterface';
-import { VoiceControls } from '@/components/VoiceControls';
 import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { ImageGenerator } from '@/components/ImageGenerator';
+import { ConsentSettings } from '@/components/GDPRConsent';
 import { 
   Zap, 
   MessageCircle, 
-  Mic, 
   BookOpen, 
   Camera, 
-  Settings 
+  Settings,
+  Shield
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
@@ -51,10 +51,6 @@ const Dashboard: React.FC = () => {
               <MessageCircle className="h-4 w-4" />
               Chat with Mochi
             </TabsTrigger>
-            <TabsTrigger value="voice" className="gap-2">
-              <Mic className="h-4 w-4" />
-              Voice Assistant
-            </TabsTrigger>
             <TabsTrigger value="education" className="gap-2">
               <BookOpen className="h-4 w-4" />
               Learn & Explore
@@ -62,6 +58,10 @@ const Dashboard: React.FC = () => {
             <TabsTrigger value="images" className="gap-2">
               <Camera className="h-4 w-4" />
               Create Images
+            </TabsTrigger>
+            <TabsTrigger value="privacy" className="gap-2">
+              <Shield className="h-4 w-4" />
+              Privacy & GDPR
             </TabsTrigger>
           </TabsList>
 
@@ -80,21 +80,6 @@ const Dashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <MochiInterface />
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="voice">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mic className="h-5 w-5 text-primary" />
-                  Voice Assistant Settings
-                  <Badge variant="default">ElevenLabs Premium</Badge>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VoiceControls />
               </CardContent>
             </Card>
           </TabsContent>
@@ -127,6 +112,10 @@ const Dashboard: React.FC = () => {
                 <ImageGenerator />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="privacy">
+            <ConsentSettings />
           </TabsContent>
         </Tabs>
 
