@@ -32,7 +32,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Haz preguntas sobre plantas, jardinería y naturaleza' 
         : 'Ask questions about plants, gardening, and nature',
-      icon: <MessageCircle className="h-8 w-8" />,
+      icon: <BeeChat className="h-8 w-8" />,
       action: language === 'es' ? 'Probar Chat' : 'Try Chat'
     },
     {
