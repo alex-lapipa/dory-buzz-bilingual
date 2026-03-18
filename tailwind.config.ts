@@ -126,21 +126,58 @@ export default {
 						transform: 'translateY(-5px)'
 					}
 				},
-				'flower-sway': {
-					'0%, 100%': {
-						transform: 'rotate(-2deg)'
-					},
-					'50%': {
-						transform: 'rotate(2deg)'
-					}
+			'flower-sway': {
+				'0%, 100%': {
+					transform: 'rotate(-2deg)'
+				},
+				'50%': {
+					transform: 'rotate(2deg)'
 				}
 			},
-			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
-				'bee-bounce': 'bee-bounce 2s infinite',
-				'flower-sway': 'flower-sway 3s ease-in-out infinite'
+			'wing-flutter': {
+				'0%, 100%': { transform: 'scaleX(1) rotate(0deg)' },
+				'25%': { transform: 'scaleX(0.85) rotate(-3deg)' },
+				'50%': { transform: 'scaleX(1.05) rotate(2deg)' },
+				'75%': { transform: 'scaleX(0.9) rotate(-2deg)' }
 			},
+			'petal-open': {
+				'0%': { transform: 'scale(1) rotate(0deg)', opacity: '1' },
+				'50%': { transform: 'scale(1.12) rotate(5deg)', opacity: '0.85' },
+				'100%': { transform: 'scale(1) rotate(0deg)', opacity: '1' }
+			},
+			'leaf-sway': {
+				'0%, 100%': { transform: 'rotate(0deg) translateX(0)' },
+				'25%': { transform: 'rotate(-4deg) translateX(-1px)' },
+				'75%': { transform: 'rotate(4deg) translateX(1px)' }
+			},
+			'bee-flutter': {
+				'0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+				'33%': { transform: 'translateY(-2px) rotate(-3deg)' },
+				'66%': { transform: 'translateY(1px) rotate(2deg)' }
+			},
+			'pollen-drift': {
+				'0%, 100%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+				'50%': { transform: 'translateY(-3px) scale(1.1)', opacity: '0.7' }
+			},
+			'butterfly-hover': {
+				'0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+				'25%': { transform: 'rotate(-6deg) scale(1.05)' },
+				'50%': { transform: 'rotate(0deg) scale(0.97)' },
+				'75%': { transform: 'rotate(6deg) scale(1.05)' }
+			}
+		},
+		animation: {
+			'accordion-down': 'accordion-down 0.2s ease-out',
+			'accordion-up': 'accordion-up 0.2s ease-out',
+			'bee-bounce': 'bee-bounce 2s infinite',
+			'flower-sway': 'flower-sway 3s ease-in-out infinite',
+			'wing-flutter': 'wing-flutter 0.4s ease-in-out',
+			'petal-open': 'petal-open 0.6s ease-in-out',
+			'leaf-sway': 'leaf-sway 0.5s ease-in-out',
+			'bee-flutter': 'bee-flutter 0.5s ease-in-out',
+			'pollen-drift': 'pollen-drift 0.6s ease-in-out',
+			'butterfly-hover': 'butterfly-hover 0.6s ease-in-out'
+		},
 			backgroundImage: {
 				'gradient-bee': 'var(--gradient-bee)',
 				'gradient-flower': 'var(--gradient-flower)',
