@@ -693,7 +693,7 @@ export const GardenCalendar: React.FC<IconProps> = (props) => (
 
 /** VolumeX — muted flower */
 export const VolumeMuted: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M11 5L6 9H2v6h4l5 4V5z" />
     <line x1="16" y1="9" x2="22" y2="15" opacity=".6" />
     <line x1="22" y1="9" x2="16" y2="15" opacity=".6" />
