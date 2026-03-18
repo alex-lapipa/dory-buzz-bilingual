@@ -213,7 +213,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Garden Design',
       icon: <Leaf className="h-6 w-6" />,
       color: 'border-teal-200 bg-gradient-to-br from-teal-50 to-green-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'species-spotter',
