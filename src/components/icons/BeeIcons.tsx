@@ -222,7 +222,7 @@ export const HoneycombTrophy: React.FC<IconProps> = (props) => (
 
 /** Bee antenna — replaces Mic */
 export const BeeAntenna: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M12 22v-8" />
     <circle cx="12" cy="12" r="3" />
     <path d="M9 9c-2-3-1-6 0-7" />
