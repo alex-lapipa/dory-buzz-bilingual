@@ -619,7 +619,7 @@ export const GardenKey: React.FC<IconProps> = (props) => (
 
 /** Cloud flower — replaces Cloud */
 export const CloudFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <path d="M18 10h-1a6 6 0 0 0-11.1-2A4.5 4.5 0 0 0 2 12.5 4.5 4.5 0 0 0 6.5 17h11a4 4 0 0 0 .5-8z" />
   </svg>
 );
