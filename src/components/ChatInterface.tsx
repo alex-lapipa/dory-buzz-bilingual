@@ -489,7 +489,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 size="sm"
                 onClick={() => setShowVoiceInterface(true)}
               >
-                <Mic className="h-4 w-4" />
+                <BeeAntenna className="h-4 w-4" />
               </Button>
             )}
           </div>
