@@ -222,6 +222,13 @@ const LearningHub: React.FC = () => {
 
   return (
     <PageLayout>
+      <PageSEO
+        titleEn="Learning Hub — MochiBee | Bee & Garden Education"
+        titleEs="Centro de Aprendizaje — MochiBee | Educación sobre Abejas y Jardines"
+        descriptionEn="Explore interactive lessons about bees, pollination, gardens, and nature. Bilingual learning for all ages."
+        descriptionEs="Explora lecciones interactivas sobre abejas, polinización, jardines y naturaleza. Aprendizaje bilingüe para todas las edades."
+        path="/"
+      />
       <div className="space-y-6">
         {/* Header */}
         <div className="text-center">

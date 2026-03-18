@@ -29,6 +29,13 @@ const SitemapPage: React.FC = () => {
 
   return (
     <PageLayout>
+      <PageSEO
+        titleEn="Sitemap — MochiBee"
+        titleEs="Mapa del Sitio — MochiBee"
+        descriptionEn="Browse all pages on MochiBee — your bilingual bee and garden education platform."
+        descriptionEs="Navega todas las páginas de MochiBee — tu plataforma bilingüe de educación sobre abejas y jardines."
+        path="/sitemap"
+      />
       <article className="prose prose-sm sm:prose max-w-3xl mx-auto py-8">
         <h1 className="text-foreground">{isEs ? 'Mapa del Sitio' : 'Sitemap'}</h1>
 
