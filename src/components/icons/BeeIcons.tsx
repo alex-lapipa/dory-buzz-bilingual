@@ -608,7 +608,7 @@ export const FlowerShrink: React.FC<IconProps> = (props) => (
 
 /** Key/credential — replaces Key */
 export const GardenKey: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <circle cx="8" cy="8" r="5" />
     <path d="M12.5 11.5l8 8" />
     <path d="M17 16l3 3" />
