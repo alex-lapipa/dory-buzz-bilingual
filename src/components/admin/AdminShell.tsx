@@ -50,7 +50,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   'system-health': 'System Health',
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
-  settings: 'Settings',
+  settings: 'Content Ingestion',
 };
 
 const AdminShell: React.FC = () => {
