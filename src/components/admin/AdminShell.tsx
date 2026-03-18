@@ -47,6 +47,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   chat: 'Chat Management',
   brand: 'Brand Book',
   design: 'Design System',
+  'audio-sound': 'Audio & Sound Design',
   'google-ecosystem': 'Google Ecosystem',
   technical: 'Technical Details',
   'system-health': 'System Health',
