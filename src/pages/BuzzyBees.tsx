@@ -217,6 +217,15 @@ const SingAlongCard: React.FC<{
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
 
+  // Hide global Mochi widget on this page, show kids agent instead
+  useEffect(() => {
+    const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
+    if (globalWidget) (globalWidget as HTMLElement).style.display = 'none';
+    return () => {
+      if (globalWidget) (globalWidget as HTMLElement).style.display = '';
+    };
+  }, []);
+
   return (
     <>
       <PageSEO
