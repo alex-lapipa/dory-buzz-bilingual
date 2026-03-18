@@ -313,7 +313,6 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
       await navigator.mediaDevices.getUserMedia({ audio: true });
       await conversation.startSession({
         agentId: KIDS_AGENT_ID,
-        connectionType: 'webrtc',
       });
     } catch (e) {
       console.error('Failed to start kids agent:', e);
