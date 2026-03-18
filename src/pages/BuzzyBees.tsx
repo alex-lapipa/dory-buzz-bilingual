@@ -225,7 +225,7 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
       </Button>
       {conversation.status === 'disconnected' && (
         <span className="text-xs text-muted-foreground font-medium">
-          {language === 'es' ? '¡Habla con Mochi!' : 'Talk to Mochi!'}
+          Talk to BeeBee! · ¡Habla con BeeBee!
         </span>
       )}
     </div>
