@@ -16,19 +16,18 @@ import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 import { 
-  Mic, 
-  MicOff, 
-  Send, 
-  Volume2, 
-  VolumeX, 
-  Image, 
-  Sparkles, 
-  Brain, 
-  BookOpen, 
-  Camera,
-  Settings,
-  X 
-} from 'lucide-react';
+  BeeAntenna, 
+  PollenSparkle, 
+  VolumeFlower, 
+  VolumeMuted, 
+  ButterflyFrame, 
+  Firefly, 
+  LeafBook, 
+  GardenTools,
+  FlowerBudClose,
+  BeeTrailRight
+} from '@/components/icons';
+import { Send } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -441,7 +440,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                     className="h-6 w-6 p-0"
                     disabled={isPlaying}
                   >
-                    {isPlaying ? <VolumeX className="h-3 w-3" /> : <Volume2 className="h-3 w-3" />}
+                    {isPlaying ? <VolumeMuted className="h-3 w-3" /> : <VolumeFlower className="h-3 w-3" />}
                   </Button>
                   
                   {message.metadata?.model && (
@@ -480,7 +479,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 size="sm"
                 onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
               >
-                <Settings className="h-4 w-4" />
+                <GardenTools className="h-4 w-4" />
               </Button>
             )}
             
@@ -490,7 +489,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 size="sm"
                 onClick={() => setShowVoiceInterface(true)}
               >
-                <Mic className="h-4 w-4" />
+                <BeeAntenna className="h-4 w-4" />
               </Button>
             )}
           </div>
@@ -599,7 +598,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             {isGeneratingImage && (
               <div className="flex justify-start">
                 <div className="bg-muted/60 backdrop-blur-sm rounded-lg p-3 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 animate-pulse" />
+                  <PollenSparkle className="h-4 w-4 animate-pulse" />
                   <span className="text-sm">Creating a helpful image...</span>
                 </div>
               </div>
@@ -628,11 +627,11 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             
             <Button
               onClick={toggleVoiceRecording}
-              variant={isListening ? "destructive" : "outline"}
+              variant={isListening ? "secondary" : "outline"}
               size="sm"
               disabled={isLoading}
             >
-              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+              {isListening ? <BeeAntenna className="h-4 w-4 text-primary" /> : <BeeAntenna className="h-4 w-4" />}
             </Button>
             
             <Button onClick={() => sendMessage()} disabled={isLoading || !inputMessage.trim()}>

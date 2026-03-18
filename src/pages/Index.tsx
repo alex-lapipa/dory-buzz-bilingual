@@ -5,12 +5,7 @@ import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { 
-  GraduationCap, 
-  BarChart3,
-  Leaf,
-  MessageCircle
-} from 'lucide-react';
+import { GraduationBee, SeedlingChart, NatureLeaf } from '@/components/icons';
 
 const Index = () => {
   const { user } = useAuth();
@@ -38,7 +33,7 @@ const Index = () => {
                 MochiBee Garden
               </h1>
               <p className="text-responsive-sm md:text-responsive-base text-muted-foreground font-medium">
-                Your AI garden assistant
+                Your garden assistant 🌻
               </p>
             </div>
           </div>
@@ -59,13 +54,13 @@ const Index = () => {
           >
             <CardHeader className="pb-mobile-md">
               <CardTitle className="flex items-center gap-2 text-responsive-lg">
-                <GraduationCap className="h-5 w-5 text-blue-600" />
+                <GraduationBee className="h-5 w-5 text-primary" />
                 🐝 Beeducation
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-responsive-sm text-muted-foreground">
-                Explore gardening knowledge with AI
+                Explore gardening knowledge with Mochi
               </p>
             </CardContent>
           </Card>
@@ -76,7 +71,7 @@ const Index = () => {
           >
             <CardHeader className="pb-mobile-md">
               <CardTitle className="flex items-center gap-2 text-responsive-lg">
-                <BarChart3 className="h-5 w-5 text-green-600" />
+                <SeedlingChart className="h-5 w-5 text-primary" />
                 Dashboard
               </CardTitle>
             </CardHeader>
@@ -91,9 +86,9 @@ const Index = () => {
         {/* Mobile Footer */}
         <div className="text-center">
           <p className="text-responsive-sm text-muted-foreground flex items-center justify-center gap-2">
-            <Leaf className="h-4 w-4" />
-            AI-powered garden assistant
-            <Leaf className="h-4 w-4" />
+            <NatureLeaf className="h-4 w-4" />
+            Garden assistant powered by nature
+            <NatureLeaf className="h-4 w-4" />
           </p>
         </div>
       </div>

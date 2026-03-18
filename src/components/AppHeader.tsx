@@ -4,7 +4,7 @@ import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
-import { Heart, User, LogOut, Shield } from 'lucide-react';
+import { FlowerHeart, BeeFace, BeeFlying, BeehiveSafe } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
@@ -66,7 +66,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               onClick={() => navigate('/learning')}
               className="text-sm hover:text-primary flex items-center gap-1"
             >
-              📚 {t('learn') || 'Learn'}
+              🌿 {t('learn') || 'Learn'}
             </Button>
             <Button
               variant="ghost"
@@ -83,7 +83,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
                 onClick={() => navigate('/dashboard')}
                 className="text-sm hover:text-primary flex items-center gap-1"
               >
-                📊 Dashboard
+                🌱 Dashboard
               </Button>
             )}
           </nav>
@@ -92,7 +92,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           <div className="hidden sm:block">
             <FollowMochiModal>
               <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
-                <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <FlowerHeart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
               </Button>
             </FollowMochiModal>
@@ -114,7 +114,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
                     className="text-xs text-muted-foreground hover:text-primary"
                     title="Admin Panel"
                   >
-                    <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <BeehiveSafe className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 )}
                 <span className="text-xs text-muted-foreground hidden lg:inline">
@@ -126,7 +126,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
                   onClick={signOut}
                   className="text-xs"
                 >
-                  <LogOut className="h-3 w-3 mr-1" />
+                  <BeeFlying className="h-3 w-3 mr-1" />
                   Sign Out
                 </Button>
               </>
@@ -137,7 +137,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
                 onClick={() => navigate('/auth')}
                 className="text-xs"
               >
-                <User className="h-3 w-3 mr-1" />
+                <BeeFace className="h-3 w-3 mr-1" />
                 Sign In
               </Button>
             )}

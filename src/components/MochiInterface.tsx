@@ -9,7 +9,7 @@ import { MochiConvAI } from './MochiConvAI';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Expand, Shrink } from 'lucide-react';
+import { GardenExpand, GardenShrink } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useUsageTracking, usePageTracking } from '@/hooks/useUsageTracking';
 
@@ -142,7 +142,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
               className="p-2 hover:bg-background/20"
               aria-label={t('enterFullscreen')}
             >
-              <Expand className="h-3 w-3 sm:h-4 sm:w-4" />
+              <GardenExpand className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         )}
@@ -158,7 +158,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
               className="p-2 bg-background/80 hover:bg-background/90"
               aria-label={t('exitFullscreen')}
             >
-              <Shrink className="h-3 w-3 sm:h-4 sm:w-4" />
+              <GardenShrink className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         )}

@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { useUserAnalytics } from '@/hooks/useUserAnalytics';
-import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
+import { DandelionSpin, LeafEnvelope, GardenLock, BeeFace, GardenCalendar, EarthVine } from '@/components/icons';
 import { supabase } from '@/integrations/supabase/client';
 import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail, isInIframe } from '@/utils/oauthRedirect';
 import { isOwnerEmail } from '@/lib/adminAccess';
@@ -283,7 +283,7 @@ const AuthPage = () => {
     return (
       <PageLayout>
         <div className="flex items-center justify-center h-96">
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <DandelionSpin className="h-8 w-8 animate-spin" />
         </div>
       </PageLayout>
     );
@@ -332,7 +332,7 @@ const AuthPage = () => {
                 <div className="space-y-2">
                   <Label htmlFor="signin-email">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <LeafEnvelope className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
                       id="signin-email"
                       type="email"
@@ -362,7 +362,7 @@ const AuthPage = () => {
                     >
                       {loading ? (
                         <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                         <DandelionSpin className="mr-2 h-4 w-4 animate-spin" />
                           Redirecting to Microsoft...
                         </>
                       ) : (
@@ -384,7 +384,7 @@ const AuthPage = () => {
                     <div className="space-y-2">
                       <Label htmlFor="signin-password">Password</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <GardenLock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Input
                           id="signin-password"
                           type="password"
@@ -400,7 +400,7 @@ const AuthPage = () => {
                     <Button type="submit" className="w-full" disabled={loading}>
                       {loading ? (
                         <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                         <DandelionSpin className="mr-2 h-4 w-4 animate-spin" />
                           Signing In...
                         </>
                       ) : (
@@ -457,7 +457,7 @@ const AuthPage = () => {
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <LeafEnvelope className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="signup-email"
                         type="email"
@@ -473,7 +473,7 @@ const AuthPage = () => {
                   <div className="space-y-2">
                     <Label htmlFor="display-name">Display Name</Label>
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <BeeFace className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="display-name"
                         type="text"
@@ -490,7 +490,7 @@ const AuthPage = () => {
                     <div className="space-y-2">
                       <Label htmlFor="age">Age</Label>
                       <div className="relative">
-                        <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <GardenCalendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Input
                           id="age"
                           type="number"
@@ -509,7 +509,7 @@ const AuthPage = () => {
                       <Label htmlFor="language">Language</Label>
                       <Select value={language} onValueChange={setLanguage}>
                         <SelectTrigger>
-                          <Globe className="h-4 w-4 mr-2" />
+                          <EarthVine className="h-4 w-4 mr-2" />
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -523,7 +523,7 @@ const AuthPage = () => {
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <GardenLock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="signup-password"
                         type="password"
@@ -540,7 +540,7 @@ const AuthPage = () => {
                   <div className="space-y-2">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <GardenLock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         id="confirm-password"
                         type="password"
@@ -620,7 +620,7 @@ const AuthPage = () => {
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <DandelionSpin className="mr-2 h-4 w-4 animate-spin" />
                         Creating Account...
                       </>
                     ) : (

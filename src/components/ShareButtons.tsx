@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Share2, Instagram, Video, Code, Copy, ExternalLink } from 'lucide-react';
+import { ShareBlossom, InstagramFlower, VideoFlower, CodeVine, TwoLeaves, ButterflyLink } from '@/components/icons';
 
 interface ShareButtonsProps {
   className?: string;
@@ -58,7 +58,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
           size="sm" 
           className={`animate-flower-sway ${className}`}
         >
-          <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+          <ShareBlossom className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
           <span className="hidden xs:inline">Share</span>
           📱
         </Button>
@@ -83,7 +83,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-primary-foreground"
                 size="sm"
               >
-                <Instagram className="h-4 w-4 mr-2" />
+                <InstagramFlower className="h-4 w-4 mr-2" />
                 Instagram
               </Button>
               <Button
@@ -91,7 +91,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 className="bg-destructive hover:bg-destructive/80 text-destructive-foreground"
                 size="sm"
               >
-                <Video className="h-4 w-4 mr-2" />
+                <VideoFlower className="h-4 w-4 mr-2" />
                 TikTok
               </Button>
             </div>
@@ -111,14 +111,14 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 variant="outline"
                 size="sm"
               >
-                <Copy className="h-3 w-3" />
+                <TwoLeaves className="h-3 w-3" />
               </Button>
               <Button
                 onClick={openApp}
                 variant="outline"
                 size="sm"
               >
-                <ExternalLink className="h-3 w-3" />
+                <ButterflyLink className="h-3 w-3" />
               </Button>
             </div>
           </div>
@@ -138,7 +138,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 size="sm"
                 className="w-full"
               >
-                <Code className="h-3 w-3 mr-2" />
+                <CodeVine className="h-3 w-3 mr-2" />
                 Copy Embed Code
               </Button>
             </div>

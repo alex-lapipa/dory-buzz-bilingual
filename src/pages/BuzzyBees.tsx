@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Play, Pause, Volume2, Music, Star, Heart, Sparkles } from 'lucide-react';
+import { FlowerPlay, FlowerPause, VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
 import { supabase } from '@/integrations/supabase/client';
 import { PageSEO } from '@/components/PageSEO';
 import { useConversation } from '@11labs/react';
@@ -49,16 +49,16 @@ const SONGS: SongCard[] = [
     emoji: '🌈',
     color: 'from-pink-300 to-purple-400',
     lyrics_en: [
-      '🔴 Red like a rose, so pretty to see!',
-      '🟡 Yellow like sunshine, bright as can be!',
-      '🟢 Green like the leaves on every tree!',
-      '🔵 Blue like the sky, so wild and free!'
+      '🌹 Red like a rose, so pretty to see!',
+      '🌻 Yellow like sunshine, bright as can be!',
+      '🌿 Green like the leaves on every tree!',
+      '🦋 Blue like the sky, so wild and free!'
     ],
     lyrics_es: [
-      '🔴 ¡Rojo como una rosa, bonito de ver!',
-      '🟡 ¡Amarillo como el sol, brillante al amanecer!',
-      '🟢 ¡Verde como las hojas de cada árbol!',
-      '🔵 ¡Azul como el cielo, libre y genial!'
+      '🌹 ¡Rojo como una rosa, bonito de ver!',
+      '🌻 ¡Amarillo como el sol, brillante al amanecer!',
+      '🌿 ¡Verde como las hojas de cada árbol!',
+      '🦋 ¡Azul como el cielo, libre y genial!'
     ],
   },
   {
@@ -71,13 +71,13 @@ const SONGS: SongCard[] = [
       '🐝 We are busy busy bees!',
       '🌸 Flying through the flower trees!',
       '🍯 Making honey, sweet and gold!',
-      '⭐ The sweetest story ever told!'
+      '🌟 The sweetest story ever told!'
     ],
     lyrics_es: [
       '🐝 ¡Somos abejas muy ocupadas!',
       '🌸 ¡Volando por las flores encantadas!',
       '🍯 ¡Haciendo miel, dulce y dorada!',
-      '⭐ ¡La historia más dulce jamás contada!'
+      '🌟 ¡La historia más dulce jamás contada!'
     ],
   },
   {
@@ -124,7 +124,6 @@ const SingAlongCard: React.FC<{
       return;
     }
 
-    // If there's a real audio source, play it
     if (song.audioSrc) {
       if (!audioRef.current) {
         audioRef.current = new Audio(song.audioSrc);
@@ -138,7 +137,6 @@ const SingAlongCard: React.FC<{
       audioRef.current.play().catch(() => {});
     }
 
-    // Animate lyrics regardless
     setIsPlaying(true);
     let line = 0;
     setActiveLine(0);
@@ -174,7 +172,6 @@ const SingAlongCard: React.FC<{
         </h3>
       </div>
       <CardContent className="p-4 sm:p-5 space-y-3">
-        {/* Lyrics */}
         <div className="space-y-2 min-h-[140px]">
           {lyrics?.map((line, i) => (
             <p
@@ -190,7 +187,6 @@ const SingAlongCard: React.FC<{
           ))}
         </div>
 
-        {/* Play button - big & touch friendly */}
         <Button
           onClick={handlePlay}
           size="lg"
@@ -199,12 +195,12 @@ const SingAlongCard: React.FC<{
         >
           {isPlaying ? (
             <>
-              <Pause className="h-6 w-6" />
+              <FlowerPause className="h-6 w-6" />
               {language === 'es' ? '¡Para!' : 'Stop!'}
             </>
           ) : (
             <>
-              <Play className="h-6 w-6" />
+              <FlowerPlay className="h-6 w-6" />
               {language === 'es' ? '¡Canta!' : 'Sing!'}
             </>
           )}
@@ -217,7 +213,6 @@ const SingAlongCard: React.FC<{
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
 
-  // Hide global Mochi widget on this page, show kids agent instead
   useEffect(() => {
     const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
     if (globalWidget) (globalWidget as HTMLElement).style.display = 'none';
@@ -240,11 +235,11 @@ const BuzzyBees: React.FC = () => {
         {/* Hero */}
         <div className="text-center space-y-3">
           <div className="flex items-center justify-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary animate-pulse" />
+            <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
             <Badge variant="secondary" className="text-sm px-3 py-1">
               {language === 'es' ? '3-6 años' : 'Ages 3-6'}
             </Badge>
-            <Sparkles className="h-6 w-6 text-primary animate-pulse" />
+            <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold">
@@ -259,11 +254,10 @@ const BuzzyBees: React.FC = () => {
               : 'Sing & learn with Mochi! Tap a song to start singing.'}
           </p>
 
-          {/* Audio badge */}
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <Volume2 className="h-4 w-4" />
+            <VolumeFlower className="h-4 w-4" />
             <span>{language === 'es' ? 'Con música y letra' : 'With music & lyrics'}</span>
-            <Music className="h-4 w-4" />
+            <MusicalFlower className="h-4 w-4" />
           </div>
         </div>
 
@@ -277,7 +271,7 @@ const BuzzyBees: React.FC = () => {
         {/* Fun footer */}
         <div className="text-center py-6 space-y-2">
           <div className="flex items-center justify-center gap-1">
-            {[Star, Heart, Star, Heart, Star].map((Icon, i) => (
+            {[SunflowerStar, FlowerHeart, SunflowerStar, FlowerHeart, SunflowerStar].map((Icon, i) => (
               <Icon
                 key={i}
                 className="h-5 w-5 text-primary/40 animate-pulse"
@@ -299,7 +293,6 @@ const BuzzyBees: React.FC = () => {
   );
 };
 
-/** Dedicated kids voice agent using ElevenLabs React SDK */
 const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -331,7 +324,7 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
         <div className="bg-primary/90 text-primary-foreground text-xs rounded-full px-3 py-1 animate-pulse shadow-lg">
           {conversation.isSpeaking
             ? (language === 'es' ? '🐝 Mochi habla...' : '🐝 Mochi is talking...')
-            : (language === 'es' ? '🎤 Te escucho...' : '🎤 Listening...')}
+            : (language === 'es' ? '🌸 Te escucho...' : '🌸 Listening...')}
         </div>
       )}
       <Button
@@ -340,7 +333,7 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
         size="lg"
         className="rounded-full w-16 h-16 shadow-xl text-2xl bg-gradient-to-br from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 border-4 border-white/50"
       >
-        {isConnecting ? '⏳' : conversation.status === 'connected' ? '🛑' : '🐝'}
+        {isConnecting ? '🌀' : conversation.status === 'connected' ? '🌺' : '🐝'}
       </Button>
       {conversation.status === 'disconnected' && (
         <span className="text-xs text-muted-foreground font-medium">

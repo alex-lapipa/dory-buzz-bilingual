@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Circle, ArrowRight, Sparkles, Users, MessageCircle, Mic, Image, BookOpen, Zap } from 'lucide-react';
+import { BloomingCheck, BeeTrailRight, PollenSparkle, BeeColony, BeeChat, BeeAntenna, ButterflyFrame, LeafBook } from '@/components/icons';
+import { Circle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface OnboardingFlowProps {
@@ -31,7 +32,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Haz preguntas sobre plantas, jardinería y naturaleza' 
         : 'Ask questions about plants, gardening, and nature',
-      icon: <MessageCircle className="h-8 w-8" />,
+      icon: <BeeChat className="h-8 w-8" />,
       action: language === 'es' ? 'Probar Chat' : 'Try Chat'
     },
     {
@@ -40,7 +41,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Habla naturalmente con Mochi como un amigo' 
         : 'Speak naturally with Mochi like a friend',
-      icon: <Mic className="h-8 w-8" />,
+      icon: <BeeAntenna className="h-8 w-8" />,
       action: language === 'es' ? 'Probar Voz' : 'Try Voice'
     },
     {
@@ -49,7 +50,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Crea hermosas imágenes de jardines y naturaleza' 
         : 'Create beautiful garden and nature images',
-      icon: <Image className="h-8 w-8" />,
+      icon: <ButterflyFrame className="h-8 w-8" />,
       action: language === 'es' ? 'Crear Imagen' : 'Create Image'
     },
     {
@@ -58,7 +59,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Aprende sobre abejas, plantas y ecología' 
         : 'Learn about bees, plants, and ecology',
-      icon: <BookOpen className="h-8 w-8" />,
+      icon: <LeafBook className="h-8 w-8" />,
       action: language === 'es' ? 'Explorar' : 'Explore'
     },
     {
@@ -67,7 +68,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Descubre herramientas de IA avanzadas' 
         : 'Discover advanced AI tools',
-      icon: <Zap className="h-8 w-8" />,
+      icon: <PollenSparkle className="h-8 w-8" />,
       action: language === 'es' ? 'Ver Avanzadas' : 'View Advanced'
     }
   ];
@@ -142,7 +143,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
               >
                 <div className="flex-shrink-0">
                   {completedSteps.includes(index) ? (
-                    <CheckCircle className="h-5 w-5 text-green-500" />
+                    <BloomingCheck className="h-5 w-5 text-green-500" />
                   ) : index === currentStep ? (
                     <div className="h-5 w-5 rounded-full bg-primary animate-pulse" />
                   ) : (
@@ -172,7 +173,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
               className="flex-1 bg-gradient-bee hover:opacity-90 text-white font-semibold"
             >
               {steps[currentStep].action}
-              <ArrowRight className="h-4 w-4 ml-2" />
+              <BeeTrailRight className="h-4 w-4 ml-2" />
             </Button>
           </div>
 

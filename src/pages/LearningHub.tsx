@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap, Gamepad2 } from 'lucide-react';
+import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, ButterflyFrame, GraduationBee, GamepadFlower } from '@/components/icons';
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
@@ -242,7 +242,7 @@ const LearningHub: React.FC = () => {
             />
           </div>
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-            <GraduationCap className="h-10 w-10 text-blue-600" />
+            <GraduationBee className="h-10 w-10 text-primary" />
             Beeducation
             <span className="animate-flower-sway">🌻</span>
           </h1>
@@ -306,7 +306,7 @@ const LearningHub: React.FC = () => {
                 <span className="text-4xl group-hover:animate-bounce">🐝</span>
                 Bee Basics
                 <Badge className="bg-yellow-500 text-yellow-900 ml-auto">
-                  <Star className="h-3 w-3 mr-1" />
+                  <SunflowerStar className="h-3 w-3 mr-1" />
                   Popular
                 </Badge>
               </CardTitle>
@@ -499,7 +499,7 @@ const LearningHub: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Award className="h-5 w-5" />
+              <HoneycombTrophy className="h-5 w-5" />
               Your Learning Progress
             </CardTitle>
           </CardHeader>
@@ -551,7 +551,7 @@ const LearningHub: React.FC = () => {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      {fact.fun_fact && <Star className="h-4 w-4 text-yellow-500" />}
+                      {fact.fun_fact && <SunflowerStar className="h-4 w-4 text-primary" />}
                       {fact.title}
                     </CardTitle>
                     <Badge variant={isCompleted ? "default" : "secondary"}>
@@ -570,7 +570,7 @@ const LearningHub: React.FC = () => {
                       onClick={() => speakFact(fact.content)}
                       className="text-xs"
                     >
-                      <Volume2 className="h-3 w-3 mr-1" />
+                      <VolumeFlower className="h-3 w-3 mr-1" />
                       Listen
                     </Button>
                     
@@ -585,7 +585,7 @@ const LearningHub: React.FC = () => {
                       }}
                       className="text-xs"
                     >
-                      <Brain className="h-3 w-3 mr-1" />
+                      <Firefly className="h-3 w-3 mr-1" />
                       Analyze
                     </Button>
                     
@@ -600,7 +600,7 @@ const LearningHub: React.FC = () => {
                       }}
                       className="text-xs"
                     >
-                      <Camera className="h-3 w-3 mr-1" />
+                      <ButterflyFrame className="h-3 w-3 mr-1" />
                       Visualize
                     </Button>
                   </div>
@@ -610,14 +610,14 @@ const LearningHub: React.FC = () => {
                       className="w-full"
                       onClick={() => markLessonComplete(fact.id, fact.category)}
                     >
-                      <BookOpen className="h-4 w-4 mr-2" />
+                      <LeafBook className="h-4 w-4 mr-2" />
                       Mark as Learned
                     </Button>
                   )}
                   
                   {isCompleted && (
                     <div className="flex items-center justify-center gap-2 text-green-600 bg-green-50 p-2 rounded-lg">
-                      <Award className="h-4 w-4" />
+                      <HoneycombTrophy className="h-4 w-4" />
                       <span className="text-sm font-medium">Completed!</span>
                     </div>
                   )}
@@ -633,7 +633,7 @@ const LearningHub: React.FC = () => {
         <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-yellow-800">
-              <Lightbulb className="h-5 w-5" />
+              <Firefly className="h-5 w-5" />
               Bee Learning Tips
             </CardTitle>
           </CardHeader>
