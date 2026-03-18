@@ -497,35 +497,112 @@ export const LearningContentViewer: React.FC<LearningContentProps> = ({
           )}
         </TabsContent>
 
-        {/* Similar structure for other tabs... */}
+        {/* Quizzes Tab */}
         <TabsContent value="quizzes">
-          <Card className="text-center p-8">
-            <CardContent>
-              <div className="text-6xl mb-4">🧠</div>
-              <h3 className="text-lg font-semibold mb-2">Quizzes Coming Soon</h3>
-              <p className="text-muted-foreground">Interactive quizzes are being developed!</p>
-            </CardContent>
-          </Card>
+          {content.quizzes && content.quizzes.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+              {content.quizzes.map((quiz, index) => (
+                <QuizCard key={index} quiz={quiz} index={index} isCompleted={isCompleted} markComplete={markComplete} />
+              ))}
+            </div>
+          ) : (
+            <Card className="text-center p-8">
+              <CardContent>
+                <div className="text-6xl mb-4">🧠</div>
+                <h3 className="text-lg font-semibold mb-2">No Quizzes Yet</h3>
+                <p className="text-muted-foreground mb-4">Generate quizzes for this topic!</p>
+                <Button onClick={generateFreshContent}>Generate Content</Button>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
+        {/* Experiments Tab */}
         <TabsContent value="experiments">
-          <Card className="text-center p-8">
-            <CardContent>
-              <div className="text-6xl mb-4">⚗️</div>
-              <h3 className="text-lg font-semibold mb-2">Experiments Coming Soon</h3>
-              <p className="text-muted-foreground">Safe, fun experiments are being created!</p>
-            </CardContent>
-          </Card>
+          {content.experiments && content.experiments.length > 0 ? (
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {content.experiments.map((exp, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2">
+                    <Card className="h-full hover:shadow-lg transition-all duration-300">
+                      <CardHeader>
+                        <CardTitle className="flex items-center justify-between">
+                          <span className="flex items-center gap-2">
+                            <FlaskConical className="h-4 w-4 text-purple-500" />
+                            {exp.title}
+                          </span>
+                          {isCompleted(index.toString(), 'experiment') && (
+                            <CheckCircle className="h-5 w-5 text-green-500" />
+                          )}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <p className="text-sm">{exp.content}</p>
+                        {exp.materials && (
+                          <div>
+                            <h4 className="font-medium text-sm mb-1">🧪 Materials:</h4>
+                            <ul className="text-xs list-disc list-inside space-y-0.5">
+                              {exp.materials.map((m, i) => <li key={i}>{m}</li>)}
+                            </ul>
+                          </div>
+                        )}
+                        {exp.safety_notes && (
+                          <div className="p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
+                            ⚠️ {exp.safety_notes}
+                          </div>
+                        )}
+                        {!isCompleted(index.toString(), 'experiment') && (
+                          <Button size="sm" onClick={() => markComplete(index.toString(), 'experiment')} className="w-full">
+                            <Award className="h-3 w-3 mr-1" /> Mark Complete
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ) : (
+            <Card className="text-center p-8">
+              <CardContent>
+                <div className="text-6xl mb-4">⚗️</div>
+                <h3 className="text-lg font-semibold mb-2">No Experiments Yet</h3>
+                <p className="text-muted-foreground mb-4">Generate experiments for this topic!</p>
+                <Button onClick={generateFreshContent}>Generate Content</Button>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
+        {/* Videos Tab */}
         <TabsContent value="videos">
-          <Card className="text-center p-8">
-            <CardContent>
-              <div className="text-6xl mb-4">🎬</div>
-              <h3 className="text-lg font-semibold mb-2">Videos Coming Soon</h3>
-              <p className="text-muted-foreground">Educational videos are in production!</p>
-            </CardContent>
-          </Card>
+          {content.videos && content.videos.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+              {content.videos.map((video, index) => (
+                <Card key={index} className="hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Play className="h-4 w-4 text-red-500" />
+                      {video.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{video.content}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="text-center p-8">
+              <CardContent>
+                <div className="text-6xl mb-4">🎬</div>
+                <h3 className="text-lg font-semibold mb-2">No Videos Yet</h3>
+                <p className="text-muted-foreground">Video content will be available soon!</p>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
       </Tabs>
     </div>
