@@ -323,7 +323,7 @@ export const TwoLeaves: React.FC<IconProps> = (props) => (
 
 /** Blooming checkmark — replaces CheckCircle */
 export const BloomingCheck: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="12" r="9" />
     <path d="M8 12l3 3 5-6" />
     <path d="M12 3c0-1 .5-2 .5-2" opacity=".4" />
