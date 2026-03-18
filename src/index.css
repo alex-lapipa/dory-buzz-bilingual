@@ -2575,6 +2575,44 @@ All colors MUST be HSL.
   transform: translateY(0) translateX(0) scale(1);
 }
 
+/* ──── BeeIcon hover micro-animations ──── */
+
+/* Bee-related icons: wing flutter on hover */
+.bee-icon-bee:hover,
+.group:hover .bee-icon-bee {
+  animation: wing-flutter 0.4s ease-in-out;
+}
+
+/* Flower / petal icons: petal-open bloom on hover */
+.bee-icon-flower:hover,
+.group:hover .bee-icon-flower {
+  animation: petal-open 0.6s ease-in-out;
+}
+
+/* Leaf / nature icons: gentle sway on hover */
+.bee-icon-leaf:hover,
+.group:hover .bee-icon-leaf {
+  animation: leaf-sway 0.5s ease-in-out;
+}
+
+/* Butterfly icons: playful flutter on hover */
+.bee-icon-butterfly:hover,
+.group:hover .bee-icon-butterfly {
+  animation: butterfly-hover 0.6s ease-in-out;
+}
+
+/* Pollen / sparkle icons: drift on hover */
+.bee-icon-pollen:hover,
+.group:hover .bee-icon-pollen {
+  animation: pollen-drift 0.6s ease-in-out;
+}
+
+/* All bee icons: smooth transition base */
+[class*="bee-icon-"] {
+  transition: color 0.2s ease, transform 0.2s ease;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     transition: none !important;
@@ -2582,5 +2620,9 @@ All colors MUST be HSL.
   .scroll-reveal--hidden {
     opacity: 1 !important;
     transform: none !important;
+  }
+  [class*="bee-icon-"]:hover,
+  .group:hover [class*="bee-icon-"] {
+    animation: none !important;
   }
 }
