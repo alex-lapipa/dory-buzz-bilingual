@@ -28,6 +28,7 @@ import { BeeDanceDecoder } from './games/BeeDanceDecoder';
 import { LifecycleLab } from './games/LifecycleLab';
 import { GardenPlanner } from './games/GardenPlanner';
 import { SpeciesSpotter } from './games/SpeciesSpotter';
+import { Leaderboard } from './games/Leaderboard';
 import { MicroscopicBeeWorld } from './games/MicroscopicBeeWorld';
 
 interface GameCardProps {
