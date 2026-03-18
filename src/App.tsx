@@ -91,14 +91,6 @@ const App = () => {
     }
   };
 
-  const handleRegistrationComplete = () => {
-    setShowRegistration(false);
-    // Show onboarding after registration
-    const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
-    if (!completedOnboarding) {
-      setShowOnboarding(true);
-    }
-  };
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
