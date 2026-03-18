@@ -411,7 +411,7 @@ export const ButterflyFrame: React.FC<IconProps> = (props) => (
 
 /** Bee carrying pollen up — replaces Upload */
 export const BeeUpload: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M12 18V6" />
     <path d="M8 10l4-4 4 4" />
     <circle cx="12" cy="4" r="2" fill="currentColor" stroke="none" opacity=".4" />
