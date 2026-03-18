@@ -90,7 +90,7 @@ export const FlowerHeart: React.FC<IconProps> = (props) => (
 
 /** Sunflower — replaces Star */
 export const SunflowerStar: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" opacity=".5" />
     {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
       <ellipse
