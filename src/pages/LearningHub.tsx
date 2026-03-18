@@ -382,10 +382,10 @@ const LearningHub: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-purple-600">
-                  <span>Available</span>
-                  <span>10 games</span>
+                  <span>{completedCount}/10 completed</span>
+                  <span>🏆 {totalScore} pts</span>
                 </div>
-                <Progress value={100} className="h-2" />
+                <Progress value={(completedCount / 10) * 100} className="h-2" />
               </div>
             </CardContent>
           </Card>
