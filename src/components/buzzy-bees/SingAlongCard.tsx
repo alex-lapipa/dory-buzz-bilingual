@@ -132,6 +132,14 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
           ))}
         </div>
 
+        {isPlaying && currentMix && (
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground animate-in fade-in duration-300">
+            <span className="inline-flex items-center gap-1 bg-primary/10 text-primary font-semibold rounded-full px-3 py-1">
+              🎶 Mix {currentMix.index} of {currentMix.total}
+            </span>
+          </div>
+        )}
+
         <Button
           onClick={handlePlay}
           size="lg"
