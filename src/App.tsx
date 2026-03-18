@@ -57,7 +57,6 @@ const App = () => {
     // Check if user has visited before
     const hasVisited = localStorage.getItem('hasVisited');
     const selectedLanguage = localStorage.getItem('selectedLanguage');
-    const userRegistration = localStorage.getItem('userRegistration');
     const completedOnboarding = localStorage.getItem('mochi_onboarding_completed');
 
     if (!hasVisited) {
