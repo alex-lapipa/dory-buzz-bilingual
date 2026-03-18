@@ -54,6 +54,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'brand', label: 'Brand Book', icon: Palette },
       { id: 'design', label: 'Design System', icon: Layers },
+      { id: 'audio-sound', label: 'Audio & Sound', icon: Music },
     ],
   },
   {
