@@ -570,6 +570,7 @@ const LearningHub: React.FC = () => {
                   )}
                 </CardContent>
               </Card>
+              </ScrollReveal>
             );
           })}
         </div>
