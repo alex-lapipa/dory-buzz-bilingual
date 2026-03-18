@@ -115,19 +115,15 @@ const GameCard: React.FC<GameCardProps> = ({
 
 export const InteractiveLearningGames: React.FC = () => {
   const { toast } = useToast();
-  const [completedGames, setCompletedGames] = useState<string[]>([]);
   const [currentGame, setCurrentGame] = useState<string | null>(null);
-  const [gameScores, setGameScores] = useState<Record<string, number>>({});
+  const { saveScore, getHighScore, isCompleted, totalScore, completedCount } = useGameScores();
   
   const playGame = (gameId: string, gameTitle: string) => {
     setCurrentGame(gameId);
   };
 
-  const handleGameComplete = (gameId: string, score: number) => {
-    if (!completedGames.includes(gameId)) {
-      setCompletedGames([...completedGames, gameId]);
-    }
-    setGameScores(prev => ({ ...prev, [gameId]: Math.max(prev[gameId] || 0, score) }));
+  const handleGameComplete = async (gameId: string, score: number) => {
+    await saveScore(gameId, score);
     setCurrentGame(null);
     
     toast({
