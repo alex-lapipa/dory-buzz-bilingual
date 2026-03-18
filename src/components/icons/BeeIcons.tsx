@@ -7,7 +7,11 @@ interface IconProps {
   style?: React.CSSProperties;
 }
 
-const defaults = (props: IconProps) => ({
+type IconCategory = 'bee' | 'flower' | 'leaf' | 'butterfly' | 'pollen';
+
+const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
+
+const defaults = (props: IconProps, category: IconCategory = 'flower') => ({
   width: props.size || 24,
   height: props.size || 24,
   viewBox: '0 0 24 24',
@@ -16,7 +20,7 @@ const defaults = (props: IconProps) => ({
   strokeWidth: 2,
   strokeLinecap: 'round' as const,
   strokeLinejoin: 'round' as const,
-  className: props.className,
+  className: cn(`bee-icon-${category}`, props.className),
   style: props.style,
 });
 
