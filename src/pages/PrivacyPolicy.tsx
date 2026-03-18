@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PageLayout } from '@/components/PageLayout';
+import { PageSEO } from '@/components/PageSEO';
 
 const PrivacyPolicy: React.FC = () => {
   const { language } = useLanguage();
@@ -8,6 +9,13 @@ const PrivacyPolicy: React.FC = () => {
 
   return (
     <PageLayout>
+      <PageSEO
+        titleEn="Privacy Policy — MochiBee"
+        titleEs="Política de Privacidad — MochiBee"
+        descriptionEn="Learn how MochiBee collects, uses, and protects your personal data. GDPR compliant."
+        descriptionEs="Descubre cómo MochiBee recopila, usa y protege tus datos personales. Cumple con el RGPD."
+        path="/privacy"
+      />
       <article className="prose prose-sm sm:prose max-w-3xl mx-auto py-8">
         <h1 className="text-foreground">{isEs ? 'Política de Privacidad' : 'Privacy Policy'}</h1>
         <p className="text-muted-foreground text-sm">{isEs ? 'Última actualización: 18 de marzo de 2026' : 'Last updated: March 18, 2026'}</p>

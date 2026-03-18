@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PageLayout } from '@/components/PageLayout';
+import { PageSEO } from '@/components/PageSEO';
 
 const pages = [
   { path: '/', labelEn: 'Home / Learning Hub', labelEs: 'Inicio / Centro de Aprendizaje' },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PageLayout } from '@/components/PageLayout';
+import { PageSEO } from '@/components/PageSEO';
 
 const TermsOfService: React.FC = () => {
   const { language } = useLanguage();
@@ -8,6 +9,13 @@ const TermsOfService: React.FC = () => {
 
   return (
     <PageLayout>
+      <PageSEO
+        titleEn="Terms of Service — MochiBee"
+        titleEs="Términos de Servicio — MochiBee"
+        descriptionEn="Read the terms of service for MochiBee, your bilingual bee education platform."
+        descriptionEs="Lee los términos de servicio de MochiBee, tu plataforma bilingüe de educación sobre abejas."
+        path="/terms"
+      />
       <article className="prose prose-sm sm:prose max-w-3xl mx-auto py-8">
         <h1 className="text-foreground">{isEs ? 'Términos de Servicio' : 'Terms of Service'}</h1>
         <p className="text-muted-foreground text-sm">{isEs ? 'Última actualización: 18 de marzo de 2026' : 'Last updated: March 18, 2026'}</p>

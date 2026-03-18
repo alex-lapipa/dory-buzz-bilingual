@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PageLayout } from '@/components/PageLayout';
+import { PageSEO } from '@/components/PageSEO';
 
 const CookiePolicy: React.FC = () => {
   const { language } = useLanguage();
@@ -8,6 +9,13 @@ const CookiePolicy: React.FC = () => {
 
   return (
     <PageLayout>
+      <PageSEO
+        titleEn="Cookie Policy — MochiBee"
+        titleEs="Política de Cookies — MochiBee"
+        descriptionEn="Learn about how MochiBee uses cookies for analytics and functionality."
+        descriptionEs="Descubre cómo MochiBee usa cookies para analítica y funcionalidad."
+        path="/cookies"
+      />
       <article className="prose prose-sm sm:prose max-w-3xl mx-auto py-8">
         <h1 className="text-foreground">{isEs ? 'Política de Cookies' : 'Cookie Policy'}</h1>
         <p className="text-muted-foreground text-sm">{isEs ? 'Última actualización: 18 de marzo de 2026' : 'Last updated: March 18, 2026'}</p>
