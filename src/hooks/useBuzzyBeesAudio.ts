@@ -11,20 +11,26 @@ interface AudioVariation {
 const DEFAULT_AUDIO = '/audio/mochis_playful_day.mp3';
 
 /** Local audio files shipped with the app — used as fallback when DB has no entries */
-const LOCAL_VARIATIONS = [
-  '/audio/mochis_playful_day.mp3',
-  '/audio/mochis_playful_day_v1.mp3',
-  '/audio/mochis_playful_day_v2.mp3',
-  '/audio/mochis_playful_day_v3.mp3',
-  '/audio/mochis_playful_day_v4.mp3',
-  '/audio/mochis_playful_day_v5.mp3',
-  '/audio/mochis_playful_day_fav6.mp3',
+export const LOCAL_VARIATIONS = [
+  { path: '/audio/mochis_playful_day.mp3', label: 'Original' },
+  { path: '/audio/mochis_playful_day_v1.mp3', label: 'Version 1' },
+  { path: '/audio/mochis_playful_day_v2.mp3', label: 'Version 2' },
+  { path: '/audio/mochis_playful_day_v3.mp3', label: 'Version 3' },
+  { path: '/audio/mochis_playful_day_v4.mp3', label: 'Version 4' },
+  { path: '/audio/mochis_playful_day_v5.mp3', label: 'Version 5' },
+  { path: '/audio/mochis_playful_day_fav6.mp3', label: 'Favorite 6' },
 ];
+
+const FAVORITE_KEY = 'buzzy_bees_favorite_mix';
 
 export const useBuzzyBeesAudio = () => {
   const [variations, setVariations] = useState<AudioVariation[]>([]);
   const playIndexRef = useRef(0);
   const [currentMix, setCurrentMix] = useState<{ index: number; total: number } | null>(null);
+  const [favoriteIndex, setFavoriteIndex] = useState<number | null>(() => {
+    const saved = localStorage.getItem(FAVORITE_KEY);
+    return saved !== null ? parseInt(saved, 10) : null;
+  });
 
   useEffect(() => {
     const load = async () => {
@@ -52,7 +58,6 @@ export const useBuzzyBeesAudio = () => {
               };
             });
           if (mapped.length > 0) {
-            // Shuffle initially
             setVariations(mapped.sort(() => Math.random() - 0.5));
           }
         }
@@ -63,35 +68,59 @@ export const useBuzzyBeesAudio = () => {
     load();
   }, []);
 
+  const allPaths = variations.length > 0
+    ? variations.map((v) => v.file_path)
+    : LOCAL_VARIATIONS.map((v) => v.path);
+
+  const totalMixes = allPaths.length;
+
   /** Returns the next audio source, cycling through DB variations or local files. */
   const getNextAudioSrc = useCallback((): string => {
-    if (variations.length > 0) {
-      const idx = playIndexRef.current % variations.length;
-      const src = variations[idx].file_path;
-      playIndexRef.current += 1;
-      setCurrentMix({ index: idx + 1, total: variations.length });
-      return src;
+    // If parent set a favorite, always use it
+    if (favoriteIndex !== null && favoriteIndex >= 0 && favoriteIndex < totalMixes) {
+      setCurrentMix({ index: favoriteIndex + 1, total: totalMixes });
+      return allPaths[favoriteIndex];
     }
-    const idx = playIndexRef.current % LOCAL_VARIATIONS.length;
-    const src = LOCAL_VARIATIONS[idx];
+    const idx = playIndexRef.current % totalMixes;
+    const src = allPaths[idx];
     playIndexRef.current += 1;
-    setCurrentMix({ index: idx + 1, total: LOCAL_VARIATIONS.length });
+    setCurrentMix({ index: idx + 1, total: totalMixes });
     return src;
-  }, [variations]);
+  }, [allPaths, totalMixes, favoriteIndex]);
 
   /** Returns a random audio source from DB variations or local files. */
   const getRandomAudioSrc = useCallback((): string => {
-    if (variations.length > 0) {
-      const idx = Math.floor(Math.random() * variations.length);
-      setCurrentMix({ index: idx + 1, total: variations.length });
-      return variations[idx].file_path;
+    // If parent set a favorite, always use it
+    if (favoriteIndex !== null && favoriteIndex >= 0 && favoriteIndex < totalMixes) {
+      setCurrentMix({ index: favoriteIndex + 1, total: totalMixes });
+      return allPaths[favoriteIndex];
     }
-    const idx = Math.floor(Math.random() * LOCAL_VARIATIONS.length);
-    setCurrentMix({ index: idx + 1, total: LOCAL_VARIATIONS.length });
-    return LOCAL_VARIATIONS[idx];
-  }, [variations]);
+    const idx = Math.floor(Math.random() * totalMixes);
+    setCurrentMix({ index: idx + 1, total: totalMixes });
+    return allPaths[idx];
+  }, [allPaths, totalMixes, favoriteIndex]);
 
   const clearCurrentMix = useCallback(() => setCurrentMix(null), []);
 
-  return { variations, getNextAudioSrc, getRandomAudioSrc, currentMix, clearCurrentMix, defaultAudio: DEFAULT_AUDIO };
+  /** Set a favorite version (0-indexed) or null to clear */
+  const setFavorite = useCallback((index: number | null) => {
+    setFavoriteIndex(index);
+    if (index !== null) {
+      localStorage.setItem(FAVORITE_KEY, String(index));
+    } else {
+      localStorage.removeItem(FAVORITE_KEY);
+    }
+  }, []);
+
+  return {
+    variations,
+    getNextAudioSrc,
+    getRandomAudioSrc,
+    currentMix,
+    clearCurrentMix,
+    defaultAudio: DEFAULT_AUDIO,
+    favoriteIndex,
+    setFavorite,
+    totalMixes,
+  };
 };
