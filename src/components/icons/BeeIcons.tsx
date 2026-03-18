@@ -376,7 +376,7 @@ export const ButterflySearch: React.FC<IconProps> = (props) => (
 
 /** Open flower — replaces Eye */
 export const FlowerEye: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7z" />
     <circle cx="12" cy="12" r="3" />
     <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
