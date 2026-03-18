@@ -431,6 +431,7 @@ const LearningHub: React.FC = () => {
               </Button>
             </CardContent>
           </Card>
+          </ScrollReveal>
         </div>
 
         {/* Interactive Learning Games Section */}
