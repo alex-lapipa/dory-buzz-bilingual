@@ -204,165 +204,196 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
             </Alert>
           )}
 
-          {/* Social Login — Lawton School SSO */}
-          <div className="space-y-3">
-            <p className="text-sm text-center text-muted-foreground">Quick sign in with</p>
-            <div className="grid grid-cols-1 gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 h-11"
+          {/* Email input to detect Lawton domains */}
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (isLawtonEmail(e.target.value)) setError('');
+                }}
+                className="pl-10 h-11"
+                autoComplete="email"
+              />
+            </div>
+          </div>
+
+          {isLawtonEmail(email) ? (
+            /* Lawton domain — only Microsoft SSO */
+            <div className="space-y-4">
+              <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-center space-y-2">
+                <p className="text-sm font-medium text-primary">🏫 Lawton School account detected</p>
+                <p className="text-xs text-muted-foreground">Sign in with your school Microsoft account</p>
+              </div>
+              <Button 
+                className="w-full h-11"
                 onClick={() => handleSocialAuth('azure')}
                 disabled={isLoading}
               >
-                <svg className="h-4 w-4" viewBox="0 0 21 21">
-                  <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
-                  <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
-                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
-                  <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
-                </svg>
-                Continue with Microsoft
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Redirecting to Microsoft...
+                  </>
+                ) : (
+                  <>
+                    <svg className="mr-2 h-4 w-4" viewBox="0 0 21 21">
+                      <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+                      <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+                      <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+                      <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+                    </svg>
+                    Continue with Microsoft
+                  </>
+                )}
               </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 h-11"
-                onClick={() => handleSocialAuth('google')}
-                disabled={isLoading}
-              >
-                <span className="text-lg">🔍</span>
-                Continue with Google
-              </Button>
             </div>
-          </div>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <Separator className="w-full" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">or use email</span>
-            </div>
-          </div>
-
-          {/* Email/Password Form - Mobile Optimized */}
-          <form onSubmit={handleAuth} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-11"
-                  required
-                  autoComplete="email"
-                />
-              </div>
-              {isLawtonEmail(email) && (
-                <p className="text-xs text-primary">🏫 Lawton School account — you'll be redirected to Microsoft sign-in</p>
-              )}
-            </div>
-
-            {isSignUp && (
-              <div className="space-y-2">
-                <Label htmlFor="displayName">Display Name</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="displayName"
-                    type="text"
-                    placeholder="How should we call you?"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    className="pl-10 h-11"
-                    required
-                    autoComplete="name"
-                  />
+          ) : (
+            /* Non-Lawton — full auth form */
+            <>
+              <div className="space-y-3">
+                <p className="text-sm text-center text-muted-foreground">Quick sign in with</p>
+                <div className="grid grid-cols-1 gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2 h-11"
+                    onClick={() => handleSocialAuth('azure')}
+                    disabled={isLoading}
+                  >
+                    <svg className="h-4 w-4" viewBox="0 0 21 21">
+                      <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+                      <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+                      <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+                      <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+                    </svg>
+                    Continue with Microsoft
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2 h-11"
+                    onClick={() => handleSocialAuth('google')}
+                    disabled={isLoading}
+                  >
+                    <span className="text-lg">🔍</span>
+                    Continue with Google
+                  </Button>
                 </div>
               </div>
-            )}
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder={isSignUp ? "Create a password (min 6 chars)" : "Enter your password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 pr-10 h-11"
-                  required
-                  autoComplete={isSignUp ? "new-password" : "current-password"}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                <div className="absolute inset-0 flex items-center">
+                  <Separator className="w-full" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">or use email</span>
+                </div>
+              </div>
+
+              <form onSubmit={handleAuth} className="space-y-4">
+                {isSignUp && (
+                  <div className="space-y-2">
+                    <Label htmlFor="displayName">Display Name</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="displayName"
+                        type="text"
+                        placeholder="How should we call you?"
+                        value={displayName}
+                        onChange={(e) => setDisplayName(e.target.value)}
+                        className="pl-10 h-11"
+                        required
+                        autoComplete="name"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder={isSignUp ? "Create a password (min 6 chars)" : "Enter your password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="pl-10 pr-10 h-11"
+                      required
+                      autoComplete={isSignUp ? "new-password" : "current-password"}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-3 h-4 w-4 text-muted-foreground hover:text-foreground"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
+                </div>
+
+                {isSignUp && (
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Confirm your password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="pl-10 h-11"
+                        required
+                        autoComplete="new-password"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <Button 
+                  type="submit" 
+                  className="w-full h-11"
+                  disabled={isLoading}
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
-
-            {isSignUp && (
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10 h-11"
-                    required
-                    autoComplete="new-password"
-                  />
-                </div>
-              </div>
-            )}
-
-            <Button 
-              type="submit" 
-              className="w-full h-11"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {isSignUp ? 'Creating Account...' : 'Signing In...'}
-                </>
-              ) : (
-                <>
-                  {isSignUp ? '🌱 Create Account' : '🐝 Sign In'}
-                </>
-              )}
-            </Button>
-            
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full h-11"
-              onClick={() => {
-                setIsSignUp(!isSignUp);
-                setError('');
-                setPassword('');
-                setConfirmPassword('');
-                setDisplayName('');
-              }}
-              disabled={isLoading}
-            >
-              {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
-            </Button>
-          </form>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {isSignUp ? 'Creating Account...' : 'Signing In...'}
+                    </>
+                  ) : (
+                    isSignUp ? '🌱 Create Account' : '🐝 Sign In'
+                  )}
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full h-11"
+                  onClick={() => {
+                    setIsSignUp(!isSignUp);
+                    setError('');
+                    setPassword('');
+                    setConfirmPassword('');
+                    setDisplayName('');
+                  }}
+                  disabled={isLoading}
+                >
+                  {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+                </Button>
+              </form>
+            </>
+          )}
         </CardContent>
       </Card>
     </div>
