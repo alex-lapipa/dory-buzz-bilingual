@@ -357,7 +357,7 @@ export const SproutingSeed: React.FC<IconProps> = (props) => (
 
 /** Garden trowel — replaces Settings / Gear */
 export const GardenTools: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M14 4c2-2 6-2 7 0s-1 5-3 7l-8 8-4-4 8-8c.5-.5 0-2.5 0-3z" />
     <path d="M10 19l-4-4" />
     <circle cx="6" cy="21" r="1.5" />
