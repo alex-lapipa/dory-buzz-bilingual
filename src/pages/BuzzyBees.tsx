@@ -6,7 +6,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Play, Pause, Volume2, Music, Star, Heart, Sparkles } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { PageSEO } from '@/components/PageSEO';
-import { useConversation } from '@elevenlabs/react';
+import { useConversation } from '@11labs/react';
 
 const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
 
