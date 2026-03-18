@@ -148,8 +148,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Bee Biology',
       icon: <Bug className="h-6 w-6" />,
       color: 'border-yellow-200 bg-gradient-to-br from-yellow-50 to-orange-50',
-      progress: 0
-    },
+      progress: 0,
+      isPlayable: true
     {
       id: 'pollination-quest',
       title: 'Pollination Quest',
