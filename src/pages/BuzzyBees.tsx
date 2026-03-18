@@ -1,10 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle } from '@/components/icons';
 import { PageSEO } from '@/components/PageSEO';
-import { useConversation } from '@11labs/react';
 import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
 import ParentMixPicker from '@/components/buzzy-bees/ParentMixPicker';
 import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
@@ -184,60 +182,13 @@ const BuzzyBees: React.FC = () => {
         </div>
       </div>
 
-      {/* Kids ElevenLabs Agent Widget */}
-      <BuzzyBeesVoiceAgent language={language} />
+      {/* Kids ElevenLabs BeeBee Widget (native embed) */}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<elevenlabs-convai agent-id="${KIDS_AGENT_ID}"></elevenlabs-convai>`,
+        }}
+      />
     </>
-  );
-};
-
-const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
-  const [isConnecting, setIsConnecting] = useState(false);
-
-  const conversation = useConversation({
-    onError: (error) => console.error('Kids agent error:', error),
-  });
-
-  const start = useCallback(async () => {
-    setIsConnecting(true);
-    try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-      await conversation.startSession({
-        agentId: KIDS_AGENT_ID,
-      });
-    } catch (e) {
-      console.error('Failed to start kids agent:', e);
-    } finally {
-      setIsConnecting(false);
-    }
-  }, [conversation]);
-
-  const stop = useCallback(async () => {
-    await conversation.endSession();
-  }, [conversation]);
-
-  return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2">
-      {conversation.status === 'connected' && (
-        <div className="bg-primary/90 text-primary-foreground text-xs rounded-full px-3 py-1 animate-pulse shadow-lg">
-          {conversation.isSpeaking
-            ? '🐝 BeeBee is talking... · Hablando...'
-            : '🌸 Listening... · Escuchando...'}
-        </div>
-      )}
-      <Button
-        onClick={conversation.status === 'connected' ? stop : start}
-        disabled={isConnecting}
-        size="lg"
-        className="rounded-full w-16 h-16 shadow-xl text-2xl bg-gradient-to-br from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 border-4 border-white/50"
-      >
-        {isConnecting ? '🌀' : conversation.status === 'connected' ? '🌺' : '🐝'}
-      </Button>
-      {conversation.status === 'disconnected' && (
-        <span className="text-xs text-muted-foreground font-medium">
-          Talk to BeeBee! · ¡Habla con BeeBee!
-        </span>
-      )}
-    </div>
   );
 };
 
