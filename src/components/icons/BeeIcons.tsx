@@ -79,7 +79,7 @@ export const ButterflyLink: React.FC<IconProps> = (props) => (
 
 /** Flower with heart center — replaces Heart */
 export const FlowerHeart: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="8" r="3" opacity=".6" />
     <circle cx="8" cy="12" r="3" opacity=".6" />
     <circle cx="16" cy="12" r="3" opacity=".6" />
