@@ -21,6 +21,9 @@ verify_jwt = false
 [functions.mochi_rag_v2]
 verify_jwt = false
 
+[functions.generate_storycards]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321
