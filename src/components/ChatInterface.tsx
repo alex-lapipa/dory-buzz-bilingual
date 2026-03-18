@@ -407,9 +407,15 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
           }`}
         >
           <div className="space-y-2">
-            <div className="text-sm leading-relaxed whitespace-pre-wrap">
-              {message.content}
-            </div>
+            {message.type === 'mochi' ? (
+              <div className="prose-garden text-sm leading-relaxed">
+                <ReactMarkdown>{message.content}</ReactMarkdown>
+              </div>
+            ) : (
+              <div className="text-sm leading-relaxed whitespace-pre-wrap">
+                {message.content}
+              </div>
+            )}
             
             {message.metadata?.imageUrl && (
               <div className="border rounded-lg overflow-hidden">
