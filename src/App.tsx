@@ -22,6 +22,7 @@ import LearningHub from "./pages/LearningHub";
 const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
 const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
 const Admin = lazy(() => import('./pages/Admin'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -109,6 +110,11 @@ const App = () => {
               {/* Auth page is always accessible */}
               <Routes>
                 <Route path="/auth" element={<AuthPage />} />
+                <Route path="/reset-password" element={
+                  <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                    <ResetPassword />
+                  </Suspense>
+                } />
                 <Route path="*" element={
                   showLanding ? (
                     <LandingPage onGetStarted={handleGetStarted} />

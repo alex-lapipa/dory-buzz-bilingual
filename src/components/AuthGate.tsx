@@ -22,6 +22,9 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSent, setForgotSent] = useState(false);
 
   const validateForm = () => {
     if (!email || !password) {
@@ -46,6 +49,31 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
     }
 
     return true;
+  };
+
+  const handleForgotPassword = async () => {
+    const emailToReset = forgotEmail || email;
+    if (!emailToReset) {
+      setError('Please enter your email address');
+      return;
+    }
+    setIsLoading(true);
+    setError('');
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(emailToReset, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setForgotSent(true);
+      toast({
+        title: '📧 Check your email',
+        description: 'We sent you a password reset link.',
+      });
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
@@ -174,6 +202,90 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
   if (user) {
     return <>{children}</>;
+  }
+
+  if (showForgotPassword) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-nature p-4">
+        <Card className="w-full max-w-md shadow-honey border-2 border-border/50 bg-card/95 backdrop-blur">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="text-xl bg-gradient-bee bg-clip-text text-transparent">
+              Reset Password
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              {forgotSent ? '📧 Check your inbox!' : '🔑 Enter your email to receive a reset link'}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {forgotSent ? (
+              <div className="text-center space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  We sent a password reset link to <strong>{forgotEmail}</strong>. Check your email and follow the link.
+                </p>
+                <Button
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => {
+                    setShowForgotPassword(false);
+                    setForgotSent(false);
+                    setError('');
+                  }}
+                >
+                  ← Back to Sign In
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="forgot-email">Email</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="forgot-email"
+                      type="email"
+                      placeholder="Enter your email"
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      className="pl-10 h-11"
+                      autoComplete="email"
+                    />
+                  </div>
+                </div>
+                <Button
+                  className="w-full h-11"
+                  onClick={handleForgotPassword}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    '📧 Send Reset Link'
+                  )}
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => {
+                    setShowForgotPassword(false);
+                    setError('');
+                  }}
+                >
+                  ← Back to Sign In
+                </Button>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
@@ -359,6 +471,20 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
                       />
                     </div>
                   </div>
+                )}
+
+                {!isSignUp && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowForgotPassword(true);
+                      setForgotEmail(email);
+                      setError('');
+                    }}
+                    className="text-sm text-primary hover:underline w-full text-right"
+                  >
+                    Forgot password?
+                  </button>
                 )}
 
                 <Button 
