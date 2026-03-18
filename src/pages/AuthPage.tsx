@@ -329,6 +329,7 @@ const AuthPage = () => {
                     )}
                   </div>
                   
+                  {!isLawtonEmail(email) && (
                   <div className="space-y-2">
                     <Label htmlFor="signin-password">Password</Label>
                     <div className="relative">
@@ -344,6 +345,7 @@ const AuthPage = () => {
                       />
                     </div>
                   </div>
+                  )}
                   
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
