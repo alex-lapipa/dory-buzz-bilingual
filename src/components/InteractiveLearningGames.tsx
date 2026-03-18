@@ -224,7 +224,8 @@ export const InteractiveLearningGames: React.FC = () => {
       category: 'Species Identification',
       icon: <Camera className="h-6 w-6" />,
       color: 'border-indigo-200 bg-gradient-to-br from-indigo-50 to-blue-50',
-      progress: 0
+      progress: 0,
+      isPlayable: true
     },
     {
       id: 'micro-world',
