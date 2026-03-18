@@ -13,6 +13,10 @@ const MasterControlPanel = lazy(() => import('@/components/MasterControlPanel'))
 const ProductionDashboard = lazy(() => import('@/components/ProductionDashboard'));
 const TechnicalDetails = lazy(() => import('@/pages/TechnicalDetails'));
 const GoogleEcosystemDashboard = lazy(() => import('@/components/admin/GoogleEcosystemDashboard'));
+const BeeBasicsAdmin = lazy(() => import('@/components/admin/BeeBasicsAdmin'));
+const GardenBasicsAdmin = lazy(() => import('@/components/admin/GardenBasicsAdmin'));
+const ChatManagement = lazy(() => import('@/components/admin/ChatManagement'));
+const ContentIngestion = lazy(() => import('@/components/admin/ContentIngestion'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
