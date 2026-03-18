@@ -20,6 +20,14 @@ import {
 } from 'lucide-react';
 import { FlowerMemoryGame } from './games/FlowerMemoryGame';
 import { BeeTrivia } from './games/BeeTrivia';
+import { BeeAnatomyExplorer } from './games/BeeAnatomyExplorer';
+import { PollinationQuest } from './games/PollinationQuest';
+import { HiveBuilder } from './games/HiveBuilder';
+import { BeeDanceDecoder } from './games/BeeDanceDecoder';
+import { LifecycleLab } from './games/LifecycleLab';
+import { GardenPlanner } from './games/GardenPlanner';
+import { SpeciesSpotter } from './games/SpeciesSpotter';
+import { MicroscopicBeeWorld } from './games/MicroscopicBeeWorld';
 
 interface GameCardProps {
   title: string;
