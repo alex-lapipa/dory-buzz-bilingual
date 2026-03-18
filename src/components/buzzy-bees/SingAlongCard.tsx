@@ -19,6 +19,10 @@ interface SingAlongCardProps {
   language: 'en' | 'es';
   /** If provided, overrides the song's default audioSrc each time play is pressed */
   getAudioSrc?: () => string;
+  /** Current mix indicator e.g. { index: 3, total: 7 } */
+  currentMix?: { index: number; total: number } | null;
+  /** Called when playback stops */
+  onStop?: () => void;
 }
 
 const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioSrc }) => {
