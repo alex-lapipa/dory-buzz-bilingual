@@ -35,16 +35,30 @@ interface KBStats {
 const DOMAINS = [
   { value: 'bee_biology', label: '🐝 Bee Biology' },
   { value: 'bee_culture', label: '🍯 Bee Culture' },
+  { value: 'bee_conservation', label: '🌍 Bee Conservation' },
   { value: 'permaculture', label: '🌿 Permaculture' },
   { value: 'garden', label: '🌻 Garden' },
   { value: 'seeds', label: '🌱 Seeds' },
 ];
 
 const SUGGESTED_URLS = [
+  // Bee Conservation & Biology
   { url: 'https://beeinformed.org/resources', domain: 'bee_biology', label: 'Bee Informed Partnership' },
   { url: 'https://www.xerces.org/pollinators', domain: 'bee_biology', label: 'Xerces Society — Pollinators' },
+  { url: 'https://www.pollinator.org/learning-center', domain: 'bee_biology', label: 'Pollinator Partnership — Learning Center' },
+  { url: 'https://www.honeybees.com/bee-biology', domain: 'bee_biology', label: 'Honeybees.com — Bee Biology' },
+  { url: 'https://www.bumblebeeconservation.org/about-bees', domain: 'bee_biology', label: 'Bumblebee Conservation Trust' },
+  { url: 'https://www.savethebees.org', domain: 'bee_biology', label: 'Save the Bees — Conservation' },
+  { url: 'https://thebeeconservancy.org/10-ways-to-save-the-bees', domain: 'bee_biology', label: 'The Bee Conservancy — 10 Ways' },
+  { url: 'https://www.fs.usda.gov/wildflowers/pollinators/animals/bees.shtml', domain: 'bee_biology', label: 'USDA Forest Service — Bees' },
+  // Bee Culture & Beekeeping
+  { url: 'https://www.beeculture.com', domain: 'bee_culture', label: 'Bee Culture Magazine' },
+  { url: 'https://beekeeping.extension.org', domain: 'bee_culture', label: 'Beekeeping Extension — Best Practices' },
+  // Garden & Permaculture
   { url: 'https://extension.umn.edu/yard-and-garden', domain: 'garden', label: 'UMN Extension — Garden' },
   { url: 'https://www.permaculturenews.org', domain: 'permaculture', label: 'Permaculture News' },
+  { url: 'https://www.nwf.org/Garden-for-Wildlife/About/Native-Plants/Pollinators', domain: 'garden', label: 'NWF — Pollinator Garden Plants' },
+  { url: 'https://www.rhs.org.uk/wildlife/plants-for-pollinators', domain: 'garden', label: 'RHS — Plants for Pollinators' },
 ];
 
 const ContentIngestion: React.FC = () => {
@@ -247,21 +261,39 @@ const ContentIngestion: React.FC = () => {
 
         {/* ── Suggested URLs ── */}
         <TabsContent value="suggested">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {SUGGESTED_URLS.map((s, i) => (
-              <Card key={i} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-4 flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="font-medium text-sm truncate">{s.label}</p>
-                    <p className="text-xs text-muted-foreground truncate">{s.url}</p>
-                    <Badge variant="secondary" className="mt-1 text-xs capitalize">{s.domain.replace(/_/g, ' ')}</Badge>
-                  </div>
-                  <Button size="sm" variant="outline" onClick={() => startCrawl(s.url, s.domain)} disabled={crawling}>
-                    {crawling ? <Loader2 className="h-3 w-3 animate-spin" /> : <Globe className="h-3 w-3" />}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">Click any source to scrape, chunk & embed into the knowledge base.</p>
+              <Button
+                size="sm"
+                variant="default"
+                onClick={async () => {
+                  for (const s of SUGGESTED_URLS) {
+                    await startCrawl(s.url, s.domain);
+                  }
+                }}
+                disabled={crawling}
+              >
+                {crawling ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : <Zap className="h-3 w-3 mr-1" />}
+                Ingest All ({SUGGESTED_URLS.length})
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {SUGGESTED_URLS.map((s, i) => (
+                <Card key={i} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="font-medium text-sm truncate">{s.label}</p>
+                      <p className="text-xs text-muted-foreground truncate">{s.url}</p>
+                      <Badge variant="secondary" className="mt-1 text-xs capitalize">{s.domain.replace(/_/g, ' ')}</Badge>
+                    </div>
+                    <Button size="sm" variant="outline" onClick={() => startCrawl(s.url, s.domain)} disabled={crawling}>
+                      {crawling ? <Loader2 className="h-3 w-3 animate-spin" /> : <Globe className="h-3 w-3" />}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </TabsContent>
 
