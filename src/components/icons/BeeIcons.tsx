@@ -334,7 +334,7 @@ export const BloomingCheck: React.FC<IconProps> = (props) => (
 
 /** Wilting flower — replaces AlertCircle (gentle warning) */
 export const WiltingFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <path d="M12 22v-8" />
     <path d="M12 14c-1-2-3-4-5-3 0 2 2 4 5 3z" />
     <path d="M12 14c1-2 3-4 5-3 0 2-2 4-5 3z" />
