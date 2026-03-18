@@ -37,7 +37,7 @@ export const HoneycombMenu: React.FC<IconProps> = (props) => (
 
 /** Bee flying away — replaces LogOut */
 export const BeeFlying: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <ellipse cx="10" cy="12" rx="4" ry="5" />
     <path d="M10 7c-2-3-5-4-5-4" />
     <path d="M10 7c2-3 5-4 5-4" />
