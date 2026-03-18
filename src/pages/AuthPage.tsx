@@ -509,7 +509,7 @@ const AuthPage = () => {
                       <Label htmlFor="language">Language</Label>
                       <Select value={language} onValueChange={setLanguage}>
                         <SelectTrigger>
-                          <Globe className="h-4 w-4 mr-2" />
+                          <EarthVine className="h-4 w-4 mr-2" />
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
