@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
+import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
 import { Heart, User, LogOut, Shield } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -49,7 +50,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
         
         {/* Right: Navigation and Action Buttons */}
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* Navigation */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-3">
             <Button
               variant="ghost"
@@ -59,56 +60,85 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             >
               🐝 Beeducation
             </Button>
-          </nav>
-          
-          {/* Action Buttons */}
-          <FollowMochiModal>
-            <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
-              <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/learning')}
+              className="text-sm hover:text-primary flex items-center gap-1"
+            >
+              📚 {t('learn') || 'Learn'}
             </Button>
-          </FollowMochiModal>
+            {user && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate('/dashboard')}
+                className="text-sm hover:text-primary flex items-center gap-1"
+              >
+                📊 Dashboard
+              </Button>
+            )}
+          </nav>
+
+          {/* Desktop-only Follow CTA */}
+          <div className="hidden sm:block">
+            <FollowMochiModal>
+              <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
+                <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
+              </Button>
+            </FollowMochiModal>
+          </div>
           
-          <ShareButtons />
+          <div className="hidden sm:block">
+            <ShareButtons />
+          </div>
           
-          {/* Auth Button */}
-          {user ? (
-            <div className="flex items-center gap-2">
-              {isAdmin && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate('/admin')}
-                  className="text-xs text-muted-foreground hover:text-primary"
-                  title="Admin Panel"
+          {/* Auth Button - desktop */}
+          <div className="hidden md:flex items-center gap-2">
+            {user ? (
+              <>
+                {isAdmin && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => navigate('/admin')}
+                    className="text-xs text-muted-foreground hover:text-primary"
+                    title="Admin Panel"
+                  >
+                    <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                  </Button>
+                )}
+                <span className="text-xs text-muted-foreground hidden lg:inline">
+                  {user.email}
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={signOut}
+                  className="text-xs"
                 >
-                  <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <LogOut className="h-3 w-3 mr-1" />
+                  Sign Out
                 </Button>
-              )}
-              <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">
-                {user.email}
-              </span>
+              </>
+            ) : (
               <Button 
                 variant="outline" 
                 size="sm" 
-                onClick={signOut}
-                className="text-xs sm:text-sm"
+                onClick={() => navigate('/auth')}
+                className="text-xs"
               >
-                <LogOut className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                Sign Out
+                <User className="h-3 w-3 mr-1" />
+                Sign In
               </Button>
-            </div>
-          ) : (
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={() => navigate('/auth')}
-              className="text-xs sm:text-sm"
-            >
-              <User className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-              Sign In
-            </Button>
-          )}
+            )}
+          </div>
+
+          {/* Mobile hamburger menu */}
+          <div className="md:hidden">
+            <HamburgerMenu onTabSelect={onTabSelect} />
+          </div>
         </div>
       </div>
     </header>
