@@ -122,8 +122,6 @@ const App = () => {
                 <LandingPage onGetStarted={handleGetStarted} />
               ) : showLanguageSelect ? (
                 <LanguageWelcome onLanguageSelect={handleLanguageSelect} />
-              ) : showRegistration ? (
-                <UserRegistration onComplete={handleRegistrationComplete} />
               ) : showOnboarding ? (
                 <OnboardingFlow onComplete={handleOnboardingComplete} />
               ) : (
