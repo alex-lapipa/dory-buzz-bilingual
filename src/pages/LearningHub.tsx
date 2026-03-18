@@ -243,7 +243,7 @@ const LearningHub: React.FC = () => {
         {/* Learning Paths Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-yellow-200 bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-1 h-64 cursor-pointer border-yellow-200/50 bg-gradient-to-br from-yellow-50/60 via-orange-50/40 to-yellow-100/50 group"
             onClick={() => navigate('/learning/bee-basics')}
           >
             <CardHeader>
