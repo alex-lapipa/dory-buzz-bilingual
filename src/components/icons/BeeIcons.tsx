@@ -191,7 +191,7 @@ export const FlowerBudClose: React.FC<IconProps> = (props) => (
 
 /** Flower play button — replaces Play */
 export const FlowerPlay: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="12" r="9" />
     <path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none" opacity=".7" />
   </svg>
