@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext, useEffect, lazy, Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { PageTransition } from "@/components/PageTransition";
 
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
@@ -120,27 +121,33 @@ const App = () => {
                   ) : (
                     <div className="pt-12 sm:pt-14 md:pt-16 lg:pt-18">
                       <Routes>
-                        <Route path="/" element={<LearningHub />} />
-                        <Route path="/chat" element={<Chat />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/learning-hub" element={<LearningHub />} />
+                        <Route path="/" element={<PageTransition><LearningHub /></PageTransition>} />
+                        <Route path="/chat" element={<PageTransition><Chat /></PageTransition>} />
+                        <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
+                        <Route path="/learning-hub" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/learning/bee-basics" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <BeeBasics />
-                          </Suspense>
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <BeeBasics />
+                            </Suspense>
+                          </PageTransition>
                         } />
                         <Route path="/learning/garden-basics" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <GardenBasics />
-                          </Suspense>
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <GardenBasics />
+                            </Suspense>
+                          </PageTransition>
                         } />
                         <Route path="/production" element={
-                          <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
-                            <ProductionDashboard />
-                          </Suspense>
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <ProductionDashboard />
+                            </Suspense>
+                          </PageTransition>
                         } />
-                        <Route path="/technical-details" element={<TechnicalDetails />} />
-                        <Route path="*" element={<NotFound />} />
+                        <Route path="/technical-details" element={<PageTransition><TechnicalDetails /></PageTransition>} />
+                        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
                     </div>
