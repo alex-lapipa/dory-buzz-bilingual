@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext, useEffect, lazy, Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { PageTransition } from "@/components/PageTransition";
 
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
