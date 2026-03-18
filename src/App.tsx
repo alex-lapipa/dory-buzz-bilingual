@@ -115,6 +115,7 @@ const App = () => {
                     <ResetPassword />
                   </Suspense>
                 } />
+                <Route path="*" element={
                   showLanding ? (
                     <LandingPage onGetStarted={handleGetStarted} />
                   ) : showLanguageSelect ? (
