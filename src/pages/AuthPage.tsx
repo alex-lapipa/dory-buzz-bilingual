@@ -94,35 +94,37 @@ const AuthPage = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
+  const handleOAuthSignIn = async (provider: 'azure' | 'google') => {
     setLoading(true);
     setError('');
     
-    await trackEvent('google_signin_attempt', 'auth', { method: 'google_oauth' });
+    const label = provider === 'azure' ? 'microsoft' : 'google';
+    await trackEvent(`${label}_signin_attempt`, 'auth', { method: `${label}_oauth` });
     
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider,
         options: {
           redirectTo: `${window.location.origin}/`,
+          ...(provider === 'azure' ? { scopes: 'email profile openid' } : {}),
         }
       });
       
       if (error) {
-        await trackEvent('google_signin_error', 'auth', { 
+        await trackEvent(`${label}_signin_error`, 'auth', { 
           error_type: 'oauth_error',
           error_message: error.message 
         });
-        setError(error.message || 'Failed to sign in with Google');
+        setError(error.message || `Failed to sign in with ${label}`);
       } else {
-        await trackEvent('google_signin_success', 'auth', { method: 'google_oauth' });
+        await trackEvent(`${label}_signin_success`, 'auth', { method: `${label}_oauth` });
       }
     } catch (err: any) {
-      await trackEvent('google_signin_error', 'auth', { 
+      await trackEvent(`${label}_signin_error`, 'auth', { 
         error_type: 'unexpected',
         error_message: err.message 
       });
-      setError('An unexpected error occurred with Google sign-in');
+      setError(`An unexpected error occurred with ${label} sign-in`);
     } finally {
       setLoading(false);
     }
