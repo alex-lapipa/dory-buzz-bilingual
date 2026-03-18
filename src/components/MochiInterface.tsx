@@ -9,7 +9,7 @@ import { MochiConvAI } from './MochiConvAI';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Expand, Shrink } from 'lucide-react';
+import { GardenExpand, GardenShrink } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useUsageTracking, usePageTracking } from '@/hooks/useUsageTracking';
 

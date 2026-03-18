@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Circle, ArrowRight, Sparkles, Users, MessageCircle, Mic, Image, BookOpen, Zap } from 'lucide-react';
+import { BloomingCheck, BeeTrailRight, PollenSparkle, BeeColony, BeeChat, BeeAntenna, ButterflyFrame, LeafBook } from '@/components/icons';
+import { Circle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface OnboardingFlowProps {

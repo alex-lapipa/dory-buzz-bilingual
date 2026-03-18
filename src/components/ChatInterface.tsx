@@ -16,19 +16,18 @@ import { getGuestUserId } from '@/lib/guestUtils';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 import { 
-  Mic, 
-  MicOff, 
-  Send, 
-  Volume2, 
-  VolumeX, 
-  Image, 
-  Sparkles, 
-  Brain, 
-  BookOpen, 
-  Camera,
-  Settings,
-  X 
-} from 'lucide-react';
+  BeeAntenna, 
+  PollenSparkle, 
+  VolumeFlower, 
+  VolumeMuted, 
+  ButterflyFrame, 
+  Firefly, 
+  LeafBook, 
+  GardenTools,
+  FlowerBudClose,
+  BeeTrailRight
+} from '@/components/icons';
+import { Send } from 'lucide-react';
 
 interface Message {
   id: string;

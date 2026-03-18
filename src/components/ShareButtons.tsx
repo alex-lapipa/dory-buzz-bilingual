@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Share2, Instagram, Video, Code, Copy, ExternalLink } from 'lucide-react';
+import { ShareBlossom, InstagramFlower, VideoFlower, CodeVine, TwoLeaves, ButterflyLink } from '@/components/icons';
 
 interface ShareButtonsProps {
   className?: string;

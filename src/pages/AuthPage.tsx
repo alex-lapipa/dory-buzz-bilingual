@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
 import { useUserAnalytics } from '@/hooks/useUserAnalytics';
-import { Loader2, Mail, Lock, User, Calendar, Globe } from 'lucide-react';
+import { DandelionSpin, LeafEnvelope, GardenLock, BeeFace, GardenCalendar, EarthVine } from '@/components/icons';
 import { supabase } from '@/integrations/supabase/client';
 import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail, isInIframe } from '@/utils/oauthRedirect';
 import { isOwnerEmail } from '@/lib/adminAccess';
