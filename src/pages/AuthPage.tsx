@@ -620,7 +620,7 @@ const AuthPage = () => {
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <DandelionSpin className="mr-2 h-4 w-4 animate-spin" />
                         Creating Account...
                       </>
                     ) : (

@@ -138,7 +138,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 size="sm"
                 className="w-full"
               >
-                <Code className="h-3 w-3 mr-2" />
+                <CodeVine className="h-3 w-3 mr-2" />
                 Copy Embed Code
               </Button>
             </div>
