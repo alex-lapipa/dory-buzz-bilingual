@@ -10,16 +10,7 @@ import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
 
 const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
 
-interface SongCard {
-  id: string;
-  title_en: string;
-  title_es: string;
-  emoji: string;
-  color: string;
-  audioSrc?: string;
-  lyrics_en?: string[];
-  lyrics_es?: string[];
-}
+interface SongCard extends SongCardData {}
 
 const SONGS: SongCard[] = [
   {
