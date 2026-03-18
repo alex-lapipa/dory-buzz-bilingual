@@ -236,7 +236,7 @@ export const BeeAntenna: React.FC<IconProps> = (props) => (
 
 /** Spinning dandelion — replaces RefreshCw / Loader2 */
 export const DandelionSpin: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" opacity=".5" />
     {[0, 60, 120, 180, 240, 300].map((angle) => (
       <line
