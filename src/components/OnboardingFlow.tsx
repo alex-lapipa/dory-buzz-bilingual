@@ -59,7 +59,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
       description: language === 'es' 
         ? 'Aprende sobre abejas, plantas y ecología' 
         : 'Learn about bees, plants, and ecology',
-      icon: <BookOpen className="h-8 w-8" />,
+      icon: <LeafBook className="h-8 w-8" />,
       action: language === 'es' ? 'Explorar' : 'Explore'
     },
     {
