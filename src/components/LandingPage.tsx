@@ -21,7 +21,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           />
         </div>
         
-        <h1 className="text-responsive-2xl sm:text-responsive-3xl md:text-responsive-4xl font-bold mb-4 sm:mb-6" style={{ color: '#fffd01' }}>
+        <h1 className="text-responsive-2xl sm:text-responsive-3xl md:text-responsive-4xl font-bold mb-4 sm:mb-6 heading-nature">
           BeeCrazy Garden World
         </h1>
         
