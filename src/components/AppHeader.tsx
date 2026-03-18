@@ -81,7 +81,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           </FollowMochiModal>
           
           <ShareButtons />
-          <HamburgerMenu onTabSelect={onTabSelect} />
           
           {/* Auth Button */}
           {user ? (
