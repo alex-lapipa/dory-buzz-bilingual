@@ -58,7 +58,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
           size="sm" 
           className={`animate-flower-sway ${className}`}
         >
-          <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+          <ShareBlossom className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
           <span className="hidden xs:inline">Share</span>
           📱
         </Button>
