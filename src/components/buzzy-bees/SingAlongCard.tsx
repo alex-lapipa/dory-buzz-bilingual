@@ -96,7 +96,9 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
         <h3 className="text-lg sm:text-xl font-bold text-foreground/90 leading-tight">
           {title}
         </h3>
-      </div>
+        {subtitle && (
+          <p className="text-sm text-foreground/60 italic mt-1">{subtitle}</p>
+        )}
       <CardContent className="p-4 sm:p-5 space-y-3">
         <div className="space-y-2 min-h-[140px]">
           {lyrics?.map((line, i) => (
