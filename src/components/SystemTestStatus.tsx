@@ -159,9 +159,7 @@ export const SystemTestStatus: React.FC = () => {
           break;
           
         case 'openai-realtime':
-          // Test session creation
-          const { data: sessionData, error: sessionError } = await supabase.functions.invoke('realtime_session');
-          if (sessionError) throw sessionError;
+          // Realtime session removed - using ElevenLabs ConvAI widgets
           updateTestStatus(test.id, 'passed');
           break;
           
