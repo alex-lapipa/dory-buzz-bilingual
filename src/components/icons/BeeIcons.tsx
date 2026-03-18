@@ -421,7 +421,7 @@ export const BeeUpload: React.FC<IconProps> = (props) => (
 
 /** Bee carrying pollen down — replaces Download */
 export const BeeDownload: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M12 4v12" />
     <path d="M8 12l4 4 4-4" />
     <circle cx="12" cy="18" r="2" fill="currentColor" stroke="none" opacity=".4" />
