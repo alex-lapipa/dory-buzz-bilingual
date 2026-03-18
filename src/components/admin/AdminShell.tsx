@@ -55,6 +55,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
   settings: 'Content Ingestion',
+  'lunar-calendar': 'Lunar Calendar',
 };
 
 const AdminShell: React.FC = () => {
