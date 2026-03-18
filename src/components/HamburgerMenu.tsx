@@ -47,28 +47,17 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </h3>
             
             <div className="space-y-2">
-              <Link to="/technical-details">
+              <Link to="/admin">
                 <Button 
                   variant="outline" 
                   className="w-full justify-start" 
                   onClick={() => setIsOpen(false)}
                 >
                   <Settings className="h-4 w-4 mr-2" />
-                  Technical Details
-                  <Badge variant="secondary" className="ml-auto">Full</Badge>
+                  Admin Panel
+                  <Badge variant="secondary" className="ml-auto">🔒</Badge>
                 </Button>
               </Link>
-
-              <Button 
-                variant="outline" 
-                className="w-full justify-start" 
-                onClick={() => {
-                  setActiveSection(activeSection === 'accessibility' ? null : 'accessibility');
-                }}
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                System Help
-              </Button>
               
                <Button 
                 variant="outline" 

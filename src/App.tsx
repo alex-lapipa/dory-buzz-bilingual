@@ -14,11 +14,9 @@ import { LandingPage } from "@/components/LandingPage";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
-import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import LearningHub from "./pages/LearningHub";
-import TechnicalDetails from "./pages/TechnicalDetails";
 
 // Lazy load heavy components and pages
 const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
