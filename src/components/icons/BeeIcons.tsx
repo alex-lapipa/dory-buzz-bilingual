@@ -626,7 +626,7 @@ export const CloudFlower: React.FC<IconProps> = (props) => (
 
 /** Bot bee — replaces Bot */
 export const BotBee: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <rect x="5" y="8" width="14" height="11" rx="3" />
     <circle cx="9.5" cy="13" r="1.5" fill="currentColor" stroke="none" opacity=".5" />
     <circle cx="14.5" cy="13" r="1.5" fill="currentColor" stroke="none" opacity=".5" />
