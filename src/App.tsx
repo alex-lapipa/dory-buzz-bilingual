@@ -23,6 +23,10 @@ const BeeBasics = lazy(() => import('./pages/learning/BeeBasics'));
 const GardenBasics = lazy(() => import('./pages/learning/GardenBasics'));
 const Admin = lazy(() => import('./pages/Admin'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
+const SitemapPage = lazy(() => import('./pages/SitemapPage'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -149,6 +153,10 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
+                        <Route path="/privacy" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><PrivacyPolicy /></Suspense></PageTransition>} />
+                        <Route path="/terms" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><TermsOfService /></Suspense></PageTransition>} />
+                        <Route path="/cookies" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><CookiePolicy /></Suspense></PageTransition>} />
+                        <Route path="/sitemap" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><SitemapPage /></Suspense></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
