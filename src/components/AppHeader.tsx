@@ -63,14 +63,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/learning')}
-              className="text-sm hover:text-primary flex items-center gap-1"
-            >
-              🌿 {t('learn') || 'Learn'}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
               onClick={() => navigate('/buzzy-bees')}
               className="text-sm hover:text-primary flex items-center gap-1"
             >
