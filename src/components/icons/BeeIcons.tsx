@@ -118,7 +118,7 @@ export const BeehiveSafe: React.FC<IconProps> = (props) => (
 
 /** Open leaf — replaces BookOpen */
 export const LeafBook: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M12 20V8" />
     <path d="M12 8C9 4 4 3 2 4c0 4 2 10 10 12" />
     <path d="M12 8c3-4 8-5 10-4 0 4-2 10-10 12" />
