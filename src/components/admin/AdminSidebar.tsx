@@ -47,6 +47,7 @@ const NAV_GROUPS: NavGroup[] = [
       { id: 'bee-basics', label: 'Bee Basics', icon: Flower2 },
       { id: 'garden-basics', label: 'Garden Basics', icon: TreeDeciduous },
       { id: 'chat', label: 'Chat', icon: MessageCircle },
+      { id: 'lunar-calendar', label: 'Lunar Calendar', icon: Moon },
     ],
   },
   {

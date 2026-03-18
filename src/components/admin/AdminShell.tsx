@@ -182,6 +182,8 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
       return <AccessibilityHelper />;
     case 'settings':
       return <ContentIngestion />;
+    case 'lunar-calendar':
+      return <LunarCalendarAdmin />;
     default:
       return null;
   }
