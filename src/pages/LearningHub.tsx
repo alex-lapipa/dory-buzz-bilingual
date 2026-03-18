@@ -469,6 +469,7 @@ const LearningHub: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+        </ScrollReveal>
 
         {/* Category Filter */}
         <div className="flex flex-wrap gap-2 justify-center">
