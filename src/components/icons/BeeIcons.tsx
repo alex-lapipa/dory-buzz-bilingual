@@ -264,7 +264,7 @@ export const DandelionSpin: React.FC<IconProps> = (props) => (
 
 /** Leaf envelope — replaces Mail */
 export const LeafEnvelope: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <rect x="3" y="6" width="18" height="13" rx="2" />
     <path d="M3 6l9 7 9-7" />
     <path d="M18 6c1-2 0-4-2-3" opacity=".5" />
