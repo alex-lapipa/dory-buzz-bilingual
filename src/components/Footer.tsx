@@ -14,9 +14,9 @@ export const Footer: React.FC = () => {
   const isEs = language === 'es';
 
   return (
-    <footer className="bg-card/95 backdrop-blur-sm border-t border-border/40 mt-auto">
+    <footer className="bg-card border-t border-border mt-auto">
       {/* Top bar */}
-      <div className="border-b border-border/30">
+      <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground font-medium">
             {isEs ? '🐝 Aprende sobre jardines, abejas y naturaleza' : '🐝 Learn about gardens, bees & nature'}
@@ -41,7 +41,7 @@ export const Footer: React.FC = () => {
 
       {/* Main columns */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1: Explore MochiBee */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
@@ -55,10 +55,7 @@ export const Footer: React.FC = () => {
                 { to: '/learning/garden-basics', label: isEs ? '🌱 Básicos de Jardín' : '🌱 Garden Basics' },
               ].map((item) => (
                 <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {item.label}
                   </Link>
                 </li>
@@ -79,12 +76,7 @@ export const Footer: React.FC = () => {
                 { url: 'https://idiomas.io/contact', label: isEs ? '✉️ Contacto' : '✉️ Contact' },
               ].map((item) => (
                 <li key={item.url}>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {item.label}
                   </a>
                 </li>
@@ -92,47 +84,50 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 3: Connect */}
+          {/* Column 3: Legal */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              {isEs ? 'Legal' : 'Legal'}
+            </h3>
+            <ul className="space-y-2">
+              {[
+                { to: '/privacy', label: isEs ? '🔒 Privacidad' : '🔒 Privacy Policy' },
+                { to: '/terms', label: isEs ? '📄 Términos' : '📄 Terms of Service' },
+                { to: '/cookies', label: isEs ? '🍪 Cookies' : '🍪 Cookie Policy' },
+                { to: '/sitemap', label: isEs ? '🗺️ Mapa del Sitio' : '🗺️ Sitemap' },
+              ].map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Connect */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Conectar' : 'Connect'}
             </h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="mailto:info@thelawtonschool.com"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="mailto:info@thelawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   ✉️ info@thelawtonschool.com
                 </a>
               </li>
               <li>
-                <a
-                  href="https://www.alexlawton.io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   🌐 alexlawton.io
                 </a>
               </li>
               <li>
-                <a
-                  href="https://lapipa.io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="https://lapipa.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   🚀 lapipa.io
                 </a>
               </li>
               <li>
-                <a
-                  href="https://idiomas.io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="https://idiomas.io" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   🗣️ idiomas.io
                 </a>
               </li>
@@ -142,9 +137,17 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border/30">
+      <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} MochiBee · BeeCrazy Garden World</p>
+          <div className="flex items-center gap-2 flex-wrap justify-center">
+            <p>© {new Date().getFullYear()} MochiBee · BeeCrazy Garden World</p>
+            <span className="hidden sm:inline">·</span>
+            <Link to="/privacy" className="hover:text-primary transition-colors">{isEs ? 'Privacidad' : 'Privacy'}</Link>
+            <span>·</span>
+            <Link to="/terms" className="hover:text-primary transition-colors">{isEs ? 'Términos' : 'Terms'}</Link>
+            <span>·</span>
+            <Link to="/cookies" className="hover:text-primary transition-colors">Cookies</Link>
+          </div>
           <p>
             {isEs ? 'Diseñado por' : 'Designed by'}{' '}
             <a href="https://www.alexlawton.io" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors font-medium">
