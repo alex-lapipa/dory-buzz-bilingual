@@ -272,7 +272,7 @@ const LearningHub: React.FC = () => {
           </Card>
           
           <Card 
-            className="h-64 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-green-200 bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 group"
+            className="glass-card hover-bouncy animate-bouncy-enter stagger-2 h-64 cursor-pointer border-green-200/50 bg-gradient-to-br from-green-50/60 via-emerald-50/40 to-green-100/50 group"
             onClick={() => navigate('/learning/garden-basics')}
           >
             <CardHeader>
