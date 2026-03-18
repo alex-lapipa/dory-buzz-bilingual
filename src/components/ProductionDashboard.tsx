@@ -63,7 +63,7 @@ const ProductionDashboard: React.FC = () => {
   const loadProductionStatus = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('unified_health_monitor', {
+      const { data, error } = await supabase.functions.invoke('comprehensive-health-check', {
         body: {
           check_type: 'production_readiness',
           include_metrics: true,
