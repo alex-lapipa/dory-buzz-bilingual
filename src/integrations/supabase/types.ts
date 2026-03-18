@@ -529,6 +529,141 @@ export type Database = {
           },
         ]
       }
+      learning_modules: {
+        Row: {
+          age_max: number | null
+          age_min: number | null
+          content_pillar: string
+          cover_image_url: string | null
+          created_at: string | null
+          description_en: string | null
+          description_es: string | null
+          difficulty: number | null
+          id: string
+          is_published: boolean | null
+          learning_targets: Json | null
+          module_type: string
+          sequence_order: number | null
+          slug: string
+          tags: string[] | null
+          title_en: string
+          title_es: string
+          updated_at: string | null
+        }
+        Insert: {
+          age_max?: number | null
+          age_min?: number | null
+          content_pillar: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          description_en?: string | null
+          description_es?: string | null
+          difficulty?: number | null
+          id?: string
+          is_published?: boolean | null
+          learning_targets?: Json | null
+          module_type?: string
+          sequence_order?: number | null
+          slug: string
+          tags?: string[] | null
+          title_en: string
+          title_es: string
+          updated_at?: string | null
+        }
+        Update: {
+          age_max?: number | null
+          age_min?: number | null
+          content_pillar?: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          description_en?: string | null
+          description_es?: string | null
+          difficulty?: number | null
+          id?: string
+          is_published?: boolean | null
+          learning_targets?: Json | null
+          module_type?: string
+          sequence_order?: number | null
+          slug?: string
+          tags?: string[] | null
+          title_en?: string
+          title_es?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      learning_sessions: {
+        Row: {
+          completed_at: string | null
+          completion_pct: number | null
+          correct_answers: number | null
+          device_type: string | null
+          id: string
+          interactions: number | null
+          language: string | null
+          metadata: Json | null
+          module_id: string | null
+          panels_viewed: number | null
+          score: number | null
+          session_token: string | null
+          started_at: string | null
+          storycard_id: string | null
+          total_questions: number | null
+          user_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          completion_pct?: number | null
+          correct_answers?: number | null
+          device_type?: string | null
+          id?: string
+          interactions?: number | null
+          language?: string | null
+          metadata?: Json | null
+          module_id?: string | null
+          panels_viewed?: number | null
+          score?: number | null
+          session_token?: string | null
+          started_at?: string | null
+          storycard_id?: string | null
+          total_questions?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          completion_pct?: number | null
+          correct_answers?: number | null
+          device_type?: string | null
+          id?: string
+          interactions?: number | null
+          language?: string | null
+          metadata?: Json | null
+          module_id?: string | null
+          panels_viewed?: number | null
+          score?: number | null
+          session_token?: string | null
+          started_at?: string | null
+          storycard_id?: string | null
+          total_questions?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_sessions_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "learning_sessions_storycard_id_fkey"
+            columns: ["storycard_id"]
+            isOneToOne: false
+            referencedRelation: "storycards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       live_metrics: {
         Row: {
           environment: string
@@ -837,6 +972,90 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_questions: {
+        Row: {
+          age_min: number | null
+          correct_answer: string
+          correct_answer_es: string | null
+          correct_count: number | null
+          created_at: string | null
+          difficulty: number | null
+          explanation_en: string | null
+          explanation_es: string | null
+          id: string
+          image_url: string | null
+          module_id: string | null
+          options_en: Json | null
+          options_es: Json | null
+          points: number | null
+          question_en: string
+          question_es: string
+          question_type: string
+          storycard_id: string | null
+          times_shown: number | null
+          vocab_card_id: string | null
+        }
+        Insert: {
+          age_min?: number | null
+          correct_answer: string
+          correct_answer_es?: string | null
+          correct_count?: number | null
+          created_at?: string | null
+          difficulty?: number | null
+          explanation_en?: string | null
+          explanation_es?: string | null
+          id?: string
+          image_url?: string | null
+          module_id?: string | null
+          options_en?: Json | null
+          options_es?: Json | null
+          points?: number | null
+          question_en: string
+          question_es: string
+          question_type: string
+          storycard_id?: string | null
+          times_shown?: number | null
+          vocab_card_id?: string | null
+        }
+        Update: {
+          age_min?: number | null
+          correct_answer?: string
+          correct_answer_es?: string | null
+          correct_count?: number | null
+          created_at?: string | null
+          difficulty?: number | null
+          explanation_en?: string | null
+          explanation_es?: string | null
+          id?: string
+          image_url?: string | null
+          module_id?: string | null
+          options_en?: Json | null
+          options_es?: Json | null
+          points?: number | null
+          question_en?: string
+          question_es?: string
+          question_type?: string
+          storycard_id?: string | null
+          times_shown?: number | null
+          vocab_card_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_questions_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quiz_questions_storycard_id_fkey"
+            columns: ["storycard_id"]
+            isOneToOne: false
+            referencedRelation: "storycards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rag_queries: {
         Row: {
           created_at: string | null
@@ -869,6 +1088,157 @@ export type Database = {
           similarity_scores?: number[] | null
         }
         Relationships: []
+      }
+      storycard_panels: {
+        Row: {
+          audio_url_en: string | null
+          audio_url_es: string | null
+          created_at: string | null
+          display_duration_seconds: number | null
+          id: string
+          image_prompt: string | null
+          image_url: string | null
+          interaction_prompt_en: string | null
+          interaction_prompt_es: string | null
+          interaction_type: string | null
+          mochi_action: string | null
+          narration_en: string | null
+          narration_es: string | null
+          panel_number: number
+          scene_en: string
+          scene_es: string
+          storycard_id: string | null
+          target_word_en: string | null
+          target_word_es: string | null
+        }
+        Insert: {
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          created_at?: string | null
+          display_duration_seconds?: number | null
+          id?: string
+          image_prompt?: string | null
+          image_url?: string | null
+          interaction_prompt_en?: string | null
+          interaction_prompt_es?: string | null
+          interaction_type?: string | null
+          mochi_action?: string | null
+          narration_en?: string | null
+          narration_es?: string | null
+          panel_number: number
+          scene_en: string
+          scene_es: string
+          storycard_id?: string | null
+          target_word_en?: string | null
+          target_word_es?: string | null
+        }
+        Update: {
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          created_at?: string | null
+          display_duration_seconds?: number | null
+          id?: string
+          image_prompt?: string | null
+          image_url?: string | null
+          interaction_prompt_en?: string | null
+          interaction_prompt_es?: string | null
+          interaction_type?: string | null
+          mochi_action?: string | null
+          narration_en?: string | null
+          narration_es?: string | null
+          panel_number?: number
+          scene_en?: string
+          scene_es?: string
+          storycard_id?: string | null
+          target_word_en?: string | null
+          target_word_es?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "storycard_panels_storycard_id_fkey"
+            columns: ["storycard_id"]
+            isOneToOne: false
+            referencedRelation: "storycards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      storycards: {
+        Row: {
+          audio_url_en: string | null
+          audio_url_es: string | null
+          completion_rate: number | null
+          created_at: string | null
+          duration_seconds: number | null
+          id: string
+          is_published: boolean | null
+          learning_objective: string | null
+          mochi_says_en: string | null
+          mochi_says_es: string | null
+          module_id: string | null
+          panel_count: number | null
+          play_count: number | null
+          sequence_order: number | null
+          slug: string
+          target_words: string[] | null
+          target_words_es: string[] | null
+          title_en: string
+          title_es: string
+          updated_at: string | null
+        }
+        Insert: {
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          completion_rate?: number | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_published?: boolean | null
+          learning_objective?: string | null
+          mochi_says_en?: string | null
+          mochi_says_es?: string | null
+          module_id?: string | null
+          panel_count?: number | null
+          play_count?: number | null
+          sequence_order?: number | null
+          slug: string
+          target_words?: string[] | null
+          target_words_es?: string[] | null
+          title_en: string
+          title_es: string
+          updated_at?: string | null
+        }
+        Update: {
+          audio_url_en?: string | null
+          audio_url_es?: string | null
+          completion_rate?: number | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_published?: boolean | null
+          learning_objective?: string | null
+          mochi_says_en?: string | null
+          mochi_says_es?: string | null
+          module_id?: string | null
+          panel_count?: number | null
+          play_count?: number | null
+          sequence_order?: number | null
+          slug?: string
+          target_words?: string[] | null
+          target_words_es?: string[] | null
+          title_en?: string
+          title_es?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "storycards_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       system_health: {
         Row: {
@@ -1209,6 +1579,51 @@ export type Database = {
           session_id?: string
           started_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_word_progress: {
+        Row: {
+          created_at: string | null
+          id: string
+          last_seen_at: string | null
+          mastery_level: number | null
+          next_review_at: string | null
+          session_token: string | null
+          times_correct: number | null
+          times_seen: number | null
+          updated_at: string | null
+          user_id: string | null
+          word_en: string
+          word_es: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          last_seen_at?: string | null
+          mastery_level?: number | null
+          next_review_at?: string | null
+          session_token?: string | null
+          times_correct?: number | null
+          times_seen?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          word_en: string
+          word_es: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          last_seen_at?: string | null
+          mastery_level?: number | null
+          next_review_at?: string | null
+          session_token?: string | null
+          times_correct?: number | null
+          times_seen?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+          word_en?: string
+          word_es?: string
         }
         Relationships: []
       }
