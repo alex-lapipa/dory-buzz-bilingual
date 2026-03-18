@@ -88,7 +88,7 @@ async function generateWithCascade(prompt: string, userMessage: string): Promise
           body: JSON.stringify({
             system_instruction: { parts: [{ text: prompt }] },
             contents: [{ role: "user", parts: [{ text: userMessage }] }],
-            generationConfig: { temperature: 0.8, maxOutputTokens: 4096, responseMimeType: "application/json" },
+            generationConfig: { temperature: 0.7, maxOutputTokens: 8192, responseMimeType: "application/json" },
           }),
         }),
       extract: (j: any) => j.candidates?.[0]?.content?.parts?.[0]?.text ?? "",
