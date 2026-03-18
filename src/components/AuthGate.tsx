@@ -46,7 +46,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
     return true;
   };
 
-  const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github') => {
+  const handleSocialAuth = async (provider: 'google' | 'facebook' | 'twitter' | 'github' | 'azure') => {
     try {
       setIsLoading(true);
       const { supabase } = await import('@/integrations/supabase/client');
@@ -187,10 +187,25 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
             </Alert>
           )}
 
-          {/* Social Login Options - Mobile Optimized */}
+          {/* Social Login — Lawton School SSO */}
           <div className="space-y-3">
             <p className="text-sm text-center text-muted-foreground">Quick sign in with</p>
             <div className="grid grid-cols-1 gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full flex items-center justify-center gap-2 h-11"
+                onClick={() => handleSocialAuth('azure')}
+                disabled={isLoading}
+              >
+                <svg className="h-4 w-4" viewBox="0 0 21 21">
+                  <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+                  <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+                  <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+                </svg>
+                Continue with Microsoft
+              </Button>
               <Button
                 type="button"
                 variant="outline"
