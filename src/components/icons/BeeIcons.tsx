@@ -491,7 +491,7 @@ export const VolumeFlower: React.FC<IconProps> = (props) => (
 
 /** Lock (nature-styled) — replaces Lock */
 export const GardenLock: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <rect x="5" y="11" width="14" height="10" rx="2" />
     <path d="M8 11V7c0-2.2 1.8-4 4-4s4 1.8 4 4v4" />
     <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none" opacity=".5" />
