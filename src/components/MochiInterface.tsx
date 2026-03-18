@@ -158,7 +158,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
               className="p-2 bg-background/80 hover:bg-background/90"
               aria-label={t('exitFullscreen')}
             >
-              <Shrink className="h-3 w-3 sm:h-4 sm:w-4" />
+              <GardenShrink className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
         )}

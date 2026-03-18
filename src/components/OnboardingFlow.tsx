@@ -173,7 +173,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
               className="flex-1 bg-gradient-bee hover:opacity-90 text-white font-semibold"
             >
               {steps[currentStep].action}
-              <ArrowRight className="h-4 w-4 ml-2" />
+              <BeeTrailRight className="h-4 w-4 ml-2" />
             </Button>
           </div>
 

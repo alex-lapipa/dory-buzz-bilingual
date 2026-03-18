@@ -627,11 +627,11 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             
             <Button
               onClick={toggleVoiceRecording}
-              variant={isListening ? "destructive" : "outline"}
+              variant={isListening ? "secondary" : "outline"}
               size="sm"
               disabled={isLoading}
             >
-              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+              {isListening ? <BeeAntenna className="h-4 w-4 text-primary" /> : <BeeAntenna className="h-4 w-4" />}
             </Button>
             
             <Button onClick={() => sendMessage()} disabled={isLoading || !inputMessage.trim()}>
