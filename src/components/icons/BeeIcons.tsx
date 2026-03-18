@@ -441,7 +441,7 @@ export const GardenShrink: React.FC<IconProps> = (props) => (
 
 /** Expand — replaces Expand (keep same shape but nature-styled) */
 export const GardenExpand: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <path d="M14 4h6v6" />
     <path d="M10 20H4v-6" />
     <line x1="20" y1="4" x2="14" y2="10" />
