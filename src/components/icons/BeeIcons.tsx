@@ -347,7 +347,7 @@ export const WiltingFlower: React.FC<IconProps> = (props) => (
 
 /** Sprouting seed — replaces Plus */
 export const SproutingSeed: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'leaf')}>
     <ellipse cx="12" cy="18" rx="4" ry="3" />
     <path d="M12 15V9" />
     <path d="M12 12c-3-1-5 0-5 2" opacity=".6" />
