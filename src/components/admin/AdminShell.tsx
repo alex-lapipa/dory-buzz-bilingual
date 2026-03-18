@@ -19,6 +19,7 @@ const ChatManagement = lazy(() => import('@/components/admin/ChatManagement'));
 const ContentIngestion = lazy(() => import('@/components/admin/ContentIngestion'));
 const AnalyticsDashboard = lazy(() => import('@/components/admin/AnalyticsDashboard'));
 const AudioSoundDesign = lazy(() => import('@/components/admin/AudioSoundDesign'));
+const LunarCalendarAdmin = lazy(() => import('@/components/admin/LunarCalendarAdmin'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
