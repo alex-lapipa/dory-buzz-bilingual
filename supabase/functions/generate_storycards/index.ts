@@ -103,8 +103,8 @@ async function generateWithCascade(prompt: string, userMessage: string): Promise
           body: JSON.stringify({
             model: "gpt-4.1-2025-04-14",
             messages: [{ role: "system", content: prompt }, { role: "user", content: userMessage }],
-            max_tokens: 4096,
-            temperature: 0.8,
+            max_tokens: 8192,
+            temperature: 0.7,
             response_format: { type: "json_object" },
           }),
         }),
