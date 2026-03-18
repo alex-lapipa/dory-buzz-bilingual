@@ -211,8 +211,8 @@ const BuzzyBeesVoiceAgent: React.FC<{ language: string }> = ({ language }) => {
       {conversation.status === 'connected' && (
         <div className="bg-primary/90 text-primary-foreground text-xs rounded-full px-3 py-1 animate-pulse shadow-lg">
           {conversation.isSpeaking
-            ? (language === 'es' ? '🐝 Mochi habla...' : '🐝 Mochi is talking...')
-            : (language === 'es' ? '🌸 Te escucho...' : '🌸 Listening...')}
+            ? '🐝 BeeBee is talking... · Hablando...'
+            : '🌸 Listening... · Escuchando...'}
         </div>
       )}
       <Button
