@@ -14,6 +14,107 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_tasks: {
+        Row: {
+          agent_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          input_text: string | null
+          intent: string | null
+          latency_ms: number | null
+          metadata: Json | null
+          model_used: string | null
+          output_text: string | null
+          session_id: string | null
+          status: string | null
+          tokens_in: number | null
+          tokens_out: number | null
+          user_id: string | null
+        }
+        Insert: {
+          agent_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          input_text?: string | null
+          intent?: string | null
+          latency_ms?: number | null
+          metadata?: Json | null
+          model_used?: string | null
+          output_text?: string | null
+          session_id?: string | null
+          status?: string | null
+          tokens_in?: number | null
+          tokens_out?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          agent_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          input_text?: string | null
+          intent?: string | null
+          latency_ms?: number | null
+          metadata?: Json | null
+          model_used?: string | null
+          output_text?: string | null
+          session_id?: string | null
+          status?: string | null
+          tokens_in?: number | null
+          tokens_out?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_tasks_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          capabilities: Json | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          model_preference: string | null
+          name: string
+          role: string
+          system_prompt: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          capabilities?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          model_preference?: string | null
+          name: string
+          role: string
+          system_prompt?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          capabilities?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          model_preference?: string | null
+          name?: string
+          role?: string
+          system_prompt?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       bee_facts: {
         Row: {
           category: string
@@ -397,6 +498,39 @@ export type Database = {
           tags?: string[] | null
           title?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      model_routes: {
+        Row: {
+          agent_name: string
+          conditions: Json | null
+          created_at: string | null
+          id: string
+          intent_pattern: string
+          is_active: boolean | null
+          model: string
+          priority: number | null
+        }
+        Insert: {
+          agent_name: string
+          conditions?: Json | null
+          created_at?: string | null
+          id?: string
+          intent_pattern: string
+          is_active?: boolean | null
+          model: string
+          priority?: number | null
+        }
+        Update: {
+          agent_name?: string
+          conditions?: Json | null
+          created_at?: string | null
+          id?: string
+          intent_pattern?: string
+          is_active?: boolean | null
+          model?: string
+          priority?: number | null
         }
         Relationships: []
       }
@@ -859,6 +993,51 @@ export type Database = {
         }
         Relationships: []
       }
+      vector_stores: {
+        Row: {
+          content_col: string | null
+          created_at: string | null
+          dimensions: number | null
+          embedded_chunks: number | null
+          embedding_col: string | null
+          id: string
+          last_embedded: string | null
+          metadata: Json | null
+          name: string
+          table_name: string
+          total_chunks: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          content_col?: string | null
+          created_at?: string | null
+          dimensions?: number | null
+          embedded_chunks?: number | null
+          embedding_col?: string | null
+          id?: string
+          last_embedded?: string | null
+          metadata?: Json | null
+          name: string
+          table_name: string
+          total_chunks?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          content_col?: string | null
+          created_at?: string | null
+          dimensions?: number | null
+          embedded_chunks?: number | null
+          embedding_col?: string | null
+          id?: string
+          last_embedded?: string | null
+          metadata?: Json | null
+          name?: string
+          table_name?: string
+          total_chunks?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       voice_conversations: {
         Row: {
           conversation_data: Json
@@ -936,6 +1115,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      complete_agent_task: {
+        Args: {
+          p_latency_ms?: number
+          p_model_used?: string
+          p_output: string
+          p_task_id: string
+          p_tokens_in?: number
+          p_tokens_out?: number
+        }
+        Returns: undefined
+      }
       get_current_user_role: { Args: never; Returns: string }
       has_role: {
         Args: {
@@ -961,6 +1151,15 @@ export type Database = {
           tags: string[]
           title: string
         }[]
+      }
+      orchestrate_mochi_request: {
+        Args: {
+          p_input: string
+          p_language?: string
+          p_session?: string
+          p_user_id?: string
+        }
+        Returns: Json
       }
       track_user_event: {
         Args: {
