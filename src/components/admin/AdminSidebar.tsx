@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 export type AdminSection =
   | 'control' | 'production' | 'analytics'
   | 'beeducation' | 'bee-basics' | 'garden-basics' | 'chat'
-  | 'brand' | 'design'
+  | 'brand' | 'design' | 'audio-sound'
   | 'google-ecosystem'
   | 'technical' | 'system-health'
   | 'privacy' | 'accessibility'
