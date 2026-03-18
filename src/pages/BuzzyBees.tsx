@@ -6,6 +6,7 @@ import { VolumeFlower, MusicalFlower, SunflowerStar, FlowerHeart, PollenSparkle 
 import { PageSEO } from '@/components/PageSEO';
 import { useConversation } from '@11labs/react';
 import SingAlongCard, { type SongCardData } from '@/components/buzzy-bees/SingAlongCard';
+import ParentMixPicker from '@/components/buzzy-bees/ParentMixPicker';
 import { useBuzzyBeesAudio } from '@/hooks/useBuzzyBeesAudio';
 
 const KIDS_AGENT_ID = "agent_8101km13rwc3eyb98g0wampfx499";
@@ -95,7 +96,7 @@ const SONGS: SongCardData[] = [
 
 const BuzzyBees: React.FC = () => {
   const { language, t } = useLanguage();
-  const { getRandomAudioSrc, currentMix, clearCurrentMix } = useBuzzyBeesAudio();
+  const { getRandomAudioSrc, currentMix, clearCurrentMix, favoriteIndex, setFavorite, totalMixes } = useBuzzyBeesAudio();
 
   useEffect(() => {
     const globalWidget = document.querySelector('elevenlabs-convai[agent-id="agent_1301kkyvc82vey5896n39y1cm5hc"]');
@@ -160,7 +161,13 @@ const BuzzyBees: React.FC = () => {
           ))}
         </div>
 
-        {/* Fun footer */}
+        {/* Parent controls */}
+        <ParentMixPicker
+          favoriteIndex={favoriteIndex}
+          setFavorite={setFavorite}
+          totalMixes={totalMixes}
+        />
+
         <div className="text-center py-6 space-y-2">
           <div className="flex items-center justify-center gap-1">
             {[SunflowerStar, FlowerHeart, SunflowerStar, FlowerHeart, SunflowerStar].map((Icon, i) => (
