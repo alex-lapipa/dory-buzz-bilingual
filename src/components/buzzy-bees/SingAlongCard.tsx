@@ -136,12 +136,12 @@ const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioS
           {isPlaying ? (
             <>
               <FlowerPause className="h-6 w-6" />
-              {language === 'es' ? '¡Para!' : 'Stop!'}
+              Stop! <span className="text-sm font-normal opacity-70">¡Para!</span>
             </>
           ) : (
             <>
               <FlowerPlay className="h-6 w-6" />
-              {language === 'es' ? '¡Canta!' : 'Sing!'}
+              Sing! <span className="text-sm font-normal opacity-70">¡Canta!</span>
             </>
           )}
         </Button>
