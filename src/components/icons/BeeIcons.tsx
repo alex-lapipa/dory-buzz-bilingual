@@ -578,7 +578,7 @@ export const ShareBlossom: React.FC<IconProps> = (props) => (
 
 /** Users / community — as bee colony */
 export const BeeColony: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <circle cx="9" cy="7" r="3" />
     <circle cx="17" cy="7" r="3" />
     <path d="M5 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
