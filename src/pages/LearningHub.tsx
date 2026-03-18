@@ -600,7 +600,7 @@ const LearningHub: React.FC = () => {
                       }}
                       className="text-xs"
                     >
-                      <Camera className="h-3 w-3 mr-1" />
+                      <ButterflyFrame className="h-3 w-3 mr-1" />
                       Visualize
                     </Button>
                   </div>
