@@ -208,7 +208,7 @@ export const FlowerPause: React.FC<IconProps> = (props) => (
 
 /** Golden honeycomb trophy — replaces Trophy */
 export const HoneycombTrophy: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'bee')}>
     <path d="M8 2h8v8c0 3-2 5-4 5s-4-2-4-5V2z" />
     <path d="M8 4H5c0 3 1 5 3 5" />
     <path d="M16 4h3c0 3-1 5-3 5" />
