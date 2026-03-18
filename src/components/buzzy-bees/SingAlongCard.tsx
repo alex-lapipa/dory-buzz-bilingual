@@ -25,7 +25,7 @@ interface SingAlongCardProps {
   onStop?: () => void;
 }
 
-const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioSrc }) => {
+const SingAlongCard: React.FC<SingAlongCardProps> = ({ song, language, getAudioSrc, currentMix, onStop }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeLine, setActiveLine] = useState(-1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
