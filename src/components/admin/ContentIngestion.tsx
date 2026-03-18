@@ -41,10 +41,23 @@ const DOMAINS = [
 ];
 
 const SUGGESTED_URLS = [
+  // Bee Conservation & Biology
   { url: 'https://beeinformed.org/resources', domain: 'bee_biology', label: 'Bee Informed Partnership' },
   { url: 'https://www.xerces.org/pollinators', domain: 'bee_biology', label: 'Xerces Society — Pollinators' },
+  { url: 'https://www.pollinator.org/learning-center', domain: 'bee_biology', label: 'Pollinator Partnership — Learning Center' },
+  { url: 'https://www.honeybees.com/bee-biology', domain: 'bee_biology', label: 'Honeybees.com — Bee Biology' },
+  { url: 'https://www.bumblebeeconservation.org/about-bees', domain: 'bee_biology', label: 'Bumblebee Conservation Trust' },
+  { url: 'https://www.savethebees.org', domain: 'bee_biology', label: 'Save the Bees — Conservation' },
+  { url: 'https://thebeeconservancy.org/10-ways-to-save-the-bees', domain: 'bee_biology', label: 'The Bee Conservancy — 10 Ways' },
+  { url: 'https://www.fs.usda.gov/wildflowers/pollinators/animals/bees.shtml', domain: 'bee_biology', label: 'USDA Forest Service — Bees' },
+  // Bee Culture & Beekeeping
+  { url: 'https://www.beeculture.com', domain: 'bee_culture', label: 'Bee Culture Magazine' },
+  { url: 'https://beekeeping.extension.org', domain: 'bee_culture', label: 'Beekeeping Extension — Best Practices' },
+  // Garden & Permaculture
   { url: 'https://extension.umn.edu/yard-and-garden', domain: 'garden', label: 'UMN Extension — Garden' },
   { url: 'https://www.permaculturenews.org', domain: 'permaculture', label: 'Permaculture News' },
+  { url: 'https://www.nwf.org/Garden-for-Wildlife/About/Native-Plants/Pollinators', domain: 'garden', label: 'NWF — Pollinator Garden Plants' },
+  { url: 'https://www.rhs.org.uk/wildlife/plants-for-pollinators', domain: 'garden', label: 'RHS — Plants for Pollinators' },
 ];
 
 const ContentIngestion: React.FC = () => {
