@@ -274,7 +274,7 @@ export const LeafEnvelope: React.FC<IconProps> = (props) => (
 
 /** Sundial flower — replaces Clock */
 export const SundialFlower: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'flower')}>
     <circle cx="12" cy="12" r="8" />
     <line x1="12" y1="12" x2="12" y2="7" />
     <line x1="12" y1="12" x2="16" y2="12" />
