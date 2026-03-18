@@ -83,7 +83,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-primary-foreground"
                 size="sm"
               >
-                <Instagram className="h-4 w-4 mr-2" />
+                <InstagramFlower className="h-4 w-4 mr-2" />
                 Instagram
               </Button>
               <Button
