@@ -9,9 +9,10 @@ import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
 import {
   Globe, Loader2, RefreshCw, Database, CheckCircle, XCircle, Clock,
-  Sparkles, Link2, Tag, FileText, Zap, ChevronDown, ChevronUp,
+  Sparkles, Link2, Tag, FileText, Zap, ChevronDown, ChevronUp, FileJson,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import RagJsonUploader from './RagJsonUploader';
 
 interface CrawlJob {
   id: string;
