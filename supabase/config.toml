@@ -3,6 +3,12 @@ project_id = "zrdywdregcrykmbiytvl"
 [functions.mochi_realtime_voice]
 verify_jwt = false
 
+[functions.mochi_master_orchestrator]
+verify_jwt = false
+
+[functions.mochi_embed]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321
@@ -28,8 +34,12 @@ file_size_limit = "50MiB"
 [auth]
 enabled = true
 port = 54329
-site_url = "https://5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovableproject.com"
-additional_redirect_urls = ["https://5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovableproject.com/**"]
+site_url = "https://www.mochinillo.com"
+additional_redirect_urls = [
+  "https://www.mochinillo.com/**",
+  "https://mochinillo.com/**",
+  "https://5ee6bbaa-8330-41a6-8e21-fd736c7270d1.lovableproject.com/**"
+]
 jwt_expiry = 3600
 refresh_token_rotation_enabled = true
 security_update_password_require_reauthentication = true
@@ -40,137 +50,3 @@ enable_captcha = false
 enable_signup = true
 double_confirm_changes = true
 enable_confirmations = false
-
-[edge_runtime]
-enabled = true
-port = 54328
-
-# === PRODUCTION READY UNIFIED PLATFORM ===
-
-# Core Production Functions
-[functions.unified_chat_orchestrator]
-verify_jwt = false
-
-[functions.unified_voice_hub]
-verify_jwt = false
-
-[functions.unified_image_generator]
-verify_jwt = false
-
-[functions.unified_health_monitor]
-verify_jwt = false
-
-[functions.unified_ai_orchestrator]
-verify_jwt = false
-
-[functions.unified_deployment]
-verify_jwt = false
-
-# Analytics & Monitoring
-[functions.user_analytics_tracker]
-verify_jwt = false
-
-[functions.persona_generator]
-verify_jwt = false
-
-[functions.insights_generator]
-verify_jwt = false
-
-[functions.integration_sync]
-verify_jwt = false
-
-[functions.comprehensive_app_audit]
-verify_jwt = false
-
-[functions.production_optimizer]
-verify_jwt = false
-
-# Learning & Content
-[functions.learning_content_orchestrator]
-verify_jwt = false
-
-# Essential Services
-[functions.realtime_session]
-verify_jwt = false
-
-[functions.send-welcome-email]
-verify_jwt = false
-
-[functions.follow-mochi]
-verify_jwt = false
-
-[functions.extract_mochi_character]
-verify_jwt = false
-
-[functions.firecrawl_scraper]
-verify_jwt = false
-
-# Legacy Functions (Maintained for Compatibility)
-[functions.mochi_chat_production]
-verify_jwt = false
-
-[functions.chat_mochi]
-verify_jwt = false
-
-[functions.generate_image]
-verify_jwt = false
-
-[functions.elevenlabs_tts]
-verify_jwt = false
-
-[functions.health-check]
-verify_jwt = false
-
-[functions.advanced_mochi_chat]
-verify_jwt = false
-
-[functions.enhanced_mochi_claude]
-verify_jwt = false
-
-[functions.xai_grok_chat]
-verify_jwt = false
-
-[functions.claude_reasoning]
-verify_jwt = false
-
-[functions.tts_mochi]
-verify_jwt = false
-
-[functions.stt_chat]
-verify_jwt = false
-
-[functions.voice_chat_mochi]
-verify_jwt = false
-
-[functions.advanced_voice_chat]
-verify_jwt = false
-
-[functions.voice_chat_realtime]
-verify_jwt = false
-
-[functions.advanced_image_generation]
-verify_jwt = false
-
-[functions.generate_image_sora]
-verify_jwt = false
-
-[functions.midjourney_generator]
-verify_jwt = false
-
-[functions.production-readiness]
-verify_jwt = false
-
-[functions.comprehensive-health-check]
-verify_jwt = false
-
-[functions.integrations_status_check]
-verify_jwt = false
-
-[functions.master_ai_orchestrator]
-verify_jwt = false
-
-[functions.health_monitor]
-verify_jwt = false
-
-[functions.realtime_voice_chat]
-verify_jwt = false
