@@ -91,7 +91,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
                 className="bg-destructive hover:bg-destructive/80 text-destructive-foreground"
                 size="sm"
               >
-                <Video className="h-4 w-4 mr-2" />
+                <VideoFlower className="h-4 w-4 mr-2" />
                 TikTok
               </Button>
             </div>
