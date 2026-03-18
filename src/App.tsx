@@ -113,7 +113,7 @@ const App = () => {
           <MochiVideoProcessor />
           <div className="flex flex-col min-h-screen bg-gradient-nature">
             {/* Only show header when user is fully onboarded */}
-            {!showLanding && !showLanguageSelect && !showRegistration && !showOnboarding && (
+            {!showLanding && !showLanguageSelect && !showOnboarding && (
               <AppHeader onTabSelect={setActiveTab} />
             )}
             <main className="flex-1 overflow-auto relative z-10">
