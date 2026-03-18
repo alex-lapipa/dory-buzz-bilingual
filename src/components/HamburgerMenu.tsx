@@ -64,6 +64,11 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               📚 {t('learn') || 'Learn'}
             </Button>
 
+            <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
+              <Music className="h-4 w-4 mr-3" />
+              🎵 Buzzy Bees
+            </Button>
+
             {user && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/dashboard')}>
                 <BarChart3 className="h-4 w-4 mr-3" />

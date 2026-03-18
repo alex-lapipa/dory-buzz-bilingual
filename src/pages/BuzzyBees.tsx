@@ -217,8 +217,11 @@ const BuzzyBees: React.FC = () => {
   return (
     <>
       <PageSEO
-        title="Buzzy Bees - Sing Along with Mochi! | MochiBee"
-        description="Fun sing-along songs for kids 3-6 about bees, gardens, and nature. Bilingual English & Spanish music with Mochi the Bee!"
+        titleEn="Buzzy Bees - Sing Along with Mochi! | MochiBee"
+        titleEs="Buzzy Bees - ¡Canta con Mochi! | MochiBee"
+        descriptionEn="Fun sing-along songs for kids 3-6 about bees, gardens, and nature."
+        descriptionEs="Canciones divertidas para niños de 3-6 años sobre abejas, jardines y naturaleza."
+        path="/buzzy-bees"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">

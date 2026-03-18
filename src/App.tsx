@@ -147,6 +147,13 @@ const App = () => {
                             </Suspense>
                           </PageTransition>
                         } />
+                        <Route path="/buzzy-bees" element={
+                          <PageTransition>
+                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                              <BuzzyBees />
+                            </Suspense>
+                          </PageTransition>
+                        } />
                         <Route path="/admin" element={
                           <PageTransition>
                             <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
