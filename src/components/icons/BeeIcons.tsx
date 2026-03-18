@@ -385,7 +385,7 @@ export const FlowerEye: React.FC<IconProps> = (props) => (
 
 /** Firefly — replaces Brain / Lightbulb */
 export const Firefly: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'pollen')}>
     <ellipse cx="12" cy="14" rx="4" ry="5" />
     <path d="M12 9c0-2 1-4 1-4" />
     <path d="M12 9c0-2-1-4-1-4" />
