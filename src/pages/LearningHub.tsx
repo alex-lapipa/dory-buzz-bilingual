@@ -19,6 +19,7 @@ import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Camera, GraduationCap
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
+import { useGameScores } from '@/hooks/useGameScores';
 
 interface BeeFact {
   id: string;
@@ -45,6 +46,7 @@ const LearningHub: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [currentFact, setCurrentFact] = useState<BeeFact | null>(null);
   const { toast } = useToast();
+  const { completedCount, totalScore, scores } = useGameScores();
 
   useEffect(() => {
     loadBeeEducationData();
@@ -256,23 +258,39 @@ const LearningHub: React.FC = () => {
             overallPercent={(() => {
               const totalFacts = beeFacts.length;
               const totalCompleted = progress.reduce((sum, p) => sum + (p.completed_lessons?.length || 0), 0);
-              return totalFacts > 0 ? Math.round((totalCompleted / totalFacts) * 100) : 0;
+              const factPercent = totalFacts > 0 ? (totalCompleted / totalFacts) * 100 : 0;
+              const gamePercent = (completedCount / 10) * 100;
+              return Math.round((factPercent + gamePercent) / 2);
             })()}
-            categories={categories.filter(c => c !== 'all').map(cat => {
-              const prog = getProgressForCategory(cat);
-              const colorMap: Record<string, string> = {
-                'bee_biology': 'hsl(45 100% 50%)',
-                'garden': 'hsl(120 40% 50%)',
-                'ecology': 'hsl(200 60% 50%)',
-                'pollination': 'hsl(30 90% 55%)',
-                'beekeeping': 'hsl(25 85% 55%)',
-              };
-              return {
-                label: cat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                value: Math.round(prog.percentage),
-                color: colorMap[cat] || 'hsl(var(--primary))',
-              };
-            })}
+            categories={[
+              ...categories.filter(c => c !== 'all').map(cat => {
+                const prog = getProgressForCategory(cat);
+                const colorMap: Record<string, string> = {
+                  'bee_biology': 'hsl(45 100% 50%)',
+                  'garden': 'hsl(120 40% 50%)',
+                  'ecology': 'hsl(200 60% 50%)',
+                  'pollination': 'hsl(30 90% 55%)',
+                  'beekeeping': 'hsl(25 85% 55%)',
+                };
+                return {
+                  label: cat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                  value: Math.round(prog.percentage),
+                  color: colorMap[cat] || 'hsl(var(--primary))',
+                };
+              }),
+              {
+                label: `🎮 Games (${completedCount}/10)`,
+                value: Math.round((completedCount / 10) * 100),
+                color: 'hsl(270 60% 55%)',
+              },
+            ]}
+            streak={completedCount >= 5 ? completedCount : 0}
+            badges={[
+              ...(completedCount >= 1 ? ['🎮'] : []),
+              ...(completedCount >= 5 ? ['⭐'] : []),
+              ...(completedCount >= 10 ? ['🏆'] : []),
+              ...(totalScore >= 500 ? ['💎'] : []),
+            ]}
           />
         </ScrollReveal>
 
@@ -364,10 +382,10 @@ const LearningHub: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-purple-600">
-                  <span>Available</span>
-                  <span>10 games</span>
+                  <span>{completedCount}/10 completed</span>
+                  <span>🏆 {totalScore} pts</span>
                 </div>
-                <Progress value={100} className="h-2" />
+                <Progress value={(completedCount / 10) * 100} className="h-2" />
               </div>
             </CardContent>
           </Card>

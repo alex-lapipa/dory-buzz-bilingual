@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
+import { useGameScores } from '@/hooks/useGameScores';
 import { 
   Star, 
   Trophy, 
@@ -114,19 +115,15 @@ const GameCard: React.FC<GameCardProps> = ({
 
 export const InteractiveLearningGames: React.FC = () => {
   const { toast } = useToast();
-  const [completedGames, setCompletedGames] = useState<string[]>([]);
   const [currentGame, setCurrentGame] = useState<string | null>(null);
-  const [gameScores, setGameScores] = useState<Record<string, number>>({});
+  const { saveScore, getHighScore, isCompleted, totalScore, completedCount } = useGameScores();
   
   const playGame = (gameId: string, gameTitle: string) => {
     setCurrentGame(gameId);
   };
 
-  const handleGameComplete = (gameId: string, score: number) => {
-    if (!completedGames.includes(gameId)) {
-      setCompletedGames([...completedGames, gameId]);
-    }
-    setGameScores(prev => ({ ...prev, [gameId]: Math.max(prev[gameId] || 0, score) }));
+  const handleGameComplete = async (gameId: string, score: number) => {
+    await saveScore(gameId, score);
     setCurrentGame(null);
     
     toast({
@@ -295,8 +292,8 @@ export const InteractiveLearningGames: React.FC = () => {
             icon={game.icon}
             color={game.color}
             onPlay={() => playGame(game.id, game.title)}
-            completed={completedGames.includes(game.id)}
-            progress={gameScores[game.id] ? Math.min(100, (gameScores[game.id] / 150) * 100) : 0}
+            completed={isCompleted(game.id)}
+            progress={getHighScore(game.id) ? Math.min(100, (getHighScore(game.id) / 150) * 100) : 0}
             isPlayable={game.isPlayable || false}
           />
         ))}
@@ -313,7 +310,7 @@ export const InteractiveLearningGames: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div className="space-y-2">
-              <div className="text-2xl font-bold text-yellow-700">{completedGames.length}</div>
+              <div className="text-2xl font-bold text-yellow-700">{completedCount}</div>
               <div className="text-sm text-yellow-600">Games Completed</div>
             </div>
             <div className="space-y-2">
@@ -322,9 +319,9 @@ export const InteractiveLearningGames: React.FC = () => {
             </div>
             <div className="space-y-2">
               <div className="text-2xl font-bold text-amber-700">
-                {Object.values(gameScores).reduce((total, score) => total + score, 0)}
+                {totalScore}
               </div>
-              <div className="text-sm text-amber-600">Total Score</div>
+              <div className="text-sm text-amber-600">Total High Score</div>
             </div>
           </div>
         </CardContent>
