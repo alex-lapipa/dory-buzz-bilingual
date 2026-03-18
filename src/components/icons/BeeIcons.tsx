@@ -66,7 +66,7 @@ export const BeeFace: React.FC<IconProps> = (props) => (
 
 /** Butterfly taking flight — replaces ExternalLink */
 export const ButterflyLink: React.FC<IconProps> = (props) => (
-  <svg {...defaults(props)}>
+  <svg {...defaults(props, 'butterfly')}>
     <path d="M12 12c-3-5-8-5-8-1s5 4 8 1z" />
     <path d="M12 12c3-5 8-5 8-1s-5 4-8 1z" />
     <path d="M12 12c-2 3-5 7-2 7s3-4 2-7z" opacity=".7" />
