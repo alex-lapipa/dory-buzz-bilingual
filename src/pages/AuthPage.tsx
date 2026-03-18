@@ -490,7 +490,7 @@ const AuthPage = () => {
                     <div className="space-y-2">
                       <Label htmlFor="age">Age</Label>
                       <div className="relative">
-                        <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                        <GardenCalendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Input
                           id="age"
                           type="number"
