@@ -62,7 +62,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
               <MusicalFlower className="h-4 w-4 mr-3" />
-              🎵 Buzzy Bees
+              <MusicalFlower className="h-3.5 w-3.5 inline mr-1" /> Buzzy Bees
             </Button>
 
             {user && (
