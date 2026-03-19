@@ -428,7 +428,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-orange-800">
-                <span className="text-4xl group-hover:animate-bounce">🍯</span>
+                <span className="text-4xl group-hover:animate-bounce"><HoneyJar className="h-10 w-10" /></span>
                 Beekeeping Basics
                 <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-600 ml-auto">
                   Available
