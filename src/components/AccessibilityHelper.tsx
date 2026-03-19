@@ -63,7 +63,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'connection',
       label: language === 'es' ? 'Conexión a Internet' : 'Internet Connection',
       status: connectionStatus === 'online' ? 'good' : 'error',
-      icon: connectionStatus === 'online' ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />,
+      icon: connectionStatus === 'online' ? <WifiFlower className="h-4 w-4" /> : <WifiOffFlower className="h-4 w-4" />,
       description: connectionStatus === 'online' 
         ? (language === 'es' ? 'Conectado' : 'Connected')
         : (language === 'es' ? 'Sin conexión' : 'Offline')
