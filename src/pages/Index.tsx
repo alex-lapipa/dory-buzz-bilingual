@@ -41,7 +41,7 @@ const Index = () => {
 
         {/* Chat Interface */}
         <div className="w-full max-w-4xl mx-auto mb-mobile-3xl">
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
+          <div className="card-nature rounded-lg shadow-card">
             <MochiInterface activeTab="chat" />
           </div>
         </div>
