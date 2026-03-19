@@ -119,4 +119,11 @@ export {
   FlowerPin as Home,
   SundialFlower as Moon,
   GardenKey as Key,
+  GardenTools as Wrench,
+  GardenTools as Cog,
+  BeeColony as Accessibility,
+  HoneycombGrid as Layers,
+  ActivityVine as HeartPulse,
+  FlowerPin as PinOff,
+  SeedlingChart as BarChart,
 } from './BeeIcons';
