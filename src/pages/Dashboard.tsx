@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <LeafBook className="h-5 w-5 text-primary" />
-                  Educational Hub 🌿
+                  Educational Hub <NatureLeaf className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
