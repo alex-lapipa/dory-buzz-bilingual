@@ -56,7 +56,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/')}>
               <BeeChat className="h-4 w-4 mr-3" />
-              🐝 Beeducation
+              <BeeFlying className="h-3.5 w-3.5 inline mr-1" /> Beeducation
             </Button>
 
 
