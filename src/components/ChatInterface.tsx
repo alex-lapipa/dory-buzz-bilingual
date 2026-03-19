@@ -458,7 +458,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             <div className="flex flex-wrap gap-1">
               {metadata.vocab_hint!.map((v, i) => (
                 <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-accent/10 border-accent/20">
-                  <Languages className="h-2.5 w-2.5" />
+                  <BilingualBee className="h-2.5 w-2.5" />
                   {v}
                 </Badge>
               ))}
