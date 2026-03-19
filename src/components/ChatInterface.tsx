@@ -470,9 +470,17 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
               ))}
             </div>
           )}
-          {metadata.latency_ms && (
-            <div className="text-[10px] text-muted-foreground/60">
-              ⚡ {metadata.latency_ms}ms via {metadata.provider || metadata.model}
+          {(metadata.latency_ms || metadata.agent) && (
+            <div className="text-[10px] text-muted-foreground/60 flex flex-wrap items-center gap-2">
+              {metadata.agent && metadata.agent !== 'mochi' && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 bg-primary/10 border-primary/30">
+                  {metadata.agent} agent
+                  {metadata.intent_confidence ? ` (${Math.round(metadata.intent_confidence * 100)}%)` : ''}
+                </Badge>
+              )}
+              {metadata.latency_ms && (
+                <span>{metadata.latency_ms}ms via {metadata.provider || metadata.model}</span>
+              )}
             </div>
           )}
         </CollapsibleContent>
