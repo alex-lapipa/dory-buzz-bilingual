@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BeeChat className="h-5 w-5 text-primary" />
-                  Chat with Mochi - Your Garden Guide 🐝
+                  Chat with Mochi - Your Garden Guide <BeeFlying className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
