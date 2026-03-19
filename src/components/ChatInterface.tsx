@@ -647,7 +647,6 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
               </div>
             )}
 
-            {/* RAG Sources & Knowledge Graph collapsible */}
             {message.type === 'mochi' && renderRagMeta(message.metadata)}
             
             <div className="flex items-center justify-between">
@@ -655,8 +654,34 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 {message.timestamp.toLocaleTimeString()}
               </div>
               
-              {message.type === 'mochi' && (
+              {message.type === 'mochi' && message.content && (
                 <div className="flex items-center gap-1">
+                  {/* Feedback buttons */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => submitFeedback(message.id, 1, message.content, message.metadata?.agent)}
+                    className={`h-6 w-6 p-0 transition-colors ${feedbackGiven[message.id] === 1 ? 'text-primary bg-primary/10' : 'opacity-50 hover:opacity-100'}`}
+                    disabled={!!feedbackGiven[message.id]}
+                    aria-label="Thumbs up"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+                      <path d="M1 8.25a1.25 1.25 0 1 1 2.5 0v7.5a1.25 1.25 0 1 1-2.5 0v-7.5ZM11 3c0 .76-.241 1.464-.651 2.04l.001-.04H14.5a1.5 1.5 0 0 1 1.476 1.77l-1.006 5.535A2.5 2.5 0 0 1 12.51 14.5H5.5a.5.5 0 0 1-.5-.5V7.732a2 2 0 0 0 .892-1.664V5.5A2.5 2.5 0 0 1 11 3Z"/>
+                    </svg>
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => submitFeedback(message.id, -1, message.content, message.metadata?.agent)}
+                    className={`h-6 w-6 p-0 transition-colors ${feedbackGiven[message.id] === -1 ? 'text-destructive bg-destructive/10' : 'opacity-50 hover:opacity-100'}`}
+                    disabled={!!feedbackGiven[message.id]}
+                    aria-label="Thumbs down"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5 rotate-180">
+                      <path d="M1 8.25a1.25 1.25 0 1 1 2.5 0v7.5a1.25 1.25 0 1 1-2.5 0v-7.5ZM11 3c0 .76-.241 1.464-.651 2.04l.001-.04H14.5a1.5 1.5 0 0 1 1.476 1.77l-1.006 5.535A2.5 2.5 0 0 1 12.51 14.5H5.5a.5.5 0 0 1-.5-.5V7.732a2 2 0 0 0 .892-1.664V5.5A2.5 2.5 0 0 1 11 3Z"/>
+                    </svg>
+                  </Button>
+
                   <Button
                     variant="ghost"
                     size="sm"
