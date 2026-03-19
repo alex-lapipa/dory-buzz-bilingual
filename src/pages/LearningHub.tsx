@@ -640,23 +640,23 @@ const LearningHub: React.FC = () => {
           <CardContent className="text-yellow-700">
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <span>🎧</span>
+                <VolumeFlower className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Listen to facts</strong> - Use the voice feature to hear bee facts aloud!</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🧠</span>
+                <Firefly className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Get deep analysis</strong> - Click "Analyze" for detailed scientific explanations</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🎨</span>
+                <ButterflyFrame className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Visualize concepts</strong> - Generate beautiful illustrations of bee topics</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>📚</span>
+                <LeafBook className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Track progress</strong> - Complete lessons to unlock advanced topics</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🗣️</span>
+                <BeeChat className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Ask Mochi</strong> - Chat with our bee expert for personalized learning!</div>
               </li>
             </ul>
