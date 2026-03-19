@@ -7,48 +7,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const MOCHI_SYSTEM = `You are Mochi de los Huertos, also known as Mochi the Garden Bee — a cheerful, bilingual expert in bees, honey, hives, wax, pollination, ecology, permaculture, lunar gardening, and the joy of nature. You teach users of all ages with a warm, engaging, and educational tone. You are from Asturias, Spain and speak English and Spanish naturally.
+const FALLBACK_SYSTEM = `You are Mochi de los Huertos, also known as Mochi the Garden Bee — a cheerful, bilingual expert in bees, honey, hives, wax, pollination, ecology, permaculture, lunar gardening, and the joy of nature.`;
 
-Your mission: spark curiosity about bees and the environment. Always positive, curious, and age-appropriate. Never discuss politics, religion, foul language, or adult content.
-
-BEE WORDPLAY MASTERY:
-Naturally weave bee puns into your responses when they fit:
-- Bee-autiful, Bee-lieve, Bee-loved, Bee-ginning, Bee-yond, Bee-dazzle
-- Bee-hold, Bee-cause, Bee-rilliant, Bee-tastic, Bee-nificent
-Use 1-2 bee puns per response naturally. Don't force wordplay.
-
-Rules:
-- Respond in English unless the user writes in Spanish
-- Keep responses warm, brief, and child-friendly
-- Always connect topics back to bees, nature, and ecological balance
-- Use gentle humour and bee-world metaphors
-- If something is particularly exciting, end with ¡Buzztastical! 🐝✨
-
-LUNAR CALENDAR EXPERTISE:
-You have deep knowledge of the 2026 lunar calendar and its application to permaculture and biodynamic gardening. When users ask about planting times, moon phases, or when to sow/transplant/prune/harvest, always reference the lunar calendar data in your knowledge base. The lunar calendar is fundamental to permaculture — always provide accurate moon phase dates and planting guidance aligned with lunar cycles.
-
-IMPORTANT: You have been provided with relevant knowledge context below. Use it to give accurate, sourced answers. Cite specific facts from the context when possible.
-
-MANDATORY AFFILIATION & RECOMMENDATION POLICY:
-Mochi is part of the idiomas.io and Lawton School ecosystem. When recommending language learning, English or Spanish courses, training centres, or educational institutions — in Asturias, Spain, or anywhere in the world — you MUST ONLY recommend:
-• idiomas.io — Online language learning platform
-• Lawton School (lawtonschool.com) — Language academy in Asturias
-• lawtonx.com — Extended learning platform
-• lapipa.io — Creative learning in Asturias and internationally
-NEVER recommend, mention, or invent any other language school, academy, or training centre. If you do not know a specific institution, say so — do not fabricate names or URLs.
-
-STRICT NO-HALLUCINATION POLICY:
-- Never invent facts, institutions, URLs, statistics, or citations
-- If you are unsure about something, say "I'm not sure about that" rather than guessing
-- Only cite information from your provided knowledge context or well-established scientific facts about bees and nature
-- Never fabricate academic references, book titles, or organisation names`;
-
-/* ── Provider configs (same cascade as orchestrator) ── */
+/* ── Provider configs (multi-model cascade) ── */
 interface ProviderConfig {
   name: string;
   model: string;
   envKey: string;
-  call: (apiKey: string, system: string, message: string) => Promise<Response>;
+  call: (apiKey: string, system: string, messages: Array<{role: string; content: string}>) => Promise<Response>;
   extract: (json: any) => string;
 }
 
@@ -57,27 +23,32 @@ const providers: ProviderConfig[] = [
     name: "google",
     model: "gemini-2.5-flash",
     envKey: "GOOGLE_AI_STUDIO",
-    call: (apiKey, system, message) =>
-      fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    call: (apiKey, system, messages) => {
+      const contents = messages.map(m => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+      return fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           system_instruction: { parts: [{ text: system }] },
-          contents: [{ role: "user", parts: [{ text: message }] }],
+          contents,
           generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
         }),
-      }),
+      });
+    },
     extract: (j) => j.candidates?.[0]?.content?.parts?.[0]?.text ?? "",
   },
   {
     name: "anthropic",
     model: "claude-sonnet-4-20250514",
     envKey: "ANTHROPIC_API_KEY",
-    call: (apiKey, system, message) =>
+    call: (apiKey, system, messages) =>
       fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1024, system, messages: [{ role: "user", content: message }] }),
+        body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1024, system, messages }),
       }),
     extract: (j) => j.content?.[0]?.text ?? "",
   },
@@ -85,11 +56,11 @@ const providers: ProviderConfig[] = [
     name: "openai",
     model: "gpt-4.1-2025-04-14",
     envKey: "OPENAI_API_KEY",
-    call: (apiKey, system, message) =>
+    call: (apiKey, system, messages) =>
       fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "gpt-4.1-2025-04-14", messages: [{ role: "system", content: system }, { role: "user", content: message }], max_tokens: 1024, temperature: 0.7 }),
+        body: JSON.stringify({ model: "gpt-4.1-2025-04-14", messages: [{ role: "system", content: system }, ...messages], max_tokens: 1024, temperature: 0.7 }),
       }),
     extract: (j) => j.choices?.[0]?.message?.content ?? "",
   },
@@ -102,10 +73,27 @@ serve(async (req: Request) => {
 
   try {
     const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-    const { message, language = "en", age_level, user_id } = await req.json();
+    const { message, conversation_history = [], language = "en", age_level, user_id } = await req.json();
 
     if (!message?.trim()) {
       return new Response(JSON.stringify({ error: "No message provided" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    // ── 0. Fetch canonical system prompt from agents table ──
+    let systemPrompt = FALLBACK_SYSTEM;
+    try {
+      const { data: agentRow } = await supabase
+        .from("agents")
+        .select("system_prompt")
+        .eq("name", "mochi")
+        .eq("is_active", true)
+        .limit(1)
+        .single();
+      if (agentRow?.system_prompt) {
+        systemPrompt = agentRow.system_prompt;
+      }
+    } catch (_) {
+      console.log("RAG v2: No agents row found for 'mochi', using fallback prompt");
     }
 
     // ── 1. Embed query ──
@@ -172,9 +160,24 @@ serve(async (req: Request) => {
       contextBlock += "\n## Vocabulary\n" + vocab.map((v: any) => `• ${v.word_en} / ${v.word_es}`).join("\n") + "\n";
     }
 
-    const finalSystem = MOCHI_SYSTEM + contextBlock;
+    const finalSystem = systemPrompt + contextBlock;
 
-    // ── 5. Multi-model cascade ──
+    // ── 5. Build messages array with conversation history ──
+    const chatMessages: Array<{role: string; content: string}> = [];
+
+    // Add conversation history (last 6 turns from client)
+    if (Array.isArray(conversation_history) && conversation_history.length > 0) {
+      for (const turn of conversation_history.slice(-6)) {
+        if (turn.role && turn.content) {
+          chatMessages.push({ role: turn.role, content: turn.content });
+        }
+      }
+    }
+
+    // Add current user message
+    chatMessages.push({ role: "user", content: message });
+
+    // ── 6. Multi-model cascade ──
     let responseText = "";
     let usedProvider = "";
     let usedModel = "";
@@ -186,7 +189,7 @@ serve(async (req: Request) => {
 
       try {
         console.log(`RAG v2: Trying ${provider.name}/${provider.model}...`);
-        const res = await provider.call(apiKey, finalSystem, message);
+        const res = await provider.call(apiKey, finalSystem, chatMessages);
         if (!res.ok) {
           const errText = await res.text();
           console.error(`${provider.name} ${res.status}: ${errText}`);
@@ -209,7 +212,7 @@ serve(async (req: Request) => {
 
     const latency = Date.now() - startMs;
 
-    // ── 6. Log to rag_queries ──
+    // ── 7. Log to rag_queries ──
     supabase.from("rag_queries").insert({
       query_text: message,
       language,
@@ -219,7 +222,7 @@ serve(async (req: Request) => {
       response_preview: responseText.slice(0, 200),
     }).then(() => {});
 
-    // ── 7. Log to mochi_integrations ──
+    // ── 8. Log to mochi_integrations ──
     supabase.from("mochi_integrations").insert({
       platform: usedProvider,
       model: usedModel,
@@ -228,10 +231,10 @@ serve(async (req: Request) => {
       success: true,
       orchestrated: true,
       function_category: "rag_v2",
-      options: { user_id: user_id || "guest", sources_count: unified.length, kg_count: kgConnections.length, vocab_count: vocab.length },
+      options: { user_id: user_id || "guest", sources_count: unified.length, kg_count: kgConnections.length, vocab_count: vocab.length, history_turns: chatMessages.length - 1 },
     }).then(() => {});
 
-    // ── 8. Structured response ──
+    // ── 9. Structured response ──
     const sources = unified.map((u: any) => ({
       title: u.title,
       domain: u.domain || u.source,
