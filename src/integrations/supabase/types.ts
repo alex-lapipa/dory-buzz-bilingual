@@ -1844,6 +1844,39 @@ export type Database = {
           },
         ]
       }
+      voice_agent_health: {
+        Row: {
+          agent_id: string
+          agent_name: string
+          checked_at: string
+          error_message: string | null
+          id: string
+          quota_remaining: number | null
+          response_time_ms: number | null
+          status: string
+        }
+        Insert: {
+          agent_id: string
+          agent_name: string
+          checked_at?: string
+          error_message?: string | null
+          id?: string
+          quota_remaining?: number | null
+          response_time_ms?: number | null
+          status?: string
+        }
+        Update: {
+          agent_id?: string
+          agent_name?: string
+          checked_at?: string
+          error_message?: string | null
+          id?: string
+          quota_remaining?: number | null
+          response_time_ms?: number | null
+          status?: string
+        }
+        Relationships: []
+      }
       voice_conversations: {
         Row: {
           conversation_data: Json

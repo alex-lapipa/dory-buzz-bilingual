@@ -11,6 +11,7 @@
         "@capacitor/cli": "^7.4.2",
         "@capacitor/core": "^7.4.2",
         "@capacitor/ios": "^7.4.2",
+        "@elevenlabs/react": "^0.1.4",
         "@hookform/resolvers": "^3.9.0",
         "@huggingface/transformers": "^3.7.0",
         "@radix-ui/react-accordion": "^1.2.0",
@@ -119,6 +120,10 @@
     "@capacitor/core": ["@capacitor/core@7.4.2", "", { "dependencies": { "tslib": "^2.1.0" } }, "sha512-akCf9A1FUR8AWTtmgGjHEq6LmGsjA2U7igaJ9PxiCBfyxKqlDbuGHrlNdpvHEjV5tUPH3KYtkze6gtFcNKPU9A=="],
 
     "@capacitor/ios": ["@capacitor/ios@7.4.2", "", { "peerDependencies": { "@capacitor/core": "^7.4.0" } }, "sha512-Edd4aZ6IJi4O/7dJIsSIuuo6LXvVVP5V++0Vs1w5bWOGbGhWZXLF0lt0KGFgSUxTuyL6xURGUygkD6dCp35QAQ=="],
+
+    "@elevenlabs/client": ["@elevenlabs/client@0.1.7", "", {}, "sha512-IfKeV/3Qee091KnD3G4A4MImBdlG+saXfaYLNykJ6BtX4zrgOdKyvFaJJOIjgqBFYCdMNrA6Z0pUlU+Iw4OUkQ=="],
+
+    "@elevenlabs/react": ["@elevenlabs/react@0.1.7", "", { "dependencies": { "@elevenlabs/client": "0.1.7" }, "peerDependencies": { "react": ">=16.8.0" } }, "sha512-EwucXGUXa7rL4NcjtF5Z1ezNvKMBlfJzRvuLwDxarUX/jffCr64QzopBZzJEeBnqG3pjATpU3NQ0iOpRI3TiRA=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.4.5", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg=="],
 

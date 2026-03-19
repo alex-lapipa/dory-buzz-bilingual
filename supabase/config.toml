@@ -30,6 +30,12 @@ verify_jwt = false
 [functions.mochi_self_improve]
 verify_jwt = false
 
+[functions.elevenlabs_conversation_token]
+verify_jwt = false
+
+[functions.voice_agent_monitor]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321
