@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { FlaskConical, Trophy, RotateCcw, ArrowLeft, X, CheckCircle, ArrowRight as ArrowRightIcon } from 'lucide-react';
+import { HoneyJar, HoneycombTrophy, DandelionBack, BeeTrailLeft, GardenX, BloomingCheck, BeeTrailRight } from '@/components/icons';
 
 interface LifecycleStage {
   id: string;

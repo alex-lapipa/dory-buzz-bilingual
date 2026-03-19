@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useConsent, CONSENT_TYPES } from '@/contexts/ConsentContext';
-import { X, Shield, Info } from 'lucide-react';
+import { GardenX, BeehiveSafe, LadybugInfo } from '@/components/icons';
 import { useState } from 'react';
 
 export const GDPRConsentBanner: React.FC = () => {

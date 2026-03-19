@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { DandelionSpin, LeafEnvelope, GardenLock, BeeFace, FlowerEye } from '@/components/icons';
 import { supabase } from '@/integrations/supabase/client';
 import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail } from '@/utils/oauthRedirect';
 

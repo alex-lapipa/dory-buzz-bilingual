@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Brain, CheckCircle, X, Trophy, RotateCcw } from 'lucide-react';
+import { Firefly, BloomingCheck, GardenX, HoneycombTrophy, DandelionBack } from '@/components/icons';
 
 interface Question {
   id: number;

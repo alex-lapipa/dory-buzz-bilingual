@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Brain, Mic, Image, Volume2, Loader2 } from 'lucide-react';
+import { Firefly, BeeAntenna, ButterflyFrame, VolumeFlower, DandelionSpin } from '@/components/icons';
 
 export const AdvancedFeatures: React.FC = () => {
   const [loading, setLoading] = useState<string | null>(null);
