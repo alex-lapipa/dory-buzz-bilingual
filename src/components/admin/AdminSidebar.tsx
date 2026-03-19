@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Settings, Activity, BarChart3, BookOpen, Flower2, TreeDeciduous, MessageCircle,
   Palette, Layers, Globe, ExternalLink, Wrench, HeartPulse, Shield, Lock,
-  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon, Zap
+  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon, Zap, Mic
 } from '@/components/icons/lucide-compat';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
