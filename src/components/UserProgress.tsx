@@ -165,7 +165,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h5 className="font-medium text-sm">{achievement.title}</h5>
-                    {achievement.unlocked && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+                    {achievement.unlocked && <BloomingCheck className="h-4 w-4 text-green-500" />}
                   </div>
                   <p className="text-xs text-muted-foreground">{achievement.description}</p>
                 </div>
