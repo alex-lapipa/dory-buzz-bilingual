@@ -279,7 +279,7 @@ const LearningHub: React.FC = () => {
                 };
               }),
               {
-                label: `🎮 Games (${completedCount}/10)`,
+                label: `Games (${completedCount}/10)`,
                 value: Math.round((completedCount / 10) * 100),
                 color: 'hsl(270 60% 55%)',
               },
