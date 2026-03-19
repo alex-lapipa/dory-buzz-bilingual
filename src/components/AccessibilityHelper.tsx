@@ -130,7 +130,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <Zap className="h-5 w-5" />
+            <PollenSparkle className="h-5 w-5" />
             {language === 'es' ? 'Estado del Sistema' : 'System Status'}
           </CardTitle>
         </CardHeader>
