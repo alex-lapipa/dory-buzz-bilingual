@@ -1,5 +1,5 @@
 /**
- * Lucide-react compatibility shim
+ * Lucide-react compatibility shim.
  * Maps every lucide icon name used in the codebase to its BeeIcon equivalent.
  */
 export {
