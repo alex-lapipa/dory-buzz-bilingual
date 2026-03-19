@@ -63,7 +63,7 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
                 <Icon className="h-4 w-4" />
                 <span className="text-xs text-center">{tab.label}</span>
                 {isActive && (
-                  <Sparkles className="h-3 w-3 animate-pulse" />
+                  <PollenSparkle className="h-3 w-3 animate-pulse" />
                 )}
               </Button>
             );

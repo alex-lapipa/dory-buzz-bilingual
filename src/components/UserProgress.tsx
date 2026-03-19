@@ -188,7 +188,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
             onClick={() => window.open('https://lapipa.ai', '_blank')}
             className="flex-1"
           >
-            <ExternalLink className="h-3 w-3 mr-2" />
+            <ButterflyLink className="h-3 w-3 mr-2" />
             {language === 'es' ? 'Visitar Lapipa' : 'Visit Lapipa'}
           </Button>
         </div>

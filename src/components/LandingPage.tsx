@@ -13,7 +13,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
   const features = [
     {
-      icon: <MessageCircle className="h-7 w-7" />,
+      icon: <BeeChat className="h-7 w-7" />,
       emoji: '🐝',
       title: language === 'es' ? 'Chatea con Mochi' : 'Chat with Mochi',
       desc: language === 'es'
@@ -21,7 +21,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         : 'Smart conversations about bees, gardens, and nature',
     },
     {
-      icon: <BookOpen className="h-7 w-7" />,
+      icon: <LeafBook className="h-7 w-7" />,
       emoji: '🎓',
       title: language === 'es' ? 'Aprende Jugando' : 'Learn by Playing',
       desc: language === 'es'
@@ -29,7 +29,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         : 'Trivia games, vocabulary cards, and fascinating facts',
     },
     {
-      icon: <Flower2 className="h-7 w-7" />,
+      icon: <SunflowerStar className="h-7 w-7" />,
       emoji: '🌻',
       title: language === 'es' ? 'Jardín Virtual' : 'Virtual Garden',
       desc: language === 'es'

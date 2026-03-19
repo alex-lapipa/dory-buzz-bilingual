@@ -720,7 +720,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             </Button>
             
             <Button onClick={() => sendMessage()} disabled={isLoading || !inputMessage.trim()}>
-              <Send className="h-4 w-4" />
+              <PollenSend className="h-4 w-4" />
             </Button>
           </div>
           

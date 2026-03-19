@@ -85,7 +85,7 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
             </Button>
             <Button onClick={nextStep}>
               {currentStep === tips.length - 1 ? 'Get Started!' : 'Next'}
-              {currentStep < tips.length - 1 && <ChevronRight className="h-4 w-4 ml-1" />}
+              {currentStep < tips.length - 1 && <PetalChevronRight className="h-4 w-4 ml-1" />}
             </Button>
           </div>
         </CardContent>

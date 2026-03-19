@@ -94,7 +94,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
 
           <div className="text-center space-y-4">
             <div className="p-4 bg-primary/10 rounded-lg">
-              <Mail className="h-6 w-6 mx-auto mb-2 text-primary" />
+              <LeafEnvelope className="h-6 w-6 mx-auto mb-2 text-primary" />
               <p className="text-sm">
                 We've sent this welcome information to: <strong>{userEmail}</strong>
               </p>
