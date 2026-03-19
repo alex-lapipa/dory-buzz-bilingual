@@ -364,7 +364,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-purple-800">
-                <span className="text-4xl group-hover:animate-bounce">🎮</span>
+                <span className="text-4xl group-hover:animate-bounce"><GamepadFlower className="h-10 w-10" /></span>
                 Interactive Games
                 <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-600 ml-auto">
                   Play Now
