@@ -290,7 +290,7 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-nature p-4">
-      <Card className="w-full max-w-md shadow-honey border-2 border-border/50 bg-card/95 backdrop-blur">
+      <Card className="w-full max-w-md card-nature shadow-honey">
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center items-center gap-3 mb-4">
             <img 
