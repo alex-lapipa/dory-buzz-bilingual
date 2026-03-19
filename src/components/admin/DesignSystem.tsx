@@ -38,7 +38,7 @@ export const DesignSystem: React.FC = () => {
             <Button size="sm">Small</Button>
             <Button size="default">Default</Button>
             <Button size="lg">Large</Button>
-            <Button size="icon"><Heart className="h-4 w-4" /></Button>
+            <Button size="icon"><FlowerHeart className="h-4 w-4" /></Button>
           </div>
           <p className="text-xs text-muted-foreground font-mono">{'<Button variant="default" size="sm">'}</p>
         </CardContent>
