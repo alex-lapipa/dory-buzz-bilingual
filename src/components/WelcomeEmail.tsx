@@ -20,7 +20,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
             <div className="relative">
               <span className="text-6xl">🐝</span>
               <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1">
-                <Heart className="h-4 w-4" />
+                <FlowerHeart className="h-4 w-4" />
               </div>
             </div>
           </div>
