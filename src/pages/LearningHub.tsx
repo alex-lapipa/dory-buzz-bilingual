@@ -214,7 +214,7 @@ const LearningHub: React.FC = () => {
       <PageLayout>
         <div className="flex items-center justify-center p-8">
           <div className="text-center">
-            <div className="text-4xl animate-bee-bounce mb-4">🐝</div>
+            <div className="animate-bee-bounce mb-4"><BeeFlying className="h-10 w-10 text-primary mx-auto" /></div>
             <p>Loading bee education content...</p>
           </div>
         </div>
