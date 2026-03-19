@@ -19,12 +19,8 @@ export const GlobalVoiceAgent: React.FC = () => {
   const agentName = isKidsRoute ? "BeeBee" : "Mochi";
 
   const conversation = useConversation({
-    onConnect: () => {
-      console.log(`🐝 ${agentName} voice connected`);
-    },
-    onDisconnect: () => {
-      console.log(`🐝 ${agentName} voice disconnected`);
-    },
+    onConnect: () => console.log(`🐝 ${agentName} voice connected`),
+    onDisconnect: () => console.log(`🐝 ${agentName} voice disconnected`),
     onError: (error) => {
       console.error(`🐝 ${agentName} voice error:`, error);
       if (!hasShownErrorRef.current) {
@@ -53,13 +49,12 @@ export const GlobalVoiceAgent: React.FC = () => {
         { body: { agent_id: agentId } }
       );
 
-      if (error || !data?.token) {
-        throw new Error(error?.message || "No token received");
+      if (error || !data?.signed_url) {
+        throw new Error(error?.message || "No signed URL received");
       }
 
       await conversation.startSession({
-        conversationToken: data.token,
-        connectionType: "webrtc",
+        signedUrl: data.signed_url,
       });
     } catch (err: any) {
       console.error("🐝 Failed to start voice:", err);
@@ -94,11 +89,7 @@ export const GlobalVoiceAgent: React.FC = () => {
           {agentName} voice is unavailable right now. Please use text chat.
         </p>
         <button
-          onClick={() => {
-            setHasError(false);
-            hasShownErrorRef.current = false;
-            startConversation();
-          }}
+          onClick={() => { setHasError(false); hasShownErrorRef.current = false; startConversation(); }}
           className="text-xs text-primary hover:underline"
         >
           Try again
@@ -109,20 +100,17 @@ export const GlobalVoiceAgent: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-[70] flex flex-col items-center gap-2">
-      {/* Status label */}
       {isConnected && (
         <div className="rounded-full bg-card border border-border px-3 py-1 text-xs text-card-foreground shadow-md">
           {isSpeaking ? `${agentName} is speaking…` : "Listening…"}
         </div>
       )}
 
-      {/* Mic button */}
       <button
         onClick={isConnected ? stopConversation : startConversation}
         disabled={isConnecting}
         className={`
-          w-14 h-14 rounded-full shadow-lg flex items-center justify-center
-          transition-all duration-200
+          w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200
           ${isConnecting ? "bg-muted text-muted-foreground cursor-wait" : ""}
           ${isConnected && isSpeaking ? "bg-primary text-primary-foreground animate-pulse" : ""}
           ${isConnected && !isSpeaking ? "bg-destructive text-destructive-foreground" : ""}
@@ -135,12 +123,10 @@ export const GlobalVoiceAgent: React.FC = () => {
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeLinecap="round" />
           </svg>
         ) : isConnected ? (
-          /* Stop icon */
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
             <rect x="6" y="6" width="12" height="12" rx="2" />
           </svg>
         ) : (
-          /* Mic icon */
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="9" y="2" width="6" height="12" rx="3" />
             <path d="M5 10a7 7 0 0 0 14 0" />

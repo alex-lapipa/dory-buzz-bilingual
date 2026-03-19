@@ -40,13 +40,12 @@ export const MochiConvAI: React.FC<MochiConvAIProps> = ({ className = "", compac
         { body: { agent_id: AGENT_ID } }
       );
 
-      if (fnError || !data?.token) {
-        throw new Error(fnError?.message || "No token received");
+      if (fnError || !data?.signed_url) {
+        throw new Error(fnError?.message || "No signed URL received");
       }
 
       await conversation.startSession({
-        conversationToken: data.token,
-        connectionType: "webrtc",
+        signedUrl: data.signed_url,
       });
     } catch (err: any) {
       console.error("🐝 Mochi inline start failed:", err);
@@ -76,10 +75,7 @@ export const MochiConvAI: React.FC<MochiConvAIProps> = ({ className = "", compac
         <span className="text-3xl">🐝</span>
         <p className="text-sm text-muted-foreground">{error}</p>
         <button
-          onClick={() => {
-            setError(null);
-            startConversation();
-          }}
+          onClick={() => { setError(null); startConversation(); }}
           className="text-xs text-primary hover:underline"
         >
           Try again
@@ -101,14 +97,12 @@ export const MochiConvAI: React.FC<MochiConvAIProps> = ({ className = "", compac
         </div>
       )}
 
-      {/* Status */}
       {isConnected && (
         <p className="text-xs text-muted-foreground">
           {isSpeaking ? "Mochi is speaking…" : "Listening…"}
         </p>
       )}
 
-      {/* Mic button */}
       <button
         onClick={isConnected ? stopConversation : startConversation}
         disabled={isConnecting}

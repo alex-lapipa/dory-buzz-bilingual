@@ -26,8 +26,9 @@ serve(async (req) => {
 
     const startTime = Date.now();
 
+    // Use signed URL endpoint — works without domain whitelisting
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=${agent_id}`,
+      `https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${agent_id}`,
       {
         headers: { "xi-api-key": apiKey },
       }
@@ -37,7 +38,7 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("ElevenLabs token error:", response.status, errorText);
+      console.error("ElevenLabs signed URL error:", response.status, errorText);
       throw new Error(`ElevenLabs API error: ${response.status} - ${errorText}`);
     }
 
@@ -51,23 +52,23 @@ serve(async (req) => {
       );
       await supabase.from("mochi_integrations").insert({
         platform: "elevenlabs",
-        model: "convai-token",
+        model: "convai-signed-url",
         message_length: 0,
         response_time_ms: responseTime,
         success: true,
-        options: { agent_id, token_type: "conversation" },
+        options: { agent_id, token_type: "signed_url" },
       });
     } catch (logErr) {
       console.error("Failed to log token generation:", logErr);
     }
 
-    console.log(`🐝 Token generated for agent ${agent_id} in ${responseTime}ms`);
+    console.log(`🐝 Signed URL generated for agent ${agent_id} in ${responseTime}ms`);
 
-    return new Response(JSON.stringify({ token: data.token }), {
+    return new Response(JSON.stringify({ signed_url: data.signed_url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("🐝 Token generation error:", error);
+    console.error("🐝 Signed URL generation error:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
