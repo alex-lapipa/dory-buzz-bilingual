@@ -21,6 +21,7 @@ const AnalyticsDashboard = lazy(() => import('@/components/admin/AnalyticsDashbo
 const AudioSoundDesign = lazy(() => import('@/components/admin/AudioSoundDesign'));
 const LunarCalendarAdmin = lazy(() => import('@/components/admin/LunarCalendarAdmin'));
 const EdgeFunctionsDashboard = lazy(() => import('@/components/admin/EdgeFunctionsDashboard'));
+const VoiceAgentHealth = lazy(() => import('@/components/admin/VoiceAgentHealth'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
