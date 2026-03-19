@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ExternalLink, Github, Globe, Heart } from 'lucide-react';
+import { ExternalLink, Github, Globe, Heart } from '@/components/icons/lucide-compat';
 
 export const ExternalLinks: React.FC = () => {
   const links = [

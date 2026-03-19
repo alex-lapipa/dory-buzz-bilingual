@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useMochiAssets } from '@/hooks/useMochiAssets';
 import { toast } from 'sonner';
-import { Loader2, Video, Upload } from 'lucide-react';
+import { Loader2, Video, Upload } from '@/components/icons/lucide-compat';
 
 export const MochiCharacterExtractor: React.FC = () => {
   const [videoUrl, setVideoUrl] = useState('');

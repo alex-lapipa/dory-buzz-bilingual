@@ -3,7 +3,7 @@ import { useAppStatus } from '@/contexts/AppStatusContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AlertCircle, CheckCircle, Wifi, WifiOff, Database } from 'lucide-react';
+import { AlertCircle, CheckCircle, Wifi, WifiOff, Database } from '@/components/icons/lucide-compat';
 
 export const SystemStatusIndicator: React.FC = () => {
   const { state, checkConnectivity, clearError } = useAppStatus();

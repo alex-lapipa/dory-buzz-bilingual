@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
-import { Upload, Loader2, FileJson, CheckCircle, XCircle, Sparkles } from 'lucide-react';
+import { Upload, Loader2, FileJson, CheckCircle, XCircle, Sparkles } from '@/components/icons/lucide-compat';
 import { useToast } from '@/hooks/use-toast';
 
 interface IngestResult {
