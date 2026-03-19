@@ -262,6 +262,9 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
           kg_connections: data.kg_connections || [],
           vocab_hint: data.vocab_hint || [],
           latency_ms: data.latency_ms,
+          agent: data.agent,
+          intent: data.intent,
+          intent_confidence: data.intent_confidence,
         }
       };
       
