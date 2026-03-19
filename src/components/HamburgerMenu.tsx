@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { HoneycombMenu, ButterflyLink, BeeFlying, BeeFace, BeehiveSafe, FlowerHeart, LeafBook, BeeChat, SeedlingChart, MusicalFlower } from '@/components/icons';
+import { HoneycombMenu, ButterflyLink, BeeFlying, BeeFace, BeehiveSafe, FlowerHeart, LeafBook, BeeChat, SeedlingChart, MusicalFlower, NatureLeaf } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
