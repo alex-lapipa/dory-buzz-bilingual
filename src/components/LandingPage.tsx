@@ -89,9 +89,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
       {/* Decorative divider */}
       <div className="flex justify-center gap-2 py-4">
-        <span className="text-2xl animate-flower-sway">🌸</span>
-        <span className="text-2xl animate-flower-sway" style={{ animationDelay: '0.3s' }}>🌼</span>
-        <span className="text-2xl animate-flower-sway" style={{ animationDelay: '0.6s' }}>🌺</span>
+        <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
+        <FlowerHeart className="h-6 w-6 text-primary animate-flower-sway" style={{ animationDelay: '0.3s' }} />
+        <NatureLeaf className="h-6 w-6 text-primary animate-flower-sway" style={{ animationDelay: '0.6s' }} />
       </div>
 
       {/* Feature Grid */}
