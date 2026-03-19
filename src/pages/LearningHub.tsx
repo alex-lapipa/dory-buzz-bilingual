@@ -398,7 +398,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-blue-800">
-                <span className="text-4xl group-hover:animate-spin-slow">🌍</span>
+                <span className="text-4xl group-hover:animate-spin-slow"><EarthVine className="h-10 w-10" /></span>
                 Ecosystem Explorer
                 <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-600 ml-auto">
                   Available
