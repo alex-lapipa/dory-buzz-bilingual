@@ -303,7 +303,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-yellow-800">
-                <span className="text-4xl group-hover:animate-bounce">🐝</span>
+                <span className="text-4xl group-hover:animate-bounce"><BeeFlying className="h-10 w-10" /></span>
                 Bee Basics
                 <Badge className="bg-yellow-500 text-yellow-900 ml-auto">
                   <SunflowerStar className="h-3 w-3 mr-1" />
