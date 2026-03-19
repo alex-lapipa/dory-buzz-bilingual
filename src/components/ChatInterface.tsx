@@ -28,7 +28,7 @@ import {
   FlowerBudClose,
   BeeTrailRight
 } from '@/components/icons';
-import { Send } from 'lucide-react';
+import { Send, ChevronDown, ChevronRight, BookOpen, GitBranch, Languages } from 'lucide-react';
 
 interface Message {
   id: string;
