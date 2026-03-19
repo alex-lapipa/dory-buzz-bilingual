@@ -109,7 +109,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <CardContent className="p-0 space-y-3">
-                  <div className="text-4xl">{f.emoji}</div>
+                  <div className="text-primary">{f.icon}</div>
                   <h3 className="text-responsive-base font-semibold">{f.title}</h3>
                   <p className="text-responsive-sm text-muted-foreground font-normal">{f.desc}</p>
                 </CardContent>
