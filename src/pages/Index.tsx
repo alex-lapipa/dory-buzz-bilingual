@@ -33,7 +33,7 @@ const Index = () => {
                 MochiBee Garden
               </h1>
               <p className="text-responsive-sm md:text-responsive-base text-muted-foreground font-medium">
-                Your garden assistant 🌻
+                Your garden assistant <SunflowerStar className="h-4 w-4 inline text-primary" />
               </p>
             </div>
           </div>
