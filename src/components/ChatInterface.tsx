@@ -55,6 +55,9 @@ interface Message {
     vocab_hint?: string[];
     latency_ms?: number;
     provider?: string;
+    agent?: string;
+    intent?: string;
+    intent_confidence?: number;
   };
 }
 
