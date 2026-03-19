@@ -69,6 +69,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'technical', label: 'Technical Details', icon: Wrench },
       { id: 'system-health', label: 'System Health', icon: HeartPulse },
+      { id: 'voice-health', label: 'Voice Agents', icon: Mic },
       { id: 'edge-functions', label: 'Edge Functions', icon: Zap },
     ],
   },
