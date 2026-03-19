@@ -45,7 +45,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
 
           <div className="space-y-4">
             <h3 className="font-semibold flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <BloomingCheck className="h-5 w-5 text-green-500" />
               What you can do with Mochi:
             </h3>
             
