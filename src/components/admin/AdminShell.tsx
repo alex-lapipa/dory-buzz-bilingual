@@ -182,6 +182,8 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
       return <ComprehensiveHealthCheck />;
     case 'edge-functions':
       return <EdgeFunctionsDashboard />;
+    case 'voice-health':
+      return <VoiceAgentHealth />;
     case 'privacy':
       return <ConsentSettings />;
     case 'accessibility':
