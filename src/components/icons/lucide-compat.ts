@@ -107,5 +107,4 @@ export {
   LeafClipboard as FileJson,
   ButterflyLink as Link2,
   HoneyHash as Tag,
-  NatureLeaf as Leaf as default,
 } from './BeeIcons';
