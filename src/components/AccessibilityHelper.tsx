@@ -99,7 +99,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'education',
       label: language === 'es' ? 'Centro Educativo' : 'Education Hub',
       status: features.educationHub ? 'good' : 'error',
-      icon: <BookOpen className="h-4 w-4" />,
+      icon: <LeafBook className="h-4 w-4" />,
       description: features.educationHub 
         ? (language === 'es' ? 'Listo' : 'Ready')
         : (language === 'es' ? 'Error' : 'Error')
