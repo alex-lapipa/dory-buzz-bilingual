@@ -129,7 +129,4 @@ export {
   HiveServer as Cpu,
   HiveServer as Smartphone,
   BeehiveSafe as ShieldCheck,
-  SundialFlower as Timer,
-  GardenTools as Edit3,
-  BeeDownload as Save,
 } from './BeeIcons';
