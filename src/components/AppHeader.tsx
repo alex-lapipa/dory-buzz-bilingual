@@ -4,7 +4,7 @@ import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 import { HamburgerMenu } from './HamburgerMenu';
 import { Button } from '@/components/ui/button';
-import { FlowerHeart, BeeFace, BeeFlying, BeehiveSafe } from '@/components/icons';
+import { FlowerHeart, BeeFace, BeeFlying, BeehiveSafe, SunflowerStar } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
