@@ -117,10 +117,10 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'good': return <CheckCircle2 className="h-4 w-4 text-green-500" />;
-      case 'warning': return <AlertCircle className="h-4 w-4 text-yellow-500" />;
-      case 'error': return <AlertCircle className="h-4 w-4 text-red-500" />;
-      default: return <Clock className="h-4 w-4 text-muted-foreground" />;
+      case 'good': return <BloomingCheck className="h-4 w-4 text-green-500" />;
+      case 'warning': return <WiltingFlower className="h-4 w-4 text-yellow-500" />;
+      case 'error': return <WiltingFlower className="h-4 w-4 text-red-500" />;
+      default: return <SundialFlower className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
