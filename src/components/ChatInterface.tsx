@@ -212,10 +212,17 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         })
       };
 
+      // Build conversation history for multi-turn context
+      const recentHistory = localMessages.slice(-6).map(m => ({
+        role: m.type === 'user' ? 'user' : 'assistant',
+        content: m.content,
+      }));
+
       // Use RAG v2 for full unified search (KB + bee_facts + KG graph walk + vocabulary)
       const { data, error } = await supabase.functions.invoke('mochi_rag_v2', {
         body: {
           message,
+          conversation_history: recentHistory,
           language: t('language') === 'es' ? 'es' : 'en',
           user_id: user?.id || guestId,
           age_level: audienceLevel === 'beginner' ? 'kids' : audienceLevel === 'expert' ? 'adult' : null,

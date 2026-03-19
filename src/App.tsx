@@ -58,8 +58,6 @@ const App = () => {
   const { setLanguage } = useLanguage();
   const { user, loading: authLoading } = useAuth();
 
-  // Debug log to verify state
-  console.log('App state:', { showLanding, showLanguageSelect, showOnboarding });
 
   useEffect(() => {
     // Check if user has visited before
