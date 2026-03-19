@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
+import { Loader2, Lock, Eye, EyeOff, CheckCircle } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 

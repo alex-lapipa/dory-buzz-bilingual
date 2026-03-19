@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Camera, Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from 'lucide-react';
+import { Camera, Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from '@/components/icons/lucide-compat';
 
 interface BeeSpecies {
   id: string;

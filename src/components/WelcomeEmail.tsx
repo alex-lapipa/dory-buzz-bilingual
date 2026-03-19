@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, CheckCircle, Heart } from 'lucide-react';
+import { LeafEnvelope, BloomingCheck, FlowerHeart } from '@/components/icons';
 
 interface WelcomeEmailProps {
   userEmail: string;
@@ -20,7 +20,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
             <div className="relative">
               <span className="text-6xl">🐝</span>
               <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1">
-                <Heart className="h-4 w-4" />
+                <FlowerHeart className="h-4 w-4" />
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
 
           <div className="space-y-4">
             <h3 className="font-semibold flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <BloomingCheck className="h-5 w-5 text-green-500" />
               What you can do with Mochi:
             </h3>
             
@@ -94,7 +94,7 @@ export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({
 
           <div className="text-center space-y-4">
             <div className="p-4 bg-primary/10 rounded-lg">
-              <Mail className="h-6 w-6 mx-auto mb-2 text-primary" />
+              <LeafEnvelope className="h-6 w-6 mx-auto mb-2 text-primary" />
               <p className="text-sm">
                 We've sent this welcome information to: <strong>{userEmail}</strong>
               </p>

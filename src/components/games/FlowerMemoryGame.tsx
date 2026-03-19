@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { RotateCcw, Trophy, Star, Timer } from 'lucide-react';
+import { RotateCcw, Trophy, Star, Timer } from '@/components/icons/lucide-compat';
 
 interface GameCard {
   id: string;

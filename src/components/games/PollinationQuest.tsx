@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Target, Trophy, RotateCcw, ArrowLeft, X, ArrowUp, ArrowDown, ArrowLeftIcon, ArrowRight } from 'lucide-react';
+import { Target, Trophy, RotateCcw, ArrowLeft, X, ArrowUp, ArrowDown, ArrowLeftIcon, ArrowRight } from '@/components/icons/lucide-compat';
 
 type CellType = 'empty' | 'flower' | 'hazard' | 'hive' | 'bee' | 'visited';
 

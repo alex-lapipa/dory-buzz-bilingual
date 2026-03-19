@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX } from '@/components/icons/lucide-compat';
 import { LazyVideo } from '@/components/LazyVideo';
 
 const MochiVideo = () => {

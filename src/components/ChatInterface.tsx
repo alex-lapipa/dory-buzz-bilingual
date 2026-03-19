@@ -28,7 +28,7 @@ import {
   FlowerBudClose,
   BeeTrailRight
 } from '@/components/icons';
-import { Send, ChevronDown, ChevronRight, BookOpen, GitBranch, Languages } from 'lucide-react';
+import { PollenSend, PetalChevronDown, PetalChevronRight, LeafBook as LeafBookAlt, ActivityVine, BilingualBee } from '@/components/icons';
 
 interface RagSource {
   title: string;
@@ -425,8 +425,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
     return (
       <Collapsible className="mt-2">
         <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors group">
-          <ChevronRight className="h-3 w-3 group-data-[state=open]:hidden" />
-          <ChevronDown className="h-3 w-3 hidden group-data-[state=open]:block" />
+          <PetalChevronRight className="h-3 w-3 group-data-[state=open]:hidden" />
+          <PetalChevronDown className="h-3 w-3 hidden group-data-[state=open]:block" />
           <span>Sources & Knowledge</span>
           <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
             {(metadata.sources?.length || 0) + (metadata.kg_connections?.length || 0) + (metadata.vocab_hint?.length || 0)}
@@ -437,7 +437,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             <div className="flex flex-wrap gap-1">
               {metadata.sources!.map((s, i) => (
                 <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-background/50">
-                  <BookOpen className="h-2.5 w-2.5" />
+                  <LeafBookAlt className="h-2.5 w-2.5" />
                   <span className="truncate max-w-[120px]">{s.title}</span>
                   <span className="opacity-60">{s.sim}%</span>
                 </Badge>
@@ -448,7 +448,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             <div className="flex flex-wrap gap-1">
               {metadata.kg_connections!.slice(0, 4).map((c, i) => (
                 <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-primary/5 border-primary/20">
-                  <GitBranch className="h-2.5 w-2.5" />
+                  <ActivityVine className="h-2.5 w-2.5" />
                   <span className="truncate max-w-[160px]">{c}</span>
                 </Badge>
               ))}
@@ -458,7 +458,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             <div className="flex flex-wrap gap-1">
               {metadata.vocab_hint!.map((v, i) => (
                 <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-accent/10 border-accent/20">
-                  <Languages className="h-2.5 w-2.5" />
+                  <BilingualBee className="h-2.5 w-2.5" />
                   {v}
                 </Badge>
               ))}
@@ -720,7 +720,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             </Button>
             
             <Button onClick={() => sendMessage()} disabled={isLoading || !inputMessage.trim()}>
-              <Send className="h-4 w-4" />
+              <PollenSend className="h-4 w-4" />
             </Button>
           </div>
           

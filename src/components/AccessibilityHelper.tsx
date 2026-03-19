@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, Zap, Users, MessageCircle, Image, BookOpen } from 'lucide-react';
+import { BloomingCheck, WiltingFlower, SundialFlower, WifiFlower, WifiOffFlower, PollenSparkle, BeeColony, BeeChat, ButterflyFrame, LeafBook } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { UserProgress } from '@/components/UserProgress';
 
@@ -63,7 +63,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'connection',
       label: language === 'es' ? 'Conexión a Internet' : 'Internet Connection',
       status: connectionStatus === 'online' ? 'good' : 'error',
-      icon: connectionStatus === 'online' ? <Wifi className="h-4 w-4" /> : <WifiOff className="h-4 w-4" />,
+      icon: connectionStatus === 'online' ? <WifiFlower className="h-4 w-4" /> : <WifiOffFlower className="h-4 w-4" />,
       description: connectionStatus === 'online' 
         ? (language === 'es' ? 'Conectado' : 'Connected')
         : (language === 'es' ? 'Sin conexión' : 'Offline')
@@ -72,7 +72,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'textChat',
       label: language === 'es' ? 'Chat de Texto' : 'Text Chat',
       status: features.textChat ? 'good' : 'error',
-      icon: <MessageCircle className="h-4 w-4" />,
+      icon: <BeeChat className="h-4 w-4" />,
       description: features.textChat 
         ? (language === 'es' ? 'Disponible' : 'Available')
         : (language === 'es' ? 'No disponible' : 'Unavailable')
@@ -81,7 +81,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'voiceChat',
       label: language === 'es' ? 'Chat de Voz' : 'Voice Chat',
       status: features.voiceChat ? 'good' : 'warning',
-      icon: <Zap className="h-4 w-4" />,
+      icon: <PollenSparkle className="h-4 w-4" />,
       description: features.voiceChat 
         ? (language === 'es' ? 'Micrófono detectado' : 'Microphone detected')
         : (language === 'es' ? 'Micrófono no disponible' : 'Microphone not available')
@@ -90,7 +90,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'imageGen',
       label: language === 'es' ? 'Generador de Imágenes' : 'Image Generator',
       status: features.imageGeneration ? 'good' : 'error',
-      icon: <Image className="h-4 w-4" />,
+      icon: <ButterflyFrame className="h-4 w-4" />,
       description: features.imageGeneration 
         ? (language === 'es' ? 'Funcionando' : 'Working')
         : (language === 'es' ? 'Error' : 'Error')
@@ -99,7 +99,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'education',
       label: language === 'es' ? 'Centro Educativo' : 'Education Hub',
       status: features.educationHub ? 'good' : 'error',
-      icon: <BookOpen className="h-4 w-4" />,
+      icon: <LeafBook className="h-4 w-4" />,
       description: features.educationHub 
         ? (language === 'es' ? 'Listo' : 'Ready')
         : (language === 'es' ? 'Error' : 'Error')
@@ -117,10 +117,10 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'good': return <CheckCircle2 className="h-4 w-4 text-green-500" />;
-      case 'warning': return <AlertCircle className="h-4 w-4 text-yellow-500" />;
-      case 'error': return <AlertCircle className="h-4 w-4 text-red-500" />;
-      default: return <Clock className="h-4 w-4 text-muted-foreground" />;
+      case 'good': return <BloomingCheck className="h-4 w-4 text-green-500" />;
+      case 'warning': return <WiltingFlower className="h-4 w-4 text-yellow-500" />;
+      case 'error': return <WiltingFlower className="h-4 w-4 text-red-500" />;
+      default: return <SundialFlower className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -130,7 +130,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <Zap className="h-5 w-5" />
+            <PollenSparkle className="h-5 w-5" />
             {language === 'es' ? 'Estado del Sistema' : 'System Status'}
           </CardTitle>
         </CardHeader>
@@ -160,7 +160,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <Users className="h-5 w-5" />
+            <BeeColony className="h-5 w-5" />
             {language === 'es' ? 'Opciones de Accesibilidad' : 'Accessibility Options'}
           </CardTitle>
         </CardHeader>

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Bug, CheckCircle, X, Trophy, RotateCcw, ArrowLeft } from 'lucide-react';
+import { Bug, CheckCircle, X, Trophy, RotateCcw, ArrowLeft } from '@/components/icons/lucide-compat';
 
 interface AnatomyPart {
   id: string;

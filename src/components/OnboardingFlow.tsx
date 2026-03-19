@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { BloomingCheck, BeeTrailRight, PollenSparkle, BeeColony, BeeChat, BeeAntenna, ButterflyFrame, LeafBook } from '@/components/icons';
-import { Circle } from 'lucide-react';
+import { Circle } from '@/components/icons/lucide-compat';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface OnboardingFlowProps {

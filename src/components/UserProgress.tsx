@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-import { Heart, Star, MessageCircle, Users, Sparkles, CheckCircle2, Copy, ExternalLink } from 'lucide-react';
+import { FlowerHeart, SunflowerStar, BeeChat, BeeColony, PollenSparkle, BloomingCheck, TwoLeaves, ButterflyLink } from '@/components/icons';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -147,7 +147,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
         {/* Achievements */}
         <div className="space-y-3">
           <h4 className="font-semibold text-sm flex items-center gap-2">
-            <Star className="h-4 w-4" />
+            <SunflowerStar className="h-4 w-4" />
             {language === 'es' ? 'Logros' : 'Achievements'}
           </h4>
           
@@ -165,7 +165,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h5 className="font-medium text-sm">{achievement.title}</h5>
-                    {achievement.unlocked && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+                    {achievement.unlocked && <BloomingCheck className="h-4 w-4 text-green-500" />}
                   </div>
                   <p className="text-xs text-muted-foreground">{achievement.description}</p>
                 </div>
@@ -179,7 +179,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
         {/* Actions */}
         <div className="flex gap-2">
           <Button onClick={shareProgress} variant="outline" size="sm" className="flex-1">
-            <Copy className="h-3 w-3 mr-2" />
+            <TwoLeaves className="h-3 w-3 mr-2" />
             {language === 'es' ? 'Compartir' : 'Share'}
           </Button>
           <Button 
@@ -188,7 +188,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
             onClick={() => window.open('https://lapipa.ai', '_blank')}
             className="flex-1"
           >
-            <ExternalLink className="h-3 w-3 mr-2" />
+            <ButterflyLink className="h-3 w-3 mr-2" />
             {language === 'es' ? 'Visitar Lapipa' : 'Visit Lapipa'}
           </Button>
         </div>

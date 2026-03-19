@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { supabase } from '@/integrations/supabase/client';
-import { Search, RefreshCw, MessageSquare, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, RefreshCw, MessageSquare, ChevronDown, ChevronUp } from '@/components/icons/lucide-compat';
 
 interface Conversation {
   id: string;

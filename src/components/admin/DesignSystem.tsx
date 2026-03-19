@@ -7,7 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import { Heart, Zap, Leaf } from 'lucide-react';
+import { FlowerHeart, PollenSparkle, NatureLeaf } from '@/components/icons';
 
 export const DesignSystem: React.FC = () => {
   return (
@@ -38,7 +38,7 @@ export const DesignSystem: React.FC = () => {
             <Button size="sm">Small</Button>
             <Button size="default">Default</Button>
             <Button size="lg">Large</Button>
-            <Button size="icon"><Heart className="h-4 w-4" /></Button>
+            <Button size="icon"><FlowerHeart className="h-4 w-4" /></Button>
           </div>
           <p className="text-xs text-muted-foreground font-mono">{'<Button variant="default" size="sm">'}</p>
         </CardContent>
@@ -57,8 +57,8 @@ export const DesignSystem: React.FC = () => {
             <Badge variant="outline">Outline</Badge>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Badge className="gap-1"><Zap className="h-3 w-3" /> With Icon</Badge>
-            <Badge className="gap-1 animate-bee-flutter"><Leaf className="h-3 w-3" /> Animated</Badge>
+            <Badge className="gap-1"><PollenSparkle className="h-3 w-3" /> With Icon</Badge>
+            <Badge className="gap-1 animate-bee-flutter"><NatureLeaf className="h-3 w-3" /> Animated</Badge>
           </div>
           <p className="text-xs text-muted-foreground font-mono">{'<Badge variant="secondary">'}</p>
         </CardContent>
@@ -137,7 +137,7 @@ export const DesignSystem: React.FC = () => {
               <p className="text-xs text-muted-foreground font-mono mt-1">animate-pulse</p>
             </div>
             <div className="text-center">
-              <Badge className="animate-bee-flutter gap-1"><Zap className="h-3 w-3" /> Flutter</Badge>
+              <Badge className="animate-bee-flutter gap-1"><PollenSparkle className="h-3 w-3" /> Flutter</Badge>
               <p className="text-xs text-muted-foreground font-mono mt-1">animate-bee-flutter</p>
             </div>
           </div>

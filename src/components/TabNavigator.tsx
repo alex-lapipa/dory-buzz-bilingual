@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { MessageCircle, Image, Video, Zap, Sparkles } from 'lucide-react';
+import { BeeChat, ButterflyFrame, VideoFlower, PollenSparkle } from '@/components/icons';
 
 interface TabNavigatorProps {
   activeTab: string;
@@ -18,25 +18,25 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
     {
       id: 'unified',
       label: 'Unified AI',
-      icon: Zap,
+      icon: PollenSparkle,
       description: 'All AI features in one interface'
     },
     {
       id: 'chat',
       label: 'Text Chat',
-      icon: MessageCircle,
+      icon: BeeChat,
       description: 'Chat with Mochi using text'
     },
     {
       id: 'generate',
       label: 'Image Generator',
-      icon: Image,
+      icon: ButterflyFrame,
       description: 'Create beautiful garden images'
     },
     {
       id: 'video',
       label: 'Video Feed',
-      icon: Video,
+      icon: VideoFlower,
       description: 'Watch Mochi in the garden'
     }
   ];
@@ -63,7 +63,7 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
                 <Icon className="h-4 w-4" />
                 <span className="text-xs text-center">{tab.label}</span>
                 {isActive && (
-                  <Sparkles className="h-3 w-3 animate-pulse" />
+                  <PollenSparkle className="h-3 w-3 animate-pulse" />
                 )}
               </Button>
             );

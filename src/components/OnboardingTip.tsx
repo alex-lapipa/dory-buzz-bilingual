@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { X, MessageCircle, Mic, Image, ChevronRight } from 'lucide-react';
+import { GardenX, BeeChat, BeeAntenna, ButterflyFrame, PetalChevronRight } from '@/components/icons';
 
 interface OnboardingTipProps {
   onClose: () => void;
@@ -13,19 +13,19 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
   
   const tips = [
     {
-      icon: <MessageCircle className="h-6 w-6" />,
+      icon: <BeeChat className="h-6 w-6" />,
       title: "Chat with Mochi! 💬",
       description: "Ask me about gardening, nature, or request beautiful garden images by typing 'create an image of...'",
       emoji: "🐝"
     },
     {
-      icon: <Mic className="h-6 w-6" />,
+      icon: <BeeAntenna className="h-6 w-6" />,
       title: "Voice Chat 🎤",
       description: "Have natural conversations with me! Just speak and I'll respond automatically when you pause.",
       emoji: "🌻"
     },
     {
-      icon: <Image className="h-6 w-6" />,
+      icon: <ButterflyFrame className="h-6 w-6" />,
       title: "AI Creator 🎨",
       description: "Generate stunning garden images and videos! Describe what you want and watch the magic happen.",
       emoji: "🌈"
@@ -55,7 +55,7 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
             className="absolute top-2 right-2 p-1"
             aria-label="Skip tour"
           >
-            <X className="h-4 w-4" />
+            <GardenX className="h-4 w-4" />
           </Button>
           <div className="text-4xl mb-2">{tips[currentStep].emoji}</div>
           <CardTitle className="flex items-center justify-center gap-2">
@@ -85,7 +85,7 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
             </Button>
             <Button onClick={nextStep}>
               {currentStep === tips.length - 1 ? 'Get Started!' : 'Next'}
-              {currentStep < tips.length - 1 && <ChevronRight className="h-4 w-4 ml-1" />}
+              {currentStep < tips.length - 1 && <PetalChevronRight className="h-4 w-4 ml-1" />}
             </Button>
           </div>
         </CardContent>

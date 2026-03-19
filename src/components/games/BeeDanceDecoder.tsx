@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from 'lucide-react';
+import { Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from '@/components/icons/lucide-compat';
 
 interface DanceRound {
   direction: string;

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
-import { CheckCircle, XCircle, AlertTriangle, RefreshCw, Zap, Brain, Image, Mic, MessageSquare, Volume2 } from 'lucide-react';
+import { CheckCircle, XCircle, AlertTriangle, RefreshCw, Zap, Brain, Image, Mic, MessageSquare, Volume2 } from '@/components/icons/lucide-compat';
 import { toast } from 'sonner';
 
 interface IntegrationResult {

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Puzzle, Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from 'lucide-react';
+import { Puzzle, Trophy, RotateCcw, ArrowLeft, X, CheckCircle } from '@/components/icons/lucide-compat';
 
 type CellType = 'honey' | 'brood' | 'pollen' | 'empty' | 'royal';
 
