@@ -179,7 +179,7 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
         {/* Actions */}
         <div className="flex gap-2">
           <Button onClick={shareProgress} variant="outline" size="sm" className="flex-1">
-            <Copy className="h-3 w-3 mr-2" />
+            <TwoLeaves className="h-3 w-3 mr-2" />
             {language === 'es' ? 'Compartir' : 'Share'}
           </Button>
           <Button 
