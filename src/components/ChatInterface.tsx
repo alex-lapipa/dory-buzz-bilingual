@@ -84,6 +84,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
   const [localMessages, setLocalMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
