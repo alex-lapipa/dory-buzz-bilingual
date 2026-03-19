@@ -105,7 +105,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             {features.map((f, i) => (
               <Card
                 key={i}
-                className="card-elevated text-center p-6 hover:shadow-honey transition-shadow duration-300 animate-bouncy-enter"
+                className="card-nature text-center p-6 animate-bouncy-enter"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <CardContent className="p-0 space-y-3">
@@ -145,7 +145,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
       {/* Social Proof Strip */}
       <section className="px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        <div className="max-w-3xl mx-auto card-glass rounded-2xl p-6 sm:p-8 text-center">
+        <div className="max-w-3xl mx-auto card-hive rounded-2xl p-6 sm:p-8 text-center">
           <div className="flex justify-center gap-1 mb-3 text-2xl">
             {'⭐⭐⭐⭐⭐'.split('').map((s, i) => <span key={i}>{s}</span>)}
           </div>

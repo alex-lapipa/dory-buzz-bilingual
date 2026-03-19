@@ -41,7 +41,7 @@ const Index = () => {
 
         {/* Chat Interface */}
         <div className="w-full max-w-4xl mx-auto mb-mobile-3xl">
-          <div className="bg-card/80 backdrop-blur-sm rounded-lg border border-border/50 shadow-card">
+          <div className="card-nature rounded-lg shadow-card">
             <MochiInterface activeTab="chat" />
           </div>
         </div>
@@ -49,7 +49,7 @@ const Index = () => {
         {/* Quick Actions - Mobile Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-mobile-lg max-w-2xl mx-auto mb-mobile-2xl">
           <Card 
-            className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm border-border/50 hover:scale-105" 
+            className="card-nature cursor-pointer" 
             onClick={() => navigate('/learning-hub')}
           >
             <CardHeader className="pb-mobile-md">
@@ -66,7 +66,7 @@ const Index = () => {
           </Card>
 
           <Card 
-            className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm border-border/50 hover:scale-105" 
+            className="card-nature cursor-pointer" 
             onClick={() => navigate('/dashboard')}
           >
             <CardHeader className="pb-mobile-md">
