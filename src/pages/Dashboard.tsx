@@ -101,7 +101,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ButterflyFrame className="h-5 w-5 text-primary" />
-                  Garden Image Creator 🦋
+                  Garden Image Creator <ButterflyFrame className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
