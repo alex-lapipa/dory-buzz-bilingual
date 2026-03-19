@@ -69,11 +69,11 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { url: 'https://idiomas.io', label: '🌍 idiomas.io' },
-                { url: 'https://lawtonx.com', label: '🏡 lawtonx.com' },
-                { url: 'https://www.alexlawton.io', label: '🌐 alexlawton.io' },
-                { url: 'https://miramonte.io', label: '🌻 miramonte.io' },
-                { url: 'https://lapipa.ai', label: '🦋 lapipa.ai' },
+                { url: 'https://idiomas.io', label: 'idiomas.io' },
+                { url: 'https://lawtonx.com', label: 'lawtonx.com' },
+                { url: 'https://www.alexlawton.io', label: 'alexlawton.io' },
+                { url: 'https://miramonte.io', label: 'miramonte.io' },
+                { url: 'https://lapipa.ai', label: 'lapipa.ai' },
               ].map((item) => (
                 <li key={item.url}>
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
