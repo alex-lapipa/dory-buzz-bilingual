@@ -463,7 +463,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-teal-800">
-                <span className="text-4xl group-hover:animate-pulse">🌿</span>
+                <span className="text-4xl group-hover:animate-pulse"><NatureLeaf className="h-10 w-10" /></span>
                 Conservation Chat
                 <Badge variant="secondary" className="text-xs bg-teal-100 text-teal-600 ml-auto">
                   Chat
