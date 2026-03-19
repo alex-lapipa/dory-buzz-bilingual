@@ -81,7 +81,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'voiceChat',
       label: language === 'es' ? 'Chat de Voz' : 'Voice Chat',
       status: features.voiceChat ? 'good' : 'warning',
-      icon: <Zap className="h-4 w-4" />,
+      icon: <PollenSparkle className="h-4 w-4" />,
       description: features.voiceChat 
         ? (language === 'es' ? 'Micrófono detectado' : 'Microphone detected')
         : (language === 'es' ? 'Micrófono no disponible' : 'Microphone not available')
