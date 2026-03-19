@@ -55,6 +55,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   technical: 'Technical Details',
   'system-health': 'System Health',
   'edge-functions': 'Edge Functions',
+  'voice-health': 'Voice Agent Health',
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
   settings: 'Content Ingestion',
