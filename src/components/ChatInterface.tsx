@@ -437,7 +437,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             <div className="flex flex-wrap gap-1">
               {metadata.sources!.map((s, i) => (
                 <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-background/50">
-                  <BookOpen className="h-2.5 w-2.5" />
+                  <LeafBookAlt className="h-2.5 w-2.5" />
                   <span className="truncate max-w-[120px]">{s.title}</span>
                   <span className="opacity-60">{s.sim}%</span>
                 </Badge>
