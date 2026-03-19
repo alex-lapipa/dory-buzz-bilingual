@@ -55,7 +55,7 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
             className="absolute top-2 right-2 p-1"
             aria-label="Skip tour"
           >
-            <X className="h-4 w-4" />
+            <GardenX className="h-4 w-4" />
           </Button>
           <div className="text-4xl mb-2">{tips[currentStep].emoji}</div>
           <CardTitle className="flex items-center justify-center gap-2">
