@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { FlowerHeart, LeafEnvelope, BeeJoin } from '@/components/icons';
+import { Heart, Mail, UserPlus } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 
 interface FollowMochiModalProps {

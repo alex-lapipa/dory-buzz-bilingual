@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { ButterflySearch, HoneycombTrophy, DandelionBack, BeeTrailLeft, GardenX, BloomingCheck, FlowerEye } from '@/components/icons';
+import { Microscope, Trophy, RotateCcw, ArrowLeft, X, CheckCircle, Eye } from '@/components/icons/lucide-compat';
 
 interface VisionRound {
   flower: string;

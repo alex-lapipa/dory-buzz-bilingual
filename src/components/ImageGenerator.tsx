@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DandelionSpin, ButterflyFrame, VideoFlower, BeeDownload } from '@/components/icons';
+import { Loader2, Image, Video, Download } from '@/components/icons/lucide-compat';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { getGuestUserId } from '@/lib/guestUtils';

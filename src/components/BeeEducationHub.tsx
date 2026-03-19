@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, Firefly as FireflyAlt, BeeAntenna, ButterflyFrame } from '@/components/icons';
+import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Mic, Camera } from '@/components/icons/lucide-compat';
 
 interface BeeFact {
   id: string;
