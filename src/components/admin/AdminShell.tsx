@@ -53,6 +53,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   'google-ecosystem': 'Google Ecosystem',
   technical: 'Technical Details',
   'system-health': 'System Health',
+  'edge-functions': 'Edge Functions',
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
   settings: 'Content Ingestion',
