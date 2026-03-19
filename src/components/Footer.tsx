@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
                 aria-label={link.name}
                 title={link.name}
               >
-                {link.icon}
+                <link.Icon className="h-5 w-5" />
               </a>
             ))}
           </div>
