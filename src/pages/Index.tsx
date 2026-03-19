@@ -66,7 +66,7 @@ const Index = () => {
           </Card>
 
           <Card 
-            className="hover:shadow-lg transition-all duration-300 cursor-pointer bg-card/80 backdrop-blur-sm border-border/50 hover:scale-105" 
+            className="card-nature cursor-pointer" 
             onClick={() => navigate('/dashboard')}
           >
             <CardHeader className="pb-mobile-md">
