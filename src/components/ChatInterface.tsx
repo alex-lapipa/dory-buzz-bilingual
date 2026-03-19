@@ -786,8 +786,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             
             {localMessages.map(renderMessage)}
             
-            {/* Loading indicator */}
-            {isLoading && (
+            {/* Loading indicator - only show when loading but not yet streaming content */}
+            {isLoading && !localMessages.some(m => m.type === 'mochi' && m.content === '' && isStreaming) && !isStreaming && (
               <div className="flex justify-start mb-4">
                 <div className="bubble-mochi rounded-lg p-3 flex items-center gap-3">
                   <div className="typing-indicator flex gap-1">
@@ -795,7 +795,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                     <span></span>
                     <span></span>
                   </div>
-                  <span className="text-sm font-normal">Mochi is thinking...</span>
+                  <span className="text-sm font-normal">Mochi is buzzing through the garden...</span>
                 </div>
               </div>
             )}
