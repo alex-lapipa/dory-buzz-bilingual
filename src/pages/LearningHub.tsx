@@ -534,7 +534,7 @@ const LearningHub: React.FC = () => {
               onClick={() => setSelectedCategory(category)}
               className="capitalize"
             >
-              {category === 'all' ? '🌍 All Topics' : `🌱 ${category}`}
+              {category === 'all' ? 'All Topics' : category}
             </Button>
           ))}
         </div>
