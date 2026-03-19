@@ -699,3 +699,258 @@ export const VolumeMuted: React.FC<IconProps> = (props) => (
     <line x1="22" y1="9" x2="16" y2="15" opacity=".6" />
   </svg>
 );
+
+/* ───── NEW ICONS — Phase 2 ───── */
+
+/** Arrow left as bee trail */
+export const BeeTrailLeft: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <path d="M19 12c-3-2-5 2-7 0s-3-2-7 0" />
+    <polyline points="7 8 3 12 7 16" />
+  </svg>
+);
+
+/** Arrow up as bee trail */
+export const BeeTrailUp: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <path d="M12 19c-2-3 2-5 0-7s-2-3 0-7" />
+    <polyline points="8 7 12 3 16 7" />
+  </svg>
+);
+
+/** Arrow down as bee trail */
+export const BeeTrailDown: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <path d="M12 5c-2 3 2 5 0 7s-2 3 0 7" />
+    <polyline points="8 17 12 21 16 17" />
+  </svg>
+);
+
+/** Petal chevron down — replaces ChevronDown */
+export const PetalChevronDown: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M6 9l6 6 6-6" />
+    <circle cx="12" cy="16" r="1" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Petal chevron right — replaces ChevronRight */
+export const PetalChevronRight: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M9 6l6 6-6 6" />
+    <circle cx="16" cy="12" r="1" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Petal chevron up — replaces ChevronUp */
+export const PetalChevronUp: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M18 15l-6-6-6 6" />
+    <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Petal chevron left — replaces ChevronLeft */
+export const PetalChevronLeft: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M15 18l-6-6 6-6" />
+    <circle cx="8" cy="12" r="1" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Flower crosshair target — replaces Target */
+export const FlowerTarget: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <circle cx="12" cy="12" r="9" opacity=".4" />
+    <circle cx="12" cy="12" r="5" opacity=".6" />
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    {[0, 90, 180, 270].map((a) => (
+      <ellipse key={a} cx="12" cy="2.5" rx="1.5" ry="2" transform={`rotate(${a} 12 12)`} opacity=".35" />
+    ))}
+  </svg>
+);
+
+/** Honey jar — replaces FlaskConical */
+export const HoneyJar: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <path d="M8 4h8v2c0 0 3 1 3 5v6c0 2-1.5 3-3 3H8c-1.5 0-3-1-3-3v-6c0-4 3-5 3-5V4z" />
+    <line x1="8" y1="4" x2="16" y2="4" strokeWidth="2.5" />
+    <path d="M8 13h8" opacity=".4" />
+    <path d="M9 16h6" opacity=".3" />
+    <circle cx="12" cy="10" r="1.5" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Ladybug — replaces Bug */
+export const LadybugExplore: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <circle cx="12" cy="14" r="7" />
+    <line x1="12" y1="7" x2="12" y2="21" />
+    <circle cx="9" cy="11" r="1.2" fill="currentColor" stroke="none" opacity=".4" />
+    <circle cx="15" cy="11" r="1.2" fill="currentColor" stroke="none" opacity=".4" />
+    <circle cx="10" cy="17" r="1" fill="currentColor" stroke="none" opacity=".3" />
+    <circle cx="14" cy="17" r="1" fill="currentColor" stroke="none" opacity=".3" />
+    <path d="M9 7c-1.5-2-1-4-1-4" />
+    <path d="M15 7c1.5-2 1-4 1-4" />
+  </svg>
+);
+
+/** Bee rocket — replaces Rocket */
+export const BeeRocket: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <ellipse cx="12" cy="10" rx="4" ry="6" />
+    <path d="M12 4c0-2 0-3 0-3" />
+    <circle cx="12" cy="1" r="1" fill="currentColor" stroke="none" opacity=".5" />
+    <path d="M8 8c-2 0-4 2-4 4" opacity=".5" />
+    <path d="M16 8c2 0 4 2 4 4" opacity=".5" />
+    <path d="M10 16c.5 2 1 4 2 5" opacity=".4" />
+    <path d="M14 16c-.5 2-1 4-2 5" opacity=".4" />
+    <circle cx="10.5" cy="9" r=".8" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="13.5" cy="9" r=".8" fill="currentColor" stroke="none" opacity=".5" />
+  </svg>
+);
+
+/** Pollen grain with trail — replaces Send */
+export const PollenSend: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'pollen')}>
+    <path d="M22 2L11 13" />
+    <path d="M22 2L15 22l-4-9-9-4L22 2z" />
+  </svg>
+);
+
+/** Bilingual bee — replaces Languages */
+export const BilingualBee: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <ellipse cx="12" cy="14" rx="5" ry="4" />
+    <path d="M9 12c-1.5-2-1-4-1-4" opacity=".5" />
+    <path d="M15 12c1.5-2 1-4 1-4" opacity=".5" />
+    <circle cx="8" cy="8" r=".8" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="16" cy="8" r=".8" fill="currentColor" stroke="none" opacity=".5" />
+    <text x="5" y="6" fontSize="6" fill="currentColor" opacity=".6" fontFamily="sans-serif" fontWeight="700">EN</text>
+    <text x="15" y="6" fontSize="6" fill="currentColor" opacity=".6" fontFamily="sans-serif" fontWeight="700">ES</text>
+  </svg>
+);
+
+/** Bee join — replaces UserPlus */
+export const BeeJoin: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <circle cx="10" cy="8" r="4" />
+    <path d="M6 21v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" />
+    <line x1="20" y1="8" x2="20" y2="14" />
+    <line x1="17" y1="11" x2="23" y2="11" />
+  </svg>
+);
+
+/** Flower pin — replaces MapPin / Pin */
+export const FlowerPin: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M12 2c-4 0-7 3-7 7 0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" />
+    <circle cx="12" cy="9" r="2.5" />
+    <circle cx="12" cy="9" r="1" fill="currentColor" stroke="none" opacity=".4" />
+  </svg>
+);
+
+/** Honeycomb grid — replaces LayoutGrid / Grid */
+export const HoneycombGrid: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <path d="M8 2l3 2v4L8 10 5 8V4L8 2z" />
+    <path d="M16 2l3 2v4L16 10 13 8V4L16 2z" />
+    <path d="M8 12l3 2v4L8 20 5 18v-4L8 12z" />
+    <path d="M16 12l3 2v4L16 20 13 18v-4L16 12z" />
+  </svg>
+);
+
+/** Filter — replaces Filter */
+export const GardenFilter: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z" />
+    <circle cx="18" cy="5" r=".8" fill="currentColor" stroke="none" opacity=".3" />
+  </svg>
+);
+
+/** Server / Monitor — replaces Server, Monitor */
+export const HiveServer: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <rect x="3" y="3" width="18" height="6" rx="1.5" />
+    <rect x="3" y="13" width="18" height="6" rx="1.5" />
+    <circle cx="7" cy="6" r="1" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="7" cy="16" r="1" fill="currentColor" stroke="none" opacity=".5" />
+    <line x1="11" y1="6" x2="17" y2="6" opacity=".4" />
+    <line x1="11" y1="16" x2="17" y2="16" opacity=".4" />
+  </svg>
+);
+
+/** Hash / tag — replaces Hash */
+export const HoneyHash: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'bee')}>
+    <line x1="4" y1="9" x2="20" y2="9" />
+    <line x1="4" y1="15" x2="20" y2="15" />
+    <line x1="10" y1="3" x2="8" y2="21" />
+    <line x1="16" y1="3" x2="14" y2="21" />
+  </svg>
+);
+
+/** Puzzle — replaces Puzzle */
+export const GardenPuzzle: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <path d="M12 2v4c1.5 0 3 1 3 2.5S13.5 11 12 11H8V7c0-1.5-1-3-2.5-3S3 5.5 3 7v13h18V8c0-1.5-1-3-2.5-3S16 6.5 16 8v3h-4" />
+  </svg>
+);
+
+/** Toggle / power — replaces Power / ToggleLeft */
+export const GardenToggle: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <rect x="1" y="5" width="22" height="14" rx="7" />
+    <circle cx="8" cy="12" r="3" />
+  </svg>
+);
+
+/** List — replaces List */
+export const GardenList: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <line x1="8" y1="6" x2="21" y2="6" />
+    <line x1="8" y1="12" x2="21" y2="12" />
+    <line x1="8" y1="18" x2="21" y2="18" />
+    <circle cx="4" cy="6" r="1" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="4" cy="12" r="1" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="4" cy="18" r="1" fill="currentColor" stroke="none" opacity=".5" />
+  </svg>
+);
+
+/** Minus — replaces Minus */
+export const GardenMinus: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+
+/** Plus circle — replaces PlusCircle */
+export const SproutingCircle: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <circle cx="12" cy="12" r="9" />
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+  </svg>
+);
+
+/** Clipboard / paste — replaces Clipboard */
+export const LeafClipboard: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'leaf')}>
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <path d="M9 2h6v3H9z" />
+    <line x1="9" y1="10" x2="15" y2="10" opacity=".5" />
+    <line x1="9" y1="14" x2="13" y2="14" opacity=".4" />
+  </svg>
+);
+
+/** Palette — replaces Palette */
+export const FlowerPalette: React.FC<IconProps> = (props) => (
+  <svg {...defaults(props, 'flower')}>
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="8" cy="9" r="1.5" fill="currentColor" stroke="none" opacity=".6" />
+    <circle cx="15" cy="8" r="1.5" fill="currentColor" stroke="none" opacity=".5" />
+    <circle cx="16" cy="13" r="1.5" fill="currentColor" stroke="none" opacity=".4" />
+    <circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none" opacity=".3" />
+    <path d="M20 12c0-1-1-2-2-2s-2 1-2 3 1.5 3 3 2c1-1 1-2 1-3z" fill="currentColor" stroke="none" opacity=".2" />
+  </svg>
+);
