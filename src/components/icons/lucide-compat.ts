@@ -129,4 +129,5 @@ export {
   HiveServer as Cpu,
   HiveServer as Smartphone,
   BeehiveSafe as ShieldCheck,
+  NatureLeaf as TreeDeciduous,
 } from './BeeIcons';
