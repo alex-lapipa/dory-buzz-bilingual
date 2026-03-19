@@ -529,6 +529,23 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
     }
   }, [isListening, startVoiceRecording, stopVoiceRecording]);
 
+  const submitFeedback = useCallback(async (messageId: string, rating: number, messageContent: string, agent?: string) => {
+    if (feedbackGiven[messageId]) return; // Already rated
+    setFeedbackGiven(prev => ({ ...prev, [messageId]: rating }));
+    
+    try {
+      await supabase.from('response_feedback').insert({
+        user_id: user?.id || null,
+        session_id: !user?.id ? guestId : null,
+        rating,
+        message_content: messageContent.slice(0, 500),
+        agent_used: agent || null,
+      });
+    } catch (err) {
+      console.error('Feedback submission error:', err);
+    }
+  }, [feedbackGiven, user, guestId]);
+
   const renderRagMeta = useCallback((metadata: Message['metadata']) => {
     if (!metadata) return null;
     const hasSources = metadata.sources && metadata.sources.length > 0;
