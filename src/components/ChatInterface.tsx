@@ -244,7 +244,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
       if (error) throw error;
 
-      // Add Mochi's response
+      // Add Mochi's response with RAG metadata
       const mochiMessage: Message = {
         id: `mochi_${Date.now()}`,
         type: 'mochi',
@@ -252,8 +252,13 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         timestamp: new Date(),
         metadata: {
           model: data.model,
+          provider: data.provider,
           reasoning_type: reasoningMode,
-          voice: voiceMode
+          voice: voiceMode,
+          sources: data.sources || [],
+          kg_connections: data.kg_connections || [],
+          vocab_hint: data.vocab_hint || [],
+          latency_ms: data.latency_ms,
         }
       };
       
