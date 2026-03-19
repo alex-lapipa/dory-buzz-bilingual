@@ -18,25 +18,25 @@ export const TabNavigator: React.FC<TabNavigatorProps> = ({
     {
       id: 'unified',
       label: 'Unified AI',
-      icon: Zap,
+      icon: PollenSparkle,
       description: 'All AI features in one interface'
     },
     {
       id: 'chat',
       label: 'Text Chat',
-      icon: MessageCircle,
+      icon: BeeChat,
       description: 'Chat with Mochi using text'
     },
     {
       id: 'generate',
       label: 'Image Generator',
-      icon: Image,
+      icon: ButterflyFrame,
       description: 'Create beautiful garden images'
     },
     {
       id: 'video',
       label: 'Video Feed',
-      icon: Video,
+      icon: VideoFlower,
       description: 'Watch Mochi in the garden'
     }
   ];
