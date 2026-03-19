@@ -425,8 +425,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
     return (
       <Collapsible className="mt-2">
         <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors group">
-          <ChevronRight className="h-3 w-3 group-data-[state=open]:hidden" />
-          <ChevronDown className="h-3 w-3 hidden group-data-[state=open]:block" />
+          <PetalChevronRight className="h-3 w-3 group-data-[state=open]:hidden" />
+          <PetalChevronDown className="h-3 w-3 hidden group-data-[state=open]:block" />
           <span>Sources & Knowledge</span>
           <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
             {(metadata.sources?.length || 0) + (metadata.kg_connections?.length || 0) + (metadata.vocab_hint?.length || 0)}
