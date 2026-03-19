@@ -57,8 +57,8 @@ export const DesignSystem: React.FC = () => {
             <Badge variant="outline">Outline</Badge>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Badge className="gap-1"><Zap className="h-3 w-3" /> With Icon</Badge>
-            <Badge className="gap-1 animate-bee-flutter"><Leaf className="h-3 w-3" /> Animated</Badge>
+            <Badge className="gap-1"><PollenSparkle className="h-3 w-3" /> With Icon</Badge>
+            <Badge className="gap-1 animate-bee-flutter"><NatureLeaf className="h-3 w-3" /> Animated</Badge>
           </div>
           <p className="text-xs text-muted-foreground font-mono">{'<Badge variant="secondary">'}</p>
         </CardContent>

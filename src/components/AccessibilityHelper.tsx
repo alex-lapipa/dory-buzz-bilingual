@@ -160,7 +160,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       <Card>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
-            <Users className="h-5 w-5" />
+            <BeeColony className="h-5 w-5" />
             {language === 'es' ? 'Opciones de Accesibilidad' : 'Accessibility Options'}
           </CardTitle>
         </CardHeader>
