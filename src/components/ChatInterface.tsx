@@ -84,6 +84,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
   const [localMessages, setLocalMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
@@ -193,6 +194,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
     setInputMessage('');
     setIsLoading(true);
+    setIsStreaming(true);
 
     // Add user message
     const userMessage: Message = {
@@ -215,67 +217,165 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
       // Save user message
       await saveMessage(conversationId, 'user', message);
 
-      // Prepare context based on mode
-      const context = {
-        conversation_history: localMessages.slice(-10), // Last 10 messages for context
-        user_id: user?.id || guestId,
-        model: mode === 'advanced' ? 'gpt-4' : 'gpt-3.5-turbo',
-        ...(mode === 'advanced' && {
-          reasoning_type: reasoningMode,
-          content_type: contentType,
-          audience: audienceLevel,
-          voice_enabled: voiceMode
-        })
-      };
-
       // Build conversation history for multi-turn context
       const recentHistory = localMessages.slice(-6).map(m => ({
         role: m.type === 'user' ? 'user' : 'assistant',
         content: m.content,
       }));
 
-      // Use RAG v2 for full unified search (KB + bee_facts + KG graph walk + vocabulary)
-      const { data, error } = await supabase.functions.invoke('mochi_rag_v2', {
-        body: {
+      const mochiMsgId = `mochi_${Date.now()}`;
+
+      // Create placeholder streaming message
+      const streamingMessage: Message = {
+        id: mochiMsgId,
+        type: 'mochi',
+        content: '',
+        timestamp: new Date(),
+        metadata: {}
+      };
+      setLocalMessages(prev => [...prev, streamingMessage]);
+
+      // SSE streaming fetch
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+      const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      
+      const resp = await fetch(`${SUPABASE_URL}/functions/v1/mochi_rag_v2`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({
           message,
           conversation_history: recentHistory,
           language: t('language') === 'es' ? 'es' : 'en',
           user_id: user?.id || guestId,
           age_level: audienceLevel === 'beginner' ? 'kids' : audienceLevel === 'expert' ? 'adult' : null,
-        }
+          stream: true,
+        }),
       });
 
-      if (error) throw error;
-
-      // Add Mochi's response with RAG metadata
-      const mochiMessage: Message = {
-        id: `mochi_${Date.now()}`,
-        type: 'mochi',
-        content: data.response || data.message || "I'm having trouble thinking right now, could you try again?",
-        timestamp: new Date(),
-        metadata: {
-          model: data.model,
-          provider: data.provider,
-          reasoning_type: reasoningMode,
-          voice: voiceMode,
-          sources: data.sources || [],
-          kg_connections: data.kg_connections || [],
-          vocab_hint: data.vocab_hint || [],
-          latency_ms: data.latency_ms,
-          agent: data.agent,
-          intent: data.intent,
-          intent_confidence: data.intent_confidence,
+      if (!resp.ok) {
+        // Handle rate limit / payment errors
+        if (resp.status === 429) {
+          toast({ title: "Rate Limited", description: "Too many requests. Please wait a moment.", variant: "destructive" });
+        } else if (resp.status === 402) {
+          toast({ title: "Payment Required", description: "AI credits exhausted. Please try again later.", variant: "destructive" });
         }
-      };
-      
-      setLocalMessages(prev => [...prev, mochiMessage]);
-      
-      // Save Mochi's response
-      await saveMessage(conversationId, 'mochi', mochiMessage.content);
+        throw new Error(`HTTP ${resp.status}`);
+      }
 
-      // Handle voice response if enabled
-      if (voiceMode && mode === 'advanced') {
-        playVoiceResponse(mochiMessage.content);
+      const contentType = resp.headers.get("content-type") || "";
+
+      if (contentType.includes("text/event-stream") && resp.body) {
+        // ── SSE Streaming path ──
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let fullContent = "";
+        let streamMetadata: Message['metadata'] = {};
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          let newlineIdx: number;
+
+          while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
+            let line = buffer.slice(0, newlineIdx);
+            buffer = buffer.slice(newlineIdx + 1);
+            if (line.endsWith("\r")) line = line.slice(0, -1);
+            if (line.startsWith(":") || line.trim() === "") continue;
+            if (!line.startsWith("data: ")) continue;
+
+            const jsonStr = line.slice(6).trim();
+            if (jsonStr === "[DONE]") break;
+
+            try {
+              const parsed = JSON.parse(jsonStr);
+              
+              if (parsed.type === "metadata") {
+                streamMetadata = {
+                  sources: parsed.sources || [],
+                  kg_connections: parsed.kg_connections || [],
+                  vocab_hint: parsed.vocab_hint || [],
+                  provider: parsed.provider,
+                  model: parsed.model,
+                  agent: parsed.agent,
+                  intent: parsed.intent,
+                  intent_confidence: parsed.intent_confidence,
+                  reasoning_type: reasoningMode,
+                  voice: voiceMode,
+                };
+              } else if (parsed.type === "delta" && parsed.content) {
+                fullContent += parsed.content;
+                // Update the streaming message in-place
+                setLocalMessages(prev => prev.map(m => 
+                  m.id === mochiMsgId 
+                    ? { ...m, content: fullContent, metadata: streamMetadata }
+                    : m
+                ));
+              } else if (parsed.type === "done") {
+                streamMetadata = { ...streamMetadata, latency_ms: parsed.latency_ms };
+                setLocalMessages(prev => prev.map(m => 
+                  m.id === mochiMsgId 
+                    ? { ...m, metadata: streamMetadata }
+                    : m
+                ));
+              } else if (parsed.type === "error") {
+                throw new Error(parsed.error);
+              }
+            } catch (parseErr) {
+              // Incomplete JSON, put back and wait
+              buffer = line + "\n" + buffer;
+              break;
+            }
+          }
+        }
+
+        // Save final response
+        if (fullContent) {
+          await saveMessage(conversationId, 'mochi', fullContent);
+        }
+
+        // Handle voice response if enabled
+        if (voiceMode && mode === 'advanced' && fullContent) {
+          playVoiceResponse(fullContent);
+        }
+
+      } else {
+        // ── Non-streaming JSON fallback ──
+        const data = await resp.json();
+
+        const finalContent = data.response || data.message || "I'm having trouble thinking right now, could you try again?";
+        setLocalMessages(prev => prev.map(m => 
+          m.id === mochiMsgId 
+            ? { 
+                ...m, 
+                content: finalContent,
+                metadata: {
+                  model: data.model,
+                  provider: data.provider,
+                  reasoning_type: reasoningMode,
+                  voice: voiceMode,
+                  sources: data.sources || [],
+                  kg_connections: data.kg_connections || [],
+                  vocab_hint: data.vocab_hint || [],
+                  latency_ms: data.latency_ms,
+                  agent: data.agent,
+                  intent: data.intent,
+                  intent_confidence: data.intent_confidence,
+                }
+              }
+            : m
+        ));
+        
+        await saveMessage(conversationId, 'mochi', finalContent);
+
+        if (voiceMode && mode === 'advanced') {
+          playVoiceResponse(finalContent);
+        }
       }
 
       // Generate contextual image if appropriate
@@ -289,13 +389,19 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
 
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorMessage: Message = {
-        id: `error_${Date.now()}`,
-        type: 'mochi',
-        content: "🐝 Oops! Something went wrong in the garden. Could you try asking me again?",
-        timestamp: new Date()
-      };
-      setLocalMessages(prev => [...prev, errorMessage]);
+      // Remove empty streaming placeholder or update with error
+      setLocalMessages(prev => {
+        const last = prev[prev.length - 1];
+        if (last?.type === 'mochi' && !last.content) {
+          return [...prev.slice(0, -1), {
+            id: `error_${Date.now()}`,
+            type: 'mochi' as const,
+            content: "Oops! Something went wrong in the garden. Could you try asking me again?",
+            timestamp: new Date()
+          }];
+        }
+        return prev;
+      });
       
       toast({
         title: "Error",
@@ -304,11 +410,12 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
       });
     } finally {
       setIsLoading(false);
+      setIsStreaming(false);
     }
   }, [
     inputMessage, isLoading, currentConversation, currentConversationId, localMessages, 
     user, guestId, mode, reasoningMode, contentType, audienceLevel, voiceMode,
-    createConversation, saveMessage, incrementGrowth, generateContextualImage, toast
+    createConversation, saveMessage, incrementGrowth, generateContextualImage, toast, t
   ]);
 
   const playVoiceResponse = useCallback(async (text: string) => {
@@ -679,8 +786,8 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
             
             {localMessages.map(renderMessage)}
             
-            {/* Loading indicator */}
-            {isLoading && (
+            {/* Loading indicator - only show when loading but not yet streaming content */}
+            {isLoading && !localMessages.some(m => m.type === 'mochi' && m.content === '' && isStreaming) && !isStreaming && (
               <div className="flex justify-start mb-4">
                 <div className="bubble-mochi rounded-lg p-3 flex items-center gap-3">
                   <div className="typing-indicator flex gap-1">
@@ -688,7 +795,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                     <span></span>
                     <span></span>
                   </div>
-                  <span className="text-sm font-normal">Mochi is thinking...</span>
+                  <span className="text-sm font-normal">Mochi is buzzing through the garden...</span>
                 </div>
               </div>
             )}
