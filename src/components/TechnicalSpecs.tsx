@@ -13,7 +13,7 @@ import {
   Shield,
   Cloud,
   Code
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 export const TechnicalSpecs: React.FC = () => {
   return (

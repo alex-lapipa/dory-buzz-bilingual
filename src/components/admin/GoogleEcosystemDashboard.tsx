@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Globe, Key, Cloud, Bot, Shield, ExternalLink, CheckCircle2, AlertCircle, Loader2, RefreshCw, Zap, Clock } from 'lucide-react';
+import { Globe, Key, Cloud, Bot, Shield, ExternalLink, CheckCircle2, AlertCircle, Loader2, RefreshCw, Zap, Clock } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 

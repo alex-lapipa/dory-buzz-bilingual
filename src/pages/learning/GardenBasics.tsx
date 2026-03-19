@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft, Sprout, MessageCircle, Languages, Send, Loader2, Leaf } from 'lucide-react';
+import { ArrowLeft, Sprout, MessageCircle, Languages, Send, Loader2, Leaf } from '@/components/icons/lucide-compat';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 

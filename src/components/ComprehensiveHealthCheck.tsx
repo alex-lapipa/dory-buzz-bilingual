@@ -18,7 +18,7 @@ import {
   Mic,
   Image,
   Brain
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface HealthResult {
   service: string;

@@ -18,7 +18,7 @@ import {
   Zap,
   Server,
   Activity
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface ServiceStatus {
   status: 'healthy' | 'degraded' | 'down';

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import {
   Users, MessageSquare, Activity, TrendingUp,
   Globe, Clock, Zap, BarChart3, Brain, BookOpen,
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend,

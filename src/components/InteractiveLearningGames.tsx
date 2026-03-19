@@ -18,7 +18,7 @@ import {
   Microscope,
   Leaf,
   Bug
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 import { FlowerMemoryGame } from './games/FlowerMemoryGame';
 import { BeeTrivia } from './games/BeeTrivia';
 import { BeeAnatomyExplorer } from './games/BeeAnatomyExplorer';

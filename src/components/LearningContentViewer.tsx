@@ -12,7 +12,7 @@ import {
 import {
   BookOpen, Brain, FlaskConical, Play, Star, Award, Volume2, Camera,
   CheckCircle, Lightbulb, Target, Clock, Users, Loader2, Sparkles,
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 /* ─── Types ─── */
 

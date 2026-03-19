@@ -17,7 +17,7 @@ import {
   Activity,
   Rocket,
   BarChart
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface AuditResults {
   overview: any;

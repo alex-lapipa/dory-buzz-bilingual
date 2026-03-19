@@ -5,7 +5,7 @@ import { useSidebarFloat } from '@/hooks/useSidebarFloat';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu } from '@/components/icons/lucide-compat';
 import { cn } from '@/lib/utils';
 
 // Lazy-load heavy panels

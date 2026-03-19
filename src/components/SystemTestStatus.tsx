@@ -17,7 +17,7 @@ import {
   Wifi,
   Brain,
   Zap
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface SystemTest {
   id: string;

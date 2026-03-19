@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
-import { Search, Zap, Archive, AlertTriangle, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { Search, Zap, Archive, AlertTriangle, Clock, CheckCircle2, XCircle } from '@/components/icons/lucide-compat';
 
 type FnStatus = 'active' | 'deprecated' | 'support';
 
