@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { BeeChat, LeafBook, SunflowerStar, BeeAntenna, PollenSparkle, NatureLeaf } from '@/components/icons';
+import { BeeChat, LeafBook, SunflowerStar, BeeAntenna, PollenSparkle, NatureLeaf, BeeFlying, FlowerHeart } from '@/components/icons';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -82,16 +82,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             size="lg"
             className="font-bold text-responsive-base sm:text-responsive-lg px-8 sm:px-10 py-4 sm:py-5 rounded-xl bg-primary text-on-primary hover:opacity-90 shadow-honey animate-bouncy-enter"
           >
-            {language === 'es' ? '🌟 ¡Comenzar Aventura!' : '🌟 Start Adventure!'}
+            {language === 'es' ? 'Comenzar Aventura!' : 'Start Adventure!'}
           </Button>
         </div>
       </section>
 
       {/* Decorative divider */}
       <div className="flex justify-center gap-2 py-4">
-        <span className="text-2xl animate-flower-sway">🌸</span>
-        <span className="text-2xl animate-flower-sway" style={{ animationDelay: '0.3s' }}>🌼</span>
-        <span className="text-2xl animate-flower-sway" style={{ animationDelay: '0.6s' }}>🌺</span>
+        <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
+        <FlowerHeart className="h-6 w-6 text-primary animate-flower-sway" style={{ animationDelay: '0.3s' }} />
+        <NatureLeaf className="h-6 w-6 text-primary animate-flower-sway" style={{ animationDelay: '0.6s' }} />
       </div>
 
       {/* Feature Grid */}
@@ -109,7 +109,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <CardContent className="p-0 space-y-3">
-                  <div className="text-4xl">{f.emoji}</div>
+                  <div className="text-primary">{f.icon}</div>
                   <h3 className="text-responsive-base font-semibold">{f.title}</h3>
                   <p className="text-responsive-sm text-muted-foreground font-normal">{f.desc}</p>
                 </CardContent>
@@ -146,8 +146,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Social Proof Strip */}
       <section className="px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="max-w-3xl mx-auto card-hive rounded-2xl p-6 sm:p-8 text-center">
-          <div className="flex justify-center gap-1 mb-3 text-2xl">
-            {'⭐⭐⭐⭐⭐'.split('').map((s, i) => <span key={i}>{s}</span>)}
+          <div className="flex justify-center gap-1 mb-3">
+            {[0,1,2,3,4].map((i) => <SunflowerStar key={i} className="h-5 w-5 text-primary" />)}
           </div>
           <p className="text-responsive-base italic text-foreground/80 font-normal mb-2">
             {language === 'es'
@@ -167,7 +167,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           size="lg"
           className="font-bold text-responsive-base sm:text-responsive-lg px-8 sm:px-10 py-4 sm:py-5 rounded-xl bg-primary text-on-primary hover:opacity-90 shadow-honey"
         >
-          {language === 'es' ? '🐝 ¡Únete Ahora!' : '🐝 Join Now!'}
+          {language === 'es' ? 'Únete Ahora!' : 'Join Now!'}
         </Button>
       </section>
     </div>

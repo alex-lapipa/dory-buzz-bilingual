@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
-import { Loader2, Music, Mic, Volume2, CheckSquare, Sparkles, Palette, Play, Pause, Upload, Check } from 'lucide-react';
+import { Loader2, Music, Mic, Volume2, CheckSquare, Sparkles, Palette, Play, Pause, Upload, Check } from '@/components/icons/lucide-compat';
 import { toast } from '@/hooks/use-toast';
 
 interface KBEntry {

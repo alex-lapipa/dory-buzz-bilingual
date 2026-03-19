@@ -9,7 +9,7 @@ import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { ImageGenerator } from '@/components/ImageGenerator';
 import { ConsentSettings } from '@/components/GDPRConsent';
 import LunarCalendarWidget from '@/components/LunarCalendarWidget';
-import { PollenSparkle, BeeChat, LeafBook, ButterflyFrame, GardenTools, BeehiveSafe } from '@/components/icons';
+import { PollenSparkle, BeeChat, LeafBook, ButterflyFrame, GardenTools, BeehiveSafe, BeeFlying, SunflowerStar, NatureLeaf } from '@/components/icons';
 
 const Dashboard: React.FC = () => {
   return (
@@ -19,10 +19,10 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-              BeeCrazy Garden World 🐝
+              BeeCrazy Garden World <BeeFlying className="h-6 w-6 inline" />
             </h1>
             <p className="text-lg text-muted-foreground mt-2">
-              Your Garden Companion with Advanced Intelligence 🌻
+              Your Garden Companion with Advanced Intelligence <SunflowerStar className="h-4 w-4 inline" />
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BeeChat className="h-5 w-5 text-primary" />
-                  Chat with Mochi - Your Garden Guide 🐝
+                  Chat with Mochi - Your Garden Guide <BeeFlying className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <LeafBook className="h-5 w-5 text-primary" />
-                  Educational Hub 🌿
+                  Educational Hub <NatureLeaf className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -101,7 +101,7 @@ const Dashboard: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <ButterflyFrame className="h-5 w-5 text-primary" />
-                  Garden Image Creator 🦋
+                  Garden Image Creator <ButterflyFrame className="h-4 w-4 inline" />
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -117,7 +117,7 @@ const Dashboard: React.FC = () => {
 
         {/* Footer */}
         <div className="mt-12 text-center text-muted-foreground text-sm">
-          <p>🐝 Powered by Nature & Intelligence 🌻</p>
+          <p><BeeFlying className="h-4 w-4 inline" /> Powered by Nature & Intelligence <SunflowerStar className="h-4 w-4 inline" /></p>
           <p className="mt-1">BeeCrazy Garden World - Where Nature meets Education</p>
         </div>
     </PageLayout>

@@ -18,7 +18,7 @@ import {
   Server,
   Shield,
   TrendingUp
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import DeploymentCenter from './DeploymentCenter';

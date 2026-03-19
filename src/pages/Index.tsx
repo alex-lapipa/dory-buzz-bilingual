@@ -5,7 +5,7 @@ import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { GraduationBee, SeedlingChart, NatureLeaf } from '@/components/icons';
+import { GraduationBee, SeedlingChart, NatureLeaf, SunflowerStar, BeeFlying } from '@/components/icons';
 
 const Index = () => {
   const { user } = useAuth();
@@ -33,7 +33,7 @@ const Index = () => {
                 MochiBee Garden
               </h1>
               <p className="text-responsive-sm md:text-responsive-base text-muted-foreground font-medium">
-                Your garden assistant 🌻
+                Your garden assistant <SunflowerStar className="h-4 w-4 inline text-primary" />
               </p>
             </div>
           </div>
@@ -55,7 +55,7 @@ const Index = () => {
             <CardHeader className="pb-mobile-md">
               <CardTitle className="flex items-center gap-2 text-responsive-lg">
                 <GraduationBee className="h-5 w-5 text-primary" />
-                🐝 Beeducation
+                <BeeFlying className="h-4 w-4 text-primary" /> Beeducation
               </CardTitle>
             </CardHeader>
             <CardContent>

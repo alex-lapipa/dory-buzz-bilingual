@@ -15,7 +15,7 @@ import {
   BarChart3,
   Lightbulb,
   RefreshCw
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface UserPersona {
   id: string;

@@ -3,7 +3,7 @@ import {
   Settings, Activity, BarChart3, BookOpen, Flower2, TreeDeciduous, MessageCircle,
   Palette, Layers, Globe, ExternalLink, Wrench, HeartPulse, Shield, Lock,
   Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon, Zap
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';

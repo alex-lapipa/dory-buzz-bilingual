@@ -126,4 +126,8 @@ export {
   ActivityVine as HeartPulse,
   FlowerPin as PinOff,
   SeedlingChart as BarChart,
+  HiveServer as Cpu,
+  HiveServer as Smartphone,
+  BeehiveSafe as ShieldCheck,
+  NatureLeaf as TreeDeciduous,
 } from './BeeIcons';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { HoneycombMenu, ButterflyLink, BeeFlying, BeeFace, BeehiveSafe, FlowerHeart, LeafBook, BeeChat, SeedlingChart, MusicalFlower } from '@/components/icons';
+import { HoneycombMenu, ButterflyLink, BeeFlying, BeeFace, BeehiveSafe, FlowerHeart, LeafBook, BeeChat, SeedlingChart, MusicalFlower, NatureLeaf } from '@/components/icons';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
@@ -56,19 +56,19 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/')}>
               <BeeChat className="h-4 w-4 mr-3" />
-              🐝 Beeducation
+              <BeeFlying className="h-3.5 w-3.5 inline mr-1" /> Beeducation
             </Button>
 
 
             <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
               <MusicalFlower className="h-4 w-4 mr-3" />
-              🎵 Buzzy Bees
+              <MusicalFlower className="h-3.5 w-3.5 inline mr-1" /> Buzzy Bees
             </Button>
 
             {user && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/dashboard')}>
                 <SeedlingChart className="h-4 w-4 mr-3" />
-                🌱 Dashboard
+                <NatureLeaf className="h-3.5 w-3.5 inline mr-1" /> Dashboard
               </Button>
             )}
 
@@ -76,7 +76,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/admin')}>
                 <BeehiveSafe className="h-4 w-4 mr-3" />
                 Admin Panel
-                <Badge variant="secondary" className="ml-auto text-[10px]">🐝</Badge>
+                <Badge variant="secondary" className="ml-auto text-[10px]"><BeeFlying className="h-3 w-3" /></Badge>
               </Button>
             )}
           </div>

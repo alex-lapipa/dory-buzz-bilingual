@@ -18,7 +18,7 @@ import {
   Leaf,
   Activity,
   Settings
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 import { AdvancedFeatures } from '@/components/AdvancedFeatures';
 import { TechnicalSpecs } from '@/components/TechnicalSpecs';
 

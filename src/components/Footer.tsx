@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { InstagramFlower, ButterflyLink, NatureLeaf, SunflowerStar, BeeFlying } from '@/components/icons';
 
 const socialLinks = [
-  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', icon: '🌸' },
-  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', icon: '🦋' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', icon: '🌿' },
-  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', icon: '🌺' },
+  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', Icon: InstagramFlower },
+  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', Icon: ButterflyLink },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', Icon: NatureLeaf },
+  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', Icon: SunflowerStar },
 ];
 
 export const Footer: React.FC = () => {
@@ -19,7 +20,7 @@ export const Footer: React.FC = () => {
       <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground font-medium">
-            {isEs ? '🐝 Aprende sobre jardines, abejas y naturaleza' : '🐝 Learn about gardens, bees & nature'}
+            {isEs ? 'Aprende sobre jardines, abejas y naturaleza' : 'Learn about gardens, bees & nature'}
           </p>
           <div className="flex items-center gap-3">
             {socialLinks.map((link) => (
@@ -32,7 +33,7 @@ export const Footer: React.FC = () => {
                 aria-label={link.name}
                 title={link.name}
               >
-                {link.icon}
+                <link.Icon className="h-5 w-5" />
               </a>
             ))}
           </div>
@@ -49,8 +50,8 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { to: '/', label: isEs ? '🌻 Beeducación' : '🌻 Beeducation' },
-                { to: '/learning/garden-basics', label: isEs ? '🌱 Básicos de Jardín' : '🌱 Garden Basics' },
+                { to: '/', label: isEs ? 'Beeducación' : 'Beeducation' },
+                { to: '/learning/garden-basics', label: isEs ? 'Básicos de Jardín' : 'Garden Basics' },
               ].map((item) => (
                 <li key={item.to}>
                   <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -68,11 +69,11 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { url: 'https://idiomas.io', label: '🌍 idiomas.io' },
-                { url: 'https://lawtonx.com', label: '🏡 lawtonx.com' },
-                { url: 'https://www.alexlawton.io', label: '🌐 alexlawton.io' },
-                { url: 'https://miramonte.io', label: '🌻 miramonte.io' },
-                { url: 'https://lapipa.ai', label: '🦋 lapipa.ai' },
+                { url: 'https://idiomas.io', label: 'idiomas.io' },
+                { url: 'https://lawtonx.com', label: 'lawtonx.com' },
+                { url: 'https://www.alexlawton.io', label: 'alexlawton.io' },
+                { url: 'https://miramonte.io', label: 'miramonte.io' },
+                { url: 'https://lapipa.ai', label: 'lapipa.ai' },
               ].map((item) => (
                 <li key={item.url}>
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -82,7 +83,7 @@ export const Footer: React.FC = () => {
               ))}
               <li>
                 <a href="mailto:hello@lawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  🌸 hello@lawtonschool.com
+                  hello@lawtonschool.com
                 </a>
               </li>
             </ul>

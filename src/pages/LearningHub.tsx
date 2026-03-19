@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, ButterflyFrame, GraduationBee, GamepadFlower } from '@/components/icons';
+import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, ButterflyFrame, GraduationBee, GamepadFlower, BeeFlying, NatureLeaf, EarthVine, HoneyJar, BeeChat } from '@/components/icons';
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
@@ -214,7 +214,7 @@ const LearningHub: React.FC = () => {
       <PageLayout>
         <div className="flex items-center justify-center p-8">
           <div className="text-center">
-            <div className="text-4xl animate-bee-bounce mb-4">🐝</div>
+            <div className="animate-bee-bounce mb-4"><BeeFlying className="h-10 w-10 text-primary mx-auto" /></div>
             <p>Loading bee education content...</p>
           </div>
         </div>
@@ -244,7 +244,7 @@ const LearningHub: React.FC = () => {
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
             <GraduationBee className="h-10 w-10 text-primary" />
             Beeducation
-            <span className="animate-flower-sway">🌻</span>
+            <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover amazing facts about bees and gardening with AI-powered learning tools! 
@@ -279,7 +279,7 @@ const LearningHub: React.FC = () => {
                 };
               }),
               {
-                label: `🎮 Games (${completedCount}/10)`,
+                label: `Games (${completedCount}/10)`,
                 value: Math.round((completedCount / 10) * 100),
                 color: 'hsl(270 60% 55%)',
               },
@@ -303,7 +303,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-yellow-800">
-                <span className="text-4xl group-hover:animate-bounce">🐝</span>
+                <span className="text-4xl group-hover:animate-bounce"><BeeFlying className="h-10 w-10" /></span>
                 Bee Basics
                 <Badge className="bg-yellow-500 text-yellow-900 ml-auto">
                   <SunflowerStar className="h-3 w-3 mr-1" />
@@ -334,7 +334,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-green-800">
-                <span className="text-4xl group-hover:animate-pulse">🌱</span>
+                <span className="text-4xl group-hover:animate-pulse"><NatureLeaf className="h-10 w-10" /></span>
                 Garden Basics
               </CardTitle>
             </CardHeader>
@@ -364,7 +364,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-purple-800">
-                <span className="text-4xl group-hover:animate-bounce">🎮</span>
+                <span className="text-4xl group-hover:animate-bounce"><GamepadFlower className="h-10 w-10" /></span>
                 Interactive Games
                 <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-600 ml-auto">
                   Play Now
@@ -383,7 +383,7 @@ const LearningHub: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm text-purple-600">
                   <span>{completedCount}/10 completed</span>
-                  <span>🏆 {totalScore} pts</span>
+                  <span><HoneycombTrophy className="h-4 w-4 inline" /> {totalScore} pts</span>
                 </div>
                 <Progress value={(completedCount / 10) * 100} className="h-2" />
               </div>
@@ -398,7 +398,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-blue-800">
-                <span className="text-4xl group-hover:animate-spin-slow">🌍</span>
+                <span className="text-4xl group-hover:animate-spin-slow"><EarthVine className="h-10 w-10" /></span>
                 Ecosystem Explorer
                 <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-600 ml-auto">
                   Available
@@ -428,7 +428,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-orange-800">
-                <span className="text-4xl group-hover:animate-bounce">🍯</span>
+                <span className="text-4xl group-hover:animate-bounce"><HoneyJar className="h-10 w-10" /></span>
                 Beekeeping Basics
                 <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-600 ml-auto">
                   Available
@@ -463,7 +463,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-teal-800">
-                <span className="text-4xl group-hover:animate-pulse">🌿</span>
+                <span className="text-4xl group-hover:animate-pulse"><NatureLeaf className="h-10 w-10" /></span>
                 Conservation Chat
                 <Badge variant="secondary" className="text-xs bg-teal-100 text-teal-600 ml-auto">
                   Chat
@@ -534,7 +534,7 @@ const LearningHub: React.FC = () => {
               onClick={() => setSelectedCategory(category)}
               className="capitalize"
             >
-              {category === 'all' ? '🌍 All Topics' : `🌱 ${category}`}
+              {category === 'all' ? 'All Topics' : category}
             </Button>
           ))}
         </div>
@@ -640,23 +640,23 @@ const LearningHub: React.FC = () => {
           <CardContent className="text-yellow-700">
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2">
-                <span>🎧</span>
+                <VolumeFlower className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Listen to facts</strong> - Use the voice feature to hear bee facts aloud!</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🧠</span>
+                <Firefly className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Get deep analysis</strong> - Click "Analyze" for detailed scientific explanations</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🎨</span>
+                <ButterflyFrame className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Visualize concepts</strong> - Generate beautiful illustrations of bee topics</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>📚</span>
+                <LeafBook className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Track progress</strong> - Complete lessons to unlock advanced topics</div>
               </li>
               <li className="flex items-start gap-2">
-                <span>🗣️</span>
+                <BeeChat className="h-4 w-4 mt-0.5 shrink-0" />
                 <div><strong>Ask Mochi</strong> - Chat with our bee expert for personalized learning!</div>
               </li>
             </ul>
