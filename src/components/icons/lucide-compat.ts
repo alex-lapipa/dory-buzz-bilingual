@@ -117,4 +117,6 @@ export {
   BloomingCheck as Circle,
   HiveDatabase as Archive,
   FlowerPin as Home,
+  SundialFlower as Moon,
+  GardenKey as Key,
 } from './BeeIcons';
