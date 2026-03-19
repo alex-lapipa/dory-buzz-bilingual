@@ -87,6 +87,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
   const [isStreaming, setIsStreaming] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [feedbackGiven, setFeedbackGiven] = useState<Record<string, number>>({}); // messageId -> rating
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   
