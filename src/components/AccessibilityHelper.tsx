@@ -90,7 +90,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'imageGen',
       label: language === 'es' ? 'Generador de Imágenes' : 'Image Generator',
       status: features.imageGeneration ? 'good' : 'error',
-      icon: <Image className="h-4 w-4" />,
+      icon: <ButterflyFrame className="h-4 w-4" />,
       description: features.imageGeneration 
         ? (language === 'es' ? 'Funcionando' : 'Working')
         : (language === 'es' ? 'Error' : 'Error')
