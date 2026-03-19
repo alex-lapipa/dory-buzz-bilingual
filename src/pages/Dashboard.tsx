@@ -9,7 +9,7 @@ import { BeeEducationHub } from '@/components/BeeEducationHub';
 import { ImageGenerator } from '@/components/ImageGenerator';
 import { ConsentSettings } from '@/components/GDPRConsent';
 import LunarCalendarWidget from '@/components/LunarCalendarWidget';
-import { PollenSparkle, BeeChat, LeafBook, ButterflyFrame, GardenTools, BeehiveSafe } from '@/components/icons';
+import { PollenSparkle, BeeChat, LeafBook, ButterflyFrame, GardenTools, BeehiveSafe, BeeFlying, SunflowerStar, NatureLeaf } from '@/components/icons';
 
 const Dashboard: React.FC = () => {
   return (
