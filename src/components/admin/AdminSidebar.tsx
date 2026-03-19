@@ -13,7 +13,7 @@ export type AdminSection =
   | 'beeducation' | 'bee-basics' | 'garden-basics' | 'chat'
   | 'brand' | 'design' | 'audio-sound'
   | 'google-ecosystem'
-  | 'technical' | 'system-health' | 'edge-functions'
+  | 'technical' | 'system-health' | 'edge-functions' | 'voice-health'
   | 'privacy' | 'accessibility'
   | 'settings' | 'lunar-calendar';
 
