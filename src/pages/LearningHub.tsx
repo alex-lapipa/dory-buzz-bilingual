@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, ButterflyFrame, GraduationBee, GamepadFlower } from '@/components/icons';
+import { LeafBook, SunflowerStar, HoneycombTrophy, Firefly, VolumeFlower, ButterflyFrame, GraduationBee, GamepadFlower, BeeFlying, NatureLeaf, EarthVine, HoneyJar, BeeChat } from '@/components/icons';
 import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
