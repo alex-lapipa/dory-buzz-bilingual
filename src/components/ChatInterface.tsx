@@ -415,6 +415,65 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
     }
   }, [isListening, startVoiceRecording, stopVoiceRecording]);
 
+  const renderRagMeta = useCallback((metadata: Message['metadata']) => {
+    if (!metadata) return null;
+    const hasSources = metadata.sources && metadata.sources.length > 0;
+    const hasKg = metadata.kg_connections && metadata.kg_connections.length > 0;
+    const hasVocab = metadata.vocab_hint && metadata.vocab_hint.length > 0;
+    if (!hasSources && !hasKg && !hasVocab) return null;
+
+    return (
+      <Collapsible className="mt-2">
+        <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors group">
+          <ChevronRight className="h-3 w-3 group-data-[state=open]:hidden" />
+          <ChevronDown className="h-3 w-3 hidden group-data-[state=open]:block" />
+          <span>Sources & Knowledge</span>
+          <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
+            {(metadata.sources?.length || 0) + (metadata.kg_connections?.length || 0) + (metadata.vocab_hint?.length || 0)}
+          </Badge>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="mt-1.5 space-y-1.5">
+          {hasSources && (
+            <div className="flex flex-wrap gap-1">
+              {metadata.sources!.map((s, i) => (
+                <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-background/50">
+                  <BookOpen className="h-2.5 w-2.5" />
+                  <span className="truncate max-w-[120px]">{s.title}</span>
+                  <span className="opacity-60">{s.sim}%</span>
+                </Badge>
+              ))}
+            </div>
+          )}
+          {hasKg && (
+            <div className="flex flex-wrap gap-1">
+              {metadata.kg_connections!.slice(0, 4).map((c, i) => (
+                <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-primary/5 border-primary/20">
+                  <GitBranch className="h-2.5 w-2.5" />
+                  <span className="truncate max-w-[160px]">{c}</span>
+                </Badge>
+              ))}
+            </div>
+          )}
+          {hasVocab && (
+            <div className="flex flex-wrap gap-1">
+              {metadata.vocab_hint!.map((v, i) => (
+                <Badge key={i} variant="outline" className="text-[10px] px-1.5 py-0.5 gap-1 bg-accent/10 border-accent/20">
+                  <Languages className="h-2.5 w-2.5" />
+                  {v}
+                </Badge>
+              ))}
+            </div>
+          )}
+          {metadata.latency_ms && (
+            <div className="text-[10px] text-muted-foreground/60">
+              ⚡ {metadata.latency_ms}ms via {metadata.provider || metadata.model}
+            </div>
+          )}
+        </CollapsibleContent>
+      </Collapsible>
+    );
+  }, []);
+
   const renderMessage = useCallback((message: Message) => {
     return (
       <div
@@ -448,6 +507,9 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
                 />
               </div>
             )}
+
+            {/* RAG Sources & Knowledge Graph collapsible */}
+            {message.type === 'mochi' && renderRagMeta(message.metadata)}
             
             <div className="flex items-center justify-between">
               <div className="text-xs opacity-70">
@@ -478,7 +540,7 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
         </div>
       </div>
     );
-  }, [isPlaying, playVoiceResponse]);
+  }, [isPlaying, playVoiceResponse, renderRagMeta]);
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
