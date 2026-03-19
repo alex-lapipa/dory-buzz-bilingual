@@ -5,7 +5,7 @@ import { FloatingGarden } from '@/components/FloatingGarden';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { GraduationBee, SeedlingChart, NatureLeaf } from '@/components/icons';
+import { GraduationBee, SeedlingChart, NatureLeaf, SunflowerStar, BeeFlying } from '@/components/icons';
 
 const Index = () => {
   const { user } = useAuth();
