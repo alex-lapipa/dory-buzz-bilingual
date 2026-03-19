@@ -11,7 +11,7 @@ import {
   BookOpen,
   Users,
   Star
-} from 'lucide-react';
+} from '@/components/icons/lucide-compat';
 
 interface LearningPathCardProps {
   title: string;
