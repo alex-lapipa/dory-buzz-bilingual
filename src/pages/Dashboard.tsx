@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
               BeeCrazy Garden World <BeeFlying className="h-6 w-6 inline" />
             </h1>
             <p className="text-lg text-muted-foreground mt-2">
-              Your Garden Companion with Advanced Intelligence 🌻
+              Your Garden Companion with Advanced Intelligence <SunflowerStar className="h-4 w-4 inline" />
             </p>
           </div>
           <div className="flex items-center gap-2">
