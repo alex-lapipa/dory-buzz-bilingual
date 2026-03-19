@@ -1134,6 +1134,50 @@ export type Database = {
         }
         Relationships: []
       }
+      response_feedback: {
+        Row: {
+          agent_used: string | null
+          comment: string | null
+          created_at: string
+          id: string
+          message_content: string | null
+          rag_query_id: string | null
+          rating: number
+          session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          agent_used?: string | null
+          comment?: string | null
+          created_at?: string
+          id?: string
+          message_content?: string | null
+          rag_query_id?: string | null
+          rating: number
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          agent_used?: string | null
+          comment?: string | null
+          created_at?: string
+          id?: string
+          message_content?: string | null
+          rag_query_id?: string | null
+          rating?: number
+          session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "response_feedback_rag_query_id_fkey"
+            columns: ["rag_query_id"]
+            isOneToOne: false
+            referencedRelation: "rag_queries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       storycard_panels: {
         Row: {
           audio_url_en: string | null
