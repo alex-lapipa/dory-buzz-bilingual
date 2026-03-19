@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { InstagramFlower, ButterflyLink, NatureLeaf, SunflowerStar, BeeFlying } from '@/components/icons';
 
 const socialLinks = [
-  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', icon: '🌸' },
-  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', icon: '🦋' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', icon: '🌿' },
-  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', icon: '🌺' },
+  { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', Icon: InstagramFlower },
+  { name: 'Facebook', url: 'https://www.facebook.com/TheLawtonSchool/', Icon: ButterflyLink },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/the-lawton-school/', Icon: NatureLeaf },
+  { name: 'YouTube', url: 'https://www.youtube.com/@thelawtonschool', Icon: SunflowerStar },
 ];
 
 export const Footer: React.FC = () => {
