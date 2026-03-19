@@ -68,7 +68,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             {user && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/dashboard')}>
                 <SeedlingChart className="h-4 w-4 mr-3" />
-                🌱 Dashboard
+                <NatureLeaf className="h-3.5 w-3.5 inline mr-1" /> Dashboard
               </Button>
             )}
 
