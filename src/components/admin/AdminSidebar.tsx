@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Settings, Activity, BarChart3, BookOpen, Flower2, TreeDeciduous, MessageCircle,
   Palette, Layers, Globe, ExternalLink, Wrench, HeartPulse, Shield, Lock,
-  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon
+  Accessibility, Cog, Download, Pin, PinOff, ChevronDown, Music, Moon, Zap
 } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -13,7 +13,7 @@ export type AdminSection =
   | 'beeducation' | 'bee-basics' | 'garden-basics' | 'chat'
   | 'brand' | 'design' | 'audio-sound'
   | 'google-ecosystem'
-  | 'technical' | 'system-health'
+  | 'technical' | 'system-health' | 'edge-functions'
   | 'privacy' | 'accessibility'
   | 'settings' | 'lunar-calendar';
 
@@ -69,6 +69,7 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'technical', label: 'Technical Details', icon: Wrench },
       { id: 'system-health', label: 'System Health', icon: HeartPulse },
+      { id: 'edge-functions', label: 'Edge Functions', icon: Zap },
     ],
   },
   {
