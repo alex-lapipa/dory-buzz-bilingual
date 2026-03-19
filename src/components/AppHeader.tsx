@@ -39,8 +39,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           />
           <div className="flex flex-col">
             <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-primary">
-              <span className="sm:hidden">Mochi 🐝</span>
-              <span className="hidden sm:inline">MochiBee 🌻</span>
+              <span className="sm:hidden">Mochi <BeeFlying className="h-4 w-4 inline" /></span>
+              <span className="hidden sm:inline">MochiBee <SunflowerStar className="h-5 w-5 inline" /></span>
             </h1>
             <p className="text-xs sm:text-sm text-primary/90 font-medium hidden xs:block">
               A Buzztastical Bee

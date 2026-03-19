@@ -117,7 +117,7 @@ const Dashboard: React.FC = () => {
 
         {/* Footer */}
         <div className="mt-12 text-center text-muted-foreground text-sm">
-          <p>🐝 Powered by Nature & Intelligence 🌻</p>
+          <p><BeeFlying className="h-4 w-4 inline" /> Powered by Nature & Intelligence <SunflowerStar className="h-4 w-4 inline" /></p>
           <p className="mt-1">BeeCrazy Garden World - Where Nature meets Education</p>
         </div>
     </PageLayout>

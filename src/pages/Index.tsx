@@ -55,7 +55,7 @@ const Index = () => {
             <CardHeader className="pb-mobile-md">
               <CardTitle className="flex items-center gap-2 text-responsive-lg">
                 <GraduationBee className="h-5 w-5 text-primary" />
-                🐝 Beeducation
+                <BeeFlying className="h-4 w-4 text-primary" /> Beeducation
               </CardTitle>
             </CardHeader>
             <CardContent>

@@ -167,7 +167,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           size="lg"
           className="font-bold text-responsive-base sm:text-responsive-lg px-8 sm:px-10 py-4 sm:py-5 rounded-xl bg-primary text-on-primary hover:opacity-90 shadow-honey"
         >
-          {language === 'es' ? '🐝 ¡Únete Ahora!' : '🐝 Join Now!'}
+          {language === 'es' ? 'Únete Ahora!' : 'Join Now!'}
         </Button>
       </section>
     </div>

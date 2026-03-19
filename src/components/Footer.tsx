@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
               ))}
               <li>
                 <a href="mailto:hello@lawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  🌸 hello@lawtonschool.com
+                  hello@lawtonschool.com
                 </a>
               </li>
             </ul>

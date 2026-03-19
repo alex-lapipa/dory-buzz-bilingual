@@ -76,7 +76,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/admin')}>
                 <BeehiveSafe className="h-4 w-4 mr-3" />
                 Admin Panel
-                <Badge variant="secondary" className="ml-auto text-[10px]">🐝</Badge>
+                <Badge variant="secondary" className="ml-auto text-[10px]"><BeeFlying className="h-3 w-3" /></Badge>
               </Button>
             )}
           </div>
