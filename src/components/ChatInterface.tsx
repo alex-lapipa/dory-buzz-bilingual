@@ -55,6 +55,9 @@ interface Message {
     vocab_hint?: string[];
     latency_ms?: number;
     provider?: string;
+    agent?: string;
+    intent?: string;
+    intent_confidence?: number;
   };
 }
 
@@ -259,6 +262,9 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
           kg_connections: data.kg_connections || [],
           vocab_hint: data.vocab_hint || [],
           latency_ms: data.latency_ms,
+          agent: data.agent,
+          intent: data.intent,
+          intent_confidence: data.intent_confidence,
         }
       };
       
@@ -464,9 +470,17 @@ export const ChatInterface = memo<ChatInterfaceProps>(({
               ))}
             </div>
           )}
-          {metadata.latency_ms && (
-            <div className="text-[10px] text-muted-foreground/60">
-              ⚡ {metadata.latency_ms}ms via {metadata.provider || metadata.model}
+          {(metadata.latency_ms || metadata.agent) && (
+            <div className="text-[10px] text-muted-foreground/60 flex flex-wrap items-center gap-2">
+              {metadata.agent && metadata.agent !== 'mochi' && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 bg-primary/10 border-primary/30">
+                  {metadata.agent} agent
+                  {metadata.intent_confidence ? ` (${Math.round(metadata.intent_confidence * 100)}%)` : ''}
+                </Badge>
+              )}
+              {metadata.latency_ms && (
+                <span>{metadata.latency_ms}ms via {metadata.provider || metadata.model}</span>
+              )}
             </div>
           )}
         </CollapsibleContent>

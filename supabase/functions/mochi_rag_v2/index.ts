@@ -66,6 +66,108 @@ const providers: ProviderConfig[] = [
   },
 ];
 
+/* ── Intent classification using Gemini Flash (lightweight) ── */
+interface IntentResult {
+  agent: string;
+  confidence: number;
+  intent: string;
+}
+
+async function classifyIntent(message: string, googleKey: string | undefined): Promise<IntentResult> {
+  const fallback: IntentResult = { agent: "mochi", confidence: 0.5, intent: "general" };
+  if (!googleKey) return fallback;
+
+  try {
+    const classifyPrompt = `You are an intent classifier for Mochi the Garden Bee platform. Classify the user's message into EXACTLY ONE agent and intent.
+
+Available agents:
+- "bee-facts": Questions about bees, honey, hives, pollination, bee anatomy, bee species, beekeeping
+- "garden": Questions about gardening, plants, permaculture, composting, soil, vegetables, herbs, kitchen garden
+- "language": Language learning, vocabulary, translations between English/Spanish, word meanings
+- "lunar-calendar": Moon phases, lunar gardening, planting by moon, biodynamic calendar
+- "storycard": Requests for stories, tales, narratives about bees or gardens for children
+- "mochi": General conversation, greetings, jokes, anything that doesn't fit above categories
+
+Respond ONLY with valid JSON: {"agent": "<name>", "confidence": <0.0-1.0>, "intent": "<short description>"}
+
+User message: "${message.slice(0, 300)}"`;
+
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${googleKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: classifyPrompt }] }],
+        generationConfig: { temperature: 0.1, maxOutputTokens: 100 },
+      }),
+    });
+
+    if (!res.ok) {
+      console.log("Intent classifier HTTP error:", res.status);
+      return fallback;
+    }
+
+    const json = await res.json();
+    const text = json.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    // Extract JSON from response (may be wrapped in markdown code block)
+    const jsonMatch = text.match(/\{[^}]+\}/);
+    if (!jsonMatch) return fallback;
+
+    const parsed = JSON.parse(jsonMatch[0]);
+    return {
+      agent: parsed.agent || "mochi",
+      confidence: Math.min(1, Math.max(0, parsed.confidence || 0.5)),
+      intent: parsed.intent || "general",
+    };
+  } catch (err) {
+    console.error("Intent classification error:", err);
+    return fallback;
+  }
+}
+
+/* ── Resolve agent system prompt from DB ── */
+async function resolveAgentPrompt(
+  supabase: any,
+  intentResult: IntentResult,
+  fallbackPrompt: string
+): Promise<{ systemPrompt: string; agentName: string }> {
+  // If confidence is too low, use master Mochi
+  const agentName = intentResult.confidence >= 0.6 ? intentResult.agent : "mochi";
+
+  try {
+    // First try to get the specialist agent's prompt
+    const { data: agentRow } = await supabase
+      .from("agents")
+      .select("system_prompt, name")
+      .eq("name", agentName)
+      .eq("is_active", true)
+      .limit(1)
+      .single();
+
+    if (agentRow?.system_prompt) {
+      console.log(`RAG v2: Using agent '${agentRow.name}' (confidence: ${intentResult.confidence.toFixed(2)})`);
+      return { systemPrompt: agentRow.system_prompt, agentName: agentRow.name };
+    }
+
+    // Fall back to mochi agent
+    if (agentName !== "mochi") {
+      const { data: mochiRow } = await supabase
+        .from("agents")
+        .select("system_prompt")
+        .eq("name", "mochi")
+        .eq("is_active", true)
+        .limit(1)
+        .single();
+      if (mochiRow?.system_prompt) {
+        return { systemPrompt: mochiRow.system_prompt, agentName: "mochi" };
+      }
+    }
+  } catch (_) {
+    console.log("RAG v2: Agent lookup failed, using fallback");
+  }
+
+  return { systemPrompt: fallbackPrompt, agentName: "mochi" };
+}
+
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
@@ -79,35 +181,28 @@ serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: "No message provided" }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    // ── 0. Fetch canonical system prompt from agents table ──
-    let systemPrompt = FALLBACK_SYSTEM;
-    try {
-      const { data: agentRow } = await supabase
-        .from("agents")
-        .select("system_prompt")
-        .eq("name", "mochi")
-        .eq("is_active", true)
-        .limit(1)
-        .single();
-      if (agentRow?.system_prompt) {
-        systemPrompt = agentRow.system_prompt;
-      }
-    } catch (_) {
-      console.log("RAG v2: No agents row found for 'mochi', using fallback prompt");
-    }
-
-    // ── 1. Embed query ──
+    const googleKey = Deno.env.get("GOOGLE_AI_STUDIO");
     const openaiKey = Deno.env.get("OPENAI_API_KEY");
     if (!openaiKey) throw new Error("OPENAI_API_KEY not set — needed for embeddings");
 
-    const embRes = await fetch("https://api.openai.com/v1/embeddings", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${openaiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ input: message, model: "text-embedding-3-small" }),
-    });
+    // ── 0. Intent Classification + Embed query (parallel) ──
+    const [intentResult, embRes] = await Promise.all([
+      classifyIntent(message, googleKey),
+      fetch("https://api.openai.com/v1/embeddings", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${openaiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ input: message, model: "text-embedding-3-small" }),
+      }),
+    ]);
+
+    console.log(`RAG v2: Intent → ${intentResult.agent} (${(intentResult.confidence * 100).toFixed(0)}%): ${intentResult.intent}`);
+
     const embData = await embRes.json();
     const embedding = embData.data?.[0]?.embedding;
     if (!embedding) throw new Error("Embedding generation failed");
+
+    // ── 1. Resolve agent prompt from DB ──
+    const { systemPrompt, agentName } = await resolveAgentPrompt(supabase, intentResult, FALLBACK_SYSTEM);
 
     // ── 2. Parallel vector searches ──
     const [unifiedRes, vocabRes] = await Promise.all([
@@ -140,7 +235,7 @@ serve(async (req: Request) => {
         p_depth: 2,
       });
       if (neighbours?.length) {
-        kgConnections = neighbours.map((n: any) => `${n.source_name} → ${n.relation} → ${n.target_name}`);
+        kgConnections = neighbours.map((n: any) => `${n.source_name} →[${n.relation}]→ ${n.target_name}`);
       }
     }
 
@@ -160,12 +255,15 @@ serve(async (req: Request) => {
       contextBlock += "\n## Vocabulary\n" + vocab.map((v: any) => `• ${v.word_en} / ${v.word_es}`).join("\n") + "\n";
     }
 
+    // Add agent delegation context
+    if (agentName !== "mochi") {
+      contextBlock += `\n## Agent Context\nYou are responding as the ${agentName} specialist. Focus your expertise on ${intentResult.intent}.\n`;
+    }
+
     const finalSystem = systemPrompt + contextBlock;
 
     // ── 5. Build messages array with conversation history ──
     const chatMessages: Array<{role: string; content: string}> = [];
-
-    // Add conversation history (last 6 turns from client)
     if (Array.isArray(conversation_history) && conversation_history.length > 0) {
       for (const turn of conversation_history.slice(-6)) {
         if (turn.role && turn.content) {
@@ -173,8 +271,6 @@ serve(async (req: Request) => {
         }
       }
     }
-
-    // Add current user message
     chatMessages.push({ role: "user", content: message });
 
     // ── 6. Multi-model cascade ──
@@ -212,7 +308,7 @@ serve(async (req: Request) => {
 
     const latency = Date.now() - startMs;
 
-    // ── 7. Log to rag_queries ──
+    // ── 7. Log to rag_queries (with agent routing data) ──
     supabase.from("rag_queries").insert({
       query_text: message,
       language,
@@ -220,6 +316,9 @@ serve(async (req: Request) => {
       matched_knowledge_ids: unified.map((u: any) => u.id),
       similarity_scores: unified.map((u: any) => Math.round((u.similarity ?? 0) * 100)),
       response_preview: responseText.slice(0, 200),
+      agent_used: agentName,
+      intent_confidence: intentResult.confidence,
+      intent_matched: intentResult.intent,
     }).then(() => {});
 
     // ── 8. Log to mochi_integrations ──
@@ -231,7 +330,16 @@ serve(async (req: Request) => {
       success: true,
       orchestrated: true,
       function_category: "rag_v2",
-      options: { user_id: user_id || "guest", sources_count: unified.length, kg_count: kgConnections.length, vocab_count: vocab.length, history_turns: chatMessages.length - 1 },
+      options: {
+        user_id: user_id || "guest",
+        sources_count: unified.length,
+        kg_count: kgConnections.length,
+        vocab_count: vocab.length,
+        history_turns: chatMessages.length - 1,
+        agent: agentName,
+        intent: intentResult.intent,
+        intent_confidence: intentResult.confidence,
+      },
     }).then(() => {});
 
     // ── 9. Structured response ──
@@ -253,6 +361,9 @@ serve(async (req: Request) => {
         provider: usedProvider,
         model: usedModel,
         latency_ms: latency,
+        agent: agentName,
+        intent: intentResult.intent,
+        intent_confidence: intentResult.confidence,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
@@ -261,7 +372,7 @@ serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         error: String(err),
-        response: "🐝 Oh bee-have! I'm having a bee-wildering technical moment. Please try again! 🌻",
+        response: "Oh bee-have! I'm having a bee-wildering technical moment. Please try again!",
       }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
