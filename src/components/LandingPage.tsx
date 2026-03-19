@@ -105,7 +105,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             {features.map((f, i) => (
               <Card
                 key={i}
-                className="card-elevated text-center p-6 hover:shadow-honey transition-shadow duration-300 animate-bouncy-enter"
+                className="card-nature text-center p-6 animate-bouncy-enter"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <CardContent className="p-0 space-y-3">
