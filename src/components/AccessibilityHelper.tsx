@@ -72,7 +72,7 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
       id: 'textChat',
       label: language === 'es' ? 'Chat de Texto' : 'Text Chat',
       status: features.textChat ? 'good' : 'error',
-      icon: <MessageCircle className="h-4 w-4" />,
+      icon: <BeeChat className="h-4 w-4" />,
       description: features.textChat 
         ? (language === 'es' ? 'Disponible' : 'Available')
         : (language === 'es' ? 'No disponible' : 'Unavailable')
