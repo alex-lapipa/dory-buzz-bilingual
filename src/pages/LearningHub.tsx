@@ -334,7 +334,7 @@ const LearningHub: React.FC = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-green-800">
-                <span className="text-4xl group-hover:animate-pulse">🌱</span>
+                <span className="text-4xl group-hover:animate-pulse"><NatureLeaf className="h-10 w-10" /></span>
                 Garden Basics
               </CardTitle>
             </CardHeader>
