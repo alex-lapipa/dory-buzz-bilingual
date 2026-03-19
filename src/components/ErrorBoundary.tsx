@@ -54,7 +54,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="min-h-screen bg-gradient-nature flex items-center justify-center p-4">
-          <Card className="shadow-honey border border-border/30 bg-card/90 backdrop-blur max-w-lg w-full">
+          <Card className="card-nature shadow-honey max-w-lg w-full">
             <CardHeader className="text-center">
               <div className="text-6xl mb-4">🐝💔</div>
               <CardTitle className="text-2xl font-bold bg-gradient-bee bg-clip-text text-transparent">

@@ -96,7 +96,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
 
   return (
     <div className="min-h-screen bg-gradient-nature flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-honey border border-border/30 bg-card/90 backdrop-blur">
+      <Card className="w-full max-w-md card-nature shadow-honey">
         <CardHeader className="text-center">
           <div className="text-4xl mb-3 animate-bee-bounce">🌻</div>
           <CardTitle className="text-xl bg-gradient-bee bg-clip-text text-transparent">

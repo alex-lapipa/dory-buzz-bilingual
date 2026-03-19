@@ -20,7 +20,7 @@ const MochiVideo = () => {
   };
 
   return (
-    <Card className="w-full mt-6 bg-card/80 backdrop-blur-sm">
+    <Card className="w-full mt-6 card-nature">
       <CardContent className="p-4">
         <div className="relative">
           <LazyVideo
