@@ -13,19 +13,19 @@ export const OnboardingTip: React.FC<OnboardingTipProps> = ({ onClose }) => {
   
   const tips = [
     {
-      icon: <MessageCircle className="h-6 w-6" />,
+      icon: <BeeChat className="h-6 w-6" />,
       title: "Chat with Mochi! 💬",
       description: "Ask me about gardening, nature, or request beautiful garden images by typing 'create an image of...'",
       emoji: "🐝"
     },
     {
-      icon: <Mic className="h-6 w-6" />,
+      icon: <BeeAntenna className="h-6 w-6" />,
       title: "Voice Chat 🎤",
       description: "Have natural conversations with me! Just speak and I'll respond automatically when you pause.",
       emoji: "🌻"
     },
     {
-      icon: <Image className="h-6 w-6" />,
+      icon: <ButterflyFrame className="h-6 w-6" />,
       title: "AI Creator 🎨",
       description: "Generate stunning garden images and videos! Describe what you want and watch the magic happen.",
       emoji: "🌈"
