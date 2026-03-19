@@ -67,13 +67,13 @@ All colors MUST be HSL.
     /* Mobile-optimized radius */
     --radius: 0.75rem;
 
-    /* Enhanced nature gradients */
+    /* Enhanced nature gradients — heavy overlay so text is readable */
     --gradient-nature: 
       linear-gradient(135deg, 
-        hsl(50 80% 95% / 0.4) 0%, 
-        hsl(45 100% 92% / 0.3) 30%, 
-        hsl(35 85% 88% / 0.2) 60%, 
-        hsl(30 70% 85% / 0.1) 100%
+        hsl(50 80% 95% / 0.88) 0%, 
+        hsl(45 100% 93% / 0.85) 30%, 
+        hsl(35 85% 90% / 0.82) 60%, 
+        hsl(30 70% 88% / 0.80) 100%
       ),
       url('/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png');
     --gradient-bee: hsl(59 100% 50%);
