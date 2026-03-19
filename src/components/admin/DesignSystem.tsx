@@ -137,7 +137,7 @@ export const DesignSystem: React.FC = () => {
               <p className="text-xs text-muted-foreground font-mono mt-1">animate-pulse</p>
             </div>
             <div className="text-center">
-              <Badge className="animate-bee-flutter gap-1"><Zap className="h-3 w-3" /> Flutter</Badge>
+              <Badge className="animate-bee-flutter gap-1"><PollenSparkle className="h-3 w-3" /> Flutter</Badge>
               <p className="text-xs text-muted-foreground font-mono mt-1">animate-bee-flutter</p>
             </div>
           </div>
