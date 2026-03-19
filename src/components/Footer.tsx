@@ -50,8 +50,8 @@ export const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { to: '/', label: isEs ? '🌻 Beeducación' : '🌻 Beeducation' },
-                { to: '/learning/garden-basics', label: isEs ? '🌱 Básicos de Jardín' : '🌱 Garden Basics' },
+                { to: '/', label: isEs ? 'Beeducación' : 'Beeducation' },
+                { to: '/learning/garden-basics', label: isEs ? 'Básicos de Jardín' : 'Garden Basics' },
               ].map((item) => (
                 <li key={item.to}>
                   <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
