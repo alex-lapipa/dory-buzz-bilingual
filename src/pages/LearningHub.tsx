@@ -244,7 +244,7 @@ const LearningHub: React.FC = () => {
           <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
             <GraduationBee className="h-10 w-10 text-primary" />
             Beeducation
-            <span className="animate-flower-sway">🌻</span>
+            <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover amazing facts about bees and gardening with AI-powered learning tools! 
