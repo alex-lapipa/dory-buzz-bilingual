@@ -30,6 +30,13 @@ import {
 } from '@/components/icons';
 import { Send, ChevronDown, ChevronRight, BookOpen, GitBranch, Languages } from 'lucide-react';
 
+interface RagSource {
+  title: string;
+  domain: string;
+  source: string;
+  sim: number;
+}
+
 interface Message {
   id: string;
   type: 'user' | 'mochi';
@@ -43,6 +50,11 @@ interface Message {
     content_type?: string;
     audience?: string;
     imageUrl?: string;
+    sources?: RagSource[];
+    kg_connections?: string[];
+    vocab_hint?: string[];
+    latency_ms?: number;
+    provider?: string;
   };
 }
 
