@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
       <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground font-medium">
-            {isEs ? '🐝 Aprende sobre jardines, abejas y naturaleza' : '🐝 Learn about gardens, bees & nature'}
+            {isEs ? 'Aprende sobre jardines, abejas y naturaleza' : 'Learn about gardens, bees & nature'}
           </p>
           <div className="flex items-center gap-3">
             {socialLinks.map((link) => (
