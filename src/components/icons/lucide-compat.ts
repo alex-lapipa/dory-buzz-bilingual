@@ -1,13 +1,10 @@
 /**
  * Lucide-react compatibility shim
  * Maps every lucide icon name used in the codebase to its BeeIcon equivalent.
- * Import from here instead of 'lucide-react' for a drop-in replacement.
  */
 export {
-  // Direct mappings — old lucide name → BeeIcon
   BeeChat as MessageCircle,
-  BeeChat as MessageSquare,
-  BeeChatSquare as MessageSquareIcon,
+  BeeChatSquare as MessageSquare,
   LeafBook as BookOpen,
   SunflowerStar as Star,
   SunflowerStar as Flower2,
@@ -28,6 +25,7 @@ export {
   DandelionBack as RotateCcw,
   BeeTrailRight as ArrowRight,
   BeeTrailLeft as ArrowLeft,
+  BeeTrailLeft as ArrowLeftIcon,
   BeeTrailUp as ArrowUp,
   BeeTrailDown as ArrowDown,
   BeeTrailRight as ArrowRightIcon,
@@ -44,13 +42,18 @@ export {
   WiltingFlower as AlertCircle,
   NatureWarning as AlertTriangle,
   SundialFlower as Clock,
+  SundialFlower as Timer,
   EarthVine as Globe,
   GardenLock as Lock,
   BeehiveSafe as Shield,
+  BeehiveSafe as ShieldAlert,
   LadybugInfo as Info,
   GardenTools as Settings,
+  GardenTools as Edit3,
   ButterflySearch as Search,
   ButterflyLink as ExternalLink,
+  ButterflyLink as Github,
+  ButterflyLink as Link2,
   TwoLeaves as Copy,
   FlowerEye as Eye,
   FlowerBudClose as EyeOff,
@@ -59,6 +62,8 @@ export {
   Firefly as Lightbulb,
   HoneycombTrophy as Trophy,
   HoneycombTrophy as Award,
+  HoneycombTrophy as Medal,
+  HoneycombTrophy as Crown,
   GraduationBee as GraduationCap,
   BeeColony as Users,
   BeeFace as User,
@@ -67,6 +72,7 @@ export {
   SeedlingChart as BarChart3,
   BeeUpload as Upload,
   BeeDownload as Download,
+  BeeDownload as Save,
   FlowerPlay as Play,
   FlowerPause as Pause,
   MusicalFlower as Music,
@@ -95,6 +101,7 @@ export {
   HiveServer as Server,
   HiveServer as Monitor,
   HoneyHash as Hash,
+  HoneyHash as Tag,
   GardenPuzzle as Puzzle,
   FlowerTarget as Target,
   FlowerPalette as Palette,
@@ -105,6 +112,9 @@ export {
   LeafClipboard as Clipboard,
   LeafClipboard as FileText,
   LeafClipboard as FileJson,
-  ButterflyLink as Link2,
-  HoneyHash as Tag,
+  HoneycombMenu as Menu,
+  BeeFlying as LogIn,
+  BloomingCheck as Circle,
+  HiveDatabase as Archive,
+  FlowerPin as Home,
 } from './BeeIcons';
