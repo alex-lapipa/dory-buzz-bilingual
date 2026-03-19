@@ -1094,8 +1094,11 @@ export type Database = {
       }
       rag_queries: {
         Row: {
+          agent_used: string | null
           created_at: string | null
           id: string
+          intent_confidence: number | null
+          intent_matched: string | null
           language: string | null
           matched_knowledge_ids: string[] | null
           query_text: string
@@ -1104,8 +1107,11 @@ export type Database = {
           similarity_scores: number[] | null
         }
         Insert: {
+          agent_used?: string | null
           created_at?: string | null
           id?: string
+          intent_confidence?: number | null
+          intent_matched?: string | null
           language?: string | null
           matched_knowledge_ids?: string[] | null
           query_text: string
@@ -1114,8 +1120,11 @@ export type Database = {
           similarity_scores?: number[] | null
         }
         Update: {
+          agent_used?: string | null
           created_at?: string | null
           id?: string
+          intent_confidence?: number | null
+          intent_matched?: string | null
           language?: string | null
           matched_knowledge_ids?: string[] | null
           query_text?: string
