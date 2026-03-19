@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { MessageCircle, Image, Video, Zap, Sparkles } from 'lucide-react';
+import { BeeChat, ButterflyFrame, VideoFlower, PollenSparkle } from '@/components/icons';
 
 interface TabNavigatorProps {
   activeTab: string;

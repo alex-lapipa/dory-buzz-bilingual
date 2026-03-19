@@ -28,7 +28,7 @@ import {
   FlowerBudClose,
   BeeTrailRight
 } from '@/components/icons';
-import { Send, ChevronDown, ChevronRight, BookOpen, GitBranch, Languages } from 'lucide-react';
+import { PollenSend, PetalChevronDown, PetalChevronRight, LeafBook as LeafBookAlt, ActivityVine, BilingualBee } from '@/components/icons';
 
 interface RagSource {
   title: string;

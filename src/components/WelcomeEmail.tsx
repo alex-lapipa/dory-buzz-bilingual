@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, CheckCircle, Heart } from 'lucide-react';
+import { LeafEnvelope, BloomingCheck, FlowerHeart } from '@/components/icons';
 
 interface WelcomeEmailProps {
   userEmail: string;

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-import { Heart, Star, MessageCircle, Users, Sparkles, CheckCircle2, Copy, ExternalLink } from 'lucide-react';
+import { FlowerHeart, SunflowerStar, BeeChat, BeeColony, PollenSparkle, BloomingCheck, TwoLeaves, ButterflyLink } from '@/components/icons';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 

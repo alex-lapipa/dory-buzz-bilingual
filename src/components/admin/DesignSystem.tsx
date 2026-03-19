@@ -7,7 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import { Heart, Zap, Leaf } from 'lucide-react';
+import { FlowerHeart, PollenSparkle, NatureLeaf } from '@/components/icons';
 
 export const DesignSystem: React.FC = () => {
   return (

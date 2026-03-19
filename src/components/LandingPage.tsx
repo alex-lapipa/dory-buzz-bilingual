@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MessageCircle, BookOpen, Flower2, Mic, Sparkles, TreePine } from 'lucide-react';
+import { BeeChat, LeafBook, SunflowerStar, BeeAntenna, PollenSparkle, NatureLeaf } from '@/components/icons';
 
 interface LandingPageProps {
   onGetStarted: () => void;

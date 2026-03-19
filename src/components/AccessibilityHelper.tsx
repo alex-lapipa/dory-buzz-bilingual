@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { CheckCircle2, AlertCircle, Clock, Wifi, WifiOff, Zap, Users, MessageCircle, Image, BookOpen } from 'lucide-react';
+import { BloomingCheck, WiltingFlower, SundialFlower, WifiFlower, WifiOffFlower, PollenSparkle, BeeColony, BeeChat, ButterflyFrame, LeafBook } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { UserProgress } from '@/components/UserProgress';
 

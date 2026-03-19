@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { X, MessageCircle, Mic, Image, ChevronRight } from 'lucide-react';
+import { GardenX, BeeChat, BeeAntenna, ButterflyFrame, PetalChevronRight } from '@/components/icons';
 
 interface OnboardingTipProps {
   onClose: () => void;
