@@ -27,6 +27,9 @@ verify_jwt = false
 [functions.lunar_calendar_agent]
 verify_jwt = false
 
+[functions.mochi_self_improve]
+verify_jwt = false
+
 [api]
 enabled = true
 port = 54321
