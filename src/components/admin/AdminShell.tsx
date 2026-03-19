@@ -21,6 +21,7 @@ const AnalyticsDashboard = lazy(() => import('@/components/admin/AnalyticsDashbo
 const AudioSoundDesign = lazy(() => import('@/components/admin/AudioSoundDesign'));
 const LunarCalendarAdmin = lazy(() => import('@/components/admin/LunarCalendarAdmin'));
 const EdgeFunctionsDashboard = lazy(() => import('@/components/admin/EdgeFunctionsDashboard'));
+const VoiceAgentHealth = lazy(() => import('@/components/admin/VoiceAgentHealth'));
 
 // Direct imports for lighter components
 import { BrandBook } from '@/components/admin/BrandBook';
@@ -54,6 +55,7 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   technical: 'Technical Details',
   'system-health': 'System Health',
   'edge-functions': 'Edge Functions',
+  'voice-health': 'Voice Agent Health',
   privacy: 'Privacy & GDPR',
   accessibility: 'Accessibility',
   settings: 'Content Ingestion',
@@ -180,6 +182,8 @@ const SectionPanel: React.FC<{ section: AdminSection }> = ({ section }) => {
       return <ComprehensiveHealthCheck />;
     case 'edge-functions':
       return <EdgeFunctionsDashboard />;
+    case 'voice-health':
+      return <VoiceAgentHealth />;
     case 'privacy':
       return <ConsentSettings />;
     case 'accessibility':
