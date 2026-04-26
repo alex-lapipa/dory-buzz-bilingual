@@ -135,9 +135,9 @@ const SONGS = [
   },
   // ─── Round 14: Buzzy Bees Classics ──────────────────────────────────
   // Originally lived at /buzzy-bees on its own page. Merged here so the
-  // Songs tab is the single home for all sing-along content. Old route
-  // still works, but the 4 songs below are now visible in the unified
-  // grid with the Listen / Sing Along / Show lyrics treatment.
+  // Songs tab is the single home for all sing-along content. Round 14d
+  // brought these to full feature parity with EN + ES vocal versions and
+  // shared karaoke instrumentals (same Round 12 pattern as the other 8).
   {
     id: 'mochis-playful-day',
     emoji: '🎶',
@@ -146,15 +146,10 @@ const SONGS = [
     description_en: 'A happy buzzy song about Mochi flying around the garden!',
     description_es: '¡Una canción alegre sobre Mochi volando por el jardín!',
     color: 'from-amber-300 to-yellow-400',
-    // Pre-existing /public/audio/ asset shipped with the app — single file
-    // used for both languages. (No language-specific recording exists yet
-    // for this song; the lyrics panel still shows the appropriate language.)
-    vocalEnUrl: '/audio/mochis_playful_day.mp3',
-    vocalEsUrl: '/audio/mochis_playful_day.mp3',
-    vocalUrl: '/audio/mochis_playful_day.mp3',
-    // No karaoke instrumental yet — the Sing Along button will be disabled
-    // for this song until one is generated. Future: add an instrumental
-    // version following the Round 12 pattern.
+    vocalEnUrl: `${SONG_BASE}/mochis-playful-day-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/mochis-playful-day-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/mochis-playful-day-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/mochis-playful-day-instrumental.mp3`,
   },
   {
     id: 'garden-colors',
@@ -164,7 +159,10 @@ const SONGS = [
     description_en: 'Sing about the colors of every flower, leaf, and sky!',
     description_es: '¡Canta sobre los colores de cada flor, hoja y cielo!',
     color: 'from-pink-300 to-purple-400',
-    // No audio yet — lyrics-only. Listen + Sing Along disabled; lyrics work.
+    vocalEnUrl: `${SONG_BASE}/garden-colors-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/garden-colors-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/garden-colors-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/garden-colors-instrumental.mp3`,
   },
   {
     id: 'busy-bees',
@@ -174,6 +172,10 @@ const SONGS = [
     description_en: 'A song about hardworking bees making sweet golden honey!',
     description_es: '¡Una canción sobre abejas trabajadoras haciendo miel dorada!',
     color: 'from-orange-300 to-amber-400',
+    vocalEnUrl: `${SONG_BASE}/busy-bees-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/busy-bees-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/busy-bees-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/busy-bees-instrumental.mp3`,
   },
   {
     id: 'pollination-dance',
@@ -183,6 +185,10 @@ const SONGS = [
     description_en: 'A bouncy song about how bees spread pollen flower to flower!',
     description_es: '¡Una canción rítmica sobre cómo las abejas llevan polen de flor en flor!',
     color: 'from-green-300 to-emerald-400',
+    vocalEnUrl: `${SONG_BASE}/pollination-dance-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/pollination-dance-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/pollination-dance-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/pollination-dance-instrumental.mp3`,
   },
 ] as const;
 

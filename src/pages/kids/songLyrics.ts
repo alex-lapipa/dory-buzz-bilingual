@@ -1,10 +1,13 @@
-// Auto-generated from ElevenLabs composition_plan JSON files used to
-// produce the EN and ES vocal versions of each song. These are the
-// canonical lyrics — what the vocalists actually sang. Used by the
-// 'Show lyrics' panel on the kids songs page so children can read
-// along while they listen, sing, or learn the other language.
+// Auto-generated lyrics for the 12 songs at /kids-songs.
 //
-// Round 13 — additive only.
+// Round 13 — added the 8 original songs (extracted from the ElevenLabs
+//            composition_plan JSONs used to produce the EN + ES vocal tracks).
+// Round 14d — extended the 4 Buzzy Bees Classics from short 4-line chants
+//            into proper Verse 1 + Chorus + Verse 2 + Outro structure that
+//            matches their newly generated audio.
+//
+// Used by the 'Show lyrics' panel on the kids songs page so children can
+// read along while they listen, sing, or learn the other language.
 
 export type LyricSection = {
   /** Section name in English (e.g. 'Verse 1', 'Chorus'). */
@@ -584,20 +587,40 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       },
     ],
   },
-  // ─── Round 14: Buzzy Bees Classics ──────────────────────────────────
-  // Lyrics moved from src/pages/BuzzyBees.tsx (where they originally lived
-  // as flat string arrays). Restructured to match the Verse/Chorus layout
-  // used by the rest of the catalog; since these were short 4-line songs,
-  // we treat each as a single Verse for now.
   'mochis-playful-day': {
     en: [
       {
         name: 'Verse 1',
         lines: [
-          '🎵 Buzz buzz buzz, Mochi flies around!',
-          '🌻 Touching every flower on the ground!',
-          '🌈 Dancing in the garden, happy bee...',
-          '💛 Come and sing along with me!',
+          'Buzz buzz buzz, Mochi flies around!',
+          'Touching every flower on the ground!',
+          'Dancing in the garden, happy bee',
+          'Come and sing along with me!',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Mochi\'s playful day, Mochi\'s playful day',
+          'Through the garden bright in every which way',
+          'Mochi\'s playful day, hooray hooray',
+          'Sing and dance and laugh with me today',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Yellow sun is shining warm and bright',
+          'Butterflies are dancing in the light',
+          'Mochi sips the nectar sweet and gold',
+          'Adventures everywhere, brave and bold',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Buzz buzz buzz, come and sing with me',
+          'Mochi\'s playful day with the busy bee',
         ],
       },
     ],
@@ -605,10 +628,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🎵 ¡Zum zum zum, Mochi va volando!',
-          '🌻 ¡Cada flor del jardín va tocando!',
-          '🌈 Bailando en el jardín, abeja feliz...',
-          '💛 ¡Ven y canta conmigo, ven aquí!',
+          'Zum zum zum, Mochi va volando',
+          'Cada flor del jardín va tocando',
+          'Bailando en el jardín, abeja feliz',
+          'Ven y canta conmigo, ven aquí',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'El día juguetón, el día juguetón',
+          'Por el jardín alegre, ¡qué buena canción!',
+          'El día juguetón, ¡hurra y hurra!',
+          'Canta y baila y ríe, ¡qué buena algarabía!',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'El sol amarillo brilla con calor',
+          'Las mariposas bailan con dulzor',
+          'Mochi prueba el néctar dorado',
+          'Aventuras hay en cada lado',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Zum zum zum, ven a cantar conmigo',
+          'El día juguetón con tu mejor amigo',
         ],
       },
     ],
@@ -618,10 +666,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🌹 Red like a rose, so pretty to see!',
-          '🌻 Yellow like sunshine, bright as can be!',
-          '🌿 Green like the leaves on every tree!',
-          '🦋 Blue like the sky, so wild and free!',
+          'Red like a rose, so pretty to see',
+          'Yellow like sunshine, bright as can be',
+          'Green like the leaves on every tree',
+          'Blue like the sky, so wild and free',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Garden colors, garden colors',
+          'Every flower a different shade',
+          'Garden colors, garden colors',
+          'Beautiful rainbows that nature made',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Pink like a sunset, warm and bright',
+          'Orange like daisies in the light',
+          'Purple like lavender on the hill',
+          'Colors everywhere, soft and still',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Red, yellow, green, blue, can you see?',
+          'Garden colors with Mochi the bee',
         ],
       },
     ],
@@ -629,10 +702,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🌹 ¡Rojo como una rosa, bonito de ver!',
-          '🌻 ¡Amarillo como el sol, brillante al amanecer!',
-          '🌿 ¡Verde como las hojas de cada árbol!',
-          '🦋 ¡Azul como el cielo, libre y genial!',
+          'Rojo como una rosa, bonito de ver',
+          'Amarillo como el sol, brillante al amanecer',
+          'Verde como las hojas de cada árbol',
+          'Azul como el cielo, libre y genial',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Colores del jardín, colores del jardín',
+          'Cada flor un color para sentir',
+          'Colores del jardín, colores del jardín',
+          'Arcoíris bonitos que hace el confín',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Rosado como el ocaso al brillar',
+          'Naranja como margaritas al despertar',
+          'Morado como lavanda en la colina',
+          'Colores por todos lados, ¡qué cosa fina!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Rojo, amarillo, verde, azul ya ves',
+          'Colores del jardín con Mochi a tus pies',
         ],
       },
     ],
@@ -642,10 +740,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🐝 We are busy busy bees!',
-          '🌸 Flying through the flower trees!',
-          '🍯 Making honey, sweet and gold!',
-          '🌟 The sweetest story ever told!',
+          'We are busy busy bees',
+          'Flying through the flower trees',
+          'Making honey, sweet and gold',
+          'The sweetest story ever told',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Buzz buzz, busy bees we are',
+          'Working hard from near and far',
+          'Buzz buzz, gathering each day',
+          'Bringing sweetness all the way',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Each little worker plays a part',
+          'Building the hive with love and heart',
+          'Sharing the work, sharing the food',
+          'Family of bees in a happy mood',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Busy busy bees, work and play',
+          'Making honey every single day',
         ],
       },
     ],
@@ -653,10 +776,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🐝 ¡Somos abejas muy ocupadas!',
-          '🌸 ¡Volando por las flores encantadas!',
-          '🍯 ¡Haciendo miel, dulce y dorada!',
-          '🌟 ¡La historia más dulce jamás contada!',
+          'Somos abejas muy ocupadas',
+          'Volando por las flores encantadas',
+          'Haciendo miel, dulce y dorada',
+          'La historia más dulce jamás contada',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Zum zum, abejitas trabajadoras',
+          'Trabajando juntas a todas horas',
+          'Zum zum, recogiendo sin parar',
+          'Trayendo dulzura para regalar',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Cada obrera tiene su lugar',
+          'Construyendo el panal con su cantar',
+          'Compartiendo el trabajo y la miel',
+          'Familia de abejas, dulce y fiel',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Abejas muy ocupadas, trabajan al sol',
+          'Haciendo miel con todo su amor',
         ],
       },
     ],
@@ -666,10 +814,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🌺 Touch the flower, grab the dust!',
-          '✨ Spreading pollen is a must!',
-          '🦋 Wiggle left, then wiggle right!',
-          '🌻 Pollination dance tonight!',
+          'Touch the flower, grab the dust',
+          'Spreading pollen is a must',
+          'Wiggle left, then wiggle right',
+          'Pollination dance tonight',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance dance dance with the busy bees',
+          'Carrying pollen with the gentle breeze',
+          'Dance dance dance, flower to flower',
+          'Pollination is our magic power',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'From the apple to the pear',
+          'Spreading pollen everywhere',
+          'Hop and skip and jump up high',
+          'Bees and flowers say hello and bye',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Wiggle wiggle, dance and sing',
+          'Pollination — what a wondrous thing',
         ],
       },
     ],
@@ -677,10 +850,35 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '🌺 ¡Toca la flor, agarra el polvo!',
-          '✨ ¡Esparcir el polen, eso es todo!',
-          '🦋 ¡Muévete a la izquierda, luego a la derecha!',
-          '🌻 ¡Baile de polinización, noche perfecta!',
+          'Toca la flor, agarra el polvo',
+          'Esparcir el polen, eso es todo',
+          'Muévete a la izquierda, luego a la derecha',
+          'Baile de polinización, noche perfecta',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Baila baila con las abejitas',
+          'Llevando polen con brisas suavecitas',
+          'Baila baila, de flor en flor',
+          'La polinización es nuestro mejor color',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'De la manzana hasta la pera',
+          'Esparciendo polen, ¡qué linda primavera!',
+          'Salta y brinca, vuela arriba',
+          'Abejas y flores, ¡qué cosa más viva!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          'Muévete, baila, canta sin parar',
+          'Polinización — magia para regalar',
         ],
       },
     ],
