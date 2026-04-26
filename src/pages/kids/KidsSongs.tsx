@@ -96,7 +96,7 @@ const KidsSongs: React.FC = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
         {/* Hero */}
-        <div className="text-center space-y-3">
+        <div className="text-center space-y-3 surface-glass has-grain px-6 py-8 sm:px-10 sm:py-10 max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-2">
             <PollenSparkle className="h-6 w-6 text-primary animate-pulse" />
             <Badge variant="secondary" className="text-sm px-3 py-1">
