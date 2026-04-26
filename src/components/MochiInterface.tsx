@@ -46,7 +46,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
           <div className="max-w-sm sm:max-w-md md:max-w-lg w-full">
             <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-5 animate-bee-bounce">🐝</div>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 heading-nature">
-              {t('welcome')} BeeCrazy Garden World!
+              {t('welcome')} Mochi de los Huertos!
             </h2>
             <p className="text-base sm:text-lg mb-6 sm:mb-7 text-foreground">
               {t('language') === 'es' 
