@@ -12,7 +12,7 @@ interface LanguageContextType {
 const translations = {
   en: {
     // App Title & Header
-    appTitle: "BeeCrazy Garden World",
+    appTitle: "Mochi de los Huertos",
     appSubtitle: "Your friendly family garden companion",
     buzztastic: "Buzztastic!",
     welcome: "Welcome! 🐝",
@@ -74,7 +74,7 @@ const translations = {
     
     // Follow Modal
     followModalTitle: "Follow Mochi! 🐝✨",
-    followModalDesc: "Join BeeCrazy Garden World for fun family garden updates!",
+    followModalDesc: "Join Mochi de los Huertos for fun family garden updates!",
     name: "Name",
     namePlaceholder: "Your name",
     email: "Email",
@@ -93,7 +93,7 @@ const translations = {
     
     // Success/Error Messages
     followSuccess: "Buzztastic! 🐝✨",
-    followSuccessMessage: "Welcome to BeeCrazy Garden World! You'll receive fun garden updates for the whole family.",
+    followSuccessMessage: "Welcome to Mochi de los Huertos! You'll receive fun garden updates for the whole family.",
     missingInfo: "Missing Information",
     missingInfoMessage: "Please fill in your name and email address.",
     consentRequired: "Consent Required", 
@@ -124,13 +124,13 @@ const translations = {
     shareLinkedIn: "Share on LinkedIn",
     shareWhatsApp: "Share on WhatsApp",
     copyLink: "Copy Link",
-    shareTitle: "Share BeeCrazy Garden World!",
+    shareTitle: "Share Mochi de los Huertos!",
     shareOnSocial: "Share on Social Media",
     directLink: "Direct Link",
     embedCode: "Embed Code (Discord, Twitch, Websites)",
     copyEmbedCode: "Copy Embed Code",
     shareTextPreview: "Share text preview:",
-    shareText: "Meet Mochi the Garden Bee! Chat with our friendly garden companion from BeeCrazy Garden World - perfect for families learning about nature!",
+    shareText: "Meet Mochi de los Huertos — the bilingual garden bee from Asturias. Chat about bees, pollination, gardens & seeds. Perfect for families learning about nature!",
     
     // Onboarding
     onboardingTitle: "Welcome to Mochi's Garden! 🐝🌻",
@@ -141,7 +141,7 @@ const translations = {
     copied: "Copied!",
     linkCopied: "Link copied to clipboard",
     embedCopied: "Embed code copied to clipboard",
-    welcomeMessageToast: "Welcome to BeeCrazy Garden World",
+    welcomeMessageToast: "Welcome to Mochi de los Huertos",
     
     // Garden Content
     aboutBees: "About Bees",
@@ -158,7 +158,7 @@ const translations = {
   },
   es: {
     // App Title & Header  
-    appTitle: "BeeCrazy Garden World",
+    appTitle: "Mochi de los Huertos",
     appSubtitle: "",
     buzztastic: "¡Buzztástico!",
     welcome: "¡Bienvenido! 🐝",
@@ -220,7 +220,7 @@ const translations = {
     
     // Follow Modal
     followModalTitle: "¡Sigue a Mochi! 🐝✨",
-    followModalDesc: "¡Únete a BeeCrazy Garden World para recibir actualizaciones divertidas del jardín familiar!",
+    followModalDesc: "¡Únete a Mochi de los Huertos para recibir actualizaciones divertidas del jardín familiar!",
     name: "Nombre",
     namePlaceholder: "Tu nombre",
     email: "Email",
@@ -239,7 +239,7 @@ const translations = {
     
     // Success/Error Messages
     followSuccess: "¡Buzztástico! 🐝✨",
-    followSuccessMessage: "¡Bienvenido a BeeCrazy Garden World! Recibirás actualizaciones divertidas del jardín para toda la familia.",
+    followSuccessMessage: "¡Bienvenido a Mochi de los Huertos! Recibirás actualizaciones divertidas del jardín para toda la familia.",
     missingInfo: "Información Faltante",
     missingInfoMessage: "Por favor completa tu nombre y dirección de email.",
     consentRequired: "Consentimiento Requerido",
@@ -270,13 +270,13 @@ const translations = {
     shareLinkedIn: "Compartir en LinkedIn",
     shareWhatsApp: "Compartir en WhatsApp",
     copyLink: "Copiar Enlace",
-    shareTitle: "¡Comparte BeeCrazy Garden World!",
+    shareTitle: "¡Comparte Mochi de los Huertos!",
     shareOnSocial: "Compartir en Redes Sociales",
     directLink: "Enlace Directo", 
     embedCode: "Código de Inserción (Discord, Twitch, Sitios Web)",
     copyEmbedCode: "Copiar Código de Inserción",
     shareTextPreview: "Vista previa del texto para compartir:",
-    shareText: "¡Conoce a Mochi la Abeja del Jardín! Chatea con nuestra compañera amigable de jardín de BeeCrazy Garden World - ¡perfecto para familias que aprenden sobre la naturaleza!",
+    shareText: "¡Conoce a Mochi de los Huertos — la abeja bilingüe del huerto asturiano! Habla sobre abejas, polinización, huertos y semillas. ¡Perfecto para familias que aprenden sobre la naturaleza!",
     
     // Onboarding
     onboardingTitle: "¡Bienvenido al Jardín de Mochi! 🐝🌻",
@@ -287,7 +287,7 @@ const translations = {
     copied: "¡Copiado!",
     linkCopied: "Enlace copiado al portapapeles",
     embedCopied: "Código de inserción copiado al portapapeles",
-    welcomeMessageToast: "Bienvenido a BeeCrazy Garden World",
+    welcomeMessageToast: "Bienvenido a Mochi de los Huertos",
     
     // Garden Content
     aboutBees: "Acerca de las Abejas",
