@@ -915,10 +915,10 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 2',
         lines: [
-          'Since nineteen seventy-one this family cares',
-          'No big machines, just love and the mountain air',
-          'Gravity carries the gold from the comb to the jar',
-          'Bees do all the magic, Toño\'s our shining star',
+          'Since nineteen seventy-one, no machines, just the heart',
+          'Every bee, every comb, treated like art',
+          'Gravity pours the gold from the comb to the jar',
+          'Bees do the magic, Toño\'s our star',
         ],
       },
       {
@@ -933,10 +933,10 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Bridge',
         lines: [
-          'When small families care for the bees this way',
-          'Forests stay green and the flowers all play',
-          'Big factories rush, but the slow, kind, and true',
-          'Will save our planet — that\'s a promise we make to you',
+          'When small families work with the bees and the breeze',
+          'Forests grow tall and we save all the trees',
+          'Big factories rush, but the gentle and true',
+          'Save forests, save flowers, save Mochi and you!',
         ],
       },
       {
@@ -962,7 +962,7 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Chorus',
         lines: [
-          '¡Baila, abejita, baila bajo el sol!',
+          '¡Baila, abejita, baila con calor!',
           'Esta familia lo hace con amor',
           'Miel de los montes hecha con dulzura',
           '¡Salvamos los bosques, las flores, la tierra pura!',
@@ -973,14 +973,14 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
         lines: [
           'Desde el setenta y uno, con manos que cuidan',
           'Sin bombas, sin prisa, las abejas confían',
-          'La gravedad lleva el oro desde el panal',
-          'Las abejas son magia, Toño es genial',
+          'Por gravedad cae el oro al cristal',
+          '¡Las abejas son magia, Toño es genial!',
         ],
       },
       {
         name: 'Chorus',
         lines: [
-          '¡Baila, abejita, baila bajo el sol!',
+          '¡Baila, abejita, baila con calor!',
           'Esta familia lo hace con amor',
           'Miel de los montes hecha con dulzura',
           '¡Salvamos los bosques, las flores, la tierra pura!',
@@ -989,16 +989,16 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Bridge',
         lines: [
-          'Cuando una familia respeta a las abejas',
-          'Los bosques florecen y las flores nos dejan',
-          'Las grandes fábricas corren, pero los buenos',
-          '¡Salvarán el planeta! ¡Eso prometemos!',
+          'Cuando familias pequeñas aman a las abejas',
+          'Bosques, árboles y flores florecen sin quejas',
+          'Las grandes fábricas corren — los buenos y los lentos',
+          '¡Salvan nuestro planeta con todos sus talentos!',
         ],
       },
       {
         name: 'Final Chorus',
         lines: [
-          '¡Baila, abejita, baila bajo el sol!',
+          '¡Baila, abejita, baila con calor!',
           'Esta familia lo hace con amor',
           '¡Gracias, querido Toño, amigo de corazón!',
           'Miel de Montes — ¡esta es nuestra canción!',

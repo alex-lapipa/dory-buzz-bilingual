@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { PageSEO } from '@/components/PageSEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { PollenSparkle, VolumeFlower, MusicalFlower } from '@/components/icons';
 import { SONG_LYRICS, SECTION_NAMES_ES } from './songLyrics';
+import { toast } from 'sonner';
 
 const SONG_BASE = 'https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/public/mochi-songs';
 
@@ -207,10 +208,14 @@ const SONGS = [
     description_en: 'A celebration of Mochi\'s friend Toño and his family who make heather honey in the Bierzo mountains the way bees love it!',
     description_es: '¡Una celebración de Toño, amigo de Mochi, y su familia que hacen miel de brezo en los montes del Bierzo como les gusta a las abejas!',
     color: 'from-amber-400 via-yellow-300 to-orange-400',
-    vocalEnUrl: `${SONG_BASE}/miel-de-montes-vocal-en.mp3`,
-    vocalEsUrl: `${SONG_BASE}/miel-de-montes-vocal-es.mp3`,
-    vocalUrl: `${SONG_BASE}/miel-de-montes-vocal-en.mp3`,
-    instrumentalUrl: `${SONG_BASE}/miel-de-montes-instrumental.mp3`,
+    // Round 16 — pointing at v2 audio files: modern indie folk-pop production
+    // (kick drum 4-on-the-floor, electric bass groove, hi-hats, claps on the
+    // offbeat, acoustic guitar, mandolin, synth pad), 122 BPM, sharper rhymes
+    // throughout. Old v1 files are still in the bucket for backward compat.
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-v2-instrumental.mp3`,
   },
 ] as const;
 
@@ -228,6 +233,86 @@ const KidsSongs: React.FC = () => {
   const toggleLyrics = (id: string) => {
     setOpenLyricsId((current) => (current === id ? null : id));
   };
+
+  /**
+   * Round 16 — Share-this-song handler.
+   *
+   * Tries the native Web Share API first (shows the OS share sheet on iOS,
+   * Android, modern desktops with sharing extensions). If that's unavailable
+   * or the user cancels into an error, falls back to copying the URL to the
+   * clipboard with a toast notification. URL pattern is
+   * https://mochinillo.com/kids-songs#song-{slug} which the hash-scroll
+   * effect below will use to land visitors on the right song with its
+   * lyrics auto-expanded.
+   */
+  const shareSong = async (song: typeof SONGS[number]) => {
+    const slug = (song as { id: string }).id;
+    const titleEn = (song as { title_en: string }).title_en;
+    const titleEs = (song as { title_es: string }).title_es;
+
+    const url =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}/kids-songs#song-${slug}`
+        : `https://www.mochinillo.com/kids-songs#song-${slug}`;
+
+    const title = language === 'es' ? titleEs : titleEn;
+    const text =
+      language === 'es'
+        ? `Escucha "${titleEs}" — una canción bilingüe de Mochi 🐝🎵`
+        : `Listen to "${titleEn}" — a bilingual song by Mochi 🐝🎵`;
+
+    // Native share (iOS/Android/Edge): opens the OS share sheet.
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({ title, text, url });
+        return;
+      } catch (err) {
+        // AbortError = user dismissed the share sheet, no toast needed
+        if ((err as { name?: string })?.name === 'AbortError') return;
+        // Otherwise fall through to clipboard copy
+      }
+    }
+
+    // Clipboard fallback (desktop browsers without share API)
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success(
+        language === 'es' ? '¡Enlace copiado!' : 'Link copied!',
+        { description: url, duration: 4000 },
+      );
+    } catch {
+      toast.error(
+        language === 'es'
+          ? 'No se pudo copiar el enlace'
+          : 'Could not copy link',
+      );
+    }
+  };
+
+  /**
+   * Round 16 — Hash-scroll: when a visitor lands on a /kids-songs#song-{slug}
+   * URL (typically because someone shared the song with them), smoothly scroll
+   * the corresponding card into view and auto-expand its lyrics panel so they
+   * see exactly what was shared without hunting for it.
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (!hash.startsWith('#song-')) return;
+    const slug = hash.slice('#song-'.length);
+    if (!slug) return;
+
+    // Wait a frame for the grid to lay out, then scroll + expand
+    const timer = window.setTimeout(() => {
+      const el = document.getElementById(`song-${slug}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setOpenLyricsId(slug);
+      }
+    }, 250);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const stop = () => {
     if (audioRef.current) {
@@ -361,8 +446,9 @@ const KidsSongs: React.FC = () => {
             return (
               <Card
                 key={song.id}
+                id={`song-${song.id}`}
                 data-card="lift"
-                className="overflow-hidden border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg group relative"
+                className="overflow-hidden border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg group relative scroll-mt-20"
               >
                 <CardContent className="p-0">
                   <div className={`bg-gradient-to-br ${song.color} p-6 sm:p-8 text-center`}>
@@ -535,6 +621,29 @@ const KidsSongs: React.FC = () => {
                       )}
                     </>
                   )}
+
+                  {/* Round 16 — Share this song. Native Web Share API on
+                      mobile/iOS/Android, clipboard fallback on desktop. */}
+                  <button
+                    type="button"
+                    onClick={() => shareSong(song)}
+                    aria-label={
+                      language === 'es'
+                        ? `Compartir la canción "${song.title_es}"`
+                        : `Share the song "${song.title_en}"`
+                    }
+                    className={`
+                      w-full py-2 px-3 text-xs font-medium border-t border-border/50
+                      transition-colors duration-200 text-readable
+                      hover:bg-primary/5 focus:outline-none
+                      focus-visible:bg-primary/10
+                    `
+                      .replace(/\s+/g, ' ')
+                      .trim()}
+                  >
+                    <span aria-hidden="true" className="mr-1">↗</span>
+                    {language === 'es' ? 'Compartir canción' : 'Share this song'}
+                  </button>
                 </CardContent>
               </Card>
             );
