@@ -13,9 +13,8 @@
      specificity so component-level styles always win.
    - Add OPT-IN utility classes (.surface-glass, .surface-lift, .text-balance).
    - Respect prefers-reduced-motion and prefers-color-scheme.
-============================================================================ */
+============================================================================ *//* ── layer: base ── */
 
-@layer base {
   :root {
     /* ───── New: 2026 motion easing curves ─────────────────────────────── */
     --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -102,14 +101,13 @@
     --selection-bg: hsl(var(--primary) / 0.45);
     --selection-fg: hsl(39 100% 8%);
   }
-}
+
 
 /* ============================================================================
    Global refinements — applied site-wide via low-specificity selectors.
    These improve every page automatically without any component changes.
-============================================================================ */
+============================================================================ *//* ── layer: base ── */
 
-@layer base {
   /* Modern font rendering — applied to html so it cascades everywhere */
   html {
     -webkit-font-smoothing: antialiased;
@@ -165,14 +163,13 @@
     /* Hint to the browser these can decode async; cumulative layout-shift safe */
     image-rendering: -webkit-optimize-contrast;
   }
-}
+
 
 /* ============================================================================
    Focus-visible — accessibility win across the whole site.
    Only shows ring for keyboard users; mouse clicks stay clean.
-============================================================================ */
+============================================================================ *//* ── layer: base ── */
 
-@layer base {
   *:focus { outline: none; }
 
   *:focus-visible {
@@ -188,14 +185,13 @@
   [role="button"]:focus-visible {
     border-radius: inherit;
   }
-}
+
 
 /* ============================================================================
    Smooth, modern interaction states — refined transitions on common elements.
    Specificity is kept low so component overrides always win.
-============================================================================ */
+============================================================================ *//* ── layer: base ── */
 
-@layer base {
   a, button, [role="button"], input, select, textarea, summary {
     transition:
       background-color var(--duration-base) var(--ease-out-quart),
@@ -227,15 +223,14 @@
     transform: translateY(1px);
     transition-duration: 80ms;
   }
-}
+
 
 /* ============================================================================
    Card lift — refines the existing .card-nature, .card-hive, .card-petal
    variants with a softer, modern hover (no overrides of color/border, only
    shadow + transform). Existing card visuals stay; the motion gets a polish.
-============================================================================ */
+============================================================================ *//* ── layer: components ── */
 
-@layer components {
   .card-nature,
   .card-hive,
   .card-petal,
@@ -261,14 +256,13 @@
     transform: translateY(-1px);
     transition-duration: var(--duration-fast);
   }
-}
+
 
 /* ============================================================================
    Opt-in utility classes — these are NEW, nothing depends on them; pages can
    adopt them progressively.
-============================================================================ */
+============================================================================ *//* ── layer: utilities ── */
 
-@layer utilities {
   /* Modern frosted glass surface */
   .surface-glass {
     background-color: var(--surface-glass-bg);
@@ -400,13 +394,12 @@
     0%, 100% { transform: translateY(0); }
     50%      { transform: translateY(-6px); }
   }
-}
+
 
 /* ============================================================================
    Form field polish — modern input feel, low specificity so existing styles win
-============================================================================ */
+============================================================================ *//* ── layer: components ── */
 
-@layer components {
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
   textarea,
   select {
@@ -425,18 +418,17 @@
     color: hsl(var(--muted-foreground) / 0.7);
     opacity: 1;
   }
-}
+
 
 /* ============================================================================
    Skip-to-content link — accessibility staple. Auto-mounts via ::before on
    body so no React change is needed; revealed on focus only.
-============================================================================ */
+============================================================================ *//* ── layer: base ── */
 
-@layer base {
   body {
     position: relative;
   }
-}
+
 
 /* Provide a real skip link element rendered by CSS-only attribute selector
    if any element with [data-skip-link] exists; otherwise no-op. */
