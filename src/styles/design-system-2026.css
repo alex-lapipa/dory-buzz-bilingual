@@ -506,3 +506,18 @@
 /* ============================================================================
    end of design-system-2026.css
 ============================================================================ */
+
+/* ============================================================================
+   Editorial typography — Fraunces variable serif for top-level headings.
+   Uses :where() so specificity stays at 0; any component-level font-family
+   override (gradient text, custom display fonts) wins automatically.
+============================================================================ */
+
+:where(h1, h2, .display-serif) {
+  font-family: 'Fraunces', 'Saira', 'Georgia', serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 50, "WONK" 0;
+  letter-spacing: -0.025em;
+}
+
+:where(h1) { font-variation-settings: "SOFT" 30, "WONK" 0; }
