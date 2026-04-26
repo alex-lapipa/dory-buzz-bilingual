@@ -190,6 +190,28 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/pollination-dance-vocal-en.mp3`,
     instrumentalUrl: `${SONG_BASE}/pollination-dance-instrumental.mp3`,
   },
+  // ─── Round 15: Miel de Montes (tribute song) ─────────────────────────
+  // Written in honour of mieldemontes.com — a small family beekeeping
+  // business in Santa Cruz de Montes (Bierzo Alto, León, Spain) that has
+  // tended hives by hand since 1971. They harvest brezo (heather) honey
+  // from mountains far from pollution, extract by gravity (no pumps),
+  // and keep production limited to preserve quality. Mochi's friend Toño
+  // and the whole family are the heroes of this song. 2 minutes long —
+  // longest song in the catalog — to make space for the bridge that
+  // tells children why small caring families save forests, flowers, trees.
+  {
+    id: 'miel-de-montes',
+    emoji: '🍯',
+    title_en: 'Miel de Montes — A Song for Toño',
+    title_es: 'Miel de Montes — Canción para Toño',
+    description_en: 'A celebration of Mochi\'s friend Toño and his family who make heather honey in the Bierzo mountains the way bees love it!',
+    description_es: '¡Una celebración de Toño, amigo de Mochi, y su familia que hacen miel de brezo en los montes del Bierzo como les gusta a las abejas!',
+    color: 'from-amber-400 via-yellow-300 to-orange-400',
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/miel-de-montes-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-instrumental.mp3`,
+  },
 ] as const;
 
 type PlayMode = 'vocal' | 'instrumental';
