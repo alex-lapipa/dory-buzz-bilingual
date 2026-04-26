@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { PageLayout } from '@/components/PageLayout';
 import { SystemStatusBadge } from '@/components/SystemStatusBadge';
+import { WhatsNewCallout } from '@/components/WhatsNewCallout';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { 
@@ -296,6 +297,11 @@ const LearningHub: React.FC = () => {
               ...(totalScore >= 500 ? ['💎'] : []),
             ]}
           />
+        </ScrollReveal>
+
+        {/* What's New callout — currently advertising the bilingual Exploradoras song */}
+        <ScrollReveal delay={120}>
+          <WhatsNewCallout />
         </ScrollReveal>
 
         {/* Learning Paths Grid */}
