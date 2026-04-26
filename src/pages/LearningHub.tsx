@@ -241,7 +241,7 @@ const LearningHub: React.FC = () => {
               className="w-16 h-16 rounded-full object-cover border-2 border-yellow-300 shadow-lg animate-bounce"
             />
           </div>
-          <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-4 flex items-center justify-center gap-3">
             <GraduationBee className="h-10 w-10 text-primary" />
             Beeducation
             <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
