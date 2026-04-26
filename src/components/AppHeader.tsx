@@ -9,6 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { useActiveRoute } from '@/hooks/useActiveRoute';
+import { DiscoverPopover } from './nav/DiscoverPopover';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -72,6 +73,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             >
               🎵 Buzzy Bees
             </Button>
+            <DiscoverPopover />
             {user && (
               <Button
                 variant="ghost"
