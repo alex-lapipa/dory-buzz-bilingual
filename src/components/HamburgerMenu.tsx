@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { useActiveRoute } from '@/hooks/useActiveRoute';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 
@@ -20,6 +21,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
   const { user, signOut } = useAuth();
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
+  const { isActive, ariaCurrent } = useActiveRoute();
 
   const navTo = (path: string) => {
     navigate(path);
@@ -54,13 +56,13 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               {t('menu') || 'Navigation'}
             </h3>
 
-            <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/')}>
+            <Button variant="ghost" className={`w-full justify-start ${isActive('/', { exact: true }) ? 'nav-item-active' : ''}`} aria-current={ariaCurrent('/', { exact: true })} onClick={() => navTo('/')}>
               <BeeChat className="h-4 w-4 mr-3" />
               <BeeFlying className="h-3.5 w-3.5 inline mr-1" /> Beeducation
             </Button>
 
 
-            <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/buzzy-bees')}>
+            <Button variant="ghost" className={`w-full justify-start ${isActive('/buzzy-bees') ? 'nav-item-active' : ''}`} aria-current={ariaCurrent('/buzzy-bees')} onClick={() => navTo('/buzzy-bees')}>
               <MusicalFlower className="h-4 w-4 mr-3" />
               <MusicalFlower className="h-3.5 w-3.5 inline mr-1" /> Buzzy Bees
             </Button>
