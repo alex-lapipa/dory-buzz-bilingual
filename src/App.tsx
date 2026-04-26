@@ -33,6 +33,7 @@ const BuzzyBees = lazy(() => import('./pages/BuzzyBees'));
 const KidsStories = lazy(() => import('./pages/kids/KidsStories'));
 const KidsGames = lazy(() => import('./pages/kids/KidsGames'));
 const KidsSongs = lazy(() => import('./pages/kids/KidsSongs'));
+const StatusPage = lazy(() => import('./pages/StatusPage'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -189,6 +190,7 @@ const App = () => {
                         <Route path="/terms" element={<PageTransition><Suspense fallback={<RouteLoader />}><TermsOfService /></Suspense></PageTransition>} />
                         <Route path="/cookies" element={<PageTransition><Suspense fallback={<RouteLoader />}><CookiePolicy /></Suspense></PageTransition>} />
                         <Route path="/sitemap" element={<PageTransition><Suspense fallback={<RouteLoader />}><SitemapPage /></Suspense></PageTransition>} />
+                        <Route path="/status" element={<PageTransition><Suspense fallback={<RouteLoader />}><StatusPage /></Suspense></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
