@@ -5,6 +5,7 @@ import { PageTransition } from "@/components/PageTransition";
 
 import { AppHeader } from "@/components/AppHeader";
 import { AuthWrapper } from "@/components/AuthWrapper";
+import { RouteLoader } from "@/components/ui/route-loader";
 import { FloatingGarden } from "@/components/FloatingGarden";
 import { GlobalVoiceAgent } from "@/components/GlobalVoiceAgent";
 import { MochiVideoProcessor } from "@/components/MochiVideoProcessor";
@@ -118,7 +119,7 @@ const App = () => {
               <Routes>
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/reset-password" element={
-                  <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                  <Suspense fallback={<RouteLoader />}>
                     <ResetPassword />
                   </Suspense>
                 } />
@@ -137,57 +138,57 @@ const App = () => {
                         <Route path="/learning-hub" element={<PageTransition><LearningHub /></PageTransition>} />
                         <Route path="/learning/bee-basics" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <BeeBasics />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/learning/garden-basics" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <GardenBasics />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/buzzy-bees" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <BuzzyBees />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/kids-stories" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <KidsStories />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/kids-games" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <KidsGames />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/kids-songs" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <KidsSongs />
                             </Suspense>
                           </PageTransition>
                         } />
                         <Route path="/admin" element={
                           <PageTransition>
-                            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+                            <Suspense fallback={<RouteLoader />}>
                               <Admin />
                             </Suspense>
                           </PageTransition>
                         } />
-                        <Route path="/privacy" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><PrivacyPolicy /></Suspense></PageTransition>} />
-                        <Route path="/terms" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><TermsOfService /></Suspense></PageTransition>} />
-                        <Route path="/cookies" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><CookiePolicy /></Suspense></PageTransition>} />
-                        <Route path="/sitemap" element={<PageTransition><Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}><SitemapPage /></Suspense></PageTransition>} />
+                        <Route path="/privacy" element={<PageTransition><Suspense fallback={<RouteLoader />}><PrivacyPolicy /></Suspense></PageTransition>} />
+                        <Route path="/terms" element={<PageTransition><Suspense fallback={<RouteLoader />}><TermsOfService /></Suspense></PageTransition>} />
+                        <Route path="/cookies" element={<PageTransition><Suspense fallback={<RouteLoader />}><CookiePolicy /></Suspense></PageTransition>} />
+                        <Route path="/sitemap" element={<PageTransition><Suspense fallback={<RouteLoader />}><SitemapPage /></Suspense></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>
                       <GDPRConsentBanner />
