@@ -19,7 +19,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
   const steps = [
     {
       id: 'welcome',
-      title: language === 'es' ? '¡Bienvenido a BeeCrazy!' : 'Welcome to BeeCrazy!',
+      title: language === 'es' ? '¡Bienvenido a Mochi de los Huertos!' : 'Welcome to Mochi de los Huertos!',
       description: language === 'es' 
         ? 'Conoce a Mochi, tu amigable abeja guía del jardín' 
         : 'Meet Mochi, your friendly garden bee guide',

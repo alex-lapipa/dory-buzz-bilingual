@@ -157,7 +157,7 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
         <CardHeader className="text-center">
           <div className="text-5xl sm:text-6xl mb-3 sm:mb-4 animate-bee-bounce">🐝</div>
           <CardTitle className="text-responsive-xl sm:text-responsive-2xl font-bold heading-nature">
-            {language === 'es' ? '¡Únete a BeeCrazy!' : 'Join BeeCrazy!'}
+            {language === 'es' ? '¡Únete a Mochi de los Huertos!' : 'Join Mochi de los Huertos!'}
           </CardTitle>
           <p className="text-responsive-xs sm:text-responsive-sm text-muted-foreground mt-2">
             {language === 'es' 

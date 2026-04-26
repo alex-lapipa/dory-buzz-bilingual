@@ -216,7 +216,7 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
               <li>• Garden tips and nature facts from Mochi</li>
               <li>• Fun family activities and garden games</li>
               <li>• Seasonal gardening projects for all ages</li>
-              <li>• Early access to new BeeCrazy content</li>
+              <li>• Early access to new Mochi content</li>
             </ul>
             <p className="mt-1 sm:mt-2 text-xs">
               Your data is safe with us. Unsubscribe anytime. 🐝✨

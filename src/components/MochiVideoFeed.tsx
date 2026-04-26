@@ -35,7 +35,7 @@ export const MochiVideoFeed: React.FC = () => {
     views: 1247,
     likes: 189,
     tags: ['bee', 'education', 'character', 'garden', 'nature'],
-    author: 'BeeCrazy Team',
+    author: 'LA PIPA IS LA PIPA',
     publishedAt: '2024-01-30'
   };
 
