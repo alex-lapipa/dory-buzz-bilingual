@@ -208,14 +208,19 @@ const SONGS = [
     description_en: 'A celebration of Mochi\'s friend Toño and his family who make heather honey in the Bierzo mountains the way bees love it!',
     description_es: '¡Una celebración de Toño, amigo de Mochi, y su familia que hacen miel de brezo en los montes del Bierzo como les gusta a las abejas!',
     color: 'from-amber-400 via-yellow-300 to-orange-400',
-    // Round 16 — pointing at v2 audio files: modern indie folk-pop production
-    // (kick drum 4-on-the-floor, electric bass groove, hi-hats, claps on the
-    // offbeat, acoustic guitar, mandolin, synth pad), 122 BPM, sharper rhymes
-    // throughout. Old v1 files are still in the bucket for backward compat.
-    vocalEnUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-en.mp3`,
-    vocalEsUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-es.mp3`,
-    vocalUrl: `${SONG_BASE}/miel-de-montes-v2-vocal-en.mp3`,
-    instrumentalUrl: `${SONG_BASE}/miel-de-montes-v2-instrumental.mp3`,
+    // Round 17 — v3 audio: Spanish indie rock electronic production with
+    // krautrock-influenced motorik 4/4 beat, sequenced analog synth bass,
+    // electric guitar with subtle drive, vintage analog synthesizers, and
+    // atmospheric pads. Key of E minor, 128 BPM, 150 seconds (2:30).
+    // Spanish version uses a Castilian/Iberian female vocal (NOT Latin
+    // American or neutral). Anti-commercial, gritty, anthemic — no
+    // tambourines, no hand claps, no marimba/ukulele, no bright commercial
+    // pop or Latin pop. Lyrics unchanged from Round 16. Old v1 + v2 files
+    // remain in the bucket — backward compat for any cached/shared links.
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-v3-vocal-en.mp3`,
+    vocalEsUrl: `${SONG_BASE}/miel-de-montes-v3-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-v3-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-v3-instrumental.mp3`,
   },
 ] as const;
 
