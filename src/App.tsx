@@ -113,7 +113,7 @@ const App = () => {
             {!showLanding && !showLanguageSelect && !showOnboarding && (
               <AppHeader onTabSelect={setActiveTab} />
             )}
-            <main className="flex-1 overflow-auto relative z-10">
+            <main id="main-content" tabIndex={-1} className="flex-1 overflow-auto relative z-10">
               {/* Auth page is always accessible */}
               <Routes>
                 <Route path="/auth" element={<AuthPage />} />
