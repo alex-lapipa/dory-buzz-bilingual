@@ -63,11 +63,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             </Button>
 
 
-            <Button variant="ghost" className={`w-full justify-start ${isActive('/buzzy-bees') ? 'nav-item-active' : ''}`} aria-current={ariaCurrent('/buzzy-bees')} onClick={() => navTo('/buzzy-bees')}>
-              <MusicalFlower className="h-4 w-4 mr-3" />
-              <MusicalFlower className="h-3.5 w-3.5 inline mr-1" /> Buzzy Bees
-            </Button>
-
             {user && (
               <Button variant="ghost" className="w-full justify-start" onClick={() => navTo('/dashboard')}>
                 <SeedlingChart className="h-4 w-4 mr-3" />

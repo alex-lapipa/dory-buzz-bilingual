@@ -32,7 +32,12 @@ export interface NavSection {
 }
 
 /**
- * Primary nav — always visible (desktop top buttons, mobile primary list)
+ * Primary nav — always visible (desktop top buttons, mobile primary list).
+ *
+ * Round 14: Buzzy Bees was removed from here. The /buzzy-bees route still
+ * exists (App.tsx still mounts it; backward-compat for bookmarks), but the
+ * 4 sing-along songs that lived there have been merged into the unified
+ * /kids-songs grid which lives under Discover ▾ → Songs.
  */
 export const PRIMARY_NAV: NavItem[] = [
   {
@@ -40,12 +45,6 @@ export const PRIMARY_NAV: NavItem[] = [
     labelEn: 'Beeducation',
     labelEs: 'Beeducación',
     emoji: '🐝',
-  },
-  {
-    path: '/buzzy-bees',
-    labelEn: 'Buzzy Bees',
-    labelEs: 'Abejas Zumbonas',
-    emoji: '🎵',
   },
 ];
 
@@ -63,10 +62,8 @@ export const DISCOVER_SECTIONS: NavSection[] = [
         labelEn: 'Songs',
         labelEs: 'Canciones',
         emoji: '🎶',
-        badgeEn: 'New',
-        badgeEs: 'Nuevo',
-        descriptionEn: 'Bilingual sing-along songs',
-        descriptionEs: 'Canciones bilingües para cantar',
+        descriptionEn: '12 bilingual sing-along songs',
+        descriptionEs: '12 canciones bilingües para cantar',
       },
       {
         path: '/kids-stories',

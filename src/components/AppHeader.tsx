@@ -65,15 +65,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
             >
               🐝 Beeducation
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/buzzy-bees')}
-              aria-current={ariaCurrent('/buzzy-bees')}
-              className={`text-sm hover:text-primary flex items-center gap-1 ${isActive('/buzzy-bees') ? 'nav-item-active' : ''}`}
-            >
-              🎵 Buzzy Bees
-            </Button>
             <DiscoverPopover />
             {user && (
               <Button
