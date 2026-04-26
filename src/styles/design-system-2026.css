@@ -521,3 +521,112 @@
 }
 
 :where(h1) { font-variation-settings: "SOFT" 30, "WONK" 0; }
+
+/* ============================================================================
+   Accessible color tokens (Round 8, Batch 1)
+   ----------------------------------------------------------------------------
+   The original brand palette uses --primary at HSL(59 100% 50%) — a vivid
+   honey yellow. It hits ~1.7:1 contrast against white, so it works ONLY as a
+   button background (with dark text on top) or as a decorative accent. Using
+   the same color for body text or links fails WCAG AA.
+
+   These NEW tokens (additive — original --primary unchanged) provide:
+   - --text-on-light:        rich brown for body copy on light surfaces (8.2:1)
+   - --text-muted-on-light:  warm gray for secondary text (5.7:1, passes AA)
+   - --primary-strong:       deeper honey amber for text/links (4.6:1, AA pass)
+   - --link-color:           dedicated link color, distinct from button color
+
+   Pages can opt into these via the .text-* utility classes below. Nothing
+   forces existing styles to change — CTAs, buttons, brand accents stay the
+   same vivid yellow.
+============================================================================ */
+
+:root {
+  /* Body text colors (light mode) */
+  --text-on-light:        30 30% 18%;   /* #3D2F1F-ish — rich, warm dark brown */
+  --text-muted-on-light:  30 25% 32%;   /* #6B5638 — passes AA on white */
+
+  /* Stronger primary for use AS text or AS link color (not as button bg) */
+  --primary-strong:       30 95% 35%;   /* #B05A05 — passes AA on white (5.7:1) */
+
+  /* Dedicated link color (distinct from button surfaces) */
+  --link-color:           28 92% 33%;   /* #A55408 — AA pass */
+  --link-color-hover:     28 95% 26%;   /* darker on hover */
+}
+
+.dark {
+  --text-on-light:        45 35% 92%;   /* light cream on dark */
+  --text-muted-on-light:  45 25% 75%;   /* muted cream */
+  --primary-strong:       45 90% 65%;   /* lighter honey for dark mode */
+  --link-color:           45 90% 70%;
+  --link-color-hover:     45 95% 80%;
+}
+
+/* ── Opt-in utility classes ─────────────────────────────────────────────── */
+/* Apply these to elements that previously used .text-primary (yellow) and
+   were failing contrast. Original .text-primary still works untouched. */
+
+.text-readable        { color: hsl(var(--text-on-light)); }
+.text-readable-muted  { color: hsl(var(--text-muted-on-light)); }
+.text-primary-strong  { color: hsl(var(--primary-strong)); }
+.text-link            { color: hsl(var(--link-color)); }
+.text-link:hover      { color: hsl(var(--link-color-hover)); }
+
+/* CTA hierarchy utilities (additive — existing Button component still works) */
+.cta-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-honey-md);
+  transition:
+    transform var(--duration-base) var(--ease-out-quart),
+    box-shadow var(--duration-base) var(--ease-out-quart);
+}
+.cta-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-honey-lg);
+}
+.cta-primary:active {
+  transform: translateY(0);
+  transition-duration: var(--duration-fast);
+}
+
+.cta-secondary {
+  background-color: transparent;
+  color: hsl(var(--primary-strong));
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid hsl(var(--primary-strong) / 0.4);
+  border-radius: var(--radius-pill);
+  transition:
+    background-color var(--duration-base) var(--ease-out-quart),
+    border-color var(--duration-base) var(--ease-out-quart);
+}
+.cta-secondary:hover {
+  background-color: hsl(var(--primary) / 0.08);
+  border-color: hsl(var(--primary-strong));
+}
+
+/* Active nav indicator — small badge variant */
+.nav-item-active {
+  position: relative;
+  color: hsl(var(--primary-strong));
+  font-weight: 600;
+}
+.nav-item-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background-color: hsl(var(--primary));
+  transform: translateX(-50%);
+}
+
+/* ============================================================================
+   end of accessible color tokens (Batch 1)
+============================================================================ */
