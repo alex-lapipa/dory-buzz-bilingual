@@ -8,6 +8,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { useActiveRoute } from '@/hooks/useActiveRoute';
+import { DISCOVER_SECTIONS } from './nav/navConfig';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
 
@@ -17,7 +18,7 @@ interface HamburgerMenuProps {
 
 export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { user, signOut } = useAuth();
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
@@ -82,6 +83,37 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
               </Button>
             )}
           </div>
+
+          {/* Discover sections — surfaces all secondary routes (Round 8 Batch 3) */}
+          {DISCOVER_SECTIONS.map((section) => (
+            <div key={section.titleEn} className="space-y-1 pt-1">
+              <h3 className="text-xs font-semibold uppercase tracking-wider mb-2 text-readable-muted">
+                {language === 'es' ? section.titleEs : section.titleEn}
+              </h3>
+              {section.items.map((item) => {
+                const active = isActive(item.path, { exact: item.path === '/' });
+                return (
+                  <Button
+                    key={item.path}
+                    variant="ghost"
+                    className={`w-full justify-start ${active ? 'nav-item-active' : ''}`}
+                    aria-current={ariaCurrent(item.path, { exact: item.path === '/' })}
+                    onClick={() => navTo(item.path)}
+                  >
+                    <span aria-hidden="true" className="mr-3 text-base">{item.emoji ?? '•'}</span>
+                    <span className="flex-1 text-left">
+                      {language === 'es' ? item.labelEs : item.labelEn}
+                    </span>
+                    {item.badgeEn && (
+                      <span className="badge-new-2026 ml-2">
+                        {language === 'es' ? (item.badgeEs ?? item.badgeEn) : item.badgeEn}
+                      </span>
+                    )}
+                  </Button>
+                );
+              })}
+            </div>
+          ))}
 
           {/* Actions */}
           <div className="space-y-2 pt-2 border-t border-border/30">
