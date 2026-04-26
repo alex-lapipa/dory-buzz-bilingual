@@ -133,6 +133,57 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/mis-flores-vocal-es.mp3`,
     instrumentalUrl: `${SONG_BASE}/mis-flores-instrumental.mp3`,
   },
+  // ─── Round 14: Buzzy Bees Classics ──────────────────────────────────
+  // Originally lived at /buzzy-bees on its own page. Merged here so the
+  // Songs tab is the single home for all sing-along content. Old route
+  // still works, but the 4 songs below are now visible in the unified
+  // grid with the Listen / Sing Along / Show lyrics treatment.
+  {
+    id: 'mochis-playful-day',
+    emoji: '🎶',
+    title_en: "Mochi's Playful Day",
+    title_es: 'El día juguetón de Mochi',
+    description_en: 'A happy buzzy song about Mochi flying around the garden!',
+    description_es: '¡Una canción alegre sobre Mochi volando por el jardín!',
+    color: 'from-amber-300 to-yellow-400',
+    // Pre-existing /public/audio/ asset shipped with the app — single file
+    // used for both languages. (No language-specific recording exists yet
+    // for this song; the lyrics panel still shows the appropriate language.)
+    vocalEnUrl: '/audio/mochis_playful_day.mp3',
+    vocalEsUrl: '/audio/mochis_playful_day.mp3',
+    vocalUrl: '/audio/mochis_playful_day.mp3',
+    // No karaoke instrumental yet — the Sing Along button will be disabled
+    // for this song until one is generated. Future: add an instrumental
+    // version following the Round 12 pattern.
+  },
+  {
+    id: 'garden-colors',
+    emoji: '🌈',
+    title_en: 'Garden Colors Song',
+    title_es: 'Canción de colores del jardín',
+    description_en: 'Sing about the colors of every flower, leaf, and sky!',
+    description_es: '¡Canta sobre los colores de cada flor, hoja y cielo!',
+    color: 'from-pink-300 to-purple-400',
+    // No audio yet — lyrics-only. Listen + Sing Along disabled; lyrics work.
+  },
+  {
+    id: 'busy-bees',
+    emoji: '🍯',
+    title_en: 'Busy Busy Bees',
+    title_es: 'Abejas muy ocupadas',
+    description_en: 'A song about hardworking bees making sweet golden honey!',
+    description_es: '¡Una canción sobre abejas trabajadoras haciendo miel dorada!',
+    color: 'from-orange-300 to-amber-400',
+  },
+  {
+    id: 'pollination-dance',
+    emoji: '💃',
+    title_en: 'The Pollination Dance',
+    title_es: 'El baile de la polinización',
+    description_en: 'A bouncy song about how bees spread pollen flower to flower!',
+    description_es: '¡Una canción rítmica sobre cómo las abejas llevan polen de flor en flor!',
+    color: 'from-green-300 to-emerald-400',
+  },
 ] as const;
 
 type PlayMode = 'vocal' | 'instrumental';

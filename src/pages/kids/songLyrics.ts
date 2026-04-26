@@ -584,4 +584,105 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       },
     ],
   },
+  // ─── Round 14: Buzzy Bees Classics ──────────────────────────────────
+  // Lyrics moved from src/pages/BuzzyBees.tsx (where they originally lived
+  // as flat string arrays). Restructured to match the Verse/Chorus layout
+  // used by the rest of the catalog; since these were short 4-line songs,
+  // we treat each as a single Verse for now.
+  'mochis-playful-day': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🎵 Buzz buzz buzz, Mochi flies around!',
+          '🌻 Touching every flower on the ground!',
+          '🌈 Dancing in the garden, happy bee...',
+          '💛 Come and sing along with me!',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🎵 ¡Zum zum zum, Mochi va volando!',
+          '🌻 ¡Cada flor del jardín va tocando!',
+          '🌈 Bailando en el jardín, abeja feliz...',
+          '💛 ¡Ven y canta conmigo, ven aquí!',
+        ],
+      },
+    ],
+  },
+  'garden-colors': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🌹 Red like a rose, so pretty to see!',
+          '🌻 Yellow like sunshine, bright as can be!',
+          '🌿 Green like the leaves on every tree!',
+          '🦋 Blue like the sky, so wild and free!',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🌹 ¡Rojo como una rosa, bonito de ver!',
+          '🌻 ¡Amarillo como el sol, brillante al amanecer!',
+          '🌿 ¡Verde como las hojas de cada árbol!',
+          '🦋 ¡Azul como el cielo, libre y genial!',
+        ],
+      },
+    ],
+  },
+  'busy-bees': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🐝 We are busy busy bees!',
+          '🌸 Flying through the flower trees!',
+          '🍯 Making honey, sweet and gold!',
+          '🌟 The sweetest story ever told!',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🐝 ¡Somos abejas muy ocupadas!',
+          '🌸 ¡Volando por las flores encantadas!',
+          '🍯 ¡Haciendo miel, dulce y dorada!',
+          '🌟 ¡La historia más dulce jamás contada!',
+        ],
+      },
+    ],
+  },
+  'pollination-dance': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🌺 Touch the flower, grab the dust!',
+          '✨ Spreading pollen is a must!',
+          '🦋 Wiggle left, then wiggle right!',
+          '🌻 Pollination dance tonight!',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '🌺 ¡Toca la flor, agarra el polvo!',
+          '✨ ¡Esparcir el polen, eso es todo!',
+          '🦋 ¡Muévete a la izquierda, luego a la derecha!',
+          '🌻 ¡Baile de polinización, noche perfecta!',
+        ],
+      },
+    ],
+  },
 };
