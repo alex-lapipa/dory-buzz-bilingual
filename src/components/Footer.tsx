@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { InstagramFlower, ButterflyLink, NatureLeaf, SunflowerStar, BeeFlying } from '@/components/icons';
+import { DISCOVER_SECTIONS } from './nav/navConfig';
 
 const socialLinks = [
   { name: 'Instagram', url: 'https://www.instagram.com/thelawtonschool/', Icon: InstagramFlower },
@@ -40,10 +41,10 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Main columns — 2 columns: Explore + Connect */}
+      {/* Main columns — 4 columns: Explore + For Kids + Learn More + Connect */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 gap-8">
-          {/* Column 1: Explore MochiBee */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {/* Column 1: Explore MochiBee (existing — kept intact) */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Explorar MochiBee' : 'Explore MochiBee'}
@@ -54,7 +55,7 @@ export const Footer: React.FC = () => {
                 { to: '/learning/garden-basics', label: isEs ? 'Básicos de Jardín' : 'Garden Basics' },
               ].map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <Link to={item.to} className="text-sm text-readable-muted hover:text-link transition-colors">
                     {item.label}
                   </Link>
                 </li>
@@ -62,7 +63,39 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 2: Connect */}
+          {/* Column 2: For Kids — driven by navConfig */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              {isEs ? DISCOVER_SECTIONS[0].titleEs : DISCOVER_SECTIONS[0].titleEn}
+            </h3>
+            <ul className="space-y-2">
+              {DISCOVER_SECTIONS[0].items.map((item) => (
+                <li key={item.path}>
+                  <Link to={item.path} className="text-sm text-readable-muted hover:text-link transition-colors">
+                    {isEs ? item.labelEs : item.labelEn}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Learn More — driven by navConfig */}
+          <div>
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
+              {isEs ? DISCOVER_SECTIONS[1].titleEs : DISCOVER_SECTIONS[1].titleEn}
+            </h3>
+            <ul className="space-y-2">
+              {DISCOVER_SECTIONS[1].items.map((item) => (
+                <li key={item.path}>
+                  <Link to={item.path} className="text-sm text-readable-muted hover:text-link transition-colors">
+                    {isEs ? item.labelEs : item.labelEn}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Connect (existing — kept intact) */}
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
               {isEs ? 'Conectar' : 'Connect'}
@@ -76,13 +109,13 @@ export const Footer: React.FC = () => {
                 { url: 'https://lapipa.ai', label: 'lapipa.ai' },
               ].map((item) => (
                 <li key={item.url}>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-readable-muted hover:text-link transition-colors">
                     {item.label}
                   </a>
                 </li>
               ))}
               <li>
-                <a href="mailto:hello@lawtonschool.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:hello@lawtonschool.com" className="text-sm text-readable-muted hover:text-link transition-colors">
                   hello@lawtonschool.com
                 </a>
               </li>
