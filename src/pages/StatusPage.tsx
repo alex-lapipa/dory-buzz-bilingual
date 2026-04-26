@@ -140,7 +140,7 @@ const StatusPage: React.FC = () => {
                   </div>
                   <button
                     onClick={refresh}
-                    className="text-xs px-3 py-1.5 rounded-2026-sm border border-primary/30 hover:bg-primary/5 transition-colors"
+                    className="cta-secondary text-xs"
                   >
                     {t('Refresh now', 'Actualizar ahora')}
                   </button>
