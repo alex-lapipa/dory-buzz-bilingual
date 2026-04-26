@@ -46,7 +46,7 @@ const STATUS_LABEL: Record<MochiPodState, string> = {
 };
 
 const DEFAULT_AVATAR =
-  "https://www.mochinillo.com/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png";
+  "/lovable-uploads/mochi-clean-200.webp";
 
 const WAVE_BAR_HEIGHTS = [14, 28, 42, 52, 38, 28, 18, 32, 22, 12];
 

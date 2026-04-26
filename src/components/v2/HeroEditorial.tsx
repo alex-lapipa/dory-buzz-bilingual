@@ -68,9 +68,9 @@ const COPY = {
 };
 
 const DEFAULT_BG =
-  "https://www.mochinillo.com/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png";
+  "/lovable-uploads/fd5aef97-797c-4c5c-9e60-be6c9898cdc7.png";
 const DEFAULT_CHAR =
-  "https://www.mochinillo.com/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png";
+  "/lovable-uploads/mochi-clean-800.webp";
 
 export const HeroEditorial: React.FC<HeroEditorialProps> = ({
   language = "en",
