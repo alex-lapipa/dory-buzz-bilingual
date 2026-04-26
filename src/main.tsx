@@ -13,6 +13,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import App from "./App.tsx";
 import "./index.css";
 import "./styles/design-system-2026.css";
+import "./i18n"; // Round 13 — initialize react-i18next before React mounts
 
 // Production-optimized query client
 const queryClient = new QueryClient({

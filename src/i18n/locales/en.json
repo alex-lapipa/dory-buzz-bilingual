@@ -1,0 +1,62 @@
+{
+  "lang": {
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "current": "Current language",
+    "switch": "Switch language",
+    "shortEn": "EN",
+    "shortEs": "ES",
+    "shortFr": "FR"
+  },
+  "nav": {
+    "beeducation": "Beeducation",
+    "buzzyBees": "Buzzy Bees",
+    "discover": "Discover",
+    "songs": "Songs",
+    "stories": "Stories",
+    "games": "Games",
+    "beeBasics": "Bee Basics",
+    "gardenBasics": "Garden Basics",
+    "chat": "Chat",
+    "status": "Status",
+    "follow": "Follow Mochi!",
+    "share": "Share",
+    "signIn": "Sign In"
+  },
+  "chat": {
+    "heroEmoji": "🐝",
+    "heroTitle": "Chat with Mochi",
+    "heroTagline": "Text-based conversations with your AI garden assistant",
+    "introTitle": "Hello! I'm Mochi 👋",
+    "introBody": "I'm a friendly garden bee who loves talking about pollinators, permaculture, seed saving, and the small wonders of nature. Ask me anything in English, Spanish or French — I'll meet you where you are.",
+    "tipsTitle": "Try asking me about:",
+    "tip1": "🌻 Why bees love sunflowers and lavender",
+    "tip2": "🍅 How to grow tomatoes the way they did in El Bierzo",
+    "tip3": "🌱 What happens to a seed in your hand",
+    "tip4": "🐝 What I do when it rains in the garden",
+    "openIntroductionAria": "Show what Mochi can help with"
+  },
+  "notFound": {
+    "code": "404",
+    "lostInGarden": "Oops! This page doesn't exist in our garden",
+    "explanation": "Maybe a bee carried it off — or you typed an address that's no longer a flower. Let's head back to the part of the garden where things are blooming.",
+    "returnHome": "Return to Garden"
+  },
+  "songs": {
+    "ages": "Ages 3-6",
+    "heroTitleA": "Sing",
+    "heroTitleB": "Along",
+    "heroSubtitle": "Listen with Mochi or sing it yourself!",
+    "heroExplanation": "Each song has a sung version and an instrumental version. Switch the language to hear the other version!",
+    "currentLanguageLabel": "Current language",
+    "withMochiKaraoke": "With Mochi · Karaoke",
+    "listen": "Listen",
+    "playing": "Playing",
+    "singAlong": "Sing Along",
+    "languagePillEn": "🇬🇧 English",
+    "languagePillEs": "🇪🇸 Español",
+    "languagePillFr": "🇫🇷 Français",
+    "footerHint": "Switch the site language to hear the songs in another language!"
+  }
+}

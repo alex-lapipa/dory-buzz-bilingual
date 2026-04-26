@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import i18next from 'i18next';
 
-export type Language = 'en' | 'es';
+export type Language = 'en' | 'es' | 'fr';
 
 interface LanguageContextType {
   language: Language;
@@ -309,20 +310,54 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguage] = useState<Language>('en'); // Default to English
 
   useEffect(() => {
-    // Check for saved language preference
+    // Check for saved language preference (now also accepts French — Round 13)
     const savedLanguage = localStorage.getItem('beecrazyLanguage') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'es')) {
+    if (savedLanguage === 'en' || savedLanguage === 'es' || savedLanguage === 'fr') {
       setLanguage(savedLanguage);
+      // Keep i18next in sync from initial mount.
+      if (i18next.isInitialized && i18next.language !== savedLanguage) {
+        i18next.changeLanguage(savedLanguage);
+      }
     }
   }, []);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem('beecrazyLanguage', lang);
+    // Round 13 — bridge to i18next so useTranslation() callers update too.
+    if (i18next.isInitialized) {
+      i18next.changeLanguage(lang);
+    }
   };
 
+  /**
+   * Translation lookup with graceful fallback chain:
+   *   1. Legacy dict for the current language (preserves existing behavior)
+   *   2. Legacy dict for English (so French users see English text for
+   *      strings that haven't been translated to French yet, instead of
+   *      seeing the raw key)
+   *   3. i18next translation (for new Round 13+ keys living in JSON files)
+   *   4. The key itself (last-resort fallback, same as old behavior)
+   */
   const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations['en']] || key;
+    // Layer 1: legacy dict for current language. Note that French has no
+    // legacy entries — all values come from EN fallback or i18next.
+    const dictForLang = (translations as Record<string, Record<string, string>>)[language];
+    const fromDict = dictForLang ? dictForLang[key] : undefined;
+    if (fromDict !== undefined) return fromDict;
+
+    // Layer 2: English dict fallback (for FR users on legacy keys)
+    const fromEn = translations.en[key as keyof typeof translations['en']];
+    if (fromEn !== undefined) return fromEn;
+
+    // Layer 3: i18next (for new keys defined in src/i18n/locales/*.json)
+    if (i18next.isInitialized) {
+      const fromI18n = i18next.t(key, { defaultValue: '' });
+      if (fromI18n) return fromI18n as string;
+    }
+
+    // Layer 4: last resort — return the key itself (legacy behavior)
+    return key;
   };
 
   return (

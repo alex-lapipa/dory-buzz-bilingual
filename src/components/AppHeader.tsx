@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
 import { useActiveRoute } from '@/hooks/useActiveRoute';
 import { DiscoverPopover } from './nav/DiscoverPopover';
+import { LanguageToggle } from './LanguageToggle';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -99,6 +100,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           <div className="hidden sm:block">
             <ShareButtons />
           </div>
+
+          {/* Round 13 — Language toggle visible on all screens (EN→ES→FR cycle) */}
+          <LanguageToggle />
           
           {/* Auth Button - desktop */}
           <div className="hidden md:flex items-center gap-2">

@@ -1,0 +1,62 @@
+{
+  "lang": {
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "current": "Idioma actual",
+    "switch": "Cambiar idioma",
+    "shortEn": "EN",
+    "shortEs": "ES",
+    "shortFr": "FR"
+  },
+  "nav": {
+    "beeducation": "Beeducación",
+    "buzzyBees": "Abejas Zumbonas",
+    "discover": "Descubrir",
+    "songs": "Canciones",
+    "stories": "Cuentos",
+    "games": "Juegos",
+    "beeBasics": "Básicos de Abejas",
+    "gardenBasics": "Básicos de Jardín",
+    "chat": "Chatear",
+    "status": "Estado",
+    "follow": "¡Sigue a Mochi!",
+    "share": "Compartir",
+    "signIn": "Iniciar Sesión"
+  },
+  "chat": {
+    "heroEmoji": "🐝",
+    "heroTitle": "Charla con Mochi",
+    "heroTagline": "Conversaciones de texto con tu asistente de jardín con IA",
+    "introTitle": "¡Hola! Soy Mochi 👋",
+    "introBody": "Soy una abeja del jardín a la que le encanta hablar de polinizadores, permacultura, semillas y las pequeñas maravillas de la naturaleza. Pregúntame en inglés, español o francés — me encontraré contigo donde estés.",
+    "tipsTitle": "Prueba a preguntarme sobre:",
+    "tip1": "🌻 Por qué a las abejas les gustan los girasoles y la lavanda",
+    "tip2": "🍅 Cómo cultivar tomates como en El Bierzo",
+    "tip3": "🌱 Lo que pasa con una semilla en tu mano",
+    "tip4": "🐝 Lo que hago cuando llueve en el jardín",
+    "openIntroductionAria": "Mostrar en qué puede ayudar Mochi"
+  },
+  "notFound": {
+    "code": "404",
+    "lostInGarden": "¡Vaya! Esta página no existe en nuestro jardín",
+    "explanation": "Quizás una abeja se la llevó volando — o escribiste una dirección que ya no es una flor. Vamos de vuelta a donde el jardín está en flor.",
+    "returnHome": "Volver al Jardín"
+  },
+  "songs": {
+    "ages": "3-6 años",
+    "heroTitleA": "Canta",
+    "heroTitleB": "con Nosotros",
+    "heroSubtitle": "¡Escucha con Mochi o canta tú mismo!",
+    "heroExplanation": "Cada canción tiene una versión cantada y otra instrumental. ¡Cambia el idioma para escuchar la otra versión!",
+    "currentLanguageLabel": "Idioma actual",
+    "withMochiKaraoke": "Con Mochi · Karaoke",
+    "listen": "Escuchar",
+    "playing": "Reproduciendo",
+    "singAlong": "Canta tú",
+    "languagePillEn": "🇬🇧 English",
+    "languagePillEs": "🇪🇸 Español",
+    "languagePillFr": "🇫🇷 Français",
+    "footerHint": "¡Cambia el idioma del sitio para escuchar las canciones en otro idioma!"
+  }
+}
