@@ -9,6 +9,7 @@ import { MochiConvAI } from './MochiConvAI';
 import { UserRegistration } from './UserRegistration';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { RouteLoader } from '@/components/ui/route-loader';
 import { GardenExpand, GardenShrink } from '@/components/icons';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useUsageTracking, usePageTracking } from '@/hooks/useUsageTracking';
@@ -69,7 +70,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
       case 'chat-advanced':
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
-            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+            <Suspense fallback={<RouteLoader />}>
               <ChatInterface className="h-full" mode="advanced" />
             </Suspense>
           </div>
@@ -77,7 +78,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
       case 'generate':
         return (
           <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'} p-3 sm:p-4`}>
-            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+            <Suspense fallback={<RouteLoader />}>
               <ImageGenerator />
             </Suspense>
           </div>
@@ -85,7 +86,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
       case 'video':
         return (
           <div className={`${isFullscreen ? 'h-full overflow-y-auto' : 'max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] overflow-y-auto'}`}>
-            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+            <Suspense fallback={<RouteLoader />}>
               <MochiVideoFeed />
             </Suspense>
           </div>
@@ -93,7 +94,7 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
       default:
         return (
           <div className={`${isFullscreen ? 'h-full' : 'min-h-[300px] max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh]'} overflow-auto`}>
-            <Suspense fallback={<div className="flex items-center justify-center h-48">Loading...</div>}>
+            <Suspense fallback={<RouteLoader />}>
               <ChatInterface className="h-full" mode="simple" />
             </Suspense>
           </div>
