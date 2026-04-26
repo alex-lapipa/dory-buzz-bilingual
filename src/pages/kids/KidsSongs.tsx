@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { PageSEO } from '@/components/PageSEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { PollenSparkle, VolumeFlower, MusicalFlower } from '@/components/icons';
+import { SONG_LYRICS, SECTION_NAMES_ES } from './songLyrics';
 
 const SONG_BASE = 'https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/public/mochi-songs';
 
@@ -141,6 +142,13 @@ const KidsSongs: React.FC = () => {
   const { language } = useLanguage();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState<PlayState>(null);
+  // Round 13 — track which song's lyrics panel is open. Only one open at a
+  // time so the page doesn't get visually noisy. Null means all collapsed.
+  const [openLyricsId, setOpenLyricsId] = useState<string | null>(null);
+
+  const toggleLyrics = (id: string) => {
+    setOpenLyricsId((current) => (current === id ? null : id));
+  };
 
   const stop = () => {
     if (audioRef.current) {
@@ -264,6 +272,12 @@ const KidsSongs: React.FC = () => {
             const hasInstrumental = Boolean(instrumentalUrl);
             const playingVocal = isPlaying(song.id, 'vocal');
             const playingInstrumental = isPlaying(song.id, 'instrumental');
+            // Round 13 — pick lyrics for the current UI language
+            const lyrics = SONG_LYRICS[song.id]
+              ? SONG_LYRICS[song.id][language === 'es' ? 'es' : 'en']
+              : undefined;
+            const hasLyrics = Boolean(lyrics && lyrics.length > 0);
+            const isLyricsOpen = openLyricsId === song.id;
 
             return (
               <Card
@@ -364,6 +378,84 @@ const KidsSongs: React.FC = () => {
                         : 'Sing Along'}
                     </button>
                   </div>
+
+                  {/* Round 13 — Lyrics toggle + collapsible lyrics panel.
+                      Only renders if we have lyrics for this song. */}
+                  {hasLyrics && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => toggleLyrics(song.id)}
+                        aria-expanded={isLyricsOpen}
+                        aria-controls={`lyrics-${song.id}`}
+                        className={`
+                          w-full py-2 px-3 text-xs font-medium border-t border-border/50
+                          transition-colors duration-200 text-readable
+                          hover:bg-primary/5 focus:outline-none
+                          focus-visible:bg-primary/10
+                          ${isLyricsOpen ? 'bg-primary/5' : ''}
+                        `
+                          .replace(/\s+/g, ' ')
+                          .trim()}
+                      >
+                        <span aria-hidden="true" className="mr-1">
+                          {isLyricsOpen ? '📖' : '📕'}
+                        </span>
+                        {isLyricsOpen
+                          ? language === 'es'
+                            ? 'Ocultar letra'
+                            : 'Hide lyrics'
+                          : language === 'es'
+                          ? 'Mostrar letra'
+                          : 'Show lyrics'}
+                        <span aria-hidden="true" className="ml-1 text-muted-foreground">
+                          {isLyricsOpen ? '▴' : '▾'}
+                        </span>
+                      </button>
+
+                      {isLyricsOpen && (
+                        <div
+                          id={`lyrics-${song.id}`}
+                          role="region"
+                          aria-label={
+                            language === 'es'
+                              ? `Letra de ${song.title_es}`
+                              : `Lyrics of ${song.title_en}`
+                          }
+                          className="px-5 py-4 sm:px-6 sm:py-5 bg-background/40 border-t border-border/30 space-y-4"
+                        >
+                          {lyrics!.map((section, sectionIdx) => {
+                            const sectionLabel =
+                              language === 'es'
+                                ? SECTION_NAMES_ES[section.name] || section.name
+                                : section.name;
+                            return (
+                              <div key={`${song.id}-section-${sectionIdx}`} className="space-y-1">
+                                <h3 className="text-xs font-semibold uppercase tracking-wide text-primary-strong">
+                                  {sectionLabel}
+                                </h3>
+                                <ul className="space-y-0.5 list-none pl-0">
+                                  {section.lines.map((line, lineIdx) => (
+                                    <li
+                                      key={`${song.id}-section-${sectionIdx}-line-${lineIdx}`}
+                                      className="text-sm leading-relaxed text-readable"
+                                    >
+                                      {line}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            );
+                          })}
+                          <p className="text-xs text-muted-foreground italic pt-2 border-t border-border/30">
+                            {language === 'es'
+                              ? '🎵 ¡Lee, canta y aprende! Cambia el idioma del sitio para ver la letra en inglés.'
+                              : '🎵 Read, sing and learn! Switch the site language to see the lyrics in Spanish.'}
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </CardContent>
               </Card>
             );
