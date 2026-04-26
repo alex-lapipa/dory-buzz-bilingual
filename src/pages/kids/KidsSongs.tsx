@@ -139,8 +139,8 @@ const KidsSongs: React.FC = () => {
               >
                 <CardContent className="p-0">
                   {isNew && (
-                    <span className="absolute top-2 right-2 z-10 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-md">
-                      {language === 'es' ? '¡Nueva!' : 'New!'}
+                    <span className="badge-new-2026 absolute top-2 right-2 z-10">
+                      {language === 'es' ? 'Nueva' : 'New'}
                     </span>
                   )}
                   <div className={`bg-gradient-to-br ${song.color} p-6 sm:p-8 text-center`}>
