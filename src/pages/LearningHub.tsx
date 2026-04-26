@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { PageLayout } from '@/components/PageLayout';
+import { SystemStatusBadge } from '@/components/SystemStatusBadge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { 
@@ -250,6 +251,9 @@ const LearningHub: React.FC = () => {
             Discover amazing facts about bees and gardening with AI-powered learning tools! 
             Choose your learning adventure below.
           </p>
+          <div className="flex justify-center mt-4">
+            <SystemStatusBadge />
+          </div>
         </div>
 
         {/* Progress Chart */}
