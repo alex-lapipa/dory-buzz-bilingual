@@ -135,6 +135,7 @@ const KidsSongs: React.FC = () => {
               <Card
                 key={song.id}
                 onClick={hasAudio ? () => handleSongClick(song) : undefined}
+                data-card="lift"
                 className="overflow-hidden border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg cursor-pointer group relative"
               >
                 <CardContent className="p-0">
