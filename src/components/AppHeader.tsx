@@ -1,16 +1,34 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FollowMochiModal } from './FollowMochiModal';
-import { ShareButtons } from './ShareButtons';
-import { HamburgerMenu } from './HamburgerMenu';
-import { Button } from '@/components/ui/button';
-import { FlowerHeart, BeeFace, BeeFlying, BeehiveSafe, SunflowerStar } from '@/components/icons';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { useAuth } from '@/contexts/AuthContext';
-import { useIsAdmin } from '@/hooks/useIsAdmin';
-import { useActiveRoute } from '@/hooks/useActiveRoute';
-import { DiscoverPopover } from './nav/DiscoverPopover';
-import { LanguageToggle } from './LanguageToggle';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FollowMochiModal } from "./FollowMochiModal";
+import { ShareButtons } from "./ShareButtons";
+import { HamburgerMenu } from "./HamburgerMenu";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
+import { useActiveRoute } from "@/hooks/useActiveRoute";
+import { DiscoverPopover } from "./nav/DiscoverPopover";
+import { LanguageToggle } from "./LanguageToggle";
+import { MochiBrandMark } from "@/components/icons/MochiIcons";
+import "@/styles/mochi-tokens.css";
+
+/**
+ * AppHeader · v2 (editorial)
+ * ─────────────────────────────────────────────────────────
+ * Same public API ({ onTabSelect } optional prop), same auth /
+ * admin / active-route / language integrations, same drop-in
+ * sub-components (FollowMochiModal, ShareButtons, HamburgerMenu,
+ * DiscoverPopover, LanguageToggle).
+ *
+ * Visual changes:
+ *   - Clean Mochi character (mochi-clean-200.webp, no halo)
+ *   - Fraunces brand mark with italic 'de los Huertos'
+ *   - Glass surface with backdrop-blur instead of opaque card
+ *   - Honey accent under active route
+ *   - Tighter, more elegant spacing
+ *   - 'A Buzztastical Bee' tagline -> 'The garden bee'
+ */
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -23,57 +41,143 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const isAdmin = useIsAdmin();
   const { isActive, ariaCurrent } = useActiveRoute();
 
-  const handleBeeClick = () => {
-    navigate('/');
-  };
+  const handleBeeClick = () => navigate("/");
+  const isHome = isActive("/", { exact: true });
 
   return (
-    <header className="w-full bg-gradient-to-b from-background/90 via-background/70 to-transparent backdrop-blur-md fixed top-0 left-0 right-0 z-50 border-b border-border/30 h-header-mobile md:h-header-tablet lg:h-header-desktop">
-      <div className="h-full max-w-7xl mx-auto px-mobile-lg md:px-mobile-xl lg:px-mobile-2xl flex justify-between items-center">
-        {/* Left: MochiBee Logo + Title */}
-        <button 
+    <header
+      className="fixed top-0 left-0 right-0 z-50 h-header-mobile md:h-header-tablet lg:h-header-desktop"
+      style={{
+        background:
+          "linear-gradient(180deg, hsl(45 60% 96% / .92) 0%, hsl(45 60% 96% / .82) 70%, hsl(45 60% 96% / .65) 100%)",
+        backdropFilter: "blur(18px) saturate(1.1)",
+        WebkitBackdropFilter: "blur(18px) saturate(1.1)",
+        borderBottom: "1px solid hsl(40 92% 56% / .14)",
+        fontFamily: "var(--mochi-font-sans, 'Saira', sans-serif)",
+        color: "hsl(30 25% 12%)",
+      }}
+    >
+      <div
+        className="h-full max-w-7xl mx-auto px-mobile-lg md:px-mobile-xl lg:px-mobile-2xl"
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+      >
+        {/* ── Left: Mochi mark + brand wordmark ───────────────── */}
+        <button
           onClick={handleBeeClick}
-          className="flex items-center gap-3 hover:opacity-90 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg group"
           aria-label="Go to home page"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            border: 0,
+            background: "transparent",
+            padding: "4px 6px",
+            borderRadius: 12,
+            cursor: "pointer",
+            transition: "transform .25s cubic-bezier(.34,1.56,.64,1)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget.querySelector("img") as HTMLImageElement)
+              ?.style.setProperty("transform", "rotate(-6deg) scale(1.06)");
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget.querySelector("img") as HTMLImageElement)
+              ?.style.setProperty("transform", "");
+          }}
         >
-          <img 
-            src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png"
-            alt="Mochi the Bee"
-            className="w-10 h-10 sm:w-12 sm:h-12 filter drop-shadow-md animate-bee-bounce group-hover:scale-110 transition-transform"
+          <img
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt="Mochi the garden bee"
+            width={44}
+            height={44}
+            style={{
+              width: 44,
+              height: 44,
+              objectFit: "contain",
+              filter: "drop-shadow(0 4px 8px hsl(30 25% 12% / .18))",
+              transition: "transform .35s cubic-bezier(.34,1.56,.64,1)",
+            }}
           />
-          <div className="flex flex-col">
-            <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-primary">
-              <span className="sm:hidden">Mochi <BeeFlying className="h-4 w-4 inline" /></span>
-              <span className="hidden sm:inline">MochiBee <SunflowerStar className="h-5 w-5 inline" /></span>
+          <div style={{ textAlign: "left", lineHeight: 1.05 }}>
+            <h1
+              style={{
+                margin: 0,
+                fontFamily: "var(--mochi-font-display, Fraunces, serif)",
+                fontWeight: 600,
+                fontSize: "clamp(18px, 2.6vw, 22px)",
+                color: "hsl(30 25% 12%)",
+                letterSpacing: "-.015em",
+              }}
+            >
+              <span className="sm:hidden">Mochi</span>
+              <span className="hidden sm:inline">
+                Mochi{" "}
+                <em style={{ fontStyle: "italic", fontWeight: 400, color: "hsl(35 78% 38%)" }}>
+                  de los Huertos
+                </em>
+              </span>
             </h1>
-            <p className="text-xs sm:text-sm text-primary/90 font-medium hidden xs:block">
-              A Buzztastical Bee
+            <p
+              className="hidden xs:block"
+              style={{
+                margin: 0,
+                marginTop: 1,
+                fontFamily: "var(--mochi-font-script, Caveat, cursive)",
+                fontSize: 15,
+                fontWeight: 600,
+                color: "hsl(35 78% 38%)",
+              }}
+            >
+              the garden bee
             </p>
           </div>
         </button>
-        
-        {/* Right: Navigation and Action Buttons */}
-        <div className="flex items-center gap-2 sm:gap-4">
+
+        {/* ── Right: Nav + Actions ─────────────────────────────── */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-3">
+          <nav className="hidden md:flex" style={{ alignItems: "center", gap: 4 }}>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate('/')}
-              aria-current={ariaCurrent('/', { exact: true })}
-              className={`text-sm hover:text-primary flex items-center gap-1 ${isActive('/', { exact: true }) ? 'nav-item-active' : ''}`}
+              onClick={() => navigate("/")}
+              aria-current={ariaCurrent("/", { exact: true })}
+              style={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: isHome ? "hsl(35 78% 38%)" : "hsl(28 35% 28%)",
+                position: "relative",
+              }}
             >
-              🐝 Beeducation
+              <span style={{ marginRight: 6 }}>🐝</span> Beeducation
+              {isHome && (
+                <span
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    right: 12,
+                    bottom: 4,
+                    height: 2,
+                    borderRadius: 2,
+                    background: "hsl(40 92% 56%)",
+                  }}
+                />
+              )}
             </Button>
             <DiscoverPopover />
             {user && (
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => navigate('/dashboard')}
-                className="text-sm hover:text-primary flex items-center gap-1"
+                onClick={() => navigate("/dashboard")}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: isActive("/dashboard") ? "hsl(35 78% 38%)" : "hsl(28 35% 28%)",
+                }}
               >
-                🌱 Dashboard
+                <span style={{ marginRight: 6 }}>🌱</span> Dashboard
               </Button>
             )}
           </nav>
@@ -81,62 +185,89 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
           {/* Desktop-only Follow CTA */}
           <div className="hidden sm:block">
             <FollowMochiModal>
-              <Button variant="default" size="sm" className="animate-pulse text-xs sm:text-sm">
-                <FlowerHeart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                <span className="hidden xs:inline">{t('follow')}</span> {t('mochiName')}!
+              <Button
+                variant="default"
+                size="sm"
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  background:
+                    "linear-gradient(180deg, hsl(40 92% 56%) 0%, hsl(32 88% 44%) 100%)",
+                  color: "hsl(30 25% 12%)",
+                  border: 0,
+                  borderRadius: 999,
+                  padding: "7px 14px",
+                  boxShadow:
+                    "0 8px 22px -8px hsl(32 88% 44% / .55), 0 0 0 1px hsl(40 92% 56% / .15) inset",
+                }}
+              >
+                <span style={{ marginRight: 6 }}>♡</span>
+                <span className="hidden xs:inline">{t("follow")}</span> {t("mochiName")}
               </Button>
             </FollowMochiModal>
           </div>
-          
+
           <div className="hidden sm:block">
             <ShareButtons />
           </div>
 
-          {/* Round 13 — Language toggle visible on all screens (EN→ES→FR cycle) */}
+          {/* Language toggle (EN → ES → FR cycle) */}
           <LanguageToggle />
-          
-          {/* Auth Button - desktop */}
-          <div className="hidden md:flex items-center gap-2">
+
+          {/* Auth — desktop */}
+          <div className="hidden md:flex" style={{ alignItems: "center", gap: 8 }}>
             {user ? (
               <>
                 {isAdmin && (
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => navigate('/admin')}
-                    className="text-xs text-muted-foreground hover:text-primary"
-                    title="Admin Panel"
+                    onClick={() => navigate("/admin")}
+                    title="Admin"
+                    aria-label="Admin"
+                    style={{ fontSize: 12, color: "hsl(28 35% 28%)" }}
                   >
-                    <BeehiveSafe className="h-3 w-3 sm:h-4 sm:w-4" />
+                    🛡
                   </Button>
                 )}
-                <span className="text-xs text-muted-foreground hidden lg:inline">
+                <span
+                  className="hidden lg:inline"
+                  style={{ fontSize: 12, color: "hsl(28 35% 28%)", opacity: 0.7 }}
+                >
                   {user.email}
                 </span>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={signOut}
-                  className="text-xs"
+                  style={{
+                    fontSize: 12,
+                    borderRadius: 999,
+                    borderColor: "hsl(30 25% 12% / .2)",
+                  }}
                 >
-                  <BeeFlying className="h-3 w-3 mr-1" />
                   Sign Out
                 </Button>
               </>
             ) : (
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => navigate('/auth')}
-                className="text-xs"
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate("/auth")}
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  borderRadius: 999,
+                  borderColor: "hsl(30 25% 12% / .35)",
+                  color: "hsl(30 25% 12%)",
+                }}
               >
-                <BeeFace className="h-3 w-3 mr-1" />
                 Sign In
               </Button>
             )}
           </div>
 
-          {/* Mobile hamburger menu */}
+          {/* Mobile hamburger */}
           <div className="md:hidden">
             <HamburgerMenu onTabSelect={onTabSelect} />
           </div>
@@ -145,3 +276,5 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
     </header>
   );
 };
+
+export default AppHeader;
