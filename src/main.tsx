@@ -12,6 +12,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 import App from "./App.tsx";
 import "./index.css";
+import "./styles/design-system-2026.css";
 
 // Production-optimized query client
 const queryClient = new QueryClient({
