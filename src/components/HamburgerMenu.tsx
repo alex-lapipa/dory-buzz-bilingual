@@ -166,7 +166,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
           <div className="pt-2 border-t border-border/30 text-center">
             <div className="text-3xl mb-2 animate-flower-sway">🌻</div>
             <p className="text-xs text-muted-foreground font-normal">
-              {t('mochiDescription') || 'Your friendly bee from BeeCrazy Garden World!'}
+              {t('mochiDescription') || 'Your friendly bee from Mochi de los Huertos!'}
             </p>
           </div>
         </div>

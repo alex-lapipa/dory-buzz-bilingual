@@ -94,7 +94,7 @@ const AuthPage = () => {
 
         toast({
           title: "🐝 Welcome back!",
-          description: "You've successfully signed in to BeeCrazy Garden World.",
+          description: "You've successfully signed in to Mochi de los Huertos.",
         });
         navigate(isOwnerEmail(email) ? '/admin' : '/');
       }
@@ -266,7 +266,7 @@ const AuthPage = () => {
         }
 
         toast({
-          title: "🐝 Welcome to BeeCrazy Garden World!",
+          title: "🐝 Welcome to Mochi de los Huertos!",
           description: "Please check your email for a confirmation link to complete your registration.",
           duration: 6000,
         });
@@ -296,7 +296,7 @@ const AuthPage = () => {
         <div className="text-center mb-6">
           <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80">
             <span className="text-3xl">🐝</span>
-            <span className="text-xl font-bold">BeeCrazy Garden World</span>
+            <span className="text-xl font-bold">Mochi de los Huertos</span>
           </Link>
           <p className="text-muted-foreground mt-2">Join our garden community with Mochi!</p>
         </div>
