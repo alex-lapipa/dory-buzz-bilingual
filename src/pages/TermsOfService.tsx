@@ -42,8 +42,8 @@ const TermsOfService: React.FC = () => {
 
         <h2>{isEs ? '5. Propiedad Intelectual' : '5. Intellectual Property'}</h2>
         <p>{isEs
-          ? 'Todo el contenido, diseño y código de MochiBee es propiedad de BeeCrazy Garden World y está protegido por leyes de propiedad intelectual.'
-          : 'All content, design, and code of MochiBee is owned by BeeCrazy Garden World and protected by intellectual property laws.'}</p>
+          ? 'Todo el contenido, diseño y código de MochiBee es propiedad de Mochi de los Huertos y está protegido por leyes de propiedad intelectual.'
+          : 'All content, design, and code of MochiBee is owned by Mochi de los Huertos and protected by intellectual property laws.'}</p>
 
         <h2>{isEs ? '6. Contenido Generado por IA' : '6. AI-Generated Content'}</h2>
         <p>{isEs

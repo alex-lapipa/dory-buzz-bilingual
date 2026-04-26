@@ -184,8 +184,8 @@ export const AccessibilityHelper: React.FC<AccessibilityHelperProps> = ({ classN
 
           <div className="text-xs text-muted-foreground">
             {language === 'es' 
-              ? 'BeeCrazy Garden World está diseñado para ser accesible para todos. Si tienes problemas, contáctanos.'
-              : 'BeeCrazy Garden World is designed to be accessible to everyone. If you experience issues, please contact us.'}
+              ? 'Mochi de los Huertos está diseñado para ser accesible para todos. Si tienes problemas, contáctanos.'
+              : 'Mochi de los Huertos is designed to be accessible to everyone. If you experience issues, please contact us.'}
           </div>
         </CardContent>
       </Card>

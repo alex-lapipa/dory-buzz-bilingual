@@ -92,8 +92,8 @@ export const UserProgress: React.FC<UserProgressProps> = ({ className }) => {
 
   const shareProgress = async () => {
     const progressText = language === 'es' 
-      ? `🐝 ¡Mi progreso en BeeCrazy Garden World! ${Math.round(progressPercentage)}% completado con ${unlockedAchievements.length} logros desbloqueados! 🌻`
-      : `🐝 My BeeCrazy Garden World progress! ${Math.round(progressPercentage)}% complete with ${unlockedAchievements.length} achievements unlocked! 🌻`;
+      ? `🐝 ¡Mi progreso en Mochi de los Huertos! ${Math.round(progressPercentage)}% completado con ${unlockedAchievements.length} logros desbloqueados! 🌻`
+      : `🐝 My Mochi de los Huertos progress! ${Math.round(progressPercentage)}% complete with ${unlockedAchievements.length} achievements unlocked! 🌻`;
     
     try {
       await navigator.clipboard.writeText(progressText);

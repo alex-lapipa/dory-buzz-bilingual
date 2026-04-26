@@ -29,7 +29,7 @@ export const MochiVideoFeed: React.FC = () => {
   const mochiVideo: VideoPost = {
     id: 'mochi-bee-official',
     title: '🐝 Meet Mochi the Bee - Official Character Video',
-    description: 'Conoce a Mochi, nuestra abejita oficial de BeeCrazy Garden World! Este adorable personaje te guiará en tu aventura de aprendizaje sobre abejas, jardines y la naturaleza. ¡Descubre el mundo mágico de las abejas con Mochi!',
+    description: 'Conoce a Mochi, nuestra abejita oficial de Mochi de los Huertos! Este adorable personaje te guiará en tu aventura de aprendizaje sobre abejas, jardines y la naturaleza. ¡Descubre el mundo mágico de las abejas con Mochi!',
     videoUrl: 'https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/sign/mochibee/Mochi%20the%20bee.m4v?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84ODAxZThkZi1hYTMyLTRjNDEtYmYxMi03ZjJlYmI0NjQ5MjMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJtb2NoaWJlZS9Nb2NoaSB0aGUgYmVlLm00diIsImlhdCI6MTc1Mzg0Nzc3MSwiZXhwIjoxNzg1MzgzNzcxfQ.j3lrTKWdS6URzbygzYlLmBu2LIW3OkgR-o2iCacCH14',
     duration: '2:30',
     views: 1247,

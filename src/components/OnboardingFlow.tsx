@@ -180,8 +180,8 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
           {/* Help Text */}
           <p className="text-xs text-center text-muted-foreground">
             {language === 'es' 
-              ? 'Este tour te ayudará a descubrir todas las funciones de BeeCrazy Garden World'
-              : 'This tour will help you discover all the features of BeeCrazy Garden World'}
+              ? 'Este tour te ayudará a descubrir todas las funciones de Mochi de los Huertos'
+              : 'This tour will help you discover all the features of Mochi de los Huertos'}
           </p>
         </CardContent>
       </Card>

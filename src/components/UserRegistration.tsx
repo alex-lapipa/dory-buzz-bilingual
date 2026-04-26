@@ -132,8 +132,8 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
       toast({
         title: language === 'es' ? '¡Bienvenido! 🐝' : 'Welcome! 🐝',
         description: language === 'es' 
-          ? '¡Registro exitoso! Tu aventura en BeeCrazy Garden World comienza ahora.' 
-          : 'Registration successful! Your BeeCrazy Garden World adventure begins now.',
+          ? '¡Registro exitoso! Tu aventura en Mochi de los Huertos comienza ahora.' 
+          : 'Registration successful! Your Mochi de los Huertos adventure begins now.',
       });
 
       onComplete();
@@ -215,8 +215,8 @@ export const UserRegistration: React.FC<UserRegistrationProps> = ({ onComplete, 
           
           <p className="text-responsive-xs text-muted-foreground text-center mt-4">
             {language === 'es' 
-              ? 'Al registrarte, recibirás un email de bienvenida con más información sobre BeeCrazy Garden World.'
-              : 'By registering, you will receive a welcome email with more information about BeeCrazy Garden World.'
+              ? 'Al registrarte, recibirás un email de bienvenida con más información sobre Mochi de los Huertos.'
+              : 'By registering, you will receive a welcome email with more information about Mochi de los Huertos.'
             }
           </p>
         </CardContent>

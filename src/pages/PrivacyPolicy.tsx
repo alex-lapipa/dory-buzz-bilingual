@@ -22,8 +22,8 @@ const PrivacyPolicy: React.FC = () => {
 
         <h2>{isEs ? '1. Quiénes Somos' : '1. Who We Are'}</h2>
         <p>{isEs
-          ? 'MochiBee ("nosotros", "nuestro") es operado por BeeCrazy Garden World. Nuestro sitio web es www.mochinillo.com.'
-          : 'MochiBee ("we", "our", "us") is operated by BeeCrazy Garden World. Our website is www.mochinillo.com.'}</p>
+          ? 'MochiBee ("nosotros", "nuestro") es operado por Mochi de los Huertos. Nuestro sitio web es www.mochinillo.com.'
+          : 'MochiBee ("we", "our", "us") is operated by Mochi de los Huertos. Our website is www.mochinillo.com.'}</p>
 
         <h2>{isEs ? '2. Datos que Recopilamos' : '2. Data We Collect'}</h2>
         <ul>

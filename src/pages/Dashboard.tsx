@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-              BeeCrazy Garden World <BeeFlying className="h-6 w-6 inline" />
+              Mochi de los Huertos <BeeFlying className="h-6 w-6 inline" />
             </h1>
             <p className="text-lg text-muted-foreground mt-2">
               Your Garden Companion with Advanced Intelligence <SunflowerStar className="h-4 w-4 inline" />
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
         {/* Footer */}
         <div className="mt-12 text-center text-muted-foreground text-sm">
           <p><BeeFlying className="h-4 w-4 inline" /> Powered by Nature & Intelligence <SunflowerStar className="h-4 w-4 inline" /></p>
-          <p className="mt-1">BeeCrazy Garden World - Where Nature meets Education</p>
+          <p className="mt-1">Mochi de los Huertos - Where Nature meets Education</p>
         </div>
     </PageLayout>
   );

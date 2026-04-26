@@ -119,7 +119,7 @@ export const ComprehensiveHealthCheck = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bot className="h-5 w-5" />
-            BeeCrazy Garden World - System Health Dashboard
+            Mochi de los Huertos - System Health Dashboard
           </CardTitle>
         </CardHeader>
         <CardContent>
