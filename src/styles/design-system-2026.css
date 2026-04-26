@@ -1,0 +1,516 @@
+/* ============================================================================
+   MochiBee — Design System 2026 (additive modernization layer)
+   ----------------------------------------------------------------------------
+   Layered ON TOP of index.css. Existing tokens, classes, and components keep
+   working unchanged. This file refines: typography, shadows, focus rings,
+   surface materials, motion, and accessibility — to align with modern web
+   standards (Linear, Vercel, Stripe, Apple HIG) while keeping the warm
+   garden/honey personality.
+
+   Strategy:
+   - Add NEW tokens (don't replace existing ones).
+   - Enhance global elements (a, button, input, :focus-visible) at low
+     specificity so component-level styles always win.
+   - Add OPT-IN utility classes (.surface-glass, .surface-lift, .text-balance).
+   - Respect prefers-reduced-motion and prefers-color-scheme.
+============================================================================ */
+
+@layer base {
+  :root {
+    /* ───── New: 2026 motion easing curves ─────────────────────────────── */
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --duration-fast:    120ms;
+    --duration-base:    200ms;
+    --duration-slow:    320ms;
+    --duration-slower:  480ms;
+
+    /* ───── New: layered shadow scale (Linear / Vercel style) ──────────── */
+    --shadow-xs:  0 1px 2px hsl(39 50% 15% / 0.06);
+    --shadow-sm:  0 1px 2px hsl(39 50% 15% / 0.06),
+                  0 2px 4px hsl(39 50% 15% / 0.04);
+    --shadow-md:  0 2px 4px hsl(39 50% 15% / 0.06),
+                  0 4px 8px hsl(39 50% 15% / 0.06),
+                  0 8px 16px hsl(39 50% 15% / 0.04);
+    --shadow-lg:  0 2px 4px hsl(39 50% 15% / 0.04),
+                  0 8px 16px hsl(39 50% 15% / 0.08),
+                  0 16px 32px hsl(39 50% 15% / 0.06);
+    --shadow-xl:  0 4px 8px hsl(39 50% 15% / 0.04),
+                  0 16px 32px hsl(39 50% 15% / 0.10),
+                  0 32px 64px hsl(39 50% 15% / 0.08);
+
+    /* Honey-tinted shadows for primary surfaces */
+    --shadow-honey-sm: 0 2px 8px hsl(var(--primary) / 0.18);
+    --shadow-honey-md: 0 4px 16px hsl(var(--primary) / 0.22),
+                       0 1px 4px hsl(var(--primary) / 0.12);
+    --shadow-honey-lg: 0 8px 32px hsl(var(--primary) / 0.28),
+                       0 2px 8px hsl(var(--primary) / 0.16);
+
+    /* ───── New: refined radius scale ──────────────────────────────────── */
+    --radius-xs: 0.375rem;  /*  6px */
+    --radius-sm: 0.5rem;    /*  8px */
+    --radius-md: 0.75rem;   /* 12px — matches existing --radius */
+    --radius-lg: 1rem;      /* 16px */
+    --radius-xl: 1.25rem;   /* 20px */
+    --radius-2xl: 1.5rem;   /* 24px */
+    --radius-pill: 9999px;
+
+    /* ───── New: semantic surface materials ────────────────────────────── */
+    --surface-glass-bg: hsl(0 0% 100% / 0.72);
+    --surface-glass-border: hsl(0 0% 100% / 0.6);
+    --surface-glass-blur: saturate(180%) blur(16px);
+
+    --surface-elevated-bg: hsl(0 0% 100%);
+    --surface-recessed-bg: hsl(45 40% 97%);
+
+    /* ───── New: focus ring (accessibility) ────────────────────────────── */
+    --focus-ring-color: hsl(var(--primary));
+    --focus-ring-offset: 2px;
+    --focus-ring-width: 2px;
+
+    /* ───── New: branded selection color ───────────────────────────────── */
+    --selection-bg: hsl(var(--primary) / 0.35);
+    --selection-fg: hsl(39 100% 10%);
+
+    /* ───── New: tighter content widths for readability ────────────────── */
+    --width-prose: 65ch;
+    --width-content: 72rem;     /* 1152px */
+    --width-content-narrow: 56rem; /* 896px */
+  }
+
+  .dark {
+    --shadow-xs:  0 1px 2px hsl(0 0% 0% / 0.32);
+    --shadow-sm:  0 1px 2px hsl(0 0% 0% / 0.32),
+                  0 2px 4px hsl(0 0% 0% / 0.24);
+    --shadow-md:  0 2px 4px hsl(0 0% 0% / 0.32),
+                  0 4px 8px hsl(0 0% 0% / 0.32),
+                  0 8px 16px hsl(0 0% 0% / 0.24);
+    --shadow-lg:  0 2px 4px hsl(0 0% 0% / 0.24),
+                  0 8px 16px hsl(0 0% 0% / 0.40),
+                  0 16px 32px hsl(0 0% 0% / 0.32);
+    --shadow-xl:  0 4px 8px hsl(0 0% 0% / 0.24),
+                  0 16px 32px hsl(0 0% 0% / 0.48),
+                  0 32px 64px hsl(0 0% 0% / 0.40);
+
+    --surface-glass-bg: hsl(220 20% 12% / 0.68);
+    --surface-glass-border: hsl(45 30% 60% / 0.18);
+    --surface-elevated-bg: hsl(220 18% 14%);
+    --surface-recessed-bg: hsl(220 18% 9%);
+
+    --selection-bg: hsl(var(--primary) / 0.45);
+    --selection-fg: hsl(39 100% 8%);
+  }
+}
+
+/* ============================================================================
+   Global refinements — applied site-wide via low-specificity selectors.
+   These improve every page automatically without any component changes.
+============================================================================ */
+
+@layer base {
+  /* Modern font rendering — applied to html so it cascades everywhere */
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    /* Fluid scrolling with offset for fixed headers */
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height-mobile, 4rem);
+  }
+
+  @media (min-width: 768px) {
+    html { scroll-padding-top: var(--header-height-tablet, 5rem); }
+  }
+  @media (min-width: 1024px) {
+    html { scroll-padding-top: var(--header-height-desktop, 6rem); }
+  }
+
+  /* Branded text selection */
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  /* Numbers align in tables/prices/counters */
+  .tabular-nums,
+  table td, table th,
+  time, output {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Better default heading rhythm — text-wrap balance prevents awkward orphans */
+  h1, h2, h3 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  h4, h5, h6 {
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+
+  /* Better paragraph rendering — text-wrap pretty avoids single-word last lines */
+  p, li {
+    text-wrap: pretty;
+  }
+
+  /* Modern image defaults */
+  img, svg, video, canvas, picture {
+    max-width: 100%;
+    height: auto;
+  }
+  img {
+    /* Hint to the browser these can decode async; cumulative layout-shift safe */
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* ============================================================================
+   Focus-visible — accessibility win across the whole site.
+   Only shows ring for keyboard users; mouse clicks stay clean.
+============================================================================ */
+
+@layer base {
+  *:focus { outline: none; }
+
+  *:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: var(--radius-xs);
+    transition: outline-offset var(--duration-fast) var(--ease-out-quart);
+  }
+
+  /* For elements that already have rounded corners, match them */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    border-radius: inherit;
+  }
+}
+
+/* ============================================================================
+   Smooth, modern interaction states — refined transitions on common elements.
+   Specificity is kept low so component overrides always win.
+============================================================================ */
+
+@layer base {
+  a, button, [role="button"], input, select, textarea, summary {
+    transition:
+      background-color var(--duration-base) var(--ease-out-quart),
+      border-color     var(--duration-base) var(--ease-out-quart),
+      color            var(--duration-base) var(--ease-out-quart),
+      box-shadow       var(--duration-base) var(--ease-out-quart),
+      transform        var(--duration-base) var(--ease-out-quart),
+      opacity          var(--duration-base) var(--ease-out-quart);
+  }
+
+  /* Disabled state polish */
+  button[disabled],
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  /* Refined link styling — modern underline-offset */
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: max(1px, 0.06em);
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Pressed state for touch + mouse — prevents that "dead" feel */
+  button:active:not([disabled]),
+  [role="button"]:active:not([aria-disabled="true"]),
+  a:active {
+    transform: translateY(1px);
+    transition-duration: 80ms;
+  }
+}
+
+/* ============================================================================
+   Card lift — refines the existing .card-nature, .card-hive, .card-petal
+   variants with a softer, modern hover (no overrides of color/border, only
+   shadow + transform). Existing card visuals stay; the motion gets a polish.
+============================================================================ */
+
+@layer components {
+  .card-nature,
+  .card-hive,
+  .card-petal,
+  [data-card="lift"] {
+    transition:
+      transform   var(--duration-slow) var(--ease-out-expo),
+      box-shadow  var(--duration-slow) var(--ease-out-expo);
+    will-change: transform;
+  }
+
+  .card-nature:hover,
+  .card-hive:hover,
+  .card-petal:hover,
+  [data-card="lift"]:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-nature:active,
+  .card-hive:active,
+  .card-petal:active,
+  [data-card="lift"]:active {
+    transform: translateY(-1px);
+    transition-duration: var(--duration-fast);
+  }
+}
+
+/* ============================================================================
+   Opt-in utility classes — these are NEW, nothing depends on them; pages can
+   adopt them progressively.
+============================================================================ */
+
+@layer utilities {
+  /* Modern frosted glass surface */
+  .surface-glass {
+    background-color: var(--surface-glass-bg);
+    border: 1px solid var(--surface-glass-border);
+    -webkit-backdrop-filter: var(--surface-glass-blur);
+            backdrop-filter: var(--surface-glass-blur);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Soft elevated surface */
+  .surface-elevated {
+    background-color: var(--surface-elevated-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .surface-recessed {
+    background-color: var(--surface-recessed-bg);
+    border-radius: var(--radius-md);
+  }
+
+  /* Lift on hover — works on any element */
+  .surface-lift {
+    transition:
+      transform   var(--duration-slow) var(--ease-out-expo),
+      box-shadow  var(--duration-slow) var(--ease-out-expo);
+    will-change: transform;
+  }
+  .surface-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Modern shadow utilities (additive — Tailwind shadows still work) */
+  .shadow-soft-xs { box-shadow: var(--shadow-xs); }
+  .shadow-soft-sm { box-shadow: var(--shadow-sm); }
+  .shadow-soft-md { box-shadow: var(--shadow-md); }
+  .shadow-soft-lg { box-shadow: var(--shadow-lg); }
+  .shadow-soft-xl { box-shadow: var(--shadow-xl); }
+  .shadow-honey   { box-shadow: var(--shadow-honey-md); }
+  .shadow-honey-lg{ box-shadow: var(--shadow-honey-lg); }
+
+  /* Text-wrap helpers */
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  /* Reading widths */
+  .max-w-prose-2026   { max-width: var(--width-prose); }
+  .max-w-content      { max-width: var(--width-content); }
+  .max-w-content-narrow { max-width: var(--width-content-narrow); }
+
+  /* Modern radius scale (additive — Tailwind rounded-* still work) */
+  .rounded-2026-xs  { border-radius: var(--radius-xs); }
+  .rounded-2026-sm  { border-radius: var(--radius-sm); }
+  .rounded-2026-md  { border-radius: var(--radius-md); }
+  .rounded-2026-lg  { border-radius: var(--radius-lg); }
+  .rounded-2026-xl  { border-radius: var(--radius-xl); }
+  .rounded-2026-2xl { border-radius: var(--radius-2xl); }
+
+  /* Subtle grain texture overlay — Stripe/Linear style warmth */
+  .has-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .has-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.13 0 0 0 0 0.08 0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* "New!" badge — pulsing honey dot */
+  .badge-new-2026 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-honey-sm);
+  }
+  .badge-new-2026::before {
+    content: "";
+    width: 0.4375rem;
+    height: 0.4375rem;
+    background: currentColor;
+    border-radius: var(--radius-pill);
+    animation: pulse-honey 2s var(--ease-out-quart) infinite;
+  }
+
+  @keyframes pulse-honey {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  /* Skeleton loader — modern shimmer */
+  .skeleton-2026 {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(0 0% 100% / 0.4) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-2026 1.6s var(--ease-out-quart) infinite;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes shimmer-2026 {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Float animation for decorative elements (e.g. hero bee) */
+  .float-soft {
+    animation: float-soft 4s var(--ease-out-quart) infinite;
+  }
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+}
+
+/* ============================================================================
+   Form field polish — modern input feel, low specificity so existing styles win
+============================================================================ */
+
+@layer components {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
+  textarea,
+  select {
+    border-radius: var(--radius-sm);
+  }
+
+  /* Hover state for interactive form fields */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):hover:not(:focus):not([disabled]),
+  textarea:hover:not(:focus):not([disabled]),
+  select:hover:not(:focus):not([disabled]) {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+
+  /* Placeholder color refinement */
+  ::placeholder {
+    color: hsl(var(--muted-foreground) / 0.7);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Skip-to-content link — accessibility staple. Auto-mounts via ::before on
+   body so no React change is needed; revealed on focus only.
+============================================================================ */
+
+@layer base {
+  body {
+    position: relative;
+  }
+}
+
+/* Provide a real skip link element rendered by CSS-only attribute selector
+   if any element with [data-skip-link] exists; otherwise no-op. */
+[data-skip-link] {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 9999;
+  padding: 0.625rem 1rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+[data-skip-link]:focus,
+[data-skip-link]:focus-visible {
+  transform: translate(-50%, 0);
+  outline: var(--focus-ring-width) solid hsl(var(--primary-foreground));
+  outline-offset: -4px;
+}
+
+/* ============================================================================
+   Reduced motion — respect user preference. This shuts down our additions
+   too, not just legacy animations.
+============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .float-soft,
+  .badge-new-2026::before,
+  .skeleton-2026 {
+    animation: none !important;
+  }
+}
+
+/* ============================================================================
+   Print — modern print stylesheet that doesn't waste ink.
+============================================================================ */
+
+@media print {
+  *, *::before, *::after {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+  }
+  .surface-glass,
+  .surface-elevated {
+    border: 1px solid #999 !important;
+  }
+}
+
+/* ============================================================================
+   Color-scheme hint — lets browser render native UI (scrollbars, form widgets)
+   matching the active theme.
+============================================================================ */
+
+:root        { color-scheme: light; }
+.dark        { color-scheme: dark;  }
+
+/* ============================================================================
+   end of design-system-2026.css
+============================================================================ */
