@@ -233,7 +233,7 @@ const LearningHub: React.FC = () => {
       />
       <div className="space-y-6">
         {/* Header */}
-        <div className="text-center">
+        <div className="text-center surface-glass has-grain px-6 py-8 sm:px-10 sm:py-12 max-w-3xl mx-auto">
           <div className="flex justify-center mb-4">
             <img 
               src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
