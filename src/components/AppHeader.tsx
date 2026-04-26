@@ -8,6 +8,7 @@ import { FlowerHeart, BeeFace, BeeFlying, BeehiveSafe, SunflowerStar } from '@/c
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { useActiveRoute } from '@/hooks/useActiveRoute';
 
 interface AppHeaderProps {
   onTabSelect?: (tab: string) => void;
@@ -18,6 +19,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const isAdmin = useIsAdmin();
+  const { isActive, ariaCurrent } = useActiveRoute();
 
   const handleBeeClick = () => {
     navigate('/');
@@ -56,7 +58,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               variant="ghost"
               size="sm"
               onClick={() => navigate('/')}
-              className="text-sm hover:text-primary flex items-center gap-1"
+              aria-current={ariaCurrent('/', { exact: true })}
+              className={`text-sm hover:text-primary flex items-center gap-1 ${isActive('/', { exact: true }) ? 'nav-item-active' : ''}`}
             >
               🐝 Beeducation
             </Button>
@@ -64,7 +67,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
               variant="ghost"
               size="sm"
               onClick={() => navigate('/buzzy-bees')}
-              className="text-sm hover:text-primary flex items-center gap-1"
+              aria-current={ariaCurrent('/buzzy-bees')}
+              className={`text-sm hover:text-primary flex items-center gap-1 ${isActive('/buzzy-bees') ? 'nav-item-active' : ''}`}
             >
               🎵 Buzzy Bees
             </Button>
