@@ -2,12 +2,10 @@
   "lang": {
     "english": "English",
     "spanish": "Español",
-    "french": "Français",
     "current": "Idioma actual",
     "switch": "Cambiar idioma",
     "shortEn": "EN",
-    "shortEs": "ES",
-    "shortFr": "FR"
+    "shortEs": "ES"
   },
   "nav": {
     "beeducation": "Beeducación",
@@ -29,7 +27,7 @@
     "heroTitle": "Charla con Mochi",
     "heroTagline": "Conversaciones de texto con tu asistente de jardín con IA",
     "introTitle": "¡Hola! Soy Mochi 👋",
-    "introBody": "Soy una abeja del jardín a la que le encanta hablar de polinizadores, permacultura, semillas y las pequeñas maravillas de la naturaleza. Pregúntame en inglés, español o francés — me encontraré contigo donde estés.",
+    "introBody": "Soy una abeja del jardín a la que le encanta hablar de polinizadores, permacultura, semillas y las pequeñas maravillas de la naturaleza. Pregúntame en inglés o español — me encontraré contigo donde estés.",
     "tipsTitle": "Prueba a preguntarme sobre:",
     "tip1": "🌻 Por qué a las abejas les gustan los girasoles y la lavanda",
     "tip2": "🍅 Cómo cultivar tomates como en El Bierzo",
@@ -56,7 +54,6 @@
     "singAlong": "Canta tú",
     "languagePillEn": "🇬🇧 English",
     "languagePillEs": "🇪🇸 Español",
-    "languagePillFr": "🇫🇷 Français",
     "footerHint": "¡Cambia el idioma del sitio para escuchar las canciones en otro idioma!"
   }
 }

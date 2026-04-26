@@ -2,12 +2,10 @@
   "lang": {
     "english": "English",
     "spanish": "Español",
-    "french": "Français",
     "current": "Current language",
     "switch": "Switch language",
     "shortEn": "EN",
-    "shortEs": "ES",
-    "shortFr": "FR"
+    "shortEs": "ES"
   },
   "nav": {
     "beeducation": "Beeducation",
@@ -29,7 +27,7 @@
     "heroTitle": "Chat with Mochi",
     "heroTagline": "Text-based conversations with your AI garden assistant",
     "introTitle": "Hello! I'm Mochi 👋",
-    "introBody": "I'm a friendly garden bee who loves talking about pollinators, permaculture, seed saving, and the small wonders of nature. Ask me anything in English, Spanish or French — I'll meet you where you are.",
+    "introBody": "I'm a friendly garden bee who loves talking about pollinators, permaculture, seed saving, and the small wonders of nature. Ask me anything in English or Spanish — I'll meet you where you are.",
     "tipsTitle": "Try asking me about:",
     "tip1": "🌻 Why bees love sunflowers and lavender",
     "tip2": "🍅 How to grow tomatoes the way they did in El Bierzo",
@@ -56,7 +54,6 @@
     "singAlong": "Sing Along",
     "languagePillEn": "🇬🇧 English",
     "languagePillEs": "🇪🇸 Español",
-    "languagePillFr": "🇫🇷 Français",
     "footerHint": "Switch the site language to hear the songs in another language!"
   }
 }

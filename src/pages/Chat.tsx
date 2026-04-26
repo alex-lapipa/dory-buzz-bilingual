@@ -16,7 +16,7 @@ const Chat: React.FC = () => {
       <PageSEO
         titleEn="Chat with Mochi — The Garden Bee"
         titleEs="Chatea con Mochi — La Abeja del Jardín"
-        descriptionEn="Talk to Mochi the Garden Bee! Ask questions about bees, gardens, and nature in English, Spanish or French."
+        descriptionEn="Talk to Mochi the Garden Bee! Ask questions about bees, gardens, and nature in English or Spanish."
         descriptionEs="¡Habla con Mochi la Abeja del Jardín! Haz preguntas sobre abejas, jardines y naturaleza en inglés, español o francés."
         path="/chat"
       />

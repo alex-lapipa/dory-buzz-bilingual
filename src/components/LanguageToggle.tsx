@@ -4,21 +4,19 @@ import { useLanguage, type Language } from '@/contexts/LanguageContext';
 import { EarthVine } from '@/components/icons';
 
 /**
- * Round 13 — language toggle now cycles through 3 languages.
+ * Language toggle cycles between EN and ES.
  *
  * Tap once: EN → ES
- * Tap again: ES → FR
- * Tap again: FR → EN
+ * Tap again: ES → EN
  *
  * The button shows the SHORT CODE of the *next* language so users can
  * predict what tapping will do (matches OS-level language pickers).
  */
-const ORDER: Language[] = ['en', 'es', 'fr'];
-const SHORT_CODE: Record<Language, string> = { en: 'EN', es: 'ES', fr: 'FR' };
+const ORDER: Language[] = ['en', 'es'];
+const SHORT_CODE: Record<Language, string> = { en: 'EN', es: 'ES' };
 const FULL_NAME: Record<Language, string> = {
   en: 'English',
   es: 'Español',
-  fr: 'Français',
 };
 
 export const LanguageToggle: React.FC = () => {
@@ -30,7 +28,7 @@ export const LanguageToggle: React.FC = () => {
     setLanguage(nextLanguage);
   };
 
-  // Title shows: "Language · Switch to Français" so users hovering know exactly
+  // Title shows: "Language · Switch to Español" so users hovering know exactly
   // what will happen on click.
   const title = `${t('language')} · ${FULL_NAME[nextLanguage]}`;
 

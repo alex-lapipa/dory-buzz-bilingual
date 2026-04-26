@@ -4,10 +4,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en.json';
 import es from './locales/es.json';
-import fr from './locales/fr.json';
 
 /**
- * Round 13 — react-i18next infrastructure.
+ * react-i18next infrastructure.
  *
  * Designed to coexist with the existing LanguageContext (which has its own
  * dict of ~244 translations keyed by beecrazyLanguage in localStorage). This
@@ -31,10 +30,9 @@ i18n
     resources: {
       en: { translation: en },
       es: { translation: es },
-      fr: { translation: fr },
     },
     fallbackLng: 'en',
-    supportedLngs: ['en', 'es', 'fr'],
+    supportedLngs: ['en', 'es'],
     nonExplicitSupportedLngs: true,
     interpolation: {
       escapeValue: false, // React already escapes

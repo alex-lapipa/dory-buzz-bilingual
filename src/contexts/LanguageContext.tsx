@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import i18next from 'i18next';
 
-export type Language = 'en' | 'es' | 'fr';
+export type Language = 'en' | 'es';
 
 interface LanguageContextType {
   language: Language;
@@ -310,9 +310,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguage] = useState<Language>('en'); // Default to English
 
   useEffect(() => {
-    // Check for saved language preference (now also accepts French — Round 13)
+    // Check for saved language preference
     const savedLanguage = localStorage.getItem('beecrazyLanguage') as Language;
-    if (savedLanguage === 'en' || savedLanguage === 'es' || savedLanguage === 'fr') {
+    if (savedLanguage === 'en' || savedLanguage === 'es') {
       setLanguage(savedLanguage);
       // Keep i18next in sync from initial mount.
       if (i18next.isInitialized && i18next.language !== savedLanguage) {
@@ -333,20 +333,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   /**
    * Translation lookup with graceful fallback chain:
    *   1. Legacy dict for the current language (preserves existing behavior)
-   *   2. Legacy dict for English (so French users see English text for
-   *      strings that haven't been translated to French yet, instead of
-   *      seeing the raw key)
-   *   3. i18next translation (for new Round 13+ keys living in JSON files)
+   *   2. Legacy dict for English (fallback if a key is missing in ES)
+   *   3. i18next translation (for newer keys living in JSON files)
    *   4. The key itself (last-resort fallback, same as old behavior)
    */
   const t = (key: string): string => {
-    // Layer 1: legacy dict for current language. Note that French has no
-    // legacy entries — all values come from EN fallback or i18next.
+    // Layer 1: legacy dict for current language.
     const dictForLang = (translations as Record<string, Record<string, string>>)[language];
     const fromDict = dictForLang ? dictForLang[key] : undefined;
     if (fromDict !== undefined) return fromDict;
 
-    // Layer 2: English dict fallback (for FR users on legacy keys)
+    // Layer 2: English dict fallback (for keys missing in non-EN dicts)
     const fromEn = translations.en[key as keyof typeof translations['en']];
     if (fromEn !== undefined) return fromEn;
 
