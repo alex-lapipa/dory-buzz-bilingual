@@ -630,3 +630,23 @@
 /* ============================================================================
    end of accessible color tokens (Batch 1)
 ============================================================================ */
+
+/* ============================================================================
+   Accessible muted text bump (Round 9 Batch 2)
+   ----------------------------------------------------------------------------
+   The original --muted-foreground value (39 50% 40%) measures 4.25:1 on
+   white — just shy of WCAG AA's 4.5:1 for body text. Bumping the lightness
+   from 40% → 32% and dialing saturation from 50% → 45% gives 6.55:1, well
+   into AA territory and almost at AAA. Stays in the honey-brown family.
+
+   Light mode only — dark-mode value already passes AA (5.14:1).
+   This single token override automatically improves every existing
+   .text-muted-foreground usage across all 108 occurrences in the codebase.
+============================================================================ */
+
+:root {
+  --muted-foreground: 35 45% 32%;   /* 6.55:1 on white — AA pass (was 4.25:1 fail) */
+}
+
+/* dark mode unchanged — current value 215 20% 55% already at 5.14:1 */
+
