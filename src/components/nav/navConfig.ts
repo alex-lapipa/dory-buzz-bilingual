@@ -146,6 +146,27 @@ export const DISCOVER_SECTIONS: NavSection[] = [
       },
     ],
   },
+  {
+    /**
+     * Music section — separate from For Kids because the audience and tone are
+     * different. /miel-de-montes is an adult music-first page (indie-tronica /
+     * industrial-techno tribute series for Toño), designed in dialogue with
+     * techno.dog. Surfaced in HamburgerMenu (mobile) + DiscoverPopover desktop
+     * dropdown via this section. The desktop "main nav bar" link itself is
+     * hardcoded in AppHeader for top-level visibility.
+     */
+    titleEn: 'Music',
+    titleEs: 'Música',
+    items: [
+      {
+        path: '/miel-de-montes',
+        labelEn: 'Miel de Montes',
+        labelEs: 'Miel de Montes',
+        descriptionEn: 'Indie-tronica tribute series for Toño · in dialogue with techno.dog',
+        descriptionEs: 'Serie tributo indie-tronica para Toño · en diálogo con techno.dog',
+      },
+    ],
+  },
 ];
 
 /**

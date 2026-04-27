@@ -165,6 +165,39 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ onTabSelect }) => {
                 />
               )}
             </Button>
+            {/* Always-visible main-nav link to the Miel de Montes music page.
+                Visually consistent with Beeducation but no emoji — adult audience.
+                Designed in dialogue with techno.dog. The page itself lives at
+                /miel-de-montes and uses its own dark mono aesthetic. */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate("/miel-de-montes")}
+              aria-current={ariaCurrent("/miel-de-montes")}
+              style={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: isActive("/miel-de-montes") ? "hsl(35 78% 38%)" : "hsl(28 35% 28%)",
+                position: "relative",
+                letterSpacing: "0.005em",
+              }}
+            >
+              Miel de Montes
+              {isActive("/miel-de-montes") && (
+                <span
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    right: 12,
+                    bottom: 4,
+                    height: 2,
+                    borderRadius: 2,
+                    background: "hsl(40 92% 56%)",
+                  }}
+                />
+              )}
+            </Button>
             <DiscoverPopover />
             {user && (
               <Button
