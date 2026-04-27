@@ -675,6 +675,10 @@ const KidsSongs: React.FC = () => {
               : undefined;
             const hasLyrics = Boolean(lyrics && lyrics.length > 0);
             const isLyricsOpen = openLyricsId === song.id;
+            // Round 21 — underground / festival aesthetic for Miel de Montes
+            // tribute series (4 tracks). All other songs keep the warm
+            // kid-friendly parallax glass treatment unchanged.
+            const isUnderground = song.id.startsWith('miel-de-montes');
 
             return (
               <Card
@@ -707,38 +711,158 @@ const KidsSongs: React.FC = () => {
                       }}
                     />
 
-                    {/* Layer 2 — soft floating blobs (parallax-amplified) */}
-                    <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          top: '-10%', right: '-6%', width: '50%', height: '50%',
-                          background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%)',
-                          filter: 'blur(24px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * 1.6))',
-                        }}
-                      />
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          bottom: '-12%', left: '-8%', width: '45%', height: '45%',
-                          background: 'radial-gradient(circle at 60% 40%, rgba(245,158,11,0.32), rgba(245,158,11,0) 70%)',
-                          filter: 'blur(28px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * -1.2))',
-                        }}
-                      />
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          top: '40%', left: '70%', width: '18%', height: '18%',
-                          background: 'rgba(255,255,255,0.35)',
-                          filter: 'blur(14px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * 0.7))',
-                        }}
-                      />
-                    </div>
+                    {isUnderground ? (
+                      <>
+                        {/* Layer 2a — perspective grid floor (synthwave) */}
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background:
+                              'linear-gradient(rgba(0,240,255,0.22) 1px, transparent 1px) 0 0 / 100% 28px,' +
+                              'linear-gradient(90deg, rgba(0,240,255,0.22) 1px, transparent 1px) 0 0 / 28px 100%',
+                            transform:
+                              'perspective(380px) rotateX(62deg) translateY(36%) translateY(calc(var(--parallax-y, 0px) * 0.6))',
+                            transformOrigin: 'center bottom',
+                            WebkitMaskImage:
+                              'linear-gradient(to bottom, transparent 28%, black 60%, black 88%, transparent 100%)',
+                            maskImage:
+                              'linear-gradient(to bottom, transparent 28%, black 60%, black 88%, transparent 100%)',
+                            opacity: 0.55,
+                            mixBlendMode: 'screen',
+                          }}
+                        />
 
-                    {/* Layer 3 — Mochi bee, subtle corner element with own parallax */}
+                        {/* Layer 2b — vertical neon laser beams (cyan + magenta) */}
+                        <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
+                          <div
+                            className="absolute"
+                            style={{
+                              top: '-20%', left: '22%', width: 1.5, height: '160%',
+                              background:
+                                'linear-gradient(180deg, transparent 0%, rgba(0,240,255,0.95) 35%, rgba(0,240,255,0.95) 65%, transparent 100%)',
+                              boxShadow:
+                                '0 0 6px rgba(0,240,255,0.8), 0 0 14px rgba(0,240,255,0.55), 0 0 28px rgba(0,240,255,0.32)',
+                              transform:
+                                'rotate(18deg) translateY(calc(var(--parallax-y, 0px) * 1.4))',
+                            }}
+                          />
+                          <div
+                            className="absolute"
+                            style={{
+                              top: '-20%', right: '24%', width: 1.5, height: '160%',
+                              background:
+                                'linear-gradient(180deg, transparent 0%, rgba(255,0,212,0.92) 30%, rgba(255,0,212,0.92) 70%, transparent 100%)',
+                              boxShadow:
+                                '0 0 6px rgba(255,0,212,0.7), 0 0 14px rgba(255,0,212,0.5), 0 0 28px rgba(255,0,212,0.3)',
+                              transform:
+                                'rotate(-14deg) translateY(calc(var(--parallax-y, 0px) * -1.6))',
+                            }}
+                          />
+                          <div
+                            className="absolute"
+                            style={{
+                              top: '-10%', left: '58%', width: 1, height: '140%',
+                              background:
+                                'linear-gradient(180deg, transparent 0%, rgba(0,255,170,0.7) 50%, transparent 100%)',
+                              boxShadow:
+                                '0 0 5px rgba(0,255,170,0.6), 0 0 12px rgba(0,255,170,0.35)',
+                              transform:
+                                'rotate(8deg) translateY(calc(var(--parallax-y, 0px) * 0.8))',
+                            }}
+                          />
+                        </div>
+
+                        {/* Layer 2c — neon haze blobs */}
+                        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+                          <div
+                            className="absolute rounded-full"
+                            style={{
+                              top: '-18%', right: '-10%', width: '60%', height: '60%',
+                              background:
+                                'radial-gradient(circle at 35% 35%, rgba(0,240,255,0.55), rgba(0,240,255,0) 70%)',
+                              filter: 'blur(28px)',
+                              transform: 'translateY(calc(var(--parallax-y, 0px) * 1.6))',
+                              mixBlendMode: 'screen',
+                            }}
+                          />
+                          <div
+                            className="absolute rounded-full"
+                            style={{
+                              bottom: '-15%', left: '-12%', width: '55%', height: '55%',
+                              background:
+                                'radial-gradient(circle at 60% 40%, rgba(255,0,212,0.45), rgba(255,0,212,0) 70%)',
+                              filter: 'blur(32px)',
+                              transform: 'translateY(calc(var(--parallax-y, 0px) * -1.2))',
+                              mixBlendMode: 'screen',
+                            }}
+                          />
+                          <div
+                            className="absolute rounded-full"
+                            style={{
+                              top: '38%', left: '68%', width: '22%', height: '22%',
+                              background: 'rgba(0,255,170,0.32)',
+                              filter: 'blur(18px)',
+                              transform: 'translateY(calc(var(--parallax-y, 0px) * 0.7))',
+                              mixBlendMode: 'screen',
+                            }}
+                          />
+                        </div>
+
+                        {/* Layer 2d — CRT scan lines + chromatic edge */}
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            backgroundImage:
+                              'repeating-linear-gradient(0deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0) 2px, rgba(0,240,255,0.04) 2px, rgba(0,240,255,0.04) 3px)',
+                            opacity: 0.7,
+                          }}
+                        />
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            boxShadow: 'inset 0 0 0 1px rgba(0,240,255,0.22), inset 0 0 24px rgba(0,0,0,0.45)',
+                            borderRadius: 'inherit',
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+                        <div
+                          className="absolute rounded-full"
+                          style={{
+                            top: '-10%', right: '-6%', width: '50%', height: '50%',
+                            background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%)',
+                            filter: 'blur(24px)',
+                            transform: 'translateY(calc(var(--parallax-y, 0px) * 1.6))',
+                          }}
+                        />
+                        <div
+                          className="absolute rounded-full"
+                          style={{
+                            bottom: '-12%', left: '-8%', width: '45%', height: '45%',
+                            background: 'radial-gradient(circle at 60% 40%, rgba(245,158,11,0.32), rgba(245,158,11,0) 70%)',
+                            filter: 'blur(28px)',
+                            transform: 'translateY(calc(var(--parallax-y, 0px) * -1.2))',
+                          }}
+                        />
+                        <div
+                          className="absolute rounded-full"
+                          style={{
+                            top: '40%', left: '70%', width: '18%', height: '18%',
+                            background: 'rgba(255,255,255,0.35)',
+                            filter: 'blur(14px)',
+                            transform: 'translateY(calc(var(--parallax-y, 0px) * 0.7))',
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {/* Layer 3 — Mochi bee corner accent. Underground mode
+                        uses a neon-rim filter so the brand stays present
+                        without breaking the rave aesthetic. */}
                     <img
                       src="/lovable-uploads/mochi-clean-200.webp"
                       alt=""
@@ -748,27 +872,42 @@ const KidsSongs: React.FC = () => {
                       className="absolute select-none pointer-events-none"
                       style={{
                         bottom: 14, right: 14,
-                        opacity: 0.65,
+                        opacity: isUnderground ? 0.78 : 0.65,
                         transform:
                           'translateY(calc(var(--parallax-y, 0px) * -0.4)) rotate(-6deg)',
-                        filter: 'drop-shadow(0 4px 10px rgba(43,29,11,0.18))',
+                        filter: isUnderground
+                          ? 'drop-shadow(0 0 6px rgba(0,240,255,0.85)) drop-shadow(0 0 14px rgba(255,0,212,0.55)) saturate(1.4) contrast(1.1)'
+                          : 'drop-shadow(0 4px 10px rgba(43,29,11,0.18))',
+                        mixBlendMode: isUnderground ? 'screen' : 'normal',
                       }}
                       loading="lazy"
                       decoding="async"
                     />
 
-                    {/* Layer 4 — glass content surface */}
+                    {/* Layer 4 — content surface. Two flavours:
+                        · kid-friendly (white frosted glass + Fraunces + Caveat)
+                        · underground (smoked glass + Saira + neon edges) */}
                     <div
                       className="relative z-10 p-6 sm:p-8 text-center"
                       style={{
-                        backdropFilter: 'blur(14px) saturate(150%)',
-                        WebkitBackdropFilter: 'blur(14px) saturate(150%)',
-                        background:
-                          'linear-gradient(160deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.14) 100%)',
-                        borderTop: '1px solid rgba(255,255,255,0.55)',
-                        borderBottom: '1px solid rgba(255,255,255,0.18)',
-                        boxShadow:
-                          'inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(43,29,11,0.06)',
+                        backdropFilter: isUnderground
+                          ? 'blur(10px) saturate(160%)'
+                          : 'blur(14px) saturate(150%)',
+                        WebkitBackdropFilter: isUnderground
+                          ? 'blur(10px) saturate(160%)'
+                          : 'blur(14px) saturate(150%)',
+                        background: isUnderground
+                          ? 'linear-gradient(160deg, rgba(8,2,18,0.55) 0%, rgba(20,4,30,0.30) 100%)'
+                          : 'linear-gradient(160deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.14) 100%)',
+                        borderTop: isUnderground
+                          ? '1px solid rgba(0,240,255,0.45)'
+                          : '1px solid rgba(255,255,255,0.55)',
+                        borderBottom: isUnderground
+                          ? '1px solid rgba(255,0,212,0.30)'
+                          : '1px solid rgba(255,255,255,0.18)',
+                        boxShadow: isUnderground
+                          ? 'inset 0 1px 0 rgba(0,240,255,0.20), inset 0 -1px 0 rgba(255,0,212,0.18), inset 0 0 28px rgba(0,0,0,0.35)'
+                          : 'inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(43,29,11,0.06)',
                       }}
                     >
                       <span
@@ -776,7 +915,9 @@ const KidsSongs: React.FC = () => {
                         style={{
                           fontSize: 'clamp(2.75rem, 7vw, 3.5rem)',
                           lineHeight: 1,
-                          filter: 'drop-shadow(0 6px 14px rgba(43,29,11,0.22))',
+                          filter: isUnderground
+                            ? 'drop-shadow(0 0 8px rgba(0,240,255,0.55)) drop-shadow(0 0 18px rgba(255,0,212,0.35)) saturate(1.2)'
+                            : 'drop-shadow(0 6px 14px rgba(43,29,11,0.22))',
                           transform:
                             'translateY(calc(var(--parallax-y, 0px) * 0.25))',
                         }}
@@ -784,14 +925,19 @@ const KidsSongs: React.FC = () => {
                         {song.emoji}
                       </span>
                       <h2
-                        className="text-foreground"
                         style={{
-                          fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                          fontFamily: isUnderground
+                            ? "'Saira', 'Inter', system-ui, sans-serif"
+                            : "var(--mochi-font-display, 'Fraunces', serif)",
                           fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
-                          fontWeight: 600,
-                          letterSpacing: '-0.01em',
+                          fontWeight: isUnderground ? 700 : 600,
+                          letterSpacing: isUnderground ? '0.06em' : '-0.01em',
                           lineHeight: 1.15,
-                          textShadow: '0 1px 2px rgba(255,255,255,0.45)',
+                          textTransform: isUnderground ? 'uppercase' : 'none',
+                          color: isUnderground ? '#f4faff' : 'hsl(28 35% 18%)',
+                          textShadow: isUnderground
+                            ? '0 0 4px rgba(0,240,255,0.85), 0 0 12px rgba(0,240,255,0.45), 0 0 22px rgba(255,0,212,0.18)'
+                            : '0 1px 2px rgba(255,255,255,0.45)',
                         }}
                       >
                         {language === 'es' ? song.title_es : song.title_en}
@@ -799,29 +945,44 @@ const KidsSongs: React.FC = () => {
                       <p
                         className="mt-1.5"
                         style={{
-                          fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
-                          fontSize: '1.05rem',
-                          color: 'hsl(28 35% 22%)',
-                          lineHeight: 1.25,
-                          maxWidth: '32ch',
-                          margin: '6px auto 0',
+                          fontFamily: isUnderground
+                            ? "'Saira', 'Inter', system-ui, sans-serif"
+                            : "var(--mochi-font-hand, 'Caveat', cursive)",
+                          fontSize: isUnderground ? '0.78rem' : '1.05rem',
+                          fontWeight: isUnderground ? 400 : 400,
+                          letterSpacing: isUnderground ? '0.03em' : '0',
+                          textTransform: isUnderground ? 'uppercase' : 'none',
+                          color: isUnderground ? 'rgba(220,240,255,0.78)' : 'hsl(28 35% 22%)',
+                          lineHeight: isUnderground ? 1.45 : 1.25,
+                          maxWidth: isUnderground ? '38ch' : '32ch',
+                          margin: '8px auto 0',
                         }}
                       >
                         {language === 'es' ? song.description_es : song.description_en}
                       </p>
-                      {/* Language indicator pill — glass on glass */}
+                      {/* Language indicator pill */}
                       <span
                         className="inline-block mt-3 text-xs px-3 py-1"
                         style={{
-                          borderRadius: 999,
-                          background: 'rgba(255,255,255,0.55)',
+                          borderRadius: isUnderground ? 4 : 999,
+                          background: isUnderground
+                            ? 'rgba(0,0,0,0.45)'
+                            : 'rgba(255,255,255,0.55)',
                           backdropFilter: 'blur(6px)',
                           WebkitBackdropFilter: 'blur(6px)',
-                          color: 'hsl(28 35% 22%)',
-                          border: '1px solid rgba(255,255,255,0.6)',
+                          color: isUnderground ? 'rgba(0,240,255,0.95)' : 'hsl(28 35% 22%)',
+                          border: isUnderground
+                            ? '1px solid rgba(0,240,255,0.55)'
+                            : '1px solid rgba(255,255,255,0.6)',
                           fontWeight: 600,
-                          letterSpacing: '0.02em',
-                          boxShadow: '0 1px 2px rgba(43,29,11,0.06)',
+                          fontFamily: isUnderground
+                            ? "'Saira', 'Inter', system-ui, sans-serif"
+                            : 'inherit',
+                          letterSpacing: isUnderground ? '0.12em' : '0.02em',
+                          textTransform: isUnderground ? 'uppercase' : 'none',
+                          boxShadow: isUnderground
+                            ? '0 0 6px rgba(0,240,255,0.4), inset 0 0 8px rgba(0,240,255,0.15)'
+                            : '0 1px 2px rgba(43,29,11,0.06)',
                         }}
                       >
                         {language === 'es' ? '🇪🇸 Español' : '🇬🇧 English'}
