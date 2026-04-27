@@ -14,7 +14,7 @@ export const DesignSystem: React.FC = () => {
     <div className="space-y-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-bold text-foreground">🐝 MochiBee Design System</h2>
+        <h2 className="text-3xl font-bold text-foreground">🐝 Mochi de los Huertos Design System</h2>
         <p className="text-muted-foreground">Live component showcase — copy the class names and use them.</p>
       </div>
 

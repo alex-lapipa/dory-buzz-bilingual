@@ -30,7 +30,7 @@ const INITIAL_SERVICES: ServiceCard[] = [
   {
     id: 'gemini',
     name: 'Google AI Studio (Gemini)',
-    description: 'Primary model — Gemini 2.5 Flash for MochiBee chat',
+    description: 'Primary model — Gemini 2.5 Flash for Mochi de los Huertos chat',
     icon: Bot,
     status: 'checking',
     detail: 'Pinging Gemini API...',
@@ -252,7 +252,7 @@ const GoogleEcosystemDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground mb-4">
-            MochiBee's chat backend uses a cascading multi-model architecture. If the primary model fails, it automatically falls back to the next provider.
+            Mochi de los Huertos's chat backend uses a cascading multi-model architecture. If the primary model fails, it automatically falls back to the next provider.
           </p>
           <div className="space-y-2">
             {[

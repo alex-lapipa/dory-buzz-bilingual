@@ -94,7 +94,7 @@ export const BrandBook: React.FC = () => {
       <div className="text-center space-y-3">
         <div className="flex items-center justify-center gap-3">
           <span className="text-5xl animate-bee-bounce">🐝</span>
-          <h2 className="text-3xl font-bold text-foreground">MochiBee Brand Book</h2>
+          <h2 className="text-3xl font-bold text-foreground">Mochi de los Huertos Brand Book</h2>
           <span className="text-5xl animate-flower-sway">🌻</span>
         </div>
         <p className="text-muted-foreground max-w-lg mx-auto">
@@ -124,7 +124,7 @@ export const BrandBook: React.FC = () => {
             </div>
             <div className="flex flex-col items-center gap-3 p-4 rounded-lg border border-border">
               <div className="h-16 flex items-center">
-                <span className="text-2xl font-bold text-primary">MochiBee 🌻</span>
+                <span className="text-2xl font-bold text-primary">Mochi de los Huertos 🌻</span>
               </div>
               <span className="text-sm font-medium">Wordmark</span>
               <span className="text-xs text-muted-foreground">Saira Bold + emoji</span>
