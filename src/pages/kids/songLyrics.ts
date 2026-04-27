@@ -1071,7 +1071,7 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Final Chorus',
         lines: [
-          '(reprise — full crowd, claps on the offbeat)',
+          '(reprise — guitar and sequencers pushed to the edge)',
           'Dance, little bee, dance in the warmth of the sun',
           'A family doing this with love, every one',
           'Thank you, Toño — Miel de Montes!',
@@ -1136,7 +1136,7 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Final Chorus',
         lines: [
-          '¡Baila, abejita, baila bajo el sol!',
+          '¡Baila, abejita, baila con calor!',
           'Esta familia lo hace con amor',
           '¡Gracias, querido Toño, amigo de corazón!',
           '¡Miel de Montes — esta es nuestra canción!',
@@ -1145,8 +1145,8 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Final Chorus',
         lines: [
-          '(reprise — coro completo, palmas en el contratiempo)',
-          '¡Baila, abejita, baila bajo el sol!',
+          '(reprise — guitarra y secuencias al límite)',
+          '¡Baila, abejita, baila con calor!',
           'Esta familia lo hace con amor',
           '¡Gracias, querido Toño — Miel de Montes!',
         ],

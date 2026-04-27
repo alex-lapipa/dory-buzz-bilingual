@@ -222,23 +222,27 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/miel-de-montes-v3-vocal-en.mp3`,
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-v3-instrumental.mp3`,
   },
-  // ─── Round 18: Miel de Montes — ExtendedLive ──────────────────────────
-  // 4:10 festival-anthem extended remix of the original Miel de Montes
-  // song. Spanish-only. Same lyrics, extended via new instrumental
-  // sections: long synth intro (30s), dancefloor drop at 2:04 (50s),
-  // build-up, final chorus reprise, and outro chant. Layered electronic
-  // production (Moog Sub 37 bass + lead, 4-on-the-floor kick, side-
-  // chained pads, festival hand claps) sits on top of the folk DNA
-  // (acoustic guitar, mandolin, violin, cajón). Key of G major, 124
-  // BPM, 250 seconds (4:10). Made for Festival Tomate-style settings.
+  // ─── Round 18b: Miel de Montes — ExtendedLive (indie-tronica cut) ────
+  // 4:10 indie-tronica extended cut. Locked to v3's E minor / 128 BPM /
+  // krautrock-motorik base — this is a TRUE extension, not a different
+  // song. Same Castilian Spanish female vocal, same lyrics verbatim,
+  // same anti-commercial gritty character. What's new: a 30s sequenced
+  // synth-bass intro that builds motorik kick + atmospheric pads; a
+  // 50s minimal-techno breakdown at 2:04 (deep sub-bass loop, sparse,
+  // hypnotic, processed bee-buzz as percussion element); an '80s synth
+  // lead carrying the chorus melody; a Final Chorus reprise pushed
+  // harder; a hypnotic outro chant fade. Strictly NO hand claps, NO
+  // tambourines, NO panderetas, NO marimba — same exclusions as v3.
+  // Spanish indie rock electronic with industrial drive; dark gradient
+  // signals the night-time techno-leaning sister of the v3 day track.
   {
     id: 'miel-de-montes-extended',
     emoji: '🎛️',
     title_en: 'Miel de Montes — Extended Live (ES)',
     title_es: 'Miel de Montes — ExtendedLive',
-    description_en: '4-minute festival-anthem remix of the song for Toño — Moog synths, dancefloor drop, full crowd energy.',
-    description_es: 'Remix de 4 minutos al estilo himno festivalero — sintes Moog, drop bailable, energía de público.',
-    color: 'from-purple-500 via-fuchsia-500 to-cyan-400',
+    description_en: '4-minute indie-tronica extended cut for Toño — krautrock motorik, sequenced synth precision, minimal-techno breakdown, anti-commercial Spanish rock grit.',
+    description_es: 'Corte extendido de 4 minutos al estilo indie-tronica — motorik krautrock, secuencias precisas de sinte, ruptura de techno minimal y rabia rockera anticomercial.',
+    color: 'from-slate-800 via-violet-900 to-fuchsia-800',
     vocalEsUrl: `${SONG_BASE}/miel-de-montes-extended-vocal-es.mp3`,
     vocalUrl: `${SONG_BASE}/miel-de-montes-extended-vocal-es.mp3`,
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-instrumental.mp3`,
