@@ -7,6 +7,7 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import "@/styles/mochi-tokens.css";
 
 export type AdminSection =
   | 'control' | 'production' | 'analytics'
@@ -126,17 +127,37 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         !isMobile && (expanded ? 'w-64' : 'w-16'),
       )}
     >
-      {/* Logo header */}
+      {/* Logo header — editorial v2 */}
       <div className="flex items-center gap-3 px-4 py-5 border-b border-border min-h-[64px]">
-        <span className="text-2xl flex-shrink-0">🐝</span>
-        <span
+        <span className="text-2xl flex-shrink-0" aria-hidden>🐝</span>
+        <div
           className={cn(
-            'font-bold text-primary whitespace-nowrap transition-opacity duration-200',
+            'flex flex-col whitespace-nowrap transition-opacity duration-200 min-w-0',
             expanded ? 'opacity-100' : 'opacity-0 w-0 overflow-hidden',
           )}
         >
-          Admin
-        </span>
+          <span
+            className="text-primary leading-none"
+            style={{
+              fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+              fontSize: '1.15rem',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
+            }}
+          >
+            Admin
+          </span>
+          <span
+            className="text-muted-foreground leading-none"
+            style={{
+              fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+              fontSize: '0.9rem',
+              marginTop: 2,
+            }}
+          >
+            · panel del huerto ·
+          </span>
+        </div>
       </div>
 
       {/* Nav groups */}

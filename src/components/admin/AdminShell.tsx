@@ -6,6 +6,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Menu } from '@/components/icons/lucide-compat';
+import "@/styles/mochi-tokens.css";
 import { cn } from '@/lib/utils';
 
 // Lazy-load heavy panels
@@ -33,9 +34,24 @@ import LearningHub from '@/pages/LearningHub';
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center h-48">
-    <div className="text-center space-y-2">
-      <div className="text-3xl animate-bee-bounce">🐝</div>
-      <p className="text-sm text-muted-foreground">Loading...</p>
+    <div className="text-center space-y-3">
+      <img
+        src="/lovable-uploads/mochi-clean-200.webp"
+        alt=""
+        width={56}
+        height={56}
+        className="mx-auto animate-bee-bounce"
+        style={{ filter: 'drop-shadow(0 6px 14px rgba(217,119,6,0.18))' }}
+      />
+      <p
+        className="text-muted-foreground"
+        style={{
+          fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+          fontSize: '1rem',
+        }}
+      >
+        · loading · cargando ·
+      </p>
     </div>
   </div>
 );
@@ -60,6 +76,29 @@ const SECTION_TITLES: Record<AdminSection, string> = {
   accessibility: 'Accessibility',
   settings: 'Content Ingestion',
   'lunar-calendar': 'Lunar Calendar',
+};
+
+/** Bilingual subtitle hints rendered in Caveat below each section title */
+const SECTION_SUBTITLES: Record<AdminSection, string> = {
+  control: 'panel de control',
+  production: 'panel de producción',
+  analytics: 'analítica',
+  beeducation: 'centro de aprendizaje',
+  'bee-basics': 'lo básico de las abejas',
+  'garden-basics': 'lo básico del huerto',
+  chat: 'gestión de chats',
+  brand: 'libro de marca',
+  design: 'sistema de diseño',
+  'audio-sound': 'audio y diseño sonoro',
+  'google-ecosystem': 'ecosistema Google',
+  technical: 'detalles técnicos',
+  'system-health': 'salud del sistema',
+  'edge-functions': 'funciones edge',
+  'voice-health': 'agentes de voz',
+  privacy: 'privacidad y RGPD',
+  accessibility: 'accesibilidad',
+  settings: 'ingesta de contenido',
+  'lunar-calendar': 'calendario lunar',
 };
 
 const AdminShell: React.FC = () => {
@@ -134,9 +173,31 @@ const AdminShell: React.FC = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             )}
-            <h1 className="text-lg font-semibold text-foreground truncate">
-              {SECTION_TITLES[activeSection]}
-            </h1>
+            <div className="flex flex-col min-w-0">
+              <h1
+                className="text-foreground truncate"
+                style={{
+                  fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                  fontSize: 'clamp(1.05rem, 2.4vw, 1.25rem)',
+                  fontWeight: 600,
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1.15,
+                }}
+              >
+                {SECTION_TITLES[activeSection]}
+              </h1>
+              <p
+                className="text-muted-foreground truncate hidden sm:block"
+                style={{
+                  fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                  fontSize: '0.95rem',
+                  lineHeight: 1,
+                  marginTop: 1,
+                }}
+              >
+                · {SECTION_SUBTITLES[activeSection]} ·
+              </p>
+            </div>
           </div>
 
           {/* Panel content */}
