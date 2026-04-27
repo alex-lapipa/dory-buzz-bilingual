@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { InteractiveLearningGames } from '@/components/InteractiveLearningGames';
 import { LearningProgressChart } from '@/components/LearningProgressChart';
 import { useGameScores } from '@/hooks/useGameScores';
+import "@/styles/mochi-tokens.css";
 
 interface BeeFact {
   id: string;
@@ -234,28 +235,107 @@ const LearningHub: React.FC = () => {
         path="/"
       />
       <div className="space-y-6">
-        {/* Header */}
-        <div className="text-center surface-glass has-grain px-6 py-8 sm:px-10 sm:py-12 max-w-3xl mx-auto">
-          <div className="flex justify-center mb-4">
-            <img 
-              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
-              alt="MochiBee Character"
-              className="w-16 h-16 rounded-full object-cover border-2 border-yellow-300 shadow-lg animate-bounce"
-            />
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-4 flex items-center justify-center gap-3">
-            <GraduationBee className="h-10 w-10 text-primary" />
+        {/* Header — editorial v2 */}
+        <header
+          className="max-w-3xl mx-auto text-center mochi-grain"
+          style={{
+            position: 'relative',
+            padding: 'clamp(36px, 6vw, 64px) clamp(24px, 4vw, 56px)',
+            background: 'hsl(45 60% 96% / .82)',
+            backdropFilter: 'blur(20px) saturate(1.2)',
+            WebkitBackdropFilter: 'blur(20px) saturate(1.2)',
+            borderRadius: 'var(--mochi-r-lg, 28px)',
+            border: '1px solid hsl(42 90% 97% / .6)',
+            boxShadow: 'var(--mochi-shadow-card, 0 10px 30px -8px hsl(25 28% 22% / .18))',
+            overflow: 'hidden',
+            color: 'hsl(30 25% 12%)',
+            fontFamily: 'var(--mochi-font-sans, "Saira", sans-serif)',
+          }}
+        >
+          {/* Honey drip top accent */}
+          <span aria-hidden style={{
+            position: 'absolute', top: 0, left: 28, right: 28, height: 4,
+            borderRadius: '0 0 8px 8px',
+            background: 'linear-gradient(90deg, hsl(40 92% 56%), hsl(48 100% 65%), hsl(40 92% 56%))',
+          }} />
+
+          <img
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt="Mochi the garden bee"
+            width={88}
+            height={88}
+            style={{
+              width: 88, height: 88, objectFit: 'contain',
+              margin: '0 auto 16px', display: 'block',
+              filter: 'drop-shadow(0 6px 14px hsl(30 25% 12% / .2))',
+              animation: 'mochi-hub-float 4.8s ease-in-out infinite',
+            }}
+          />
+
+          <span style={{
+            fontFamily: 'var(--mochi-font-script, "Caveat", cursive)',
+            fontSize: 22, fontWeight: 600,
+            color: 'hsl(35 78% 38%)',
+            display: 'inline-block', transform: 'rotate(-1.5deg)',
+            marginBottom: 4,
+          }}>
+            ¡Hola amig@s · Hello friends
+          </span>
+
+          <h1 style={{
+            fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+            fontWeight: 600,
+            fontSize: 'clamp(36px, 6vw, 64px)',
+            letterSpacing: '-.025em',
+            lineHeight: .96,
+            margin: '4px 0 12px',
+          }}>
             Beeducation
-            <SunflowerStar className="h-6 w-6 text-primary animate-flower-sway" />
+            <em style={{
+              display: 'block',
+              fontStyle: 'italic',
+              fontWeight: 400,
+              fontSize: '.42em',
+              color: 'hsl(35 78% 38%)',
+              marginTop: 6,
+              letterSpacing: '-.005em',
+            }}>
+              Centro de aprendizaje · Learning hub
+            </em>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover amazing facts about bees and gardening with AI-powered learning tools! 
-            Choose your learning adventure below.
+
+          <p style={{
+            fontSize: 'clamp(15px, 1.5vw, 17px)',
+            color: 'hsl(28 35% 28%)',
+            maxWidth: '46ch',
+            margin: '0 auto 8px',
+            lineHeight: 1.55,
+          }}>
+            Bees, pollination, gardens and seed-saving — at your own pace,
+            in your language. Pick a path or follow your curiosity.
           </p>
-          <div className="flex justify-center mt-4">
+          <p style={{
+            fontSize: 13.5, color: 'hsl(28 35% 28%)', opacity: .78,
+            maxWidth: '46ch', margin: '0 auto 18px', lineHeight: 1.5,
+          }}>
+            Abejas, polinización, huertos y semillas — a tu ritmo,
+            en tu idioma.
+          </p>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <SystemStatusBadge />
           </div>
-        </div>
+
+          <style>{`
+            @keyframes mochi-hub-float {
+              0%, 100% { transform: translateY(0) rotate(-1deg); }
+              50%      { transform: translateY(-6px) rotate(1.5deg); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              header img { animation: none !important; }
+            }
+          `}</style>
+        </header>
 
         {/* Progress Chart */}
         <ScrollReveal>
@@ -506,11 +586,25 @@ const LearningHub: React.FC = () => {
 
         {/* Progress Overview */}
         <ScrollReveal delay={100}>
-        <Card>
+        <Card style={{
+          background: 'hsl(45 60% 96% / .65)',
+          backdropFilter: 'blur(14px) saturate(1.1)',
+          WebkitBackdropFilter: 'blur(14px) saturate(1.1)',
+          border: '1px solid hsl(40 92% 56% / .15)',
+          borderRadius: 'var(--mochi-r-lg, 28px)',
+          boxShadow: 'var(--mochi-shadow-card, 0 10px 30px -8px hsl(25 28% 22% / .15))',
+        }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <HoneycombTrophy className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2" style={{
+              fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+              fontWeight: 600,
+              letterSpacing: '-.01em',
+            }}>
+              <HoneycombTrophy className="h-5 w-5" style={{ color: 'hsl(35 78% 38%)' }} />
               Your Learning Progress
+              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'hsl(35 78% 38%)', fontSize: '.7em', marginLeft: 8 }}>
+                Tu progreso
+              </em>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -640,11 +734,25 @@ const LearningHub: React.FC = () => {
 
         <ScrollReveal direction="up">
         {/* Fun Learning Tips */}
-        <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
+        <Card className="border-yellow-200" style={{
+          background: 'linear-gradient(135deg, hsl(45 92% 92% / .55), hsl(42 90% 97% / .82))',
+          backdropFilter: 'blur(14px) saturate(1.1)',
+          WebkitBackdropFilter: 'blur(14px) saturate(1.1)',
+          borderRadius: 'var(--mochi-r-lg, 28px)',
+          boxShadow: 'var(--mochi-shadow-card, 0 10px 30px -8px hsl(25 28% 22% / .15))',
+        }}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-yellow-800">
-              <Firefly className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-2" style={{
+              fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+              fontWeight: 600,
+              letterSpacing: '-.01em',
+              color: 'hsl(25 28% 22%)',
+            }}>
+              <Firefly className="h-5 w-5" style={{ color: 'hsl(35 78% 38%)' }} />
               Bee Learning Tips
+              <em style={{ fontStyle: 'italic', fontWeight: 400, color: 'hsl(35 78% 38%)', fontSize: '.7em', marginLeft: 8 }}>
+                Consejos
+              </em>
             </CardTitle>
           </CardHeader>
           <CardContent className="text-yellow-700">
