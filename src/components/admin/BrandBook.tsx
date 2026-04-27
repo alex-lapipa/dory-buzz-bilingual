@@ -98,7 +98,7 @@ export const BrandBook: React.FC = () => {
           <span className="text-5xl animate-flower-sway">🌻</span>
         </div>
         <p className="text-muted-foreground max-w-lg mx-auto">
-          The official brand identity guide for BeeCrazy Garden World — crafted by Mochi's Design Agent.
+          The official brand identity guide for Mochi de los Huertos Garden — crafted by Mochi's Design Agent.
         </p>
       </div>
 
