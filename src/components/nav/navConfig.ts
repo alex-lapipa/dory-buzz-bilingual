@@ -46,6 +46,19 @@ export const PRIMARY_NAV: NavItem[] = [
     labelEs: 'Beeducación',
     emoji: '🐝',
   },
+  {
+    /**
+     * Bespoke music page for the Miel de Montes / Toño tribute series.
+     * Adult audience. Designed in dialogue with techno.dog. Dark mono
+     * typography, lawn-green accents, archive layout. The 4 cuts on this
+     * page never appear in /kids-songs (they're filtered out there).
+     */
+    path: '/miel-de-montes',
+    labelEn: 'Miel de Montes',
+    labelEs: 'Miel de Montes',
+    descriptionEn: 'Indie-tronica tribute series for Toño',
+    descriptionEs: 'Serie tributo indie-tronica para Toño',
+  },
 ];
 
 /**

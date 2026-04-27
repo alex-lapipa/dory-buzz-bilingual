@@ -35,6 +35,7 @@ const KidsGames = lazy(() => import('./pages/kids/KidsGames'));
 const KidsSongs = lazy(() => import('./pages/kids/KidsSongs'));
 const StatusPage = lazy(() => import('./pages/StatusPage'));
 const BrandBook = lazy(() => import('./pages/BrandBook'));
+const MielDeMontes = lazy(() => import('./pages/MielDeMontes'));
 
 import { useAuth } from "@/contexts/AuthContext";
 import { GDPRConsentBanner } from "@/components/GDPRConsent";
@@ -192,6 +193,7 @@ const App = () => {
                         <Route path="/cookies" element={<PageTransition><Suspense fallback={<RouteLoader />}><CookiePolicy /></Suspense></PageTransition>} />
                         <Route path="/sitemap" element={<PageTransition><Suspense fallback={<RouteLoader />}><SitemapPage /></Suspense></PageTransition>} />
                         <Route path="/brand" element={<PageTransition><Suspense fallback={<RouteLoader />}><BrandBook /></Suspense></PageTransition>} />
+              <Route path="/miel-de-montes" element={<PageTransition><Suspense fallback={<RouteLoader />}><MielDeMontes /></Suspense></PageTransition>} />
                         <Route path="/status" element={<PageTransition><Suspense fallback={<RouteLoader />}><StatusPage /></Suspense></PageTransition>} />
                         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
                       </Routes>

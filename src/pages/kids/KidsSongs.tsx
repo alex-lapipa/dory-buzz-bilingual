@@ -26,7 +26,7 @@ const SONG_BASE = 'https://zrdywdregcrykmbiytvl.supabase.co/storage/v1/object/pu
  * are kept as aliases to vocalEnUrl so any external code referencing them
  * still works.
  */
-const SONGS = [
+export const SONGS = [
   {
     id: 'abc-bees',
     emoji: '🔤',
@@ -333,6 +333,19 @@ const SONGS = [
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-instrumental.mp3`,
   },
 ] as const;
+
+/**
+ * /kids-songs renders the kid-friendly catalogue only. The 4 Miel de Montes
+ * tribute tracks (an indie-tronica / industrial-techno series for adult
+ * audiences, written for Toño) live on a bespoke page at /miel-de-montes
+ * which also imports SONGS and filters for the same prefix. Exporting SONGS
+ * + filtering at render time means a single source-of-truth feeds both
+ * pages — when a Miel de Montes track is added or refined, it auto-shows
+ * on the music page without any plumbing changes.
+ */
+const KID_SONGS = SONGS.filter(
+  (s) => !s.id.startsWith('miel-de-montes')
+) as typeof SONGS;
 
 type PlayMode = 'vocal' | 'instrumental';
 type PlayState = { id: string; mode: PlayMode } | null;
@@ -662,7 +675,7 @@ const KidsSongs: React.FC = () => {
 
         {/* Song cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {SONGS.map((song, idx) => {
+          {KID_SONGS.map((song, idx) => {
             const vocalUrl = resolveVocalUrl(song);
             const instrumentalUrl = (song as { instrumentalUrl?: string }).instrumentalUrl;
             const hasVocal = Boolean(vocalUrl);
