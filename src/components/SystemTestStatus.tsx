@@ -229,7 +229,7 @@ export const SystemTestStatus: React.FC = () => {
                 System Status & Testing
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
-                End-to-end functionality testing for BeeCrazy Garden World MVP
+                End-to-end functionality testing for Mochi de los Huertos
               </p>
             </div>
             <div className="flex gap-2">

@@ -29,8 +29,8 @@ export const WelcomeEmail = ({
       <Head />
       <Preview>
         {isSpanish 
-          ? '¡Bienvenido al Mundo Jardín BeeCrazy!' 
-          : 'Welcome to BeeCrazy Garden World!'
+          ? '¡Bienvenid@ a Mochi de los Huertos!' 
+          : 'Welcome to Mochi de los Huertos!'
         }
       </Preview>
       <Body style={main}>
@@ -45,8 +45,8 @@ export const WelcomeEmail = ({
           <Section style={content}>
             <Text style={text}>
               {isSpanish 
-                ? `¡Hola y bienvenido al maravilloso mundo de BeeCrazy Garden World!`
-                : `Hello and welcome to the wonderful world of BeeCrazy Garden World!`
+                ? `¡Hola y bienvenid@ al huerto de Mochi! ¡Empezamos!`
+                : `Hello and welcome to Mochi's garden! Let's get started.`
               }
             </Text>
             
@@ -97,7 +97,7 @@ export const WelcomeEmail = ({
               }
             </Text>
             <Text style={footerText}>
-              🐝 {isSpanish ? 'El Equipo de BeeCrazy Garden World' : 'The BeeCrazy Garden World Team'}
+              🐝 {isSpanish ? 'El equipo de Mochi de los Huertos' : 'The Mochi de los Huertos team'}
             </Text>
           </Section>
         </Container>

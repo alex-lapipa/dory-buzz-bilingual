@@ -395,7 +395,7 @@ serve(async (req) => {
         .map(r => `Fix ${r.service}: ${r.error || 'Unknown error'}`)
     };
 
-    console.log('BeeCrazy Garden World Comprehensive Health Check:', summary);
+    console.log('Mochi de los Huertos · Comprehensive Health Check:', summary);
 
     return new Response(JSON.stringify(summary), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

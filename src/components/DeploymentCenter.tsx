@@ -133,7 +133,7 @@ const DeploymentCenter: React.FC = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Rocket className="h-6 w-6 text-primary" />
-            BeeCrazy Garden World - Deployment Center
+            Mochi de los Huertos · Deployment Center
             <Badge variant={deploymentStatus?.success ? "default" : "secondary"}>
               {selectedEnvironment.toUpperCase()}
             </Badge>

@@ -164,7 +164,7 @@ const ProductionDashboard: React.FC = () => {
             Production Dashboard
           </h1>
           <p className="text-muted-foreground">
-            Live status and deployment controls for BeeCrazy Garden World
+            Live status and deployment controls for Mochi de los Huertos
           </p>
         </div>
         

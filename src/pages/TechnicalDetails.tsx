@@ -31,7 +31,7 @@ const TechnicalDetails: React.FC = () => {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="text-4xl animate-bee-bounce">🐝</span>
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-yellow-600 via-green-600 to-blue-600 bg-clip-text text-transparent">
-              BeeCrazy Garden World
+              Mochi de los Huertos
             </h1>
             <span className="text-4xl animate-flower-sway">🌻</span>
           </div>
@@ -57,12 +57,12 @@ const TechnicalDetails: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="h-6 w-6 text-primary" />
-              About BeeCrazy Garden World
+              About Mochi de los Huertos
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-lg leading-relaxed">
-              BeeCrazy Garden World represents a groundbreaking fusion of artificial intelligence and nature education, 
+              Mochi de los Huertos represents a groundbreaking fusion of artificial intelligence and nature education, 
               designed to create an immersive learning experience for families and garden enthusiasts worldwide.
             </p>
             
@@ -288,7 +288,7 @@ const TechnicalDetails: React.FC = () => {
           <CardContent>
             <div className="space-y-6">
               <p className="text-purple-700 leading-relaxed">
-                BeeCrazy Garden World integrates cutting-edge AI capabilities to provide an unparalleled 
+                Mochi de los Huertos integrates cutting-edge AI capabilities to provide an unparalleled 
                 educational experience. Our advanced features leverage multiple AI platforms working in harmony.
               </p>
               

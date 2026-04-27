@@ -49,7 +49,7 @@ const MasterControlPanel: React.FC = () => {
   const exportConfiguration = () => {
     const config = {
       timestamp: new Date().toISOString(),
-      project: 'BeeCrazy Garden World',
+      project: 'Mochi de los Huertos',
       environment: 'production',
       services: [
         'OpenAI GPT-4.1-2025-04-14',
@@ -102,7 +102,7 @@ const MasterControlPanel: React.FC = () => {
                 <Rocket className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">BeeCrazy Garden World</h1>
+                <h1 className="text-2xl font-bold">Mochi de los Huertos</h1>
                 <p className="text-sm text-muted-foreground">Production Control Center</p>
               </div>
             </div>

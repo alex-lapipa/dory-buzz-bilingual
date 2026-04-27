@@ -24,7 +24,7 @@ import "@/styles/mochi-tokens.css";
  *   - Brand statement + Mochi mark up top
  *   - Fraunces column headers, Saira body
  *   - Honey-coloured hover for links
- *   - "Mochi de los Huertos · LA PIPA IS LA PIPA" replaces BeeCrazy in copyright
+ *   - "Mochi de los Huertos · LA PIPA IS LA PIPA" wordmark in copyright
  *   - Tighter spacing on mobile
  */
 

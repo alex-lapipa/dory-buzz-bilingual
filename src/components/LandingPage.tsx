@@ -12,7 +12,7 @@ import "@/styles/mochi-tokens.css";
  * (LanguageWelcome → OnboardingFlow → LearningHub) unaffected.
  *
  * What changes for first-time visitors:
- *   - HeroEditorial replaces the small inline "BeeCrazy" header
+ *   - HeroEditorial provides the editorial-style hero header
  *   - Three HoneyCard features replace the icon+text grid
  *   - Honeycomb-paper backdrop replaces the flat gradient
  *   - Bilingual handwritten subtitles on every card
