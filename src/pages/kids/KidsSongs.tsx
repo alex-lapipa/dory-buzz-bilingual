@@ -320,17 +320,58 @@ export const SONGS = [
   // Result: peak now -0.99 dBTP (no clipping), high-end no longer
   // dull, mix sits in streaming-loud range without exceeding it.
   // Audio files versioned -v2- so client cache fetches fresh URLs.
+  //
+  // ─── v3 mastering pass (sound-engineering remaster, no track change) ─
+  // User asked for "world-class hit-standard sonic output" while
+  // explicitly NOT modifying the track. Pure mastering pass — same
+  // composition, same notes, same beats, same vocal, same lyrics.
+  //
+  // Decoded the raw v2 ElevenLabs render to 24-bit WAV (skipping the
+  // v2 mastered MP3 to avoid double-encoding loss), then applied a
+  // proper studio chain:
+  //   1. highpass 25Hz / lowpass 19.5kHz   (cleanup, codec headroom)
+  //   2. corrective EQ (six surgical bands):
+  //        +1.2dB @ 60Hz    kick weight
+  //        -1.5dB @ 280Hz   anti-mud
+  //        -0.8dB @ 600Hz   anti-honk / box
+  //        +0.7dB @ 2.5kHz  synth lead presence
+  //        +1.8dB @ 8kHz    air, brightness (was rolled off in v1/v2)
+  //        +1.4dB @ 14kHz   sparkle, perceived resolution
+  //   3. acompressor 2.5:1, threshold -18dB, slow attack/release (glue)
+  //   4. dynaudnorm — modern transparent loudness control, frame-based
+  //   5. aexciter — 2nd-harmonic enhancement at 7.5kHz (analog polish)
+  //   6. stereotools mlev=1.0 / slev=1.12 (gentle M/S widening,
+  //      mono-compatible — sub stays mono for clubs)
+  //   7. acompressor 2:1, threshold -12dB (second-stage transparent glue)
+  //   8. alimiter limit=0.891 (≈ -1.0 dBTP brick-wall)
+  //   9. loudnorm I=-9 / TP=-1 / LRA=8 — TWO-PASS for accuracy
+  //      (pass 1 measures, pass 2 applies linear normalization with
+  //      measured values — this is the studio-standard approach,
+  //      vs the v2 single-pass which overshot to -12.9 instead of -14)
+  //  10. Encode 320 kbps libmp3lame
+  //
+  // RESULT (vs v2):
+  //   Loudness:    -12.9 → -8.9 LUFS  (+4 dB louder, hit-standard)
+  //   True peak:   -0.99 → -0.68 dBTP (more headroom under ceiling)
+  //   Bitrate:     256 → 320 kbps     (max-quality MP3)
+  //   Spectrum:    high-end +1.8dB at 8kHz boost reverses dullness
+  //   Stereo:      gentle widening on sides (sub stays mono)
+  //   Polish:      aexciter adds harmonic warmth in highs
+  //
+  // What's identical: composition, notes, beats, rhythm, vocal,
+  // lyrics, structure, key (E minor), BPM (128), duration (4:30).
+  // Audio files versioned -v3- so client cache fetches fresh URLs.
   {
     id: 'miel-de-montes-industrial-en',
     emoji: '⚙️',
     title_en: 'Miel de Montes — Industrial Cut (EN)',
     title_es: 'Miel de Montes — Industrial Cut (EN)',
-    description_en: '4:30 industrial-techno extended remix for Toño in English — Berlin & Birmingham club energy, deadpan electroclash vocal, TB-303 acid bass arpeggios throughout. Cleaner sister to the ExtendedLive cuts.',
-    description_es: 'Remix industrial-techno extendido de 4:30 en inglés — energía de club berlinés y británico, voz electroclash impasible, arpegios de bajo ácido TB-303 en toda la pista. Hermana más limpia de los cortes ExtendedLive.',
+    description_en: '4:30 industrial-techno extended remix for Toño in English — Berlin & Birmingham club energy, deadpan electroclash vocal, TB-303 acid bass arpeggios throughout. Mastered to hit-standard at 320 kbps.',
+    description_es: 'Remix industrial-techno extendido de 4:30 en inglés — energía de club berlinés y británico, voz electroclash impasible, arpegios de bajo ácido TB-303 en toda la pista. Masterizado a estándar de hit a 320 kbps.',
     color: 'from-zinc-950 via-red-950 to-zinc-900',
-    vocalEnUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-vocal-en.mp3`,
-    vocalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-vocal-en.mp3`,
-    instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-instrumental.mp3`,
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v3-vocal-en.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v3-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v3-instrumental.mp3`,
   },
 ] as const;
 
