@@ -523,8 +523,8 @@ const KidsSongs: React.FC = () => {
   return (
     <>
       <PageSEO
-        titleEn="Kids Songs - Sing Along with Mochi! | MochiBee"
-        titleEs="Canciones para Niños - ¡Canta con Mochi! | MochiBee"
+        titleEn="Kids Songs - Sing Along with Mochi! | Mochi de los Huertos"
+        titleEs="Canciones para Niños - ¡Canta con Mochi! | Mochi de los Huertos"
         descriptionEn="Fun songs for kids 3-6 in pure English and pure Spanish. Listen with Mochi or sing along to the instrumental versions!"
         descriptionEs="Canciones para niños de 3-6 años en español e inglés puros. ¡Escucha con Mochi o canta tú con la versión instrumental!"
         path="/kids-songs"
