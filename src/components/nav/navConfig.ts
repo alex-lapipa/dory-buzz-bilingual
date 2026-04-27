@@ -62,8 +62,8 @@ export const DISCOVER_SECTIONS: NavSection[] = [
         labelEn: 'Songs',
         labelEs: 'Canciones',
         emoji: '🎶',
-        descriptionEn: '13 bilingual sing-along songs',
-        descriptionEs: '13 canciones bilingües para cantar',
+        descriptionEn: '14 bilingual sing-along songs',
+        descriptionEs: '14 canciones bilingües para cantar',
       },
       {
         path: '/kids-stories',

@@ -1006,4 +1006,160 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       },
     ],
   },
+  // ─── Round 18: Miel de Montes — ExtendedLive (festival mix) ──────────
+  // 4:10 festival-anthem remix. Lyrics are 100% verbatim from the
+  // original Miel de Montes — extension is structural: a Reprise of
+  // the Final Chorus and an Outro chant. The Drop, Build-up, Long
+  // Intro and Mid-instrumental Break are pure instrumental sections
+  // (no lyrics shown for them in the panel).
+  'miel-de-montes-extended': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          'In the hills of the Bierzo where the heather grows tall',
+          'Mochi found new friends, oh she tells us all',
+          'Toño with his hives by the clean mountain stream',
+          'Making honey real and pure, like a sweet old dream',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bee, dance in the warmth of the sun',
+          'A family doing this with love, every one',
+          'Honey of the mountains made with such care',
+          'We save the forests, the flowers, the pure earth there!',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Since nineteen seventy-one, with caring hands',
+          'No fumes, no rush — the bees trust where she stands',
+          'Gravity carries the gold to the glass',
+          'The bees are pure magic, Toño leads the class',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bee, dance in the warmth of the sun',
+          'A family doing this with love, every one',
+          'Honey of the mountains made with such care',
+          'We save the forests, the flowers, the pure earth there!',
+        ],
+      },
+      {
+        name: 'Bridge',
+        lines: [
+          'When small families love the bees this way',
+          'Forests, trees and flowers bloom, no delay',
+          'Big factories rush — the slow, the kind, the true',
+          'They save our planet with everything they do!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          'Dance, little bee, dance in the warmth of the sun',
+          'A family doing this with love, every one',
+          'Thank you, Toño, dear friend of Mochi\'s heart',
+          'Miel de Montes — this is our song!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          '(reprise — full crowd, claps on the offbeat)',
+          'Dance, little bee, dance in the warmth of the sun',
+          'A family doing this with love, every one',
+          'Thank you, Toño — Miel de Montes!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          '¡Toño! ¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes... Miel de Montes...',
+          '¡Toño! ¡Toño!',
+          'Miel de Montes',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          'En las montañas del Bierzo, donde el brezo florece',
+          '¡Mochi encontró amigos, cuánto se merece!',
+          'Toño cuida sus colmenas junto al claro arroyo',
+          'Hace miel como debe, con cariño y con arrojo',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          '¡Baila, abejita, baila con calor!',
+          'Esta familia lo hace con amor',
+          'Miel de los montes hecha con dulzura',
+          '¡Salvamos los bosques, las flores, la tierra pura!',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Desde el setenta y uno, con manos que cuidan',
+          'Sin bombas, sin prisa, las abejas confían',
+          'Por gravedad cae el oro al cristal',
+          '¡Las abejas son magia, Toño es genial!',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          '¡Baila, abejita, baila con calor!',
+          'Esta familia lo hace con amor',
+          'Miel de los montes hecha con dulzura',
+          '¡Salvamos los bosques, las flores, la tierra pura!',
+        ],
+      },
+      {
+        name: 'Bridge',
+        lines: [
+          'Cuando familias pequeñas aman a las abejas',
+          'Bosques, árboles y flores florecen sin quejas',
+          'Las grandes fábricas corren — los buenos y los lentos',
+          '¡Salvan nuestro planeta con todos sus talentos!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          '¡Baila, abejita, baila bajo el sol!',
+          'Esta familia lo hace con amor',
+          '¡Gracias, querido Toño, amigo de corazón!',
+          '¡Miel de Montes — esta es nuestra canción!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          '(reprise — coro completo, palmas en el contratiempo)',
+          '¡Baila, abejita, baila bajo el sol!',
+          'Esta familia lo hace con amor',
+          '¡Gracias, querido Toño — Miel de Montes!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          '¡Toño! ¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes... Miel de Montes...',
+          '¡Toño! ¡Toño!',
+          'Miel de Montes',
+        ],
+      },
+    ],
+  },
 };

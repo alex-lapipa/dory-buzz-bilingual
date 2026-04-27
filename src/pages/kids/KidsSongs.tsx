@@ -222,6 +222,27 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/miel-de-montes-v3-vocal-en.mp3`,
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-v3-instrumental.mp3`,
   },
+  // ─── Round 18: Miel de Montes — ExtendedLive ──────────────────────────
+  // 4:10 festival-anthem extended remix of the original Miel de Montes
+  // song. Spanish-only. Same lyrics, extended via new instrumental
+  // sections: long synth intro (30s), dancefloor drop at 2:04 (50s),
+  // build-up, final chorus reprise, and outro chant. Layered electronic
+  // production (Moog Sub 37 bass + lead, 4-on-the-floor kick, side-
+  // chained pads, festival hand claps) sits on top of the folk DNA
+  // (acoustic guitar, mandolin, violin, cajón). Key of G major, 124
+  // BPM, 250 seconds (4:10). Made for Festival Tomate-style settings.
+  {
+    id: 'miel-de-montes-extended',
+    emoji: '🎛️',
+    title_en: 'Miel de Montes — Extended Live (ES)',
+    title_es: 'Miel de Montes — ExtendedLive',
+    description_en: '4-minute festival-anthem remix of the song for Toño — Moog synths, dancefloor drop, full crowd energy.',
+    description_es: 'Remix de 4 minutos al estilo himno festivalero — sintes Moog, drop bailable, energía de público.',
+    color: 'from-purple-500 via-fuchsia-500 to-cyan-400',
+    vocalEsUrl: `${SONG_BASE}/miel-de-montes-extended-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-extended-vocal-es.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-instrumental.mp3`,
+  },
 ] as const;
 
 type PlayMode = 'vocal' | 'instrumental';
