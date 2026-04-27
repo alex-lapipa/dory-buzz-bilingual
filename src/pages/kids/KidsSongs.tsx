@@ -277,7 +277,7 @@ const SONGS = [
   // ─── Round 20: Miel de Montes — Industrial Cut (EN) ──────────────────
   // 4:30 industrial-techno extended remix in English, built on the same
   // E minor / 128 BPM bones as the v3 original and the previous
-  // ExtendedLive cuts, but pushed into Berlin-club / industrial-techno
+  // ExtendedLive cuts, but pushed into Berlin / Birmingham UK club
   // territory. Inspirations distilled into descriptors (no artist
   // names — ElevenLabs blocks those):
   //   - Krautrock motorik 4/4 hypnotic sequenced precision (Kraftwerk)
@@ -286,30 +286,51 @@ const SONGS = [
   //     "Turbo Lover")
   //   - Minimal techno hypnotic acid sub-bass loops, resonant filter
   //     sweeps (Plastikman / Richie Hawtin)
-  //   - Industrial darkness with distorted abrasive layered textures
-  //     (Trent Reznor / NIN)
+  //   - Hard-driving Birmingham UK industrial techno with hypnotic
+  //     loop-based structure and tribal-techno percussion (Surgeon /
+  //     Anthony Child)
   //   - Experimental industrial techno with precision metallic
   //     percussion (Kangding Ray)
   //   - Berlin dark electro-techno late-night club (Ellen Allien)
   //   - Deadpan female English vocal electroclash sensibility, cool
   //     detached spoken-leaning delivery (Miss Kittin)
-  // 11 sections totaling 270s. Acid bass synth runs THROUGHOUT (not just
-  // second half — the Plastikman/Hawtin half of the brief asked for
-  // hypnotic acid loops as a backbone). Outro chant stays in Spanish:
-  // "Toño" and "Miel de Montes" are proper nouns. Spanish version of
-  // this cut is planned for later (per the user'\''s "create english
-  // version first" instruction).
+  // 11 sections totaling 270s. TB-303-style acid bass arpeggios as the
+  // primary background texture throughout — replaces the v1 cut's
+  // distorted noise sweeps with cleaner acid techno textures. Outro
+  // chant stays in Spanish: "Toño" and "Miel de Montes" are proper
+  // nouns. Spanish version of this cut is planned for later (per the
+  // user's "create english version first" instruction).
+  //
+  // ─── v2 update (this cut) ─────────────────────────────────────────
+  // Audited v1 audio: it was clipping (true peak +0.06 dBFS), too hot
+  // (-11.46 LUFS vs -14 LUFS streaming standard), high-end rolled off
+  // (-34.4 dB at 6-16kHz), 128 kbps, dynamics squashed (LRA 6.30 LU).
+  // The "distortion-noise background" was largely the clipping itself.
+  // v2 fixes:
+  //   - Composition prompt: Trent Reznor descriptors removed; Surgeon
+  //     descriptors added; all "distorted noise sweeps" / "abrasive
+  //     distortion" replaced with "TB-303 style acid bass arpeggios"
+  //     and "acid techno filter sweeps" everywhere; explicit "clean
+  //     professional mix" / "well-balanced" cues throughout.
+  //   - Mastering chain (ffmpeg): high-pass at 30Hz (sub-rumble),
+  //     gentle -1 dB scoop at 300Hz (anti-mud), high-shelf +1.5 dB
+  //     at 10kHz (air), 2:1 compression with slow attack/release
+  //     (glue, not squash), loudnorm to -14 LUFS / -1 dBTP ceiling.
+  //   - Output bitrate: 128 → 256 kbps (file size 4.32 → 8.65 MB).
+  // Result: peak now -0.99 dBTP (no clipping), high-end no longer
+  // dull, mix sits in streaming-loud range without exceeding it.
+  // Audio files versioned -v2- so client cache fetches fresh URLs.
   {
     id: 'miel-de-montes-industrial-en',
     emoji: '⚙️',
     title_en: 'Miel de Montes — Industrial Cut (EN)',
     title_es: 'Miel de Montes — Industrial Cut (EN)',
-    description_en: '4:30 industrial-techno extended remix for Toño in English — Berlin club energy, deadpan electroclash vocal, acid bass throughout, industrial textures and distortion. Darker sister to the ExtendedLive cuts.',
-    description_es: 'Remix industrial-techno extendido de 4:30 en inglés — energía de club berlinés, voz electroclash impasible, bajo ácido en toda la pista, texturas industriales y distorsión. Hermana oscura de los cortes ExtendedLive.',
+    description_en: '4:30 industrial-techno extended remix for Toño in English — Berlin & Birmingham club energy, deadpan electroclash vocal, TB-303 acid bass arpeggios throughout. Cleaner sister to the ExtendedLive cuts.',
+    description_es: 'Remix industrial-techno extendido de 4:30 en inglés — energía de club berlinés y británico, voz electroclash impasible, arpegios de bajo ácido TB-303 en toda la pista. Hermana más limpia de los cortes ExtendedLive.',
     color: 'from-zinc-950 via-red-950 to-zinc-900',
-    vocalEnUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-vocal-en.mp3`,
-    vocalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-vocal-en.mp3`,
-    instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-instrumental.mp3`,
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-vocal-en.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v2-instrumental.mp3`,
   },
 ] as const;
 
