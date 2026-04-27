@@ -1254,7 +1254,7 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '(versión en inglés — letras originales de Miel de Montes)',
+          '(versión en inglés — letras originales de Alex Lawton)',
           'In the hills of the Bierzo where the heather grows tall',
           'Mochi found new friends, oh she tells us all',
           'Toño with his hives by the clean mountain stream',
@@ -1414,7 +1414,7 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Verse 1',
         lines: [
-          '(versión industrial en inglés — letras originales de Miel de Montes)',
+          '(versión industrial en inglés — letras originales de Alex Lawton)',
           'In the hills of the Bierzo where the heather grows tall',
           'Mochi found new friends, oh she tells us all',
           'Toño with his hives by the clean mountain stream',

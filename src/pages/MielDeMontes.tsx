@@ -259,17 +259,36 @@ const MielDeMontes: React.FC = () => {
             { k: 'BPM', v: '128 — 132' },
             { k: 'GENRE', v: 'INDIE-TRONICA → INDUSTRIAL' },
             { k: 'ORIGIN', v: 'BIERZO · ASTURIAS · BERLIN' },
+            { k: 'COMPOSED BY', v: 'ALEX LAWTON', href: 'https://alexlawton.io' },
           ].map((cell) => (
             <div key={cell.k} style={{ background: surface, padding: '14px 16px' }}>
               <div style={{ fontSize: 10, letterSpacing: '0.18em', color: textMuted }}>
                 {cell.k}
               </div>
-              <div style={{
-                fontSize: 13, letterSpacing: '0.04em', color: textPrimary,
-                marginTop: 4, fontWeight: 500,
-              }}>
-                {cell.v}
-              </div>
+              {cell.href ? (
+                <a
+                  href={cell.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-block',
+                    fontSize: 13, letterSpacing: '0.04em', color: accent,
+                    marginTop: 4, fontWeight: 500,
+                    textDecoration: 'none',
+                    borderBottom: `1px dashed ${accent}`,
+                    paddingBottom: 1,
+                  }}
+                >
+                  {cell.v}
+                </a>
+              ) : (
+                <div style={{
+                  fontSize: 13, letterSpacing: '0.04em', color: textPrimary,
+                  marginTop: 4, fontWeight: 500,
+                }}>
+                  {cell.v}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -594,6 +613,25 @@ const MielDeMontes: React.FC = () => {
           <div style={{ color: textPrimary }}>MOCHI DE LOS HUERTOS / MIEL DE MONTES / 2026</div>
           <div style={{ fontSize: 10, color: textMuted, marginTop: 6, letterSpacing: '0.06em', textTransform: 'none' }}>
             Tribute series. For Toño and the bees of Bierzo.
+          </div>
+        </div>
+        <div>
+          <div style={{ color: accent, marginBottom: 8 }}>↗ COMPOSED BY</div>
+          <a
+            href="https://alexlawton.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: textPrimary, textDecoration: 'none',
+              borderBottom: `1px dashed ${textMuted}`, paddingBottom: 1,
+            }}
+          >
+            ALEX LAWTON
+          </a>
+          <div style={{ fontSize: 10, color: textMuted, marginTop: 6, letterSpacing: '0.06em', textTransform: 'none' }}>
+            {language === 'es'
+              ? 'Banda sonora original y letras. alexlawton.io'
+              : 'Original soundtrack and lyrics. alexlawton.io'}
           </div>
         </div>
       </footer>
