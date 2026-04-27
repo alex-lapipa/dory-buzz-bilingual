@@ -274,6 +274,43 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/miel-de-montes-extended-en-v1-vocal-en.mp3`,
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-en-v1-instrumental.mp3`,
   },
+  // ─── Round 20: Miel de Montes — Industrial Cut (EN) ──────────────────
+  // 4:30 industrial-techno extended remix in English, built on the same
+  // E minor / 128 BPM bones as the v3 original and the previous
+  // ExtendedLive cuts, but pushed into Berlin-club / industrial-techno
+  // territory. Inspirations distilled into descriptors (no artist
+  // names — ElevenLabs blocks those):
+  //   - Krautrock motorik 4/4 hypnotic sequenced precision (Kraftwerk)
+  //   - Spanish punk-rock grit and intensity (Extremoduro)
+  //   - 80s synth-rock lead with edgy tone, driving energy (Judas Priest
+  //     "Turbo Lover")
+  //   - Minimal techno hypnotic acid sub-bass loops, resonant filter
+  //     sweeps (Plastikman / Richie Hawtin)
+  //   - Industrial darkness with distorted abrasive layered textures
+  //     (Trent Reznor / NIN)
+  //   - Experimental industrial techno with precision metallic
+  //     percussion (Kangding Ray)
+  //   - Berlin dark electro-techno late-night club (Ellen Allien)
+  //   - Deadpan female English vocal electroclash sensibility, cool
+  //     detached spoken-leaning delivery (Miss Kittin)
+  // 11 sections totaling 270s. Acid bass synth runs THROUGHOUT (not just
+  // second half — the Plastikman/Hawtin half of the brief asked for
+  // hypnotic acid loops as a backbone). Outro chant stays in Spanish:
+  // "Toño" and "Miel de Montes" are proper nouns. Spanish version of
+  // this cut is planned for later (per the user'\''s "create english
+  // version first" instruction).
+  {
+    id: 'miel-de-montes-industrial-en',
+    emoji: '⚙️',
+    title_en: 'Miel de Montes — Industrial Cut (EN)',
+    title_es: 'Miel de Montes — Industrial Cut (EN)',
+    description_en: '4:30 industrial-techno extended remix for Toño in English — Berlin club energy, deadpan electroclash vocal, acid bass throughout, industrial textures and distortion. Darker sister to the ExtendedLive cuts.',
+    description_es: 'Remix industrial-techno extendido de 4:30 en inglés — energía de club berlinés, voz electroclash impasible, bajo ácido en toda la pista, texturas industriales y distorsión. Hermana oscura de los cortes ExtendedLive.',
+    color: 'from-zinc-950 via-red-950 to-zinc-900',
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-vocal-en.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-industrial-en-v1-instrumental.mp3`,
+  },
 ] as const;
 
 type PlayMode = 'vocal' | 'instrumental';
@@ -486,8 +523,8 @@ const KidsSongs: React.FC = () => {
   return (
     <>
       <PageSEO
-        titleEn="Kids Songs - Sing Along with Mochi! | Mochi de los Huertos"
-        titleEs="Canciones para Niños - ¡Canta con Mochi! | Mochi de los Huertos"
+        titleEn="Kids Songs - Sing Along with Mochi! | MochiBee"
+        titleEs="Canciones para Niños - ¡Canta con Mochi! | MochiBee"
         descriptionEn="Fun songs for kids 3-6 in pure English and pure Spanish. Listen with Mochi or sing along to the instrumental versions!"
         descriptionEs="Canciones para niños de 3-6 años en español e inglés puros. ¡Escucha con Mochi o canta tú con la versión instrumental!"
         path="/kids-songs"
