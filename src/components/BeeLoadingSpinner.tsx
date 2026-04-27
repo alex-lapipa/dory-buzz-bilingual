@@ -19,7 +19,7 @@ export const BeeLoadingSpinner: React.FC<BeeLoadingSpinnerProps> = ({
     <div className="flex flex-col items-center justify-center gap-mobile-md">
       <div className="relative">
         <img 
-          src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png" 
+          src="/lovable-uploads/mochi-clean-200.webp" 
           alt="Mochi the Bee Loading" 
           className={`${sizeClasses[size]} animate-pulse filter drop-shadow-lg`}
         />

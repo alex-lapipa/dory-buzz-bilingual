@@ -24,7 +24,7 @@ const Index = () => {
         <div className="text-center space-y-mobile-lg mb-mobile-2xl">
           <div className="flex items-center justify-center gap-mobile-md">
             <img 
-              src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png" 
+              src="/lovable-uploads/mochi-clean-800.webp" 
               alt="Mochi the Bee" 
               className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 animate-bee-bounce filter drop-shadow-lg"
             />

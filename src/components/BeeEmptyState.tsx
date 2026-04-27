@@ -18,7 +18,7 @@ export const BeeEmptyState: React.FC<BeeEmptyStateProps> = ({
     <div className="flex flex-col items-center justify-center text-center space-y-mobile-lg py-mobile-3xl">
       <div className="relative">
         <img 
-          src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png" 
+          src="/lovable-uploads/mochi-clean-200.webp" 
           alt="Mochi the Bee" 
           className="w-20 h-20 md:w-24 md:h-24 animate-bee-bounce filter drop-shadow-lg"
         />

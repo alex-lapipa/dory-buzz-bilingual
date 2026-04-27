@@ -118,7 +118,7 @@ export const BrandBook: React.FC = () => {
               <span className="text-xs text-muted-foreground">Min size: 24×24px</span>
             </div>
             <div className="flex flex-col items-center gap-3 p-4 rounded-lg border border-border">
-              <img src="/lovable-uploads/220a09ac-6570-4d48-b70b-5ba2fc26e5cf.png" alt="Mochi the Bee" className="h-16 w-16" />
+              <img src="/lovable-uploads/mochi-clean-400.webp" alt="Mochi the Bee" className="h-16 w-16" />
               <span className="text-sm font-medium">Mochi Mascot</span>
               <span className="text-xs text-muted-foreground">Use with drop-shadow</span>
             </div>
