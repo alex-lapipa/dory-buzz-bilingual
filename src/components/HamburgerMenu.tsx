@@ -11,6 +11,7 @@ import { useActiveRoute } from '@/hooks/useActiveRoute';
 import { DISCOVER_SECTIONS } from './nav/navConfig';
 import { FollowMochiModal } from './FollowMochiModal';
 import { ShareButtons } from './ShareButtons';
+import "@/styles/mochi-tokens.css";
 
 interface HamburgerMenuProps {
   onTabSelect?: (tab: string) => void;
@@ -45,8 +46,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
                 <BeeFace className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold truncate">{user.email}</p>
-                <p className="text-xs text-muted-foreground">{t('welcome') || 'Welcome back'}</p>
+                <p className="text-sm font-semibold truncate" style={{fontFamily: "var(--mochi-font-display, 'Fraunces', serif)"}}>{user.email}</p>
+                <p className="text-xs text-muted-foreground" style={{fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)", fontSize: '0.95rem'}}>{language === 'es' ? '¡bienvenid@ de vuelta · welcome back!' : (t('welcome') || 'welcome back · ¡bienvenid@!')}</p>
               </div>
             </div>
           )}
@@ -162,11 +163,16 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ onTabSelect }) => 
             )}
           </div>
 
-          {/* About */}
+          {/* About — editorial v2 */}
           <div className="pt-2 border-t border-border/30 text-center">
             <div className="text-3xl mb-2 animate-flower-sway">🌻</div>
-            <p className="text-xs text-muted-foreground font-normal">
-              {t('mochiDescription') || 'Your friendly bee from Mochi de los Huertos!'}
+            <p className="text-muted-foreground" style={{fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)", fontSize: '1.05rem', lineHeight: 1.3}}>
+              {language === 'es'
+                ? '· tu abeja del huerto ·'
+                : '· your friendly garden bee ·'}
+            </p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1 tracking-wider uppercase" style={{letterSpacing: '0.15em'}}>
+              Mochi de los Huertos
             </p>
           </div>
         </div>

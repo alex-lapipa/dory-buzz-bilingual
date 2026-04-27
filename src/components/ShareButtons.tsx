@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ShareBlossom, InstagramFlower, VideoFlower, CodeVine, TwoLeaves, ButterflyLink } from '@/components/icons';
+import "@/styles/mochi-tokens.css";
 
 interface ShareButtonsProps {
   className?: string;
@@ -18,7 +19,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
   const appUrl = window.location.origin;
   const embedCode = `<iframe src="${appUrl}?embed=true" width="400" height="600" frameborder="0" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"></iframe>`;
   
-  const shareText = "🐝✨ Meet Mochi! Chat with our garden bee from Mochi de los Huertos - perfect for families learning about nature! 🌻";
+  const shareText = "🐝✨ Meet Mochi · conoce a Mochi · the garden bee from Mochi de los Huertos. Bilingual nature & permaculture for families! 🌻";
   
   const copyToClipboard = async (text: string, type: string) => {
     try {
@@ -66,17 +67,40 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
       
       <DialogContent className="max-w-[95vw] sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-center justify-center">
-            <span className="text-xl animate-bee-bounce">🐝</span>
-            Share Mochi de los Huertos!
-            <span className="text-xl animate-flower-sway">🌻</span>
+          <DialogTitle asChild>
+            <div className="text-center space-y-1">
+              <div className="flex items-center gap-2 justify-center">
+                <span className="text-xl animate-bee-bounce" aria-hidden>🐝</span>
+                <span
+                  style={{
+                    fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                    fontSize: '1.35rem',
+                    fontWeight: 600,
+                    letterSpacing: '-0.01em',
+                    color: 'hsl(28 35% 18%)',
+                  }}
+                >
+                  Share Mochi
+                </span>
+                <span className="text-xl animate-flower-sway" aria-hidden>🌻</span>
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                  fontSize: '1.05rem',
+                  color: 'hsl(28 35% 28%)',
+                }}
+              >
+                · comparte con tus amig@s ·
+              </p>
+            </div>
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           {/* Social Media Buttons */}
           <div className="space-y-3">
-            <h4 className="font-semibold text-sm">Share on Social Media</h4>
+            <h4 className="text-sm" style={{fontFamily: "var(--mochi-font-display, 'Fraunces', serif)", fontWeight: 600, color: 'hsl(28 35% 18%)'}}>Share on Social Media · redes sociales</h4>
             <div className="grid grid-cols-2 gap-2">
               <Button
                 onClick={shareToInstagram}
@@ -99,7 +123,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
 
           {/* Direct Link */}
           <div className="space-y-2">
-            <Label className="text-sm font-semibold">Direct Link</Label>
+            <Label className="text-sm" style={{fontFamily: "var(--mochi-font-display, 'Fraunces', serif)", fontWeight: 600, color: 'hsl(28 35% 18%)'}}>Direct Link · enlace directo</Label>
             <div className="flex gap-2">
               <Input
                 value={appUrl}
@@ -125,7 +149,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
 
           {/* Embed Code */}
           <div className="space-y-2">
-            <Label className="text-sm font-semibold">Embed Code (Discord, Twitch, Websites)</Label>
+            <Label className="text-sm" style={{fontFamily: "var(--mochi-font-display, 'Fraunces', serif)", fontWeight: 600, color: 'hsl(28 35% 18%)'}}>Embed Code · código incrustado <span className="text-xs font-normal text-muted-foreground">(Discord, Twitch, Websites)</span></Label>
             <div className="space-y-2">
               <textarea
                 value={embedCode}
@@ -147,7 +171,7 @@ export const ShareButtons: React.FC<ShareButtonsProps> = ({ className }) => {
           {/* Preview */}
           <Card className="bg-accent/20">
             <CardContent className="p-3">
-              <p className="text-xs text-muted-foreground mb-2">Share text preview:</p>
+              <p className="text-xs text-muted-foreground mb-2" style={{fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)", fontSize: '0.95rem'}}>Share text preview · vista previa</p>
               <p className="text-xs">{shareText}</p>
             </CardContent>
           </Card>

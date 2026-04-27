@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { Heart, Mail, UserPlus } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
+import "@/styles/mochi-tokens.css";
 
 interface FollowMochiModalProps {
   children: React.ReactNode;
@@ -109,15 +110,38 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
       </DialogTrigger>
       <DialogContent className="max-w-[95vw] sm:max-w-md max-h-[90vh] overflow-y-auto bg-card/95 backdrop-blur border border-border/50 safe-area-top safe-area-bottom">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-1 sm:gap-2 text-center justify-center text-lg sm:text-xl">
-            <div className="text-xl sm:text-2xl animate-bee-bounce">🐝</div>
-            <span className="bg-gradient-bee bg-clip-text text-transparent">
-              Follow Mochi de los Huertos!
-            </span>
-            <div className="text-xl sm:text-2xl animate-flower-sway">🌻</div>
+          <DialogTitle asChild>
+            <div className="text-center space-y-2">
+              <div className="flex items-center gap-2 justify-center">
+                <div className="text-2xl animate-bee-bounce" aria-hidden>🐝</div>
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                    fontSize: 'clamp(1.35rem, 4.5vw, 1.75rem)',
+                    fontWeight: 600,
+                    letterSpacing: '-0.01em',
+                    backgroundImage: 'linear-gradient(95deg, hsl(35 78% 38%) 0%, hsl(40 92% 56%) 60%, hsl(35 78% 38%) 100%)',
+                  }}
+                >
+                  Follow Mochi
+                </span>
+                <div className="text-2xl animate-flower-sway" aria-hidden>🌻</div>
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                  fontSize: '1.1rem',
+                  lineHeight: 1.2,
+                  color: 'hsl(28 35% 28%)',
+                }}
+              >
+                · sigue a Mochi de los Huertos ·
+              </p>
+            </div>
           </DialogTitle>
-          <p className="text-xs sm:text-sm text-muted-foreground text-center">
-            Join our family garden adventure and get fun updates!
+          <p className="text-xs sm:text-sm text-muted-foreground text-center mt-1">
+            Join our family garden adventure · únete a la aventura del huerto
           </p>
         </DialogHeader>
 
@@ -210,16 +234,32 @@ export const FollowMochiModal: React.FC<FollowMochiModalProps> = ({ children }) 
             </Label>
           </div>
 
-          <div className="text-xs text-muted-foreground bg-accent/10 p-2 sm:p-3 rounded">
-            <p className="mb-1 text-xs sm:text-sm">🍯 <strong>What you'll get:</strong></p>
-            <ul className="space-y-0.5 sm:space-y-1 ml-3 sm:ml-4 text-xs">
-              <li>• Garden tips and nature facts from Mochi</li>
-              <li>• Fun family activities and garden games</li>
-              <li>• Seasonal gardening projects for all ages</li>
-              <li>• Early access to new Mochi content</li>
+          <div
+            className="text-xs p-3 rounded-2xl"
+            style={{
+              background: 'hsl(45 60% 96% / 0.7)',
+              border: '1px solid hsl(40 92% 56% / 0.18)',
+            }}
+          >
+            <p
+              className="mb-2"
+              style={{
+                fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                fontSize: '0.95rem',
+                fontWeight: 600,
+                color: 'hsl(35 78% 38%)',
+              }}
+            >
+              🍯 What you'll get · qué recibirás
+            </p>
+            <ul className="space-y-1 ml-1 text-xs" style={{color: 'hsl(28 35% 28%)'}}>
+              <li>· Garden tips and nature facts from Mochi</li>
+              <li>· Fun family activities and garden games</li>
+              <li>· Seasonal projects for all ages</li>
+              <li>· Early access to new Mochi content</li>
             </ul>
-            <p className="mt-1 sm:mt-2 text-xs">
-              Your data is safe with us. Unsubscribe anytime. 🐝✨
+            <p className="mt-2 text-[11px]" style={{color: 'hsl(28 35% 28% / 0.75)'}}>
+              Your data is safe with us · unsubscribe anytime 🐝✨
             </p>
           </div>
 
