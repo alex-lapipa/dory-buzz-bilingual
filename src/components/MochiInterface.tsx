@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RouteLoader } from '@/components/ui/route-loader';
 import { GardenExpand, GardenShrink } from '@/components/icons';
+import "@/styles/mochi-tokens.css";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useUsageTracking, usePageTracking } from '@/hooks/useUsageTracking';
 
@@ -44,13 +45,41 @@ export const MochiInterface = memo<MochiInterfaceProps>(({ activeTab = 'chat' })
       return (
         <div className="min-h-[60vh] flex items-center justify-center p-4 sm:p-6 md:p-8 text-center">
           <div className="max-w-sm sm:max-w-md md:max-w-lg w-full">
-            <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-5 animate-bee-bounce">🐝</div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5 heading-nature">
+            <img
+              src="/lovable-uploads/mochi-clean-200.webp"
+              alt=""
+              width={84}
+              height={84}
+              className="mx-auto mb-4 sm:mb-5 animate-bee-bounce"
+              style={{ filter: 'drop-shadow(0 8px 18px rgba(43,29,11,0.22))' }}
+            />
+            <h2
+              className="mb-2"
+              style={{
+                fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                fontSize: 'clamp(1.4rem, 4.5vw, 2rem)',
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
+                lineHeight: 1.15,
+                color: 'hsl(28 35% 18%)',
+              }}
+            >
               {t('welcome')} Mochi de los Huertos!
             </h2>
+            <p
+              className="mb-5"
+              style={{
+                fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                fontSize: '1.2rem',
+                color: 'hsl(35 78% 38%)',
+                lineHeight: 1.2,
+              }}
+            >
+              · the garden bee · la abeja del huerto ·
+            </p>
             <p className="text-base sm:text-lg mb-6 sm:mb-7 text-foreground">
-              {t('language') === 'es' 
-                ? 'Complete tu registro para acceder a todas las funciones de chat con Mochi.'
+              {t('language') === 'es'
+                ? 'Completa tu registro para acceder a todas las funciones de chat con Mochi.'
                 : 'Complete your registration to access all chat features with Mochi.'
               }
             </p>

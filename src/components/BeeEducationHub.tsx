@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { BookOpen, Star, Award, Lightbulb, Volume2, Brain, Mic, Camera } from '@/components/icons/lucide-compat';
+import "@/styles/mochi-tokens.css";
 
 interface BeeFact {
   id: string;
@@ -196,9 +197,24 @@ export const BeeEducationHub: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <div className="text-4xl animate-bee-bounce mb-4">🐝</div>
-          <p>Loading bee education content...</p>
+        <div className="text-center space-y-3">
+          <img
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt=""
+            width={64}
+            height={64}
+            className="mx-auto animate-bee-bounce"
+            style={{ filter: 'drop-shadow(0 6px 14px rgba(43,29,11,0.18))' }}
+          />
+          <p
+            style={{
+              fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+              fontSize: '1.1rem',
+              color: 'hsl(35 78% 38%)',
+            }}
+          >
+            · loading · cargando ·
+          </p>
         </div>
       </div>
     );
@@ -206,22 +222,69 @@ export const BeeEducationHub: React.FC = () => {
 
   return (
     <div className="space-y-6 p-4">
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-2 flex items-center justify-center gap-2">
-          <span className="animate-bee-bounce">🐝</span>
-          Bee Education Hub
-          <span className="animate-flower-sway">🌻</span>
-        </h1>
-        <p className="text-muted-foreground">Learn amazing facts about bees with advanced AI assistance!</p>
+      {/* Header — editorial v2 */}
+      <div className="text-center space-y-2 py-2">
+        <div className="flex items-center justify-center gap-3">
+          <img
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt=""
+            width={48}
+            height={48}
+            className="animate-bee-bounce"
+            style={{ filter: 'drop-shadow(0 6px 14px rgba(43,29,11,0.18))' }}
+          />
+          <h1
+            style={{
+              fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+              fontSize: 'clamp(1.5rem, 4.5vw, 2.25rem)',
+              fontWeight: 600,
+              letterSpacing: '-0.01em',
+              lineHeight: 1.15,
+              color: 'hsl(28 35% 18%)',
+            }}
+          >
+            Bee Education Hub
+          </h1>
+          <span className="animate-flower-sway text-2xl" aria-hidden>🌻</span>
+        </div>
+        <p
+          style={{
+            fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+            fontSize: '1.15rem',
+            color: 'hsl(35 78% 38%)',
+            lineHeight: 1.2,
+          }}
+        >
+          · centro de aprendizaje · learning hub ·
+        </p>
+        <p className="text-muted-foreground text-sm max-w-xl mx-auto">Learn amazing facts about bees with advanced AI assistance.</p>
       </div>
 
       {/* Progress Overview */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Award className="h-5 w-5" />
+          <CardTitle
+            className="flex items-center gap-2"
+            style={{
+              fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+              fontWeight: 600,
+              letterSpacing: '-0.005em',
+              color: 'hsl(28 35% 18%)',
+            }}
+          >
+            <Award className="h-5 w-5" style={{ color: 'hsl(35 78% 38%)' }} />
             Your Learning Progress
+            <em
+              style={{
+                fontStyle: 'italic',
+                fontWeight: 400,
+                fontSize: '0.7em',
+                color: 'hsl(35 78% 38%)',
+                marginLeft: 4,
+              }}
+            >
+              · tu progreso
+            </em>
           </CardTitle>
         </CardHeader>
         <CardContent>

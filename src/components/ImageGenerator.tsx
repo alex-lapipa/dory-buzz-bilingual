@@ -8,6 +8,7 @@ import { Loader2, Image, Video, Download } from '@/components/icons/lucide-compa
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { getGuestUserId } from '@/lib/guestUtils';
+import "@/styles/mochi-tokens.css";
 
 export const ImageGenerator: React.FC = () => {
   const [prompt, setPrompt] = useState('A beautiful garden with colorful flowers and friendly bees');
@@ -77,13 +78,62 @@ export const ImageGenerator: React.FC = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card
+      className="w-full max-w-2xl mx-auto"
+      style={{
+        borderRadius: 'var(--mochi-r-lg, 28px)',
+        border: '1px solid hsl(40 92% 56% / 0.18)',
+        boxShadow:
+          '0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -12px rgba(43,29,11,0.16)',
+      }}
+    >
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <span className="text-xl">🎨</span>
-          AI Content Creator with Mochi
-        </CardTitle>
-        <p className="text-sm text-muted-foreground">Create beautiful garden images and videos using AI! Describe what you'd like to see and I'll create it for you.</p>
+        <div className="flex items-center gap-3">
+          <img
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt=""
+            width={44}
+            height={44}
+            style={{ filter: 'drop-shadow(0 4px 10px rgba(43,29,11,0.18))' }}
+          />
+          <div className="min-w-0">
+            <CardTitle
+              style={{
+                fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
+                fontSize: 'clamp(1.15rem, 3vw, 1.4rem)',
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
+                color: 'hsl(28 35% 18%)',
+                lineHeight: 1.2,
+              }}
+            >
+              AI Content Creator
+              <em
+                style={{
+                  fontStyle: 'italic',
+                  fontWeight: 400,
+                  fontSize: '0.65em',
+                  color: 'hsl(35 78% 38%)',
+                  marginLeft: 6,
+                }}
+              >
+                · with Mochi
+              </em>
+            </CardTitle>
+            <p
+              style={{
+                fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                fontSize: '1rem',
+                color: 'hsl(35 78% 38%)',
+                lineHeight: 1.1,
+                marginTop: 2,
+              }}
+            >
+              · crea imágenes y videos del huerto ·
+            </p>
+          </div>
+        </div>
+        <p className="text-sm text-muted-foreground mt-3">Create beautiful garden images and videos using AI. Describe what you'd like to see and I'll create it for you.</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
