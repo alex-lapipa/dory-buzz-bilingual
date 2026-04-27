@@ -1166,4 +1166,166 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       },
     ],
   },
+  // ─── Round 19: Miel de Montes — Extended Live (EN) — TB-303 cut ──────
+  // English-language sister of the ES ExtendedLive. Verses, choruses,
+  // bridge, and final-chorus lyrics are the canonical EN lines from
+  // the original Round 15 Miel de Montes tribute song (verbatim).
+  // Final Chorus reprise repeats the same lyrics (with a brief stage
+  // direction). Outro chant stays in SPANISH because "Toño" and
+  // "Miel de Montes" are proper nouns.
+  'miel-de-montes-extended-en': {
+    en: [
+      {
+        name: 'Verse 1',
+        lines: [
+          'In the hills of the Bierzo where the heather grows tall',
+          'Mochi found new friends, oh she tells us all',
+          'Toño with his hives by the clean mountain stream',
+          'Making honey real and pure, like a sweet old dream',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Honey of the mountains made with gentle hands',
+          'This is how we save our forests, flowers and lands',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Since nineteen seventy-one, no machines, just the heart',
+          'Every bee, every comb, treated like art',
+          'Gravity pours the gold from the comb to the jar',
+          'Bees do the magic, Toño\'s our star',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Honey of the mountains made with gentle hands',
+          'This is how we save our forests, flowers and lands',
+        ],
+      },
+      {
+        name: 'Bridge',
+        lines: [
+          'When small families work with the bees and the breeze',
+          'Forests grow tall and we save all the trees',
+          'Big factories rush, but the gentle and true',
+          'Save forests, save flowers, save Mochi and you!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Thank you, Toño, dear friend of Mochi\'s heart',
+          'Miel de Montes — this is just the start',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          '(reprise — acid bass and sequencers pushed to the edge)',
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Thank you, Toño — Miel de Montes!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño!',
+          'Miel de Montes',
+        ],
+      },
+    ],
+    es: [
+      {
+        name: 'Verse 1',
+        lines: [
+          '(versión en inglés — letras originales de Miel de Montes)',
+          'In the hills of the Bierzo where the heather grows tall',
+          'Mochi found new friends, oh she tells us all',
+          'Toño with his hives by the clean mountain stream',
+          'Making honey real and pure, like a sweet old dream',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Honey of the mountains made with gentle hands',
+          'This is how we save our forests, flowers and lands',
+        ],
+      },
+      {
+        name: 'Verse 2',
+        lines: [
+          'Since nineteen seventy-one, no machines, just the heart',
+          'Every bee, every comb, treated like art',
+          'Gravity pours the gold from the comb to the jar',
+          'Bees do the magic, Toño\'s our star',
+        ],
+      },
+      {
+        name: 'Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Honey of the mountains made with gentle hands',
+          'This is how we save our forests, flowers and lands',
+        ],
+      },
+      {
+        name: 'Bridge',
+        lines: [
+          'When small families work with the bees and the breeze',
+          'Forests grow tall and we save all the trees',
+          'Big factories rush, but the gentle and true',
+          'Save forests, save flowers, save Mochi and you!',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Thank you, Toño, dear friend of Mochi\'s heart',
+          'Miel de Montes — this is just the start',
+        ],
+      },
+      {
+        name: 'Final Chorus',
+        lines: [
+          '(reprise — bajo ácido y secuencias al límite)',
+          'Dance, little bees, dance in the golden light',
+          'A family that loves us, they get it right',
+          'Thank you, Toño — Miel de Montes!',
+        ],
+      },
+      {
+        name: 'Outro',
+        lines: [
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño!',
+          'Miel de Montes',
+        ],
+      },
+    ],
+  },
 };

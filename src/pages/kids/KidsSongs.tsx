@@ -248,6 +248,32 @@ const SONGS = [
     vocalUrl: `${SONG_BASE}/miel-de-montes-extended-v4-vocal-es.mp3`,
     instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-v4-instrumental.mp3`,
   },
+  // ─── Round 19: Miel de Montes — Extended Live (EN) — TB-303 cut ──────
+  // English sister track to the ES ExtendedLive. Same composition_plan
+  // skeleton (E minor, 128 BPM, 4:10, 11-section indie-tronica
+  // architecture: Intro → V1 → Cho → V2 → Cho → Drop → Bridge → Build →
+  // Final → Reprise → Outro). Lyrics are the canonical EN lyrics from
+  // the original Round 15 Miel de Montes tribute song. The ONE musical
+  // addition: an acid bass synth (TB-303-style — squelchy resonant
+  // filter, hypnotic arpeggios) entering at the Drop (1:50) and
+  // running through the second half of the track, including the Final
+  // Chorus, Reprise, and Outro. The Outro chant stays in Spanish since
+  // "Toño" and "Miel de Montes" are proper nouns. Emerald-violet
+  // gradient differentiates from the ES card's slate-violet-fuchsia
+  // while the same 🎛️ emoji keeps the two sister tracks visually
+  // paired in the grid.
+  {
+    id: 'miel-de-montes-extended-en',
+    emoji: '🎛️',
+    title_en: 'Miel de Montes — Extended Live (EN)',
+    title_es: 'Miel de Montes — Extended Live (EN)',
+    description_en: '4-minute indie-tronica extended cut for Toño in English — krautrock motorik, sequenced synth precision, minimal-techno breakdown, anti-commercial rock grit. Acid bass synth enters in the second half.',
+    description_es: 'Corte extendido de 4 minutos en inglés — motorik krautrock, secuencias precisas de sinte, ruptura de techno minimal, rabia rockera anticomercial. Sinte de bajo ácido entra en la segunda mitad.',
+    color: 'from-slate-900 via-emerald-900 to-violet-800',
+    vocalEnUrl: `${SONG_BASE}/miel-de-montes-extended-en-v1-vocal-en.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-extended-en-v1-vocal-en.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-en-v1-instrumental.mp3`,
+  },
 ] as const;
 
 type PlayMode = 'vocal' | 'instrumental';
@@ -260,54 +286,6 @@ const KidsSongs: React.FC = () => {
   // Round 13 — track which song's lyrics panel is open. Only one open at a
   // time so the page doesn't get visually noisy. Null means all collapsed.
   const [openLyricsId, setOpenLyricsId] = useState<string | null>(null);
-
-  /**
-   * Parallax + glassmorphism setup (Round 19).
-   *
-   * Each song card holds a ref so a single passive scroll listener can map
-   * each card's viewport position onto a CSS variable `--parallax-y`. The
-   * card's gradient layer + decorative blob layers translate via that
-   * variable, producing a subtle parallax shift as the user scrolls past.
-   * Honours prefers-reduced-motion: if the user opts out, the effect
-   * exits early and cards stay static.
-   */
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const reduce = typeof window !== 'undefined'
-      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-
-    let raf: number | null = null;
-    const update = () => {
-      raf = null;
-      const viewH = window.innerHeight || 800;
-      cardRefs.current.forEach((el) => {
-        if (!el) return;
-        const r = el.getBoundingClientRect();
-        // Card centre relative to viewport centre, normalised to ±1
-        const centre = r.top + r.height / 2;
-        const denom = (viewH + r.height) / 2;
-        const p = Math.max(-1, Math.min(1, (centre - viewH / 2) / denom));
-        // Background layer drifts ±26 px; blobs amplify
-        el.style.setProperty('--parallax-y', `${(p * 26).toFixed(2)}px`);
-        // Card lift toward viewport centre — negligible on edges, peaks at centre
-        el.style.setProperty('--card-lift', `${(Math.abs(p) * -2).toFixed(2)}px`);
-      });
-    };
-    const onScroll = () => {
-      if (raf !== null) return;
-      raf = requestAnimationFrame(update);
-    };
-    update(); // initial pass after mount
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf !== null) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   const toggleLyrics = (id: string) => {
     setOpenLyricsId((current) => (current === id ? null : id));
@@ -578,7 +556,7 @@ const KidsSongs: React.FC = () => {
 
         {/* Song cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {SONGS.map((song, idx) => {
+          {SONGS.map((song) => {
             const vocalUrl = resolveVocalUrl(song);
             const instrumentalUrl = (song as { instrumentalUrl?: string }).instrumentalUrl;
             const hasVocal = Boolean(vocalUrl);
@@ -597,154 +575,23 @@ const KidsSongs: React.FC = () => {
                 key={song.id}
                 id={`song-${song.id}`}
                 data-card="lift"
-                ref={(el) => { cardRefs.current[idx] = el as HTMLDivElement | null; }}
-                className="overflow-hidden border-0 transition-all duration-300 hover:shadow-2xl group relative scroll-mt-20 mochi-respect-motion"
-                style={{
-                  // Each card is its own parallax stage. CSS vars drive the
-                  // gradient + blob translation; group-hover boosts the lift.
-                  ['--parallax-y' as string]: '0px',
-                  ['--card-lift' as string]: '0px',
-                  borderRadius: 'var(--mochi-r-lg, 28px)',
-                  transform: 'translateY(var(--card-lift, 0px))',
-                  willChange: 'transform',
-                  boxShadow:
-                    '0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 32px -8px rgba(43,29,11,0.18), 0 2px 6px rgba(43,29,11,0.06)',
-                }}
+                className="overflow-hidden border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-lg group relative scroll-mt-20"
               >
                 <CardContent className="p-0">
-                  {/* ── Parallax glass header ── */}
-                  <div className="relative overflow-hidden" style={{ minHeight: 220 }}>
-                    {/* Layer 1 — coloured gradient backdrop with parallax */}
-                    <div
-                      aria-hidden="true"
-                      className={`absolute inset-0 bg-gradient-to-br ${song.color}`}
-                      style={{
-                        transform: 'translateY(var(--parallax-y, 0px)) scale(1.18)',
-                        transition: 'transform 80ms linear',
-                        willChange: 'transform',
-                      }}
-                    />
-
-                    {/* Layer 2 — soft floating blobs (parallax-amplified) */}
-                    <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          top: '-10%', right: '-6%', width: '50%', height: '50%',
-                          background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0) 70%)',
-                          filter: 'blur(24px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * 1.6))',
-                        }}
-                      />
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          bottom: '-12%', left: '-8%', width: '45%', height: '45%',
-                          background: 'radial-gradient(circle at 60% 40%, rgba(245,158,11,0.32), rgba(245,158,11,0) 70%)',
-                          filter: 'blur(28px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * -1.2))',
-                        }}
-                      />
-                      <div
-                        className="absolute rounded-full"
-                        style={{
-                          top: '40%', left: '70%', width: '18%', height: '18%',
-                          background: 'rgba(255,255,255,0.35)',
-                          filter: 'blur(14px)',
-                          transform: 'translateY(calc(var(--parallax-y, 0px) * 0.7))',
-                        }}
-                      />
-                    </div>
-
-                    {/* Layer 3 — Mochi bee, subtle corner element with own parallax */}
-                    <img
-                      src="/lovable-uploads/mochi-clean-200.webp"
-                      alt=""
-                      aria-hidden="true"
-                      width={56}
-                      height={56}
-                      className="absolute select-none pointer-events-none"
-                      style={{
-                        bottom: 14, right: 14,
-                        opacity: 0.65,
-                        transform:
-                          'translateY(calc(var(--parallax-y, 0px) * -0.4)) rotate(-6deg)',
-                        filter: 'drop-shadow(0 4px 10px rgba(43,29,11,0.18))',
-                      }}
-                      loading="lazy"
-                      decoding="async"
-                    />
-
-                    {/* Layer 4 — glass content surface */}
-                    <div
-                      className="relative z-10 p-6 sm:p-8 text-center"
-                      style={{
-                        backdropFilter: 'blur(14px) saturate(150%)',
-                        WebkitBackdropFilter: 'blur(14px) saturate(150%)',
-                        background:
-                          'linear-gradient(160deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.14) 100%)',
-                        borderTop: '1px solid rgba(255,255,255,0.55)',
-                        borderBottom: '1px solid rgba(255,255,255,0.18)',
-                        boxShadow:
-                          'inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(43,29,11,0.06)',
-                      }}
-                    >
-                      <span
-                        className="block mb-2 group-hover:scale-110 transition-transform duration-300"
-                        style={{
-                          fontSize: 'clamp(2.75rem, 7vw, 3.5rem)',
-                          lineHeight: 1,
-                          filter: 'drop-shadow(0 6px 14px rgba(43,29,11,0.22))',
-                          transform:
-                            'translateY(calc(var(--parallax-y, 0px) * 0.25))',
-                        }}
-                      >
-                        {song.emoji}
-                      </span>
-                      <h2
-                        className="text-foreground"
-                        style={{
-                          fontFamily: "var(--mochi-font-display, 'Fraunces', serif)",
-                          fontSize: 'clamp(1.05rem, 2.4vw, 1.35rem)',
-                          fontWeight: 600,
-                          letterSpacing: '-0.01em',
-                          lineHeight: 1.15,
-                          textShadow: '0 1px 2px rgba(255,255,255,0.45)',
-                        }}
-                      >
-                        {language === 'es' ? song.title_es : song.title_en}
-                      </h2>
-                      <p
-                        className="mt-1.5"
-                        style={{
-                          fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
-                          fontSize: '1.05rem',
-                          color: 'hsl(28 35% 22%)',
-                          lineHeight: 1.25,
-                          maxWidth: '32ch',
-                          margin: '6px auto 0',
-                        }}
-                      >
-                        {language === 'es' ? song.description_es : song.description_en}
-                      </p>
-                      {/* Language indicator pill — glass on glass */}
-                      <span
-                        className="inline-block mt-3 text-xs px-3 py-1"
-                        style={{
-                          borderRadius: 999,
-                          background: 'rgba(255,255,255,0.55)',
-                          backdropFilter: 'blur(6px)',
-                          WebkitBackdropFilter: 'blur(6px)',
-                          color: 'hsl(28 35% 22%)',
-                          border: '1px solid rgba(255,255,255,0.6)',
-                          fontWeight: 600,
-                          letterSpacing: '0.02em',
-                          boxShadow: '0 1px 2px rgba(43,29,11,0.06)',
-                        }}
-                      >
-                        {language === 'es' ? '🇪🇸 Español' : '🇬🇧 English'}
-                      </span>
-                    </div>
+                  <div className={`bg-gradient-to-br ${song.color} p-6 sm:p-8 text-center`}>
+                    <span className="text-5xl sm:text-6xl block mb-3 group-hover:scale-110 transition-transform">
+                      {song.emoji}
+                    </span>
+                    <h2 className="text-lg sm:text-xl font-bold text-foreground">
+                      {language === 'es' ? song.title_es : song.title_en}
+                    </h2>
+                    <p className="text-sm text-foreground/70 mt-2">
+                      {language === 'es' ? song.description_es : song.description_en}
+                    </p>
+                    {/* Language indicator pill */}
+                    <span className="inline-block mt-3 text-xs px-2 py-0.5 rounded-pill bg-background/40 text-foreground/70 backdrop-blur-sm">
+                      {language === 'es' ? '🇪🇸 Español' : '🇬🇧 English'}
+                    </span>
                   </div>
 
                   {/* Two-button row: Listen (vocal) + Sing Along (shared instrumental) */}
