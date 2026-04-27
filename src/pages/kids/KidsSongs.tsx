@@ -244,9 +244,9 @@ const SONGS = [
     description_en: '4-minute indie-tronica extended cut for Toño — krautrock motorik, sequenced synth precision, minimal-techno breakdown, anti-commercial Spanish rock grit.',
     description_es: 'Corte extendido de 4 minutos al estilo indie-tronica — motorik krautrock, secuencias precisas de sinte, ruptura de techno minimal y rabia rockera anticomercial.',
     color: 'from-slate-800 via-violet-900 to-fuchsia-800',
-    vocalEsUrl: `${SONG_BASE}/miel-de-montes-extended-v2-vocal-es.mp3`,
-    vocalUrl: `${SONG_BASE}/miel-de-montes-extended-v2-vocal-es.mp3`,
-    instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-v2-instrumental.mp3`,
+    vocalEsUrl: `${SONG_BASE}/miel-de-montes-extended-v3-vocal-es.mp3`,
+    vocalUrl: `${SONG_BASE}/miel-de-montes-extended-v3-vocal-es.mp3`,
+    instrumentalUrl: `${SONG_BASE}/miel-de-montes-extended-v3-instrumental.mp3`,
   },
 ] as const;
 

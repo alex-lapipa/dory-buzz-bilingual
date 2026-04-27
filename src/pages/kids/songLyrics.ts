@@ -1080,9 +1080,11 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Outro',
         lines: [
-          '¡Toño! ¡Toño! ¡Toño! ¡Toño!',
-          'Miel de Montes... Miel de Montes...',
-          '¡Toño! ¡Toño!',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño!',
           'Miel de Montes',
         ],
       },
@@ -1154,9 +1156,11 @@ export const SONG_LYRICS: Record<string, SongLyrics> = {
       {
         name: 'Outro',
         lines: [
-          '¡Toño! ¡Toño! ¡Toño! ¡Toño!',
-          'Miel de Montes... Miel de Montes...',
-          '¡Toño! ¡Toño!',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño! ¡Toño! ¡Toño!',
+          'Miel de Montes',
+          '¡Toño!',
           'Miel de Montes',
         ],
       },
