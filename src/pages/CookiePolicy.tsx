@@ -11,10 +11,10 @@ const CookiePolicy: React.FC = () => {
   return (
     <PageLayout>
       <PageSEO
-        titleEn="Cookie Policy — MochiBee"
-        titleEs="Política de Cookies — MochiBee"
-        descriptionEn="Learn about how MochiBee uses cookies for analytics and functionality."
-        descriptionEs="Descubre cómo MochiBee usa cookies para analítica y funcionalidad."
+        titleEn="Cookie Policy — Mochi de los Huertos"
+        titleEs="Política de Cookies — Mochi de los Huertos"
+        descriptionEn="Learn about how Mochi de los Huertos uses cookies for analytics and functionality."
+        descriptionEs="Descubre cómo Mochi de los Huertos usa cookies para analítica y funcionalidad."
         path="/cookies"
       />
       {/* Editorial header — v2 */}

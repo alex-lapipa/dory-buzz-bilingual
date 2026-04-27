@@ -11,10 +11,10 @@ const TermsOfService: React.FC = () => {
   return (
     <PageLayout>
       <PageSEO
-        titleEn="Terms of Service — MochiBee"
-        titleEs="Términos de Servicio — MochiBee"
-        descriptionEn="Read the terms of service for MochiBee, your bilingual bee education platform."
-        descriptionEs="Lee los términos de servicio de MochiBee, tu plataforma bilingüe de educación sobre abejas."
+        titleEn="Terms of Service — Mochi de los Huertos"
+        titleEs="Términos de Servicio — Mochi de los Huertos"
+        descriptionEn="Read the terms of service for Mochi de los Huertos, your bilingual bee education platform."
+        descriptionEs="Lee los términos de servicio de Mochi de los Huertos, tu plataforma bilingüe de educación sobre abejas."
         path="/terms"
       />
       {/* Editorial header — v2 */}
@@ -84,13 +84,13 @@ const TermsOfService: React.FC = () => {
 
         <h2>{isEs ? '1. Aceptación de los Términos' : '1. Acceptance of Terms'}</h2>
         <p>{isEs
-          ? 'Al acceder y usar MochiBee (www.mochinillo.com), usted acepta estos términos de servicio.'
-          : 'By accessing and using MochiBee (www.mochinillo.com), you agree to these terms of service.'}</p>
+          ? 'Al acceder y usar Mochi de los Huertos (www.mochinillo.com), usted acepta estos términos de servicio.'
+          : 'By accessing and using Mochi de los Huertos (www.mochinillo.com), you agree to these terms of service.'}</p>
 
         <h2>{isEs ? '2. Descripción del Servicio' : '2. Service Description'}</h2>
         <p>{isEs
-          ? 'MochiBee es una plataforma educativa bilingüe sobre abejas, jardines y naturaleza, con asistente de IA interactivo.'
-          : 'MochiBee is a bilingual educational platform about bees, gardens, and nature, with an interactive AI assistant.'}</p>
+          ? 'Mochi de los Huertos es una plataforma educativa bilingüe sobre abejas, jardines y naturaleza, con asistente de IA interactivo.'
+          : 'Mochi de los Huertos is a bilingual educational platform about bees, gardens, and nature, with an interactive AI assistant.'}</p>
 
         <h2>{isEs ? '3. Cuentas de Usuario' : '3. User Accounts'}</h2>
         <p>{isEs
@@ -104,8 +104,8 @@ const TermsOfService: React.FC = () => {
 
         <h2>{isEs ? '5. Propiedad Intelectual' : '5. Intellectual Property'}</h2>
         <p>{isEs
-          ? 'Todo el contenido, diseño y código de MochiBee es propiedad de Mochi de los Huertos y está protegido por leyes de propiedad intelectual.'
-          : 'All content, design, and code of MochiBee is owned by Mochi de los Huertos and protected by intellectual property laws.'}</p>
+          ? 'Todo el contenido, diseño y código de Mochi de los Huertos es propiedad de Mochi de los Huertos y está protegido por leyes de propiedad intelectual.'
+          : 'All content, design, and code of Mochi de los Huertos is owned by Mochi de los Huertos and protected by intellectual property laws.'}</p>
 
         <h2>{isEs ? '6. Contenido Generado por IA' : '6. AI-Generated Content'}</h2>
         <p>{isEs
@@ -114,8 +114,8 @@ const TermsOfService: React.FC = () => {
 
         <h2>{isEs ? '7. Limitación de Responsabilidad' : '7. Limitation of Liability'}</h2>
         <p>{isEs
-          ? 'MochiBee se proporciona "tal cual". No garantizamos que el servicio sea ininterrumpido o libre de errores.'
-          : 'MochiBee is provided "as is". We do not guarantee that the service will be uninterrupted or error-free.'}</p>
+          ? 'Mochi de los Huertos se proporciona "tal cual". No garantizamos que el servicio sea ininterrumpido o libre de errores.'
+          : 'Mochi de los Huertos is provided "as is". We do not guarantee that the service will be uninterrupted or error-free.'}</p>
 
         <h2>{isEs ? '8. Contacto' : '8. Contact'}</h2>
         <p>{isEs

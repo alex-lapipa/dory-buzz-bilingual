@@ -74,7 +74,7 @@ export const AdminGuard: React.FC<AdminGuardProps> = ({ children }) => {
             <div className="space-y-2">
               <h2 className="text-2xl font-bold">Admin Access Required</h2>
               <p className="text-muted-foreground">
-                Sign in to access the admin panel and manage your MochiBee platform.
+                Sign in to access the admin panel and manage your Mochi de los Huertos platform.
               </p>
             </div>
             <Button onClick={() => navigate('/auth')} className="gap-2">

@@ -216,9 +216,24 @@ const LearningHub: React.FC = () => {
     return (
       <PageLayout>
         <div className="flex items-center justify-center p-8">
-          <div className="text-center">
-            <div className="animate-bee-bounce mb-4"><BeeFlying className="h-10 w-10 text-primary mx-auto" /></div>
-            <p>Loading bee education content...</p>
+          <div className="text-center space-y-3">
+            <img
+              src="/lovable-uploads/mochi-clean-200.webp"
+              alt=""
+              width={64}
+              height={64}
+              className="mx-auto animate-bee-bounce"
+              style={{ filter: 'drop-shadow(0 6px 14px rgba(43,29,11,0.18))' }}
+            />
+            <p
+              style={{
+                fontFamily: "var(--mochi-font-hand, 'Caveat', cursive)",
+                fontSize: '1.1rem',
+                color: 'hsl(35 78% 38%)',
+              }}
+            >
+              · loading · cargando ·
+            </p>
           </div>
         </div>
       </PageLayout>
@@ -228,8 +243,8 @@ const LearningHub: React.FC = () => {
   return (
     <PageLayout>
       <PageSEO
-        titleEn="Learning Hub — MochiBee | Bee & Garden Education"
-        titleEs="Centro de Aprendizaje — MochiBee | Educación sobre Abejas y Jardines"
+        titleEn="Learning Hub — Mochi de los Huertos | Bee & Garden Education"
+        titleEs="Centro de Aprendizaje — Mochi de los Huertos | Educación sobre Abejas y Jardines"
         descriptionEn="Explore interactive lessons about bees, pollination, gardens, and nature. Bilingual learning for all ages."
         descriptionEs="Explora lecciones interactivas sobre abejas, polinización, jardines y naturaleza. Aprendizaje bilingüe para todas las edades."
         path="/"

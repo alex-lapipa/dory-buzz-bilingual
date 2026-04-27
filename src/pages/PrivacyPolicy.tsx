@@ -11,10 +11,10 @@ const PrivacyPolicy: React.FC = () => {
   return (
     <PageLayout>
       <PageSEO
-        titleEn="Privacy Policy — MochiBee"
-        titleEs="Política de Privacidad — MochiBee"
-        descriptionEn="Learn how MochiBee collects, uses, and protects your personal data. GDPR compliant."
-        descriptionEs="Descubre cómo MochiBee recopila, usa y protege tus datos personales. Cumple con el RGPD."
+        titleEn="Privacy Policy — Mochi de los Huertos"
+        titleEs="Política de Privacidad — Mochi de los Huertos"
+        descriptionEn="Learn how Mochi de los Huertos collects, uses, and protects your personal data. GDPR compliant."
+        descriptionEs="Descubre cómo Mochi de los Huertos recopila, usa y protege tus datos personales. Cumple con el RGPD."
         path="/privacy"
       />
       {/* Editorial header — v2 */}
@@ -84,8 +84,8 @@ const PrivacyPolicy: React.FC = () => {
 
         <h2>{isEs ? '1. Quiénes Somos' : '1. Who We Are'}</h2>
         <p>{isEs
-          ? 'MochiBee ("nosotros", "nuestro") es operado por Mochi de los Huertos. Nuestro sitio web es www.mochinillo.com.'
-          : 'MochiBee ("we", "our", "us") is operated by Mochi de los Huertos. Our website is www.mochinillo.com.'}</p>
+          ? 'Mochi de los Huertos ("nosotros", "nuestro") forma parte de LA PIPA IS LA PIPA. Nuestro sitio web es www.mochinillo.com.'
+          : 'Mochi de los Huertos ("we", "our", "us") is part of LA PIPA IS LA PIPA. Our website is www.mochinillo.com.'}</p>
 
         <h2>{isEs ? '2. Datos que Recopilamos' : '2. Data We Collect'}</h2>
         <ul>

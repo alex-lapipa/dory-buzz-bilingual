@@ -31,10 +31,10 @@ const SitemapPage: React.FC = () => {
   return (
     <PageLayout>
       <PageSEO
-        titleEn="Sitemap — MochiBee"
-        titleEs="Mapa del Sitio — MochiBee"
-        descriptionEn="Browse all pages on MochiBee — your bilingual bee and garden education platform."
-        descriptionEs="Navega todas las páginas de MochiBee — tu plataforma bilingüe de educación sobre abejas y jardines."
+        titleEn="Sitemap — Mochi de los Huertos"
+        titleEs="Mapa del Sitio — Mochi de los Huertos"
+        descriptionEn="Browse all pages on Mochi de los Huertos — your bilingual bee and garden education platform."
+        descriptionEs="Navega todas las páginas de Mochi de los Huertos — tu plataforma bilingüe de educación sobre abejas y jardines."
         path="/sitemap"
       />
       {/* Editorial header — v2 */}

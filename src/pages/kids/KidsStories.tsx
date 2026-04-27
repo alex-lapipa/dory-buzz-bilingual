@@ -52,8 +52,8 @@ const KidsStories: React.FC = () => {
   return (
     <>
       <PageSEO
-        titleEn="Kids Stories - Read Along with Mochi! | MochiBee"
-        titleEs="Cuentos para Niños - ¡Lee con Mochi! | MochiBee"
+        titleEn="Kids Stories - Read Along with Mochi! | Mochi de los Huertos"
+        titleEs="Cuentos para Niños - ¡Lee con Mochi! | Mochi de los Huertos"
         descriptionEn="Fun bilingual stories for kids 3-6 about bees, nature, and the garden."
         descriptionEs="Cuentos bilingües divertidos para niños de 3-6 años sobre abejas, naturaleza y el jardín."
         path="/kids-stories"

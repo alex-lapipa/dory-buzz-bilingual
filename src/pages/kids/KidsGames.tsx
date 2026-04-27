@@ -52,8 +52,8 @@ const KidsGames: React.FC = () => {
   return (
     <>
       <PageSEO
-        titleEn="Kids Games - Play & Learn with Mochi! | MochiBee"
-        titleEs="Juegos para Niños - ¡Juega y aprende con Mochi! | MochiBee"
+        titleEn="Kids Games - Play & Learn with Mochi! | Mochi de los Huertos"
+        titleEs="Juegos para Niños - ¡Juega y aprende con Mochi! | Mochi de los Huertos"
         descriptionEn="Fun educational games for kids 3-6. Learn colors, numbers and nature with Mochi!"
         descriptionEs="Juegos educativos para niños de 3-6 años. ¡Aprende colores, números y naturaleza con Mochi!"
         path="/kids-games"

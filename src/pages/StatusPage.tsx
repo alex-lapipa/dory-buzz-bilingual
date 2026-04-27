@@ -41,10 +41,10 @@ const StatusPage: React.FC = () => {
   return (
     <>
       <PageSEO
-        titleEn="System Status — MochiBee"
-        titleEs="Estado del Sistema — MochiBee"
-        descriptionEn="Live operational status for the MochiBee bilingual learning platform — RAG corpus, agents, traffic and routing."
-        descriptionEs="Estado operativo en vivo de la plataforma MochiBee — corpus RAG, agentes, tráfico y enrutamiento."
+        titleEn="System Status — Mochi de los Huertos"
+        titleEs="Estado del Sistema — Mochi de los Huertos"
+        descriptionEn="Live operational status for the Mochi de los Huertos bilingual learning platform — RAG corpus, agents, traffic and routing."
+        descriptionEs="Estado operativo en vivo de la plataforma Mochi de los Huertos — corpus RAG, agentes, tráfico y enrutamiento."
         path="/status"
       />
 
