@@ -17,6 +17,7 @@ import { DandelionSpin, LeafEnvelope, GardenLock, BeeFace, GardenCalendar, Earth
 import { supabase } from '@/integrations/supabase/client';
 import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail, isInIframe } from '@/utils/oauthRedirect';
 import { isOwnerEmail } from '@/lib/adminAccess';
+import "@/styles/mochi-tokens.css";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -292,13 +293,50 @@ const AuthPage = () => {
   return (
     <PageLayout className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md relative z-10">
-        {/* Header */}
-        <div className="text-center mb-6">
-          <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80">
-            <span className="text-3xl">🐝</span>
-            <span className="text-xl font-bold">Mochi de los Huertos</span>
+        {/* Header — editorial v2 */}
+        <div style={{ textAlign: 'center', marginBottom: 28 }}>
+          <Link to="/" style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '6px 8px',
+            borderRadius: 14,
+            color: 'hsl(30 25% 12%)',
+            textDecoration: 'none',
+            transition: 'transform .25s var(--mochi-ease-spring, cubic-bezier(.34,1.56,.64,1))',
+          }}>
+            <img
+              src="/lovable-uploads/mochi-clean-200.webp"
+              alt="Mochi the garden bee"
+              width={48} height={48}
+              style={{
+                width: 48, height: 48, objectFit: 'contain',
+                filter: 'drop-shadow(0 4px 10px hsl(30 25% 12% / .18))',
+              }}
+            />
+            <span style={{
+              fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+              fontSize: 22, fontWeight: 600,
+              letterSpacing: '-.015em',
+              lineHeight: 1.05,
+              textAlign: 'left',
+            }}>
+              Mochi
+              <em style={{ display:'inline', fontStyle:'italic', fontWeight:400, color:'hsl(35 78% 38%)', marginLeft:6 }}>
+                de los Huertos
+              </em>
+            </span>
           </Link>
-          <p className="text-muted-foreground mt-2">Join our garden community with Mochi!</p>
+          <p style={{
+            fontFamily: 'var(--mochi-font-script, "Caveat", cursive)',
+            fontSize: 18, fontWeight: 600,
+            color: 'hsl(35 78% 38%)',
+            marginTop: 8,
+            transform: 'rotate(-1deg)',
+            display: 'inline-block',
+          }}>
+            ¡bienvenid@ al huerto · welcome to the garden!
+          </p>
         </div>
 
         <Card>
@@ -675,9 +713,14 @@ const AuthPage = () => {
           </CardContent>
         </Card>
 
-        <div className="text-center mt-4">
-          <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
-            ← Back to Garden
+        <div style={{ textAlign: 'center', marginTop: 18 }}>
+          <Link to="/" style={{
+            fontSize: 13.5,
+            color: 'hsl(28 35% 28%)',
+            textDecoration: 'none',
+            transition: 'color .2s',
+          }}>
+            ← Back to the garden · Volver al huerto
           </Link>
         </div>
       </div>

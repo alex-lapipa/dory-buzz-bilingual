@@ -10,6 +10,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Mail, Lock, User, Eye, EyeOff } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 import { shouldSkipBrowserRedirect, navigateToOAuth, isLawtonEmail } from '@/utils/oauthRedirect';
+import "@/styles/mochi-tokens.css";
 
 export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading, signUp, signIn } = useAuth();
@@ -187,14 +188,35 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
       <div className="min-h-screen flex items-center justify-center bg-gradient-nature p-4">
         <div className="text-center">
           <img 
-            src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
-            alt="MochiBee Loading"
-            className="w-16 h-16 mx-auto rounded-full animate-bounce mb-4"
+            src="/lovable-uploads/mochi-clean-200.webp"
+            alt="Mochi the garden bee"
+            width={72} height={72}
+            style={{
+              width: 72, height: 72, objectFit: 'contain',
+              margin: '0 auto 16px', display: 'block',
+              filter: 'drop-shadow(0 6px 14px hsl(30 25% 12% / .2))',
+              animation: 'mochi-auth-float 4.5s ease-in-out infinite',
+            }}
           />
-          <div className="flex items-center gap-2">
-            <Loader2 className="h-5 w-5 animate-spin text-primary" />
-            <p className="text-lg text-muted-foreground">Loading MochiBee...</p>
+          <div className="flex items-center gap-2 justify-center">
+            <Loader2 className="h-5 w-5 animate-spin" style={{ color: 'hsl(35 78% 38%)' }} />
+            <p style={{
+              fontSize: 16, fontWeight: 500,
+              fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+              color: 'hsl(28 35% 28%)',
+            }}>
+              Buzzing in <em style={{ color: 'hsl(35 78% 38%)' }}>· un momento</em>
+            </p>
           </div>
+          <style>{`
+            @keyframes mochi-auth-float {
+              0%, 100% { transform: translateY(0) rotate(-1deg); }
+              50%      { transform: translateY(-5px) rotate(1.5deg); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              [alt="Mochi the garden bee"] { animation: none !important; }
+            }
+          `}</style>
         </div>
       </div>
     );
@@ -294,16 +316,38 @@ export const AuthGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center items-center gap-3 mb-4">
             <img 
-              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
-              alt="MochiBee Character"
-              className="w-12 h-12 rounded-full object-cover border-2 border-yellow-300 shadow-lg animate-bounce"
+              src="/lovable-uploads/mochi-clean-200.webp"
+              alt="Mochi the garden bee"
+              width={56} height={56}
+              style={{
+                width: 56, height: 56, objectFit: 'contain',
+                filter: 'drop-shadow(0 4px 10px hsl(30 25% 12% / .2))',
+                animation: 'mochi-auth-float 4.5s ease-in-out infinite',
+              }}
             />
-            <div>
-              <CardTitle className="text-xl bg-gradient-bee bg-clip-text text-transparent">
-                Welcome to Mochi's Garden
+            <div style={{ textAlign: 'left' }}>
+              <CardTitle style={{
+                fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+                fontWeight: 600,
+                fontSize: 22,
+                letterSpacing: '-.015em',
+                color: 'hsl(30 25% 12%)',
+                lineHeight: 1.05,
+              }}>
+                Mochi&rsquo;s garden
+                <em style={{ display:'block', fontStyle:'italic', fontWeight:400, fontSize:'.6em', color:'hsl(35 78% 38%)', marginTop:2 }}>
+                  El huerto de Mochi
+                </em>
               </CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                {isSignUp ? '🌱 Join our buzzing community!' : '🐝 Welcome back, friend!'}
+              <p style={{
+                fontFamily: 'var(--mochi-font-script, "Caveat", cursive)',
+                fontSize: 16, fontWeight: 600,
+                color: 'hsl(35 78% 38%)',
+                marginTop: 4,
+                transform: 'rotate(-1deg)',
+                display: 'inline-block',
+              }}>
+                {isSignUp ? '¡bienvenid@! Welcome' : '¡hola! Welcome back'}
               </p>
             </div>
           </div>

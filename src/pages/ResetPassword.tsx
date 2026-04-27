@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Lock, Eye, EyeOff, CheckCircle } from '@/components/icons/lucide-compat';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import "@/styles/mochi-tokens.css";
 
 const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -100,15 +101,27 @@ const ResetPassword: React.FC = () => {
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center items-center gap-3 mb-4">
             <img
-              src="/lovable-uploads/baa1c747-7b04-42c8-9531-203706a875ff.png"
-              alt="MochiBee"
-              className="w-12 h-12 rounded-full object-cover border-2 border-yellow-300 shadow-lg"
+              src="/lovable-uploads/mochi-clean-200.webp"
+              alt="Mochi the garden bee"
+              width={56} height={56}
+              style={{
+                width: 56, height: 56, objectFit: 'contain',
+                filter: 'drop-shadow(0 4px 10px hsl(30 25% 12% / .2))',
+              }}
             />
-            <div>
-              <CardTitle className="text-xl bg-gradient-bee bg-clip-text text-transparent">
-                Reset Your Password
+            <div style={{ textAlign: 'left' }}>
+              <CardTitle style={{
+                fontFamily: 'var(--mochi-font-display, "Fraunces", serif)',
+                fontWeight: 600,
+                fontSize: 22,
+                letterSpacing: '-.015em',
+                color: 'hsl(30 25% 12%)',
+              }}>
+                Reset your password
+                <em style={{ display:'block', fontStyle:'italic', fontWeight:400, fontSize:'.62em', color:'hsl(35 78% 38%)', marginTop:2 }}>
+                  Cambia tu contraseña
+                </em>
               </CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">🔑 Choose a new password</p>
             </div>
           </div>
         </CardHeader>
